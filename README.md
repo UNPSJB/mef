@@ -2,7 +2,7 @@
 
 ## Que vamos a hacer ?
 
-* rellenar *
+* *rellenar*
 
 
 
