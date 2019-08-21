@@ -1,4 +1,9 @@
-### Como instalar dependencias ?
+# Info acerca del backend
+
+## Como instalar dependencias
+
     npm install
-### Como correr ?
+
+## Como correr
+
     npm start
