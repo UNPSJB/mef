@@ -1,23 +1,12 @@
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const Dinosaurio = sequelize.define('Dinosaurio', {
+    nombre: DataTypes.STRING
+  });
 
-
-const dinosaurio = ( sequelize, DataTypes ) => {
-    //escrito en minusculas entre comillas simples
-    const Dinosaurio = sequelize.define('dinosaurio',{
-        id:{
-            type:DataTypes.INTEGER,
-            unique:true,
-            primaryKey:true,
-        },
-        nombre:{
-            type:DataTypes.STRING            
-        },
-    });
-
-    // Dinosaurio.associate = models => {
-    //     Dinosaurio.hasOne(models.Clase);
-    // };
-
-    return Dinosaurio; 
+  Dinosaurio.associate = function(models) {
+    // associations can be defined here
+    models.Dinosaurio.belongsTo(models.Clase);
+  };
+  return Dinosaurio;
 };
-
-export default dinosaurio;
