@@ -24,4 +24,12 @@ Vas a tener que modificar los archivos generados en la carpeta *models*
 
     npx sequelize-cli model:generate --name Periodo --attributes nombre:string
 
-    npx sequelize-cli model:generate --name Alimentacion --attributes nombre:string
+    npx sequelize-cli model:generate --name Clase --attributes nombre:string
+
+    npx sequelize-cli model:generate --name SubClase --attributes nombre:string
+
+    npx sequelize-cli model:generate --name Hueso --attributes nombre:string
+
+    npx sequelize-cli model:generate --name TipoHueso --attributes nombre:string
+
+    npx sequelize-cli model:generate --name SubTipoHueso --attributes nombre:string

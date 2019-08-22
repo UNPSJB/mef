@@ -6,7 +6,10 @@ module.exports = (sequelize, DataTypes) => {
 
   Dinosaurio.associate = function(models) {
     // associations can be defined here
-    models.Dinosaurio.belongsTo(models.Clase);
+    models.Dinosaurio.belongsTo(models.SubClase);
+    models.Dinosaurio.belongsTo(models.Alimentacion);
+    models.Dinosaurio.belongsTo(models.Periodo);
+    models.Dinosaurio.hasMany(models.Hueso);
   };
   return Dinosaurio;
 };
