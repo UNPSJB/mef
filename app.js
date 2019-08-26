@@ -4,17 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var bodyParser = require('body-parser');
+
+//rutas
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var bodyParser = require('body-parser');
+const dinosaurioRouter = require('./routes/api/dinosaurios');
 
 var app = express();
 
-const dinosaurioRouter = require('./routes/api/dinosaurios');
-
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());

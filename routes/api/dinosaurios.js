@@ -2,14 +2,14 @@ const express = require('express')
 const dinoMocks = require('../../utils/mocks/dinosaurios');
 const router = express.Router();
 
+var models = require('../../models');
+
 //Esto corresponde a /dinosaurios
 //CUATRO METODOS : get, post, put, delete
 router.get('/', (req,res) => {
-    const { query } = req.query;
-    res.status(200).json({
-        data: dinoMocks,
-        message: 'dino listed'
-    });
+    // const { query } = req.query;
+    let dino = models.Dinosaurio;
+    dino.findAll().then((dinos) =>{ res.json(dinos)})
 });
 router.get('/:idProduct', (req,res) => {
     const { productId } = req.params;
