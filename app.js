@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 //rutas
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const dinosaurioRouter = require('./routes/api/dinosaurios');
+const dinosauriosRouter = require('./routes/dinosaurios');
 
 var app = express();
 
@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api/dinosaurios', dinosaurioRouter);
+app.use('/dinosaurios', dinosauriosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "dev": "nodemon ./bin/www",
     "test": "set DEBUG=mef:* npm start",
     "start": "node ./bin/www"
   },
@@ -15,7 +16,6 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
-    "nodemon": "^1.19.1",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
     "pug": "2.0.0-beta11",
@@ -25,7 +25,8 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.5.5",
-    "@babel/preset-env": "^7.5.5"
+    "@babel/preset-env": "^7.5.5",
+    "nodemon": "^1.19.1"
   },
   "keywords": [],
   "author": "",
