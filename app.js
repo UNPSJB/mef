@@ -5,17 +5,19 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var hbs = require('express-handlebars');
 
 //rutas
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const dinosauriosRouter = require('./routes/dinosaurios');
+var dinosauriosRouter = require('./routes/dinosaurios');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.engine('hbs', hbs({defaultLayout:'main',extname:'.hbs'}));
+// app.set('views', './views');
+app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());

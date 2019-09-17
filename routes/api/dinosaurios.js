@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
     }catch(err){
         next(err);
     }
-
+    // redirect a algun lado
 });
 router.get('/:idProduct', (req,res) => {
     const { productId } = req.params;
