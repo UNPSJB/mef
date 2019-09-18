@@ -43,7 +43,7 @@ SELECT pg_catalog.setval('public."Alimentacions_id_seq"', 3, true);
 -- Data for Name: Clases; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."Clases" VALUES (1, 'Saurirsquios', '2012-01-01 00:00:00-03', '2012-01-01 00:00:00-03');
+INSERT INTO public."Clases" VALUES (1, 'Saurisquios', '2012-01-01 00:00:00-03', '2012-01-01 00:00:00-03');
 INSERT INTO public."Clases" VALUES (2, 'Ornitisquios', '2012-01-01 00:00:00-03', '2012-01-01 00:00:00-03');
 
 

@@ -22,23 +22,41 @@ Luego de tener instalado git, se usa de la siguiente manera
 
 Ahora que ya tenes instalado git, tenes que decir que esa carpeta va a ser tratada como una carpeta que va a utilizar git para control de versiones
 
+## 1.-Iniciar una carpeta con git
+
     git init
 
-## Ahora que esta clonamos el repositorio del mef
+## 2.-Ahora que esta clonamos el repositorio del mef
 
     git clone https://gitlab.com/unpsjb/mef-team/mef.git
 
-## Crear una y moverse a una rama
+## 3.-Moverse a el directorio de mef
+
+    cd mef
+
+## 4.-Crear una y moverse a una rama
 
     git checkout -b nombreRama
 
-## Enviar una rama a gitlab
+## 5.-Una vez que hicimos cambios sobre la rama
+
+    git add .
+
+## 6.-Confirmamos los cambios que hicimos sobre la rama
+
+    git commit -m "mensaje significativo"
+
+## 7.-Enviar una rama a gitlab
 
     git push origin nombreRama 
+
+## 8.-Cuando queremos trabajar sobre otra HU
+
+    Volver a empezar desde 4.-
 
 ## Algunas reglas
 
 * no pushear a master
 * nombre de la rama respecto a la HU
 * commit descriptivos
-* fix
+* usar prefijos como fix, feature

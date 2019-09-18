@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
+var methodOverride = require('method-override');
 
 //rutas
 var indexRouter = require('./routes/index');
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(bodyParser.json());
+app.use(methodOverride('_method'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
