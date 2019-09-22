@@ -4,18 +4,17 @@ const DinoService = require('../services/dinosaurio')
 
 let dinoService = new DinoService();
 
-/* GET home page. */
 router.get('/', (req, res, next) => {
-  let results = null;  
+  let results = null;
   dinoService.getDinosaurios()
-      .then((dinosaurios)=>{
-        results = dinosaurios.map((row)=>{
-          return row.dataValues
-        });
-        res.render('dinosaurio', { 
-          results
-        });
-  });
+    .then((dinosaurios) => {
+      results = dinosaurios.map((row) => {
+        return row.dataValues
+      });
+      res.render('dinosaurio', {
+        results
+      });
+    });
 });
 
 router.get('/agregarDino', (req,res,next) =>{ // esto llama solo a la vista
