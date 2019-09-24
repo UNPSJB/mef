@@ -1,0 +1,25 @@
+<div style="padding-top: 10px">
+    <table class="table">
+        <thead>
+            {{!-- <th scope="col">Hueso</th> --}}
+            <th scope="col">#</th>
+            <th scope="col">Numero de Coleccion</th>
+            <th scope="col">Peso</th>
+            <th scope="col">Disponible</th>
+            <th scope="col">Fecha Encontrado</th>
+            <th scope="col">Observacion</th>
+        </thead>
+        <tbody>
+        {{#each results}}
+            <tr>
+                <th>{{this.id}}</th>
+                <td>{{this.numero_coleccion}}</td>
+                <td>{{this.peso}}</td>
+                <td>{{this.disponible}}</td>
+                <td>{{this.fecha_encontrado}}</td>
+                <td>{{this.observacion}}</td>
+            </tr>
+        {{/each}}
+        </tbody>    
+    </table>
+</div>

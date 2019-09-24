@@ -32,6 +32,6 @@ Object.keys(db).forEach(modelName => {
 });
 
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.Sequelize = Sequelize; //estas lineas son diferentes, no eliminar
 
 module.exports = db;

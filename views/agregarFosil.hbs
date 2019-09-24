@@ -1,0 +1,34 @@
+<form class="pt-3" action="/fosiles" method="POST">
+    <div class="form-group">
+        <label for="InputNumeroColeccion">Numero de Coleccion</label>
+        <input type="text" class="form-control" name="numero_coleccion" id="InputNumeroColeccion" placeholder="Ingrese Numero de Coleccion" required  >
+        <small id="NumeroColeccionhelp" class="form-text-muted text-muted">Podes cambiarlo despues</small>
+    <label for="InputPeso">Peso</label>
+        <input type="number" class="form-control" name="peso" id="InputPeso" placeholder="Ingrese Peso de Fosil" required  >
+    </div>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary form-check-label">
+            <input type="radio" name="disponible" id="option1" value="true" autocomplete="off" required> VERDADERO
+        </label>
+        <label class="btn btn-secondary form-check-label">
+            <input type="radio" name="disponible" id="option2" value="false" autocomplete="off"> FALSO
+        </label>
+    </div>
+    <div class="form-group pt-3">
+        <label for="InputFechaEncontrado">Fecha Encontrado</label>
+        <input type="date" name="encontrado" id="InputFechaEncontrado" required >
+    </div>
+    <div>
+        <textarea name="observacion" id="" cols="30" rows="10" placeholder="Ingrese observaciones"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">ADD Fosil</button>
+</form>
+
+{{!-- 
+Hueso (#6) no se hace
+Numero de Colección
+Peso (KG)
+Disponible [VERDADERO | FALSO]
+Fecha Encontrado[dd/mm/yyyy]
+Observación 
+--}}
