@@ -5,17 +5,21 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var hbs = require('express-handlebars');
+var methodOverride = require('method-override');
 
 //rutas
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const dinosauriosRouter = require('./routes/dinosaurios');
+var dinosauriosRouter = require('./routes/dinosaurios');
+var fosilesRouter = require('./routes/fosiles');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.engine('hbs', hbs({defaultLayout:'main',extname:'.hbs'}));
+// app.set('views', './views');
+app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -24,10 +28,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(bodyParser.json());
+app.use(methodOverride('_method'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/dinosaurios', dinosauriosRouter);
+app.use('/fosiles', fosilesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,23 +1,25 @@
+require('dotenv').config()
+
 module.exports = {
   "development": {
-    "username": "postgres",
-    "password": "postgres",
-    "database": "mef",
-    "host": "127.0.0.1",
+    "username": process.env.DATABASE_USER,
+    "password": process.env.DATABASE_PASSWORD,
+    "database": process.env.DATABASE,
+    "host": process.env.PORT,
     "dialect": "postgresql"
   },
   "test": {
-    "username": "postgres",
-    "password": "postgres",
-    "database": "mef",
-    "host": "127.0.0.1",
+    "username": process.env.DATABASE_USER,
+    "password": process.env.DATABASE_PASSWORD,
+    "database": process.env.DATABASE,
+    "host": process.env.PORT,
     "dialect": "postgresql"
   },
   "production": {
-    "username": "postgres",
-    "password": "postgres",
-    "database": "mef",
-    "host": "127.0.0.1",
+    "username": process.env.DATABASE_USER,
+    "password": process.env.DATABASE_PASSWORD,
+    "database": process.env.DATABASE,
+    "host": process.env.DATABASE_PORT,
     "dialect": "postgresql"
   }
 }
