@@ -1,12 +1,14 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var methodOverride = require('method-override');
+var session = require('express-session');
+var cookieParser = require('cookie-parser'); // sequelize store dependencia
+var database = require('./models');
 
 //rutas
 var indexRouter = require('./routes/index');
@@ -23,12 +25,30 @@ app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser())
 app.use(methodOverride('_method'));
+
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+
+app.use(session({
+  store: new SequelizeStore({
+    db: database.sequelize
+  }),
+  name: process.SESS_NAME,
+  saveUninitialized:false,
+  resave:false,
+  secret: process.env.SESS_SECRET,
+  cookie: {
+    maxAge:1000*60*60*3, //3 horas
+    sameSite: true,
+    secure: process.env.NODE_ENV === 'production'
+  }
+}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -51,4 +71,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.sequelizeSessionStore = SequelizeStore
 module.exports = app;

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const DinoService = require('../services/dinosaurio')
+const DinoService = require('../services/dinosaurio');
 
 let dinoService = new DinoService();
 

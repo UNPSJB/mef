@@ -18,7 +18,10 @@ class UserService{
                 }
             }).then((data) =>{
                 // solo el objeto
+                console.log(data);
                 return data.dataValues; 
+            }).catch((err)=>{
+                console.log("sale mal:*******************"+err);
             })
         );
     }
