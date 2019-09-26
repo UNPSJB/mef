@@ -1,6 +1,11 @@
 PWD_SECRET=contrasenasupersecreta
 EXPRESS_PORT=3000
+DATABASE_TYPE=postgres
 DATABASE=mef
 DATABASE_USER=postgres
 DATABASE_PASSWORD=postgres
 DATABASE_PORT=127.0.0.1
+NODE_ENV='development'
+SESS_LIFETIME=1000*60*60*2
+SESS_NAME='sid'
+SESS_SECRET='ssh!qiert,it\'asecret!'

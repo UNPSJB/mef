@@ -1,27 +1,20 @@
 const models = require('../models')
 let fosil = models.Fosil;
 
-class FosilService{
-    constructor(){
-
-    }
+module.exports ={
     getFosiles(){
-        return Promise.resolve(fosil.findAll());
+        return fosil.findAll();
+    },
+    getFosil(id){
+        return fosil.findByPk(id);
+    },
+    createFosil(numero_coleccion,peso,disponible,fecha_encontrado,observacion){
+        return fosil.create({
+                numero_coleccion,
+                peso,
+                disponible,
+                fecha_encontrado,
+                observacion
+            });
     }
-    createFosil(fosilReq){
-        return Promise.resolve(
-            fosil.create({
-                numero_coleccion: fosilReq.numero_coleccion,
-                peso: fosilReq.peso,
-                disponible: fosilReq.disponible,
-                fecha_encontrado: fosilReq.encontrado,
-                observacion: fosilReq.observacion
-            }).then((fosilReq) => {
-                console.log("creado servie fosilReq", fosilReq);
-            }).catch((err)=>{
-                console.log(err);
-            })
-        )};
 }
-
-module.exports = FosilService;
