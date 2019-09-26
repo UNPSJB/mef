@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const FosilService = require('../services/fosil')
-
-let fosilService = new FosilService();
+const fosilService = require('../services/fosil')
 
 router.get('/', (req, res, next) => {
     fosilService.getFosiles()
