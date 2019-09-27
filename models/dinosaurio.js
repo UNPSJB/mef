@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const Dinosaurio = sequelize.define('Dinosaurio', {
     activo: {
@@ -15,7 +16,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM,
       values: ['Cretacico','Jurasico','Triasico']
     },
-    descubrimiento : DataTypes.DATEONLY
+    descubrimiento : DataTypes.DATEONLY,
+    SubClaseId:{
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'SubClases',//nombre en la tabla
+        key:'id',        // id de la tabla SubClases
+      }
+    }
   });
 
   Dinosaurio.associate = function(models) {

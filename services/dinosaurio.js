@@ -9,12 +9,13 @@ module.exports = {
     getDinosaurio( id ){
         return dino.findByPk(id);
     },
-    createDinosaurio(nombre, alimentacion, periodo, descubrimiento){
+    createDinosaurio(nombre, alimentacion, periodo, descubrimiento, SubClaseId){
         return dino.create({
                 nombre,
                 alimentacion,
                 periodo,
-                descubrimiento
+                descubrimiento,
+                SubClaseId
             });
     },
     updateDinosaurio(dinoReq){

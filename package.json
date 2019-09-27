@@ -2,6 +2,7 @@
   "name": "mef",
   "version": "0.0.0",
   "private": true,
+  "proxy": "http://localhost:3000",
   "scripts": {
     "dev": "nodemon ./bin/www",
     "test": "set DEBUG=mef:* npm start",
