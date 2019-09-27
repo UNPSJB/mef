@@ -1,44 +1,56 @@
 const express = require('express');
 const router = express.Router();
-const SubclaseService = require('../services/subclase.js')//definir
+const subclaseService = require('../services/subclase.js')
 
-let subclaseService = new SubclaseService();
 
-router.get('/', (req, res, next) => {
-    let result = null;
-    subclaseService.getSubclases().then((subclases)=>{
-        result = subclases.map((row)=>{
-            return row.dataValues;
-        });
-        console.log(subclases);
-        res.render('subclase',{
+router.get('/',(req, res, next) => {
+    subclaseService.getSubclases().then((result)=>{
+        res.render('subclases/subclase',{
             result
         });
     });
 });
 
-router.get('/agregarSubclase', (req,res,next) =>{ // esto llama solo a la vista
-    
+router.get('/agregar', (req,res,next) =>{ // esto llama solo a la vista
+      res.render('subclases/agregar');
 });
 
-router.get('/editarSubclase',(req,res,next)=>{
-
+router.get('/editar',(req,res,next)=>{
+    const {id} = req.query;
+    subclaseService.getSubclase(id)
+    .then((subclase)=>{
+        res.render('subclases/editar',{subclase});
+    })
 });
 
-router.get('/eliminarSubclase', (req,res,next)=>{
-
+router.get('/eliminar', (req,res,next)=>{
+    const {id} = req.query;
+    subclaseService.getSubclase(id)
+    .then((subclase)=>{
+        res.render('subclases/eliminar',{subclase});    
+    });
 });
 
 router.post('/', (req,res,next) =>{
-
+    const {descripcion,clase} = req.body;
+    subclaseService.createSubclase(descripcion,clase)
+    .then((subclase)=>{
+        res.redirect('/subclases')
+    });
 });
 
 router.put('/', (req,res,next)=>{
-
+    const subclase = req.body;
+    subclaseService.updateSubclase(subclase)
+    .then(()=> res.redirect('/subclases'));
 });
 
 router.delete('/' , (req,res,next) =>{
-
+    const {id} = req.body;
+    subclaseService.deleteSubclase(id)
+    .then(()=>{
+        res.redirect('/subclases');
+    }); 
 });
 
 

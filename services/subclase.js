@@ -1,13 +1,30 @@
 const models = require('../models')
 let subclase = models.SubClase;
 
-class SubclaseService{
-    constructor(){}
-
+module.exports = {
+    
     getSubclases(){
-        return Promise.resolve(subclase.findAll()).catch((e)=>{console.log(e)});
+        return subclase.findAll().catch((e)=>{console.log(e)});
+    },
+    getSubclase(id){
+        return subclase.findByPk(id).catch(e=>console.log(e));
+    },
+    createSubclase(descripcion,clase){
+        return subclase.create({
+            descripcion,
+            clase
+        });
+    },
+    deleteSubclase(id){
+        return subclase.findByPk(id)
+        .then((subclaseEncontrado)=>{
+            subclaseEncontrado.destroy();
+        }).catch( (err) =>{
+            console.log("subclase no existe"+err)
+        });
+    },
+    updateSubclase(subclaseModificado){
+        return subclase.upsert(subclaseModificado);
     }
-
 }
 
-module.exports = SubclaseService;

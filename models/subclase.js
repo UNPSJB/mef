@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const SubClase = sequelize.define('SubClase', {
-    nombre: {
+    descripcion: {
       type:DataTypes.STRING,
       allowNull:false
     },

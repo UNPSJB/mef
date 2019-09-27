@@ -5,28 +5,28 @@ const dinoService = require('../services/dinosaurio');
 router.get('/', (req, res, next) => {
   dinoService.getDinosaurios()
     .then((results) => {
-      res.render('dinosaurio', {
+      res.render('dinosaurios/dinosaurio', {
         results
       });
     });
 });
 
 router.get('/agregarDino', (req,res,next) => {
-  res.render('agregarDino');
+  res.render('dinosaurios/agregarDino');
 });
 
 router.get('/editarDino',(req,res,next) => {
   //ver cuando id no existe
   dinoService.getDinosaurio(req.query.id)
     .then((dino) =>{
-    res.render('editarDino', { dino });
+    res.render('dinosaurios/editarDino', { dino });
     })
     .catch((err)=>{  console.log(err)}); //@TODO mostrar dino sin editar o algo
 })
 
 router.get('/eliminarDino', (req,res,next)=>{
   dinoService.getDinosaurio(req.query.id)
-  .then((dino)=> res.render('eliminarDino', { dino }))
+  .then((dino)=> res.render('dinosaurios/eliminarDino', { dino }))
   .catch((err)=>{console.log(err)}) //@TODO hacer pagina de volver o algo
 })
 
