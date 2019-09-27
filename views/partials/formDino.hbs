@@ -34,5 +34,14 @@
         <label for="InputFechaDescubrimiento">Fecha Descubrimiento</label>
         <input type="date" name="descubrimiento" id="InputFechaDescubrimiento" required {{#if dino}}value="{{dino.descubrimiento}}" {{/if}}>
     </div>
-    <br>
+    <div class="form-group-vertical">
+        <input type="text" placeholder="Ingrese subclase" id="buscaSubclases">
+        <br>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <div id="resultadosDeSubclases"></div>
+        </div>
+    </div>
+    <div class="form-group">
     <button type="submit" class="btn btn-primary">Agregar Dino!</button>
+    </div>
+
