@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM,
       allowNull:false,
       values: ["Saurisquio", "Ornitisquio"]
-    }
+    },
   }, {});
   SubClase.associate = function(models) {
   };

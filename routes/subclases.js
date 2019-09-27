@@ -11,6 +11,13 @@ router.get('/',(req, res, next) => {
     });
 });
 
+router.get('/api',(req, res, next) => {
+    subclaseService.getSubclases().then((result)=>{
+        const json = JSON.stringify(result,null, 4);
+        res.send(json);
+    });
+});
+
 router.get('/agregar', (req,res,next) =>{ // esto llama solo a la vista
       res.render('subclases/agregar');
 });
