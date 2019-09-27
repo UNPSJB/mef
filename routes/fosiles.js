@@ -5,14 +5,14 @@ const fosilService = require('../services/fosil')
 router.get('/', (req, res, next) => {
     fosilService.getFosiles()
         .then((results) => {
-            res.render('fosil', {
+            res.render('fosiles/fosil', {
                 results
             });
         });
 });
 
 router.get('/agregarFosil', (req, res, next) => {
-    res.render('agregarFosil'); 
+    res.render('fosiles/agregarFosil'); 
 });
 
 router.post('/', (req, res, next)=>{
