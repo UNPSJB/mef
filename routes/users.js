@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const accountService = require("../services/account");
-var UserService = require("../services/user");
-let userService = new UserService();
+var userService = require("../services/user");
 
 const redirectHome = (req, res, next) => {
   if (req.session.userId) {
@@ -11,6 +10,7 @@ const redirectHome = (req, res, next) => {
     next();
   }
 };
+
 const redirectLogin = (req, res, next) => {
   if (!req.session.userId) {
     res.redirect('/users/login');
@@ -18,6 +18,7 @@ const redirectLogin = (req, res, next) => {
     next();
   }
 };
+
 /* GET users listing. */
 router.get('/', redirectLogin, function (req, res, next) {
   res.render('home');
