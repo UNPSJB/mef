@@ -7,6 +7,37 @@ router.get('/solo-jefe', accountService.roleExist('jefe-taller'), function (req,
   res.redirectToHome();
 });
 
+const redirectHome = (req, res, next) => {
+  if (req.session.userId) {
+    res.redirect('/users');
+  } else {
+    next();
+  }
+};
+
+const roleExist = (r) => (req, res, next) => {
+  if (req.session.roles.indexOf(r) === -1) {
+    res.redirect('/users/login');
+  } else {
+    next();
+  }
+};
+
+const redirectLogin = (req, res, next) => {
+  if (!req.session.userId) {
+    res.redirect('/users/login');
+  } else {
+    next();
+  }
+};
+
+/* GET users listing. */
+router.get('/solo-jefe', roleExist('jefe-taller'), function (req, res, next) {
+  res.redirectToHome();
+});
+
+
+/* GET users listing. */
 router.get('/', function (req, res, next) {
   res.render('home');
 });
@@ -14,7 +45,11 @@ router.get('/', function (req, res, next) {
 router.get('/login', (req, res) => {
   res.render('login')
 });
+<<<<<<< Updated upstream
 router.get('/register', (req, res) => {
+=======
+router.get('/register', redirectHome, (req, res) => {
+>>>>>>> Stashed changes
   res.render('register', )
 });
 
@@ -23,8 +58,12 @@ router.post('/login', (req, res) => {
   accountService.auth(email, password)
     .then(user => {
       if (user) {
+<<<<<<< Updated upstream
         req.session.user = user.id;
         req.session.roles = ['jefe-taller']; // user.roles
+=======
+        req.session.user = user; // user.roles
+>>>>>>> Stashed changes
         res.redirect('/');
       }
       else {

@@ -3,6 +3,7 @@ const router = express.Router();
 const dinoService = require('../services/dinosaurio');
 
 router.get('/', (req, res, next) => {
+  console.log(req.session.userId);
   dinoService.getDinosaurios()
     .then((results) => {
       res.render('dinosaurios/dinosaurio', {

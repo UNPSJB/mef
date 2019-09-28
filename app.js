@@ -20,7 +20,7 @@ var subclaseRouter = require('./routes/subclases');
 var app = express();
 
 // view engine setup
-app.engine('hbs', hbs({defaultLayout:'main',extname:'.hbs'}));
+app.engine('hbs', hbs({defaultLayout:'main', extname:'.hbs'}));
 // app.set('views', './views');
 app.set('view engine', 'hbs');
 
@@ -34,7 +34,6 @@ app.use(cookieParser())
 app.use(methodOverride('_method'));
 
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
-
 
 app.use(session({
   store: new SequelizeStore({
@@ -51,11 +50,20 @@ app.use(session({
   }
 }));
 
+const roles = [
+  'jefe-exhibicion', 'jefe-taller', 'jefe-coleccion', 'jefe-rrhh', 'secretarie'
+]
+
+// Arranca la magia
+app.use((req, res, next) => (req.path.startsWith('/users/login') || req.session.userId) ? next() : res.redirect('/users/login'));
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/dinosaurios', dinosauriosRouter);
 app.use('/fosiles', fosilesRouter);
-app.use('/subclases',subclaseRouter)
+app.use('/subclases',subclaseRouter);
+app.use('/login');
+app.use('/register');
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

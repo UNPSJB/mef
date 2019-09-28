@@ -10,7 +10,7 @@ module.exports = {
       where: {
         email
       }
-    }).then(data => data.dataValues);
+    });
   },
   createUser(user) {
     const { email, password } = user.body;
