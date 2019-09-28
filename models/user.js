@@ -16,9 +16,7 @@ module.exports = (sequelize, DataTypes) =>{
 
 	User.associate = function(models){
 		models.User.belongsTo(models.Persona);
-		models.User.belongsToMany(models.Rol, {
-			through:'user_rol'
-		});
+		models.User.belongsTo(models.Rol);
 	};
 	return User;
 };
