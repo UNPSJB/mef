@@ -62,8 +62,8 @@ app.use('/users', usersRouter);
 app.use('/dinosaurios', dinosauriosRouter);
 app.use('/fosiles', fosilesRouter);
 app.use('/subclases',subclaseRouter);
-app.use('/login');
-app.use('/register');
+// app.use('/login');
+// app.use('/register');
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

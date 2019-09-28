@@ -13,18 +13,11 @@ module.exports = {
         return user;
       });
   },
-  roleExist : (r) => (req, res, next) => {
-    if (req.session.roles.indexOf(r) === -1) {
-      res.redirect('/users/login');
-    } else {
-      next();
-    }
-  },
-  redirectHome = (req, res, next) => {
-    if (req.session.userId) {
-      res.redirect('/users');
-    } else {
-      next();
-    }
-  }
+  // roleExist : (r) => (req, res, next) => {
+  //   if (req.session.roles.indexOf(r) === -1) {
+  //     res.redirect('/users/login');
+  //   } else {
+  //     next();
+  //   }
+  // }
 }
