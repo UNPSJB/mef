@@ -6,27 +6,28 @@ router.get('/', (req, res, next) => {
   dinoService.getDinosaurios()
     .then((results) => {
       res.render('dinosaurios/dinosaurio', {
-        results
+        results,
+        jefeexhibicion:true
       });
     });
 });
 
 router.get('/agregarDino', (req,res,next) => {
-  res.render('dinosaurios/agregarDino');
+  res.render('dinosaurios/agregarDino',{jefeexhibicion:true});
 });
 
 router.get('/editarDino',(req,res,next) => {
   //ver cuando id no existe
   dinoService.getDinosaurio(req.query.id)
     .then((dino) =>{
-    res.render('dinosaurios/editarDino', { dino });
+    res.render('dinosaurios/editarDino', { dino, jefeexhibicion:true });
     })
     .catch((err)=>{  console.log(err)}); //@TODO mostrar dino sin editar o algo
 })
 
 router.get('/eliminarDino', (req,res,next)=>{
   dinoService.getDinosaurio(req.query.id)
-  .then((dino)=> res.render('dinosaurios/eliminarDino', { dino }))
+  .then((dino)=> res.render('dinosaurios/eliminarDino', { dino, jefeexhibicion:true }))
   .catch((err)=>{console.log(err)}) //@TODO hacer pagina de volver o algo
 })
 
