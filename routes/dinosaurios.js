@@ -1,67 +1,51 @@
 const express = require('express');
 const router = express.Router();
-const DinoService = require('../services/dinosaurio')
-
-let dinoService = new DinoService();
+const dinoService = require('../services/dinosaurio');
 
 router.get('/', (req, res, next) => {
-  let results = null;
   dinoService.getDinosaurios()
-    .then((dinosaurios) => {
-      results = dinosaurios.map((row) => {
-        return row.dataValues
-      });
-      res.render('dinosaurio', {
-        results
+    .then((results) => {
+      res.render('dinosaurios/dinosaurio', {
+        results,
+        jefeexhibicion:true
       });
     });
 });
 
-router.get('/agregarDino', (req,res,next) =>{ // esto llama solo a la vista
-  res.render('agregarDino');
+router.get('/agregar', (req,res,next) => {
+  res.render('dinosaurios/agregar',{
+    jefeexhibicion:true});
 });
 
-router.get('/editarDino',(req,res,next)=>{
+router.get('/editar',(req,res,next) => {
   //ver cuando id no existe
-  let id = req.query.id;
-  dinoService.getDinosaurio({ id })
-  .then((dino) =>{
-    res.render('editarDino', { dino });
-  })
-  .catch((err)=>{
-    console.log(err)
-  })
+  dinoService.getDinosaurio(req.query.id)
+    .then((dino) =>{
+    res.render('dinosaurios/editar', { dino });
+    })
+    .catch((err)=>{  console.log(err)}); //@TODO mostrar dino sin editar o algo
 })
 
-router.get('/eliminarDino', (req,res,next)=>{
-  let id = req.query.id;
-  dinoService.getDinosaurio({ id })
-  .then((dino)=>{
-    res.render('eliminarDino', { dino })
-  })
-  .catch((err)=>{
-    console.log(err);
-  })
+router.get('/eliminar', (req,res,next)=>{
+  dinoService.getDinosaurio(req.query.id)
+  .then((dino)=> res.render('dinosaurios/eliminar', { dino }))
+  .catch((err)=>{console.log(err)}) //@TODO hacer pagina de volver o algo
 })
 
 router.post('/', (req,res,next) =>{ // esto llama a dino service
-    dinoService.createDinosaurio(req.body) // es una promesa
-      .then(() =>{  //una vez que creo el dino... hacemos
-          res.redirect('/dinosaurios')      // despues de tres segundos, vuelve a home (un directorio arriba) @TODO cambiar
-    });
+    const {nombre, alimentacion, periodo, descubrimiento, idsubclase} = req.body;
+    dinoService.createDinosaurio(nombre, alimentacion, periodo, descubrimiento, idsubclase) // es una promesa
+      .then(() => res.redirect('/dinosaurios'));
 });
 
 router.put('/', (req,res,next)=>{
-    dinoService.updateDinosaurio(req.body).then(()=>{
-    res.redirect('dinosaurios')
-  });
-})
+    dinoService.updateDinosaurio(req.body)
+      .then(() => res.redirect('/dinosaurios'));
+});
 
 router.delete('/' , (req,res,next) =>{
-  let id = req.body.id;
-  dinoService.deleteDinosaurio({ id }).then(()=>{
-    res.redirect('/dinosaurios')
-  })
-})
+  dinoService.deleteDinosaurio(req.body.id)
+    .then(() => res.redirect('/dinosaurios'));
+});
 
 module.exports = router;

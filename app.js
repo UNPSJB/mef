@@ -1,40 +1,70 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var methodOverride = require('method-override');
+var session = require('express-session');
+var cookieParser = require('cookie-parser'); // sequelize store dependencia
+var database = require('./models');
+var permisos = require('./auth/permisos');
 
 //rutas
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dinosauriosRouter = require('./routes/dinosaurios');
 var fosilesRouter = require('./routes/fosiles');
+var subclaseRouter = require('./routes/subclases');
 
 var app = express();
 
 // view engine setup
-app.engine('hbs', hbs({defaultLayout:'main',extname:'.hbs'}));
+app.engine('hbs', hbs({defaultLayout:'main', extname:'.hbs'}));
 // app.set('views', './views');
 app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser())
 app.use(methodOverride('_method'));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/dinosaurios', dinosauriosRouter);
-app.use('/fosiles', fosilesRouter);
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
 
+app.use(session({
+  store: new SequelizeStore({
+    db: database.sequelize
+  }),
+  name: process.SESS_NAME,
+  saveUninitialized:false,
+  resave:false,
+  secret: process.env.SESS_SECRET,
+  cookie: {
+    maxAge:1000*60*60*3, //3 horas
+    sameSite: true,
+    secure: process.env.NODE_ENV === 'production'
+  }
+}));
+
+const roles = [
+  'jefe-exhibicion', 'jefe-taller', 'jefe-coleccion', 'jefe-rrhh', 'secretarie'
+]
+
+// Arranca la magia
+app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
+
+app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
+app.use('/users', permisos.estaLogueado, usersRouter);
+app.use('/dinosaurios', permisos.estaLogueado, permisos.esColeccion, dinosauriosRouter);
+app.use('/fosiles', permisos.estaLogueado, fosilesRouter);
+app.use('/subclases',permisos.estaLogueado, subclaseRouter);
+// app.use('/login');
+// app.use('/register');
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -51,4 +81,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.sequelizeSessionStore = SequelizeStore;
 module.exports = app;

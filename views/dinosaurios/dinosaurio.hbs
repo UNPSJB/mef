@@ -1,0 +1,45 @@
+<div style="padding-top: 10px">
+    <h1>Dinosaurios  <a href="/dinosaurios/agregarDino" class="btn btn-primary" rel="noopener noreferrer">+</a></h1>
+    <table class="table table-striped table-bordered" id="example">
+        <thead>
+            <th scope="col">#</th>
+            <th scope="col">Activo</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Alimentacion</th>
+            <th scope="col">Periodo</th>
+            <th scope="col">Subclase</th>
+            <th scope="col">Descubrimiento</th>
+            <th scope="col">Acciones</th>
+        </thead>
+        <tbody>
+        {{#each results}}
+                <tr>
+                    <th>{{this.id}}</th>
+                    <td>{{this.activo}}</td>
+                    <td>{{this.nombre}}</td>
+                    <td>{{this.alimentacion}}</td>
+                    <td>{{this.periodo}}</td>
+                    <td>{{this.SubClase.descripcion}}</td>
+                    <td>{{this.descubrimiento}}</td>
+                    <!-- acciones aca -->
+                    <td>
+                        <a href="/dinosaurios/editarDino?id={{this.id}}"><i class="far fa-edit"></i></a> <!--editar-->
+                        <a href="/dinosaurios/eliminarDino?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
+                    {{!-- otras acciones mas --}}
+                    </td>
+                </tr>
+        {{/each}}
+        </tbody>    
+    </table>
+</div>
+
+<!-- Large modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      {{> formDino}}
+    </div>
+  </div>
+</div>

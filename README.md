@@ -2,8 +2,8 @@
 
 ## Que vamos a hacer ?
 
-* *Lo que haiga*
-
+* *rellenar*
+* Gestion de Replicas para el Museo Paleontologico Egido Feruglio 
 
 
 ## Integrantes 

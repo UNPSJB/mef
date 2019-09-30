@@ -1,31 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const FosilService = require('../services/fosil')
-
-let fosilService = new FosilService();
+const fosilService = require('../services/fosil')
 
 router.get('/', (req, res, next) => {
-    let results = null;
     fosilService.getFosiles()
-        .then((fosiles) => {
-            results = fosiles.map((row) => {
-                console.log(row);
-                return row.dataValues;
-            });
-            console.log(results);
-            res.render('fosil', {
+        .then((results) => {
+            res.render('fosiles/fosil', {
                 results
             });
         });
 });
-router.get('/agregarFosil', (req, res, next) => {
-    res.render('agregarFosil'); 
+
+router.get('/agregar', (req, res, next) => {
+    res.render('fosiles/agregar'); 
 });
+router.get('/editar', (req, res, next) => {
+    res.render('fosiles/editar'); 
+});
+router.get('/eliminar', (req, res, next) => {
+    res.render('fosiles/eliminar'); 
+});
+
+
 router.post('/', (req, res, next)=>{
-    fosilService.createFosil(req.body)
-    .then(()=>{
-        res.redirect('/fosiles');
-    })
+    const {numero_coleccion,peso,disponible,fecha_encontrado,observacion} = req.body;
+    fosilService.createFosil(numero_coleccion,peso,disponible,fecha_encontrado,observacion)
+    .then(()=>{res.redirect('/fosiles')})
 });
 
 module.exports = router;
