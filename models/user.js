@@ -8,7 +8,21 @@ module.exports = (sequelize, DataTypes) =>{
 			allowNull : false,
 			unique: true
 		},
-		password: DataTypes.STRING
+		password: DataTypes.STRING,
+		RolId:{
+			type: DataTypes.INTEGER,
+			references:{
+				model:'Rols',
+				key:'id'
+			}
+		},
+		PersonaId:{
+			type: DataTypes.INTEGER,
+			references: {
+				model:'Personas',
+				key:'id'
+			}
+		}
 	},{
 		hooks:{
 			afterValidate: (user) => {

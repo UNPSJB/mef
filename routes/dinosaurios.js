@@ -3,7 +3,6 @@ const router = express.Router();
 const dinoService = require('../services/dinosaurio');
 
 router.get('/', (req, res, next) => {
-  console.log(req.session.userId);
   dinoService.getDinosaurios()
     .then((results) => {
       res.render('dinosaurios/dinosaurio', {
@@ -14,7 +13,8 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/agregar', (req,res,next) => {
-  res.render('dinosaurios/agregar');
+  res.render('dinosaurios/agregar',{
+    jefeexhibicion:true});
 });
 
 router.get('/editar',(req,res,next) => {
