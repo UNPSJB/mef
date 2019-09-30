@@ -7,7 +7,7 @@
             Editar Dino
         </button>
     </h1>
-    <table class="table">
+    <table class="table display" id="tablaDinos" >
         <thead>
             <th scope="col">#</th>
             <th scope="col">Activo</th>
@@ -30,7 +30,7 @@
                 <td>{{this.descubrimiento}}</td>
                 <!-- acciones aca -->
                 <td>
-                    <a href="/dinosaurios/editar?id={{this.id}}"><i class="far fa-edit"></i></a> <!--editar-->
+                    <a href="/dinosaurios/editar?id={{this.id}}"><i class="far fa-edit" ></i></a> <!--editar-->
                     <a href="/dinosaurios/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
                 {{!-- otras acciones mas --}}
                 
@@ -72,12 +72,8 @@
       </div>
       <div class="modal-body">
         <form class="pt-3" action="/dinosaurios?_method=PUT" method="POST">
-            {{>formDino this}}
+          {{> formDino this}}
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
