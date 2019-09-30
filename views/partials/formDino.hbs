@@ -1,4 +1,7 @@
-    <div class="form-group">
+
+
+<form class="pt-3" action="/dinosaurios" method="POST">
+        <div class="form-group">
         <label for="InputNombreCientifico">Nombre cientifico</label>
         <input type="text" class="form-control" name="nombre" id="InputNombreCientifico" placeholder="Ingrese Nombre Cientifico" required  {{#if dino}}value="{{dino.nombre}}" {{/if}}>
         
@@ -44,4 +47,46 @@
     <div class="form-group">
     <button type="submit" class="btn btn-primary">Agregar Dino!</button>
     </div>
+  <script>
+    const input = document.getElementById('buscaSubclases');
+    input.addEventListener('input', buscarSubclases);
 
+    function buscarSubclases() {
+      fetch('http://localhost:3000/subclases/api', { credentials: 'same-origin' })
+        .then((res) => {
+          return (res.json());
+        })
+        .then((res) => {
+          let resultados = filtrar(res);
+          dibujarOpciones(resultados);
+        })
+        .catch((e) => console.log('upsi... ' + e));
+    }
+    function filtrar(subclases){
+      let resultados = [];
+      subclases.forEach((subclase) =>{//por cada que tengamos
+        //si cumple la condicion, lo agrega a resultados
+        if (subclase.descripcion.search(input.value) >= 0){
+          resultados.push(subclase);
+        }
+      })
+      return resultados; //aca estarian los que cumplen
+    }
+    function dibujarOpciones(subclases){
+      let etiqueta = document.getElementById('resultadosDeSubclases');
+      let etiquetas = [];
+      etiqueta.innerHTML = " ";
+      subclases.forEach((subclase)=>{
+        if(input.value !== ''){        
+          let boton = 
+          `<label class="btn btn-secondary form-check-label">
+          <input type="radio" class="form-check-input" name="idsubclase" value="${subclase.id}" autocomplete="off" required> ${subclase.descripcion}
+          </label>
+          `;
+          etiquetas.push(boton);
+        }
+      });
+      etiqueta.innerHTML = etiquetas;
+    }
+  </script>
+</form>
