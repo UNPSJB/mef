@@ -58,11 +58,11 @@ const roles = [
 // Arranca la magia
 app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/dinosaurios', permisos.estaLogueado, dinosauriosRouter);
-app.use('/fosiles', fosilesRouter);
-app.use('/subclases',subclaseRouter);
+app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
+app.use('/users', permisos.estaLogueado, usersRouter);
+app.use('/dinosaurios', permisos.estaLogueado, permisos.esColeccion, dinosauriosRouter);
+app.use('/fosiles', permisos.estaLogueado, fosilesRouter);
+app.use('/subclases',permisos.estaLogueado, subclaseRouter);
 // app.use('/login');
 // app.use('/register');
 // catch 404 and forward to error handler
@@ -81,5 +81,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.sequelizeSessionStore = SequelizeStore
+app.sequelizeSessionStore = SequelizeStore;
 module.exports = app;
