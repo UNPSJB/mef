@@ -9,6 +9,7 @@ var methodOverride = require('method-override');
 var session = require('express-session');
 var cookieParser = require('cookie-parser'); // sequelize store dependencia
 var database = require('./models');
+var permisos = require('./auth/permisos');
 
 //rutas
 var indexRouter = require('./routes/index');
@@ -53,7 +54,7 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/dinosaurios', dinosauriosRouter);
+app.use('/dinosaurios', permisos.estaLogueado, dinosauriosRouter);
 app.use('/fosiles', fosilesRouter);
 app.use('/subclases',subclaseRouter)
 // catch 404 and forward to error handler
