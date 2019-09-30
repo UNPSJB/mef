@@ -6,7 +6,8 @@ router.get('/', (req, res, next) => {
   dinoService.getDinosaurios()
     .then((results) => {
       res.render('dinosaurios/dinosaurio', {
-        results
+        results,
+        jefeexhibicion:true
       });
     });
 });
@@ -32,7 +33,6 @@ router.get('/eliminar', (req,res,next)=>{
 
 router.post('/', (req,res,next) =>{ // esto llama a dino service
     const {nombre, alimentacion, periodo, descubrimiento, idsubclase} = req.body;
-    console.log(idsubclase);
     dinoService.createDinosaurio(nombre, alimentacion, periodo, descubrimiento, idsubclase) // es una promesa
       .then(() => res.redirect('/dinosaurios'));
 });

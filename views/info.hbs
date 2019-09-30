@@ -1,0 +1,14 @@
+{{#if exito}}
+<div class="alert alert-success">
+    {{mensaje}}
+</div>
+{{else}}
+<div class="alert alert-danger">
+    {{mensaje}}
+</div>
+{{/if}}
+<script>
+    setTimeout(()=>{
+        window.location.href = "/register"        
+    },2000);
+</script>
