@@ -12,22 +12,22 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/agregarDino', (req,res,next) => {
-  res.render('dinosaurios/agregarDino',{jefeexhibicion:true});
+router.get('/agregar', (req,res,next) => {
+  res.render('dinosaurios/agregar');
 });
 
-router.get('/editarDino',(req,res,next) => {
+router.get('/editar',(req,res,next) => {
   //ver cuando id no existe
   dinoService.getDinosaurio(req.query.id)
     .then((dino) =>{
-    res.render('dinosaurios/editarDino', { dino, jefeexhibicion:true });
+    res.render('dinosaurios/editar', { dino });
     })
     .catch((err)=>{  console.log(err)}); //@TODO mostrar dino sin editar o algo
 })
 
-router.get('/eliminarDino', (req,res,next)=>{
+router.get('/eliminar', (req,res,next)=>{
   dinoService.getDinosaurio(req.query.id)
-  .then((dino)=> res.render('dinosaurios/eliminarDino', { dino, jefeexhibicion:true }))
+  .then((dino)=> res.render('dinosaurios/eliminar', { dino }))
   .catch((err)=>{console.log(err)}) //@TODO hacer pagina de volver o algo
 })
 

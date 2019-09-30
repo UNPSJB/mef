@@ -1,0 +1,43 @@
+    <div class="form-group">
+        <label for="InputNumeroColeccion">Numero de Coleccion</label>
+        <input type="text" class="form-control" name="numeroColeccion" id="InputNumeroColeccion" placeholder="Ingrese Numero de Coleccion" required  {{#if fosil}}value="{{fosil.numeroColeccion}}" {{/if}}>
+        
+        <small id="numeroColeccionhelp" class="form-text-muted text-muted">Podes cambiarlo despues</small>
+    </div>
+    {{#if fosil}}<input name="id" type="number" value="{{fosil.id}}" hidden> {{/if}}
+    
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary form-check-label">
+            <input type="radio" name="disponible" id="option1" value="Verdadero" autocomplete="off" required> Verdadero
+        </label>
+        <label class="btn btn-secondary form-check-label">
+            <input type="radio" name="disponible" id="option2" value="Falso" autocomplete="off"> Falso
+        </label>
+    </div>
+    <br>
+
+    <div class="form-group">
+        <label for="InputPeso">Peso</label>
+        <input type="text" class="form-control" name="peso" id="InputPeso" placeholder="Ingrese Peso" required  {{#if fosil}}value="{{fosil.peso}}" {{/if}}>
+        
+        <small id="pesohelp" class="form-text-muted text-muted">Podes cambiarlo despues</small>
+    </div>
+    <br>
+
+    <div class="form-group pt-3">
+        <label for="InputFechaEncontrado">Fecha Encontrado</label>
+        <input type="date" name="encontrado" id="InputFechaEncontrado" required {{#if fosil}}value="{{fosil.encontrado}}" {{/if}}>
+    </div>
+    <br>
+
+    <div class="form-group-vertical">
+        <input type="text" placeholder="Ingrese subclase" id="buscaSubclases">
+        <br>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <div id="resultadosDeSubclases"></div>
+        </div>
+    </div>
+    <div class="form-group">
+    <button type="submit" class="btn btn-primary">Agregar Dino!</button>
+    </div>
+
