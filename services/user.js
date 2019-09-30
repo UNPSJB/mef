@@ -14,11 +14,9 @@ module.exports = {
   },
   createUser(user) {
     const { email, password } = user.body;
-    return Promise.resolve(
-      User.create({
+    return User.create({
         email,
         password
-      })
-    );
+      });
   }
 }
