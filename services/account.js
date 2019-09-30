@@ -6,6 +6,7 @@ module.exports = {
   auth(email, password) {
     return userService.findUser(email)
       .then(user => {
+        console.log(user);
         return user;
       }).catch( e=>{
         return null;

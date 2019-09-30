@@ -12,11 +12,10 @@ module.exports = {
       }
     });
   },
-  createUser(user) {
-    const { email, password } = user.body;
+  createUser(email, password) {
     return User.create({
         email,
         password
-      });
+    });
   }
 }
