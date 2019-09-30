@@ -22,6 +22,7 @@ router.post('/login', (req, res) => {
         res.render('login', {layout:'second', error: "email y/o contrasena incorrectos!", email, password});
       }
       if (user) {
+        console.log(req.session.userId);
         req.session.userId = user.id;
         req.session.rol = ['jefe-exhibicion']; //viene de la DB @profe
         res.redirect('/');

@@ -55,7 +55,7 @@ const roles = [
 ]
 
 // Arranca la magia
-app.use((req, res, next) => (req.path.startsWith('/users/login') || req.session.userId) ? next() : res.redirect('/users/login'));
+app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
