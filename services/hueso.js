@@ -1,21 +1,31 @@
-const models = require('../models');
+var models = require('../models');
 let dino = models.Dinosaurio;
-let hueso = models.Hueso;
+var hueso = models.Hueso;
 
 module.exports = {
     getHuesos(){
-    
+        return hueso.findAll()
     },
-    getHueso(){
-
+    getHueso(id){
+        return hueso.findOne({
+            where:{
+                id
+            }
+        })
     },
-    create(nombre, numero, disponible, subtipohueso,idDinosaurio){
+    getHuesoDino(DinosaurioId){
+        return hueso.findOne({
+            where:{
+                DinosaurioId
+            }
+        })
+    },
+    createHueso(nombre, numero, subtipohueso, DinosaurioId){
         return hueso.create({
             nombre,
             numero,
-            disponible,
             subtipohueso,
-            
+            DinosaurioId
         });
     }
 }

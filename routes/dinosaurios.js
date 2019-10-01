@@ -36,7 +36,29 @@ router.get('/eliminar', (req,res,next)=>{
 router.post('/', (req,res,next) =>{ // esto llama a dino service
     const {nombre, alimentacion, periodo, descubrimiento, idsubclase} = req.body;
     dinoService.createDinosaurio(nombre, alimentacion, periodo, descubrimiento, idsubclase) // es una promesa
-      .then(() => res.redirect('/dinosaurios'));
+      .then((dinosaurio) => {
+        // createHueso(nombre, numero, subtipohueso, DinosaurioId){
+        huesoService.createHueso('Paladar',1,'Craneo',dinosaurio.id);
+        huesoService.createHueso('Mandíbula',1,'Craneo',dinosaurio.id);
+        huesoService.createHueso('Cráneo',1,'Craneo',dinosaurio.id);
+        for(var i=1;i<=2;i++){
+          huesoService.createHueso('Coracoide',i,'Pelvis',dinosaurio.id);
+          huesoService.createHueso('Ilion',i,'Pelvis',dinosaurio.id);
+          huesoService.createHueso('Pubis',i,'Pelvis',dinosaurio.id);
+          huesoService.createHueso('Ischion',i,'Pelvis',dinosaurio.id);
+
+          huesoService.createHueso('Radio',i,'Brazo',dinosaurio.id);
+          huesoService.createHueso('Unla',i,'Brazo',dinosaurio.id);
+          huesoService.createHueso('Húmero',i,'Brazo',dinosaurio.id);
+          huesoService.createHueso('Escápula',i,'Brazo',dinosaurio.id);
+
+          huesoService.createHueso('Fémur',i,'Piernas',dinosaurio.id);
+          huesoService.createHueso('Tibia',i,'Piernas',dinosaurio.id);
+          huesoService.createHueso('Fíbula',i,'Piernas',dinosaurio.id);
+        }
+        
+        res.redirect('/dinosaurios'); //@TODO agregar mas experiencia
+      });
 });
 
 router.put('/', (req,res,next)=>{
