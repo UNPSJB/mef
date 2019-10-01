@@ -20,13 +20,7 @@ const apendiculares = pelvis.concat(brazo).concat(piernas);
 
 module.exports = {
     getHuesos(){
-        return hueso.findAll()
-    },
-    getAxiales(){
-        console.log(axial);
-    },
-    getCraneo(){
-        console.log(craneo);
+        return hueso.findAll({include:[dino]})
     },
     getHueso(id){
         return hueso.findOne({
@@ -35,8 +29,8 @@ module.exports = {
             }
         })
     },
-    getHuesoDino(DinosaurioId){
-        return hueso.findOne({
+    getHuesosDino(DinosaurioId){
+        return hueso.findAll({
             where:{
                 DinosaurioId
             }
@@ -72,5 +66,21 @@ module.exports = {
             }
         }
 
+    },
+    toggleDisponibilidadHueso(id){
+        hueso.findOne({
+            where:{
+                id
+            }
+        }).then((found)=>{
+            hueso.update({
+                disponible : !found.disponible
+            },{
+                where:{
+                    id:found.id
+                }
+            })
+
+        });
     }
 }
