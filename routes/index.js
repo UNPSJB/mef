@@ -30,7 +30,8 @@ router.post('/login', (req, res) => {
       if (user) {
         console.log(user);
         req.session.userId = user.id;
-        req.session.rol = user.rol.descripcion || 'taller'; //viene de la DB @profe
+        // req.session.rol = user.Rol.descripcion || 'taller'; //viene de la DB @profe
+        req.session.rol = 'taller'; //viene de la DB @profe
         res.redirect('/');
         //decidir como asignar roles, @profe
       }
