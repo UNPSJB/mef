@@ -26,9 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       values: ['Apendicular','Axial']
     },
     disponible: {
-      type: DataTypes.ENUM,
-      values: ['SI','NO'],
-      defaultValue: 'NO',
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     DinosaurioId: {
       type: DataTypes.INTEGER,
