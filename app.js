@@ -51,16 +51,13 @@ app.use(session({
   }
 }));
 
-const roles = [
-  'jefe-exhibicion', 'jefe-taller', 'jefe-coleccion', 'jefe-rrhh', 'secretarie'
-]
 
 // Arranca la magia
 app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
 
 app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
 app.use('/users', permisos.estaLogueado, usersRouter);
-app.use('/dinosaurios', permisos.estaLogueado, permisos.esColeccion, dinosauriosRouter);
+app.use('/dinosaurios', permisos.estaLogueado, dinosauriosRouter);
 app.use('/fosiles', permisos.estaLogueado, fosilesRouter);
 app.use('/subclases',permisos.estaLogueado, subclaseRouter);
 // app.use('/login');
