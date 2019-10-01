@@ -1,4 +1,6 @@
 'use strict';
+var models = require('./');
+
 
 module.exports = (sequelize, DataTypes) => {
   const Dinosaurio = sequelize.define('Dinosaurio', {
@@ -23,6 +25,54 @@ module.exports = (sequelize, DataTypes) => {
         model: 'SubClases',//nombre en la tabla
         key:'id',        // id de la tabla SubClases
       }
+    }
+  },{
+    hooks:{
+      afterValidate: (dinosaurio) => {
+        /*
+        Torax
+        Vertebral
+        Craneo
+          Cráneo
+          Paladar
+          Mandíbula
+
+        Pelvis
+          Coracoide
+          Coracoide
+          Ilion
+          Ilion
+          Pubis
+          Pubis          
+          Ischion
+          Ischion          
+
+        Brazo
+          Radio
+          Radio
+          Unla
+          Unla          
+          Húmero
+          Húmero
+          Escápula
+          Escápula          
+        
+        Manos
+
+        Piernas
+          Fémur
+          Fémur
+          Tibia
+          Tibia          
+          Fíbula
+          Fíbula        
+          
+        Pies
+
+        HUESOS QUE SE CARGAN AUTOMÁTICAMENTE
+      
+        */ 
+      }      
     }
   });
 
