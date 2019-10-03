@@ -24,6 +24,7 @@ npx sequelize-cli seed:generate --name roles-usuarios
 ```
 
 Archivo de migraciones
+
 ``` javascript
 'use strict';
 
@@ -55,4 +56,3 @@ Ejecutar TODAS las seeds:
 ```bash
     npx sequelize-cli db:seed:all
 ```
-

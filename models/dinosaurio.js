@@ -1,5 +1,4 @@
 'use strict';
-var models = require('./');
 
 
 module.exports = (sequelize, DataTypes) => {
