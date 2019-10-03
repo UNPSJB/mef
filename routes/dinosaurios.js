@@ -1,3 +1,8 @@
+/**
+ * hacer el all()
+ * 
+ */
+
 const express = require('express');
 const router = express.Router();
 const dinoService = require('../services/dinosaurio');
@@ -38,7 +43,6 @@ router.get('/moldes', (req, res) => {
   const { id } = req.query;
   huesoService.getHuesosDino(id)
     .then((huesos)=>{
-      console.log(huesos);
       res.render("huesos/hueso",{huesos, jefeexhibicion:true});
     });
 });
