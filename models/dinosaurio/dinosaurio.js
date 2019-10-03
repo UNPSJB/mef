@@ -1,6 +1,5 @@
 'use strict';
 
-
 module.exports = (sequelize, DataTypes) => {
   const Dinosaurio = sequelize.define('Dinosaurio', {
     activo: {
