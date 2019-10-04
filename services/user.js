@@ -1,5 +1,6 @@
 const models = require('../models')
 let User = models.User;
+let Rol = models.Rol;
 
 module.exports = {
   getUsers() {
@@ -9,16 +10,14 @@ module.exports = {
     return User.findOne({
       where: {
         email
-      }
-    }).then(data => data.dataValues);
+      },
+      include:Rol
+    });
   },
-  createUser(user) {
-    const { email, password } = user.body;
-    return Promise.resolve(
-      User.create({
+  createUser(email, password) {
+    return User.create({
         email,
         password
-      })
-    );
+    });
   }
 }

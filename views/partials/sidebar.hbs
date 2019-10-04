@@ -1,7 +1,26 @@
+{{#if jefetaller}}
 <div class="bg-light border-right" id="sidebar-wrapper">
 	<div class="list-group list-group-flush">
-		<a href="/dinosaurios" class="list-group-item list-group-item-action bg-light">Gestion dinosaurios</a>
-		<a href="/fosiles" class="list-group-item list-group-item-action bg-light">Gestion fosiles</a>
-		<a href="#" class="list-group-item list-group-item-action bg-light">Gestion subclases</a>
+		<a href="/dinosaurios/agregar" class="list-group-item list-group-item-action bg-light">Gestion Molde</a>
 	</div>
 </div>
+{{/if}}
+
+{{#if gerentecoleccion}}
+<div class="bg-light border-right" id="sidebar-wrapper">
+	<div class="list-group list-group-flush">
+		<a href="/dinosaurios/agregar" class="list-group-item list-group-item-action bg-light">Gestion Huesos</a>
+		<a href="/fosiles/agregar" class="list-group-item list-group-item-action bg-light">Gestion Fosil</a>
+	</div>
+</div>
+{{/if}}
+
+{{#if jefeexhibicion}}
+<div class="bg-light border-right" id="sidebar-wrapper">
+	<div class="list-group list-group-flush">
+		<a href="/dinosaurios/agregar" class="list-group-item list-group-item-action bg-light">Gestion Dinosaurio</a>
+		<a href="/fosiles/agregar" class="list-group-item list-group-item-action bg-light">Gestion Subclase</a>
+		<a href="#" class="list-group-item list-group-item-action bg-light">Gestion Clientes</a>
+	</div>
+</div>
+{{/if}}

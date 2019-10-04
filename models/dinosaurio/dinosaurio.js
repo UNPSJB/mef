@@ -24,6 +24,54 @@ module.exports = (sequelize, DataTypes) => {
         key:'id',        // id de la tabla SubClases
       }
     }
+  },{
+    hooks:{
+      afterValidate: (dinosaurio) => {
+        /*
+        Torax
+        Vertebral
+        Craneo
+          Cráneo
+          Paladar
+          Mandíbula
+
+        Pelvis
+          Coracoide
+          Coracoide
+          Ilion
+          Ilion
+          Pubis
+          Pubis          
+          Ischion
+          Ischion          
+
+        Brazo
+          Radio
+          Radio
+          Unla
+          Unla          
+          Húmero
+          Húmero
+          Escápula
+          Escápula          
+        
+        Manos
+
+        Piernas
+          Fémur
+          Fémur
+          Tibia
+          Tibia          
+          Fíbula
+          Fíbula        
+          
+        Pies
+
+        HUESOS QUE SE CARGAN AUTOMÁTICAMENTE
+      
+        */ 
+      }      
+    }
   });
 
   Dinosaurio.associate = function(models) {

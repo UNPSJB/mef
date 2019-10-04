@@ -3,53 +3,23 @@ var router = express.Router();
 const accountService = require("../services/account");
 var userService = require("../services/user");
 
-const redirectHome = (req, res, next) => {
-  if (req.session.userId) {
-    res.redirect('/users');
-  } else {
-    next();
-  }
-};
-
-const redirectLogin = (req, res, next) => {
-  if (!req.session.userId) {
+const roleExist = (r) => (req, res, next) => {
+  if (req.session.roles.indexOf(r) === -1) {
     res.redirect('/users/login');
   } else {
     next();
   }
 };
 
+router.get('/solo-jefe', roleExist('jefe-taller'), function (req, res, next) {
+  res.redirect('https://google.com');
+});
+
+
 /* GET users listing. */
-router.get('/', redirectLogin, function (req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('home');
 });
 
-router.get('/login', redirectHome, (req, res) => {
-  res.render('login')
-});
-router.get('/register', redirectHome, (req, res) => {
-  res.render('register')
-});
-
-router.post('/login', redirectHome, (req, res) => {
-  let { email, password } = req.body;
-  accountService.auth(email, password)
-    .then(user => {
-      if (user) {
-        req.session.userId = user.id;
-        res.redirect('/');
-      }
-      else {
-        res.render('login', { error: "bla", email, password});
-      }
-    });
-});
-
-router.post('/register', redirectHome, (req, res) => {
-  userService.createUser(req).then(() => {
-    res.redirect("/users");
-  }).catch("*****No pudo ser creado, sale mal");
-  //@TODO redireccionar a una pagina de no pudo ser creado o algo asi
-});
 
 module.exports = router;

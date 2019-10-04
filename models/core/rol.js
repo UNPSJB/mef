@@ -5,9 +5,6 @@ module.exports = (sequelize,DataTypes) =>{
         fecha_fin: DataTypes.DATEONLY
     });
     Rol.associate = function(models){
-        models.Rol.belongsToMany(models.User,{ 
-            through: 'user_rol' 
-        });
     };
     return Rol;
 };

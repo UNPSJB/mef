@@ -9,6 +9,7 @@ var methodOverride = require('method-override');
 var session = require('express-session');
 var cookieParser = require('cookie-parser'); // sequelize store dependencia
 var database = require('./models');
+var permisos = require('./auth/permisos');
 
 //rutas
 var indexRouter = require('./routes/index');
@@ -20,7 +21,7 @@ var subclaseRouter = require('./routes/subclases');
 var app = express();
 
 // view engine setup
-app.engine('hbs', hbs({defaultLayout:'main',extname:'.hbs'}));
+app.engine('hbs', hbs({defaultLayout:'main', extname:'.hbs'}));
 // app.set('views', './views');
 app.set('view engine', 'hbs');
 
@@ -34,7 +35,6 @@ app.use(cookieParser())
 app.use(methodOverride('_method'));
 
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
-
 
 app.use(session({
   store: new SequelizeStore({
@@ -51,11 +51,17 @@ app.use(session({
   }
 }));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/dinosaurios', dinosauriosRouter);
-app.use('/fosiles', fosilesRouter);
-app.use('/subclases',subclaseRouter)
+
+// Arranca la magia
+app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
+
+app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
+app.use('/users', permisos.estaLogueado, usersRouter);
+app.use('/dinosaurios', permisos.estaLogueado, dinosauriosRouter);
+app.use('/fosiles', permisos.estaLogueado, fosilesRouter);
+app.use('/subclases',permisos.estaLogueado, subclaseRouter);
+// app.use('/login');
+// app.use('/register');
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -72,5 +78,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.sequelizeSessionStore = SequelizeStore
+app.sequelizeSessionStore = SequelizeStore;
 module.exports = app;
