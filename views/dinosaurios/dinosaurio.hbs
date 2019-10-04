@@ -1,66 +1,77 @@
 <div style="padding-top: 10px">
-    <h1>Dinosaurios
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarDinoModal">
-            Agregar Dino
-        </button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarDinoModal">
+  <h1>Dinosaurios
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarDinoModal">
+      Agregar Dino
+    </button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarDinoModal">
+      Editar Dino
+    </button>
+  </h1>
+  <table class="table display" id="tablaDinos">
+    <thead>
+      <th scope="col">#</th>
+      <th scope="col">Activo</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Alimentacion</th>
+      <th scope="col">Periodo</th>
+      <th scope="col">Subclase</th>
+      <th scope="col">Descubrimiento</th>
+      <th scope="col">Acciones</th>
+    </thead>
+    <tbody>
+      {{#each results}}
+      <tr>
+        <th>{{this.id}}</th>
+        <td>{{this.activo}}</td>
+        <td>{{this.nombre}}</td>
+        <td>{{this.alimentacion}}</td>
+        <td>{{this.periodo}}</td>
+        <td>{{this.SubClase.descripcion}}</td>
+        <td>{{this.descubrimiento}}</td>
+        <!-- acciones aca -->
+        <td>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarDinoModal{{this.id}}">
             Editar Dino
-        </button>
-    </h1>
-    <table class="table display" id="tablaDinos" >
-        <thead>
-            <th scope="col">#</th>
-            <th scope="col">Activo</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Alimentacion</th>
-            <th scope="col">Periodo</th>
-            <th scope="col">Subclase</th>
-            <th scope="col">Descubrimiento</th>
-            <th scope="col">Acciones</th>
-        </thead>
-        <tbody>
-        {{#each results}}
-            <tr>
-                <th>{{this.id}}</th>
-                <td>{{this.activo}}</td>
-                <td>{{this.nombre}}</td>
-                <td>{{this.alimentacion}}</td>
-                <td>{{this.periodo}}</td>
-                <td>{{this.SubClase.descripcion}}</td>
-                <td>{{this.descubrimiento}}</td>
-                <!-- acciones aca -->
-                <td>
-                    <a href="/dinosaurios/editar?id={{this.id}}"><i class="far fa-edit" ></i></a> <!--editar-->
-                    <a href="/dinosaurios/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
-                {{!-- otras acciones mas --}}
-                
-                </td>
-            </tr>
-        {{/each}}
-        </tbody>    
-    </table>
+          </button>
+          {{>editarDino this}}
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eliminarDinoModal{{this.id}}">
+            Eliminar Dino
+          </button>
+          {{>eliminarDino this}}
+          <a href="/dinosaurios/editar?id={{this.id}}"><i class="far fa-edit"></i></a>
+          <!--editar-->
+
+          <a href="/dinosaurios/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
+          {{!-- otras acciones mas --}}
+
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
 
 {{! MODAL AGREGAR DINO}}
-<div class="modal fade" id="agregarDinoModal" tabindex="-1" role="dialog" aria-labelledby="agregarDinoModalLabel" aria-hidden="true">
+<div class="modal fade" id="agregarDinoModal" tabindex="-1" role="dialog" aria-labelledby="agregarDinoModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title font-weight-bold" id="agregarDinoModalLabel" >Agregar Dinosaurio</h5>
+        <h5 class="modal-title font-weight-bold" id="agregarDinoModalLabel">Agregar Dinosaurio</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form class="pt-3" action="/dinosaurios" method="POST">
-            {{>formDino}}
+          {{>formDino}}
         </form>
       </div>
     </div>
   </div>
 </div>
 
-{{! MODAL EDITAR    DINO}}
+{{!-- MODAL EDITAR    DINO
 <div class="modal fade" id="editarDinoModal" tabindex="-1" role="dialog" aria-labelledby="editarDinoModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -78,3 +89,4 @@
     </div>
   </div>
 </div>
+--}}
