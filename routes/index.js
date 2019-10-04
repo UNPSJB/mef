@@ -23,7 +23,7 @@ router.get('/register', permisos.redirectHome, (req, res) => {
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
   accountService.auth(email, password)
-    .then(user => {
+    .then(user => {req.session.userId = 5;
       if( !user) {
         res.render('login', {layout:'second', error: "email y/o contrasena incorrectos!", email});
       }
