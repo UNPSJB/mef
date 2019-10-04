@@ -1,64 +1,82 @@
-<div class="row">
-  <div class="col-6">
-    <h2>Agregar Dinosaurio</h2>
-    <form class="pt-3" action="/dinosaurios" method="POST">
+  <div class="modal fade" id="editarDinoModal{{this.id}}" tabindex="-1" role="dialog"
+    aria-labelledby="editarDinoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editarDinoModalLabel">Agregar dinosaurio</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="pt-3" action="/dinosaurios" method="POST">
+            <div class="form-group">
+              <label for="InputNombreCientifico">Nombre cientifico</label>
+              <input type="text" class="form-control" name="nombre" id="InputNombreCientifico"
+                placeholder="Ingrese Nombre Cientifico" required {{#if dino}}value="{{dino.nombre}}" {{/if}}>
+
+              <small id="nombreCientificohelp" class="form-text-muted text-muted">Podes cambiarlo despues</small>
+            </div>
+            {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
+
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-secondary form-check-label">
+                <input type="radio" name="alimentacion" id="option1" value="Carnivoro" autocomplete="off" required>
+                CARNÍVORO
+              </label>
+              <label class="btn btn-secondary form-check-label">
+                <input type="radio" name="alimentacion" id="option2" value="Herbivoro" autocomplete="off"> HERBÍVORO
+              </label>
+              <label class="btn btn-secondary form-check-label">
+                <input type="radio" name="alimentacion" id="option3" value="Omnivoro" autocomplete="off"> OMNÍVORO
+              </label>
+            </div>
+            <br>
+            <div class="btn-group btn-group-toggle pt-3" data-toggle="buttons">
+              <label class="btn btn-secondary">
+                <input class="form-check-input" type="radio" name="periodo" value="Cretacico" id="option1"
+                  autocomplete="off" required> CRETÁCICO
+              </label>
+              <label class="btn btn-secondary">
+                <input class="form-check-input" type="radio" name="periodo" value="Jurasico" id="option2"
+                  autocomplete="off"> JURÁSICO
+              </label>
+              <label class="btn btn-secondary">
+                <input class="form-check-input" type="radio" name="periodo" value="Triasico" id="option3"
+                  autocomplete="off"> TRIÁSICO
+              </label>
+            </div>
+
+            <div class="form-group pt-3">
+              <label for="InputFechaDescubrimiento">Fecha Descubrimiento</label>
+              <input type="date" name="descubrimiento" id="InputFechaDescubrimiento" required
+                {{#if dino}}value="{{dino.descubrimiento}}" {{/if}}>
+            </div>
+            <div class="form-group-vertical">
+              <input type="text" placeholder="Ingrese subclase" id="buscaSubclases">
+              <br>
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <div id="resultadosDeSubclases"></div>
+              </div>
+            </div>
+        </div>
+        <div class="col-6">
+          {{> formHueso}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
           <div class="form-group">
-          <label for="InputNombreCientifico">Nombre cientifico</label>
-          <input type="text" class="form-control" name="nombre" id="InputNombreCientifico" placeholder="Ingrese Nombre Cientifico" required  {{#if dino}}value="{{dino.nombre}}" {{/if}}>
-          
-          <small id="nombreCientificohelp" class="form-text-muted text-muted">Podes cambiarlo despues</small>
-      </div>
-      {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
-      
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary form-check-label">
-              <input type="radio" name="alimentacion" id="option1" value="Carnivoro" autocomplete="off" required> CARNÍVORO
-          </label>
-          <label class="btn btn-secondary form-check-label">
-              <input type="radio" name="alimentacion" id="option2" value="Herbivoro" autocomplete="off"> HERBÍVORO
-          </label>
-          <label class="btn btn-secondary form-check-label">
-              <input type="radio" name="alimentacion" id="option3" value="Omnivoro" autocomplete="off"> OMNÍVORO
-          </label>
-      </div>
-      <br>
-      <div class="btn-group btn-group-toggle pt-3" data-toggle="buttons">
-          <label class="btn btn-secondary">
-              <input class="form-check-input" type="radio" name="periodo" value="Cretacico" id="option1" autocomplete="off" required> CRETÁCICO
-          </label>
-          <label class="btn btn-secondary">
-              <input class="form-check-input" type="radio" name="periodo" value="Jurasico" id="option2" autocomplete="off"> JURÁSICO
-          </label>
-          <label class="btn btn-secondary">
-              <input class="form-check-input" type="radio" name="periodo" value="Triasico" id="option3" autocomplete="off"> TRIÁSICO
-          </label>
+            <button type="submit" class="btn btn-primary">Agregar Dino!</button>
+          </div>
+        </div>
       </div>
 
-      <div class="form-group pt-3">
-          <label for="InputFechaDescubrimiento">Fecha Descubrimiento</label>
-          <input type="date" name="descubrimiento" id="InputFechaDescubrimiento" required {{#if dino}}value="{{dino.descubrimiento}}" {{/if}}>
-      </div>
-      <div class="form-group-vertical">
-          <input type="text" placeholder="Ingrese subclase" id="buscaSubclases">
-          <br>
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <div id="resultadosDeSubclases"></div>
-          </div>
-      </div>
-  </div>
-  <div class="col-6">
-    {{> formHueso}}
-  </div>
-</div>
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">Agregar Dino!</button>
+      </form>
     </div>
   </div>
-</div>
-
-</form>
-
+  </div>
+  </div>
+  >>>>>>> HU08
 
   <script src="../../public/javascripts/subclasesFetches.js">  </script>
