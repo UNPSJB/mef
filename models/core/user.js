@@ -38,3 +38,7 @@ module.exports = (sequelize, DataTypes) =>{
 	};
 	return User;
 };
+
+//logear 
+//agregarPermiso, puede agregar mas de un permiso
+//sector es uno solo, es un enumerado
