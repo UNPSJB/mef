@@ -68,12 +68,6 @@ app.use(session({
 app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
 
 app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
-<<<<<<< Updated upstream
-app.use('/users', permisos.estaLogueado, usersRouter);
-app.use('/dinosaurios', permisos.estaLogueado, dinosauriosRouter);
-app.use('/fosiles', permisos.estaLogueado, fosilesRouter);
-app.use('/subclases',permisos.estaLogueado, subclaseRouter);
-=======
 app.use('/users', usersRouter);
 app.use('/dinosaurios', dinosauriosRouter);
 app.use('/fosiles',  fosilesRouter);
@@ -86,7 +80,6 @@ app.use('/subclases', subclaseRouter);
 // app.use('/subclases',permisos.estaLogueado, subclaseRouter);
 
 
->>>>>>> Stashed changes
 // app.use('/login');
 // app.use('/register');
 // catch 404 and forward to error handler

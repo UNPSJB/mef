@@ -57,13 +57,6 @@ router.all('/', (req, res, next) => {
     const {cant_cervicales,cant_dorsales,cant_sacras,cant_caudales,cant_cos_cervicales,cant_cos_dorsales,cant_hemales,cant_metacarpianos,cant_metatarsos,cant_dedos_mano,cant_dedos_pata} = req.body;
     console.log(idsubclase,"[[[[[[[[[[[[[[[[[[[[[[")
     dinoService.createDinosaurio(nombre, alimentacion, periodo, descubrimiento, idsubclase) // es una promesa
-<<<<<<< Updated upstream
-      .then((dinosaurio) => {
-        // createHueso(nombre, numero, DinosaurioId){
-        huesoService.createHuesos(dinosaurio.id, [cant_cervicales,cant_dorsales,cant_sacras,cant_caudales,cant_cos_cervicales,cant_cos_dorsales,cant_hemales,cant_metacarpianos,cant_metatarsos,cant_dedos_mano,cant_dedos_pata]);
-        res.redirect('/dinosaurios'); //@TODO agregar mas experiencia
-      });
-=======
       .then(() => {
         res.redirect('/dinosaurios');
       }).catch(err => {
@@ -72,7 +65,6 @@ router.all('/', (req, res, next) => {
   } else if (req.method == 'GET') {
     render();
   }
->>>>>>> Stashed changes
 });
 
 router.put('/', (req,res,next)=>{
