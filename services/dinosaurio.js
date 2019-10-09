@@ -10,6 +10,7 @@ module.exports = {
         return dino.findByPk(id);
     },
     createDinosaurio(nombre, alimentacion, periodo, descubrimiento, SubClaseId){
+        return Promise.reject({fecha: "fecha del futuro"});
         return dino.create({
                 nombre,
                 alimentacion,
