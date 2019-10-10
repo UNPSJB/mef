@@ -1,20 +1,13 @@
-<!-- Modal -->
-<div class="modal fade" id="agregarModal" tabindex="-1" role="dialog" aria-labelledby="agregarModalTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="agregarModalTitle">Agregar Subclase</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="/subclases" method="POST">
-        <div class="modal-body">
 
 <div class="container-fluid">
   <div class="row">
     <div class="col">
+      {{#if error}}
+        <div class="alert alert-danger">
+      {{error.message}}
+      </div>
+      {{/if}}
+      <form action="/subclases" method="post">
       <div class="form-group">
         <label>Descripcion:</label>
         <input type="text" name="descripcion" class="form-control" placeholder="Ingrese Descripcion Subclase" style="display: block" required>
@@ -30,18 +23,9 @@
           <input type="radio" name="clase" id="option2" value="Ornitisquio" autocomplete="off"> Ornitisquio
         </label>
       </div>
-
       </div>
+      <button type="submit">Agregar!</button>
     </div>
-  </div>
-</div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-      </form>
-    </div>
+    </form>
   </div>
 </div>

@@ -43,6 +43,8 @@ router.post('/', (req,res,next) =>{
     subclaseService.createSubclase(descripcion,clase)
     .then((subclase)=>{
         res.redirect('/subclases')
+    }).catch((error)=>{
+        res.render("subclases/agregar",{error})
     });
 });
 
