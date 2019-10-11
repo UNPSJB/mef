@@ -7,7 +7,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       defaultValue:true
     },
-    nombre: DataTypes.STRING,
+    nombre: {
+      type:DataTypes.STRING,
+      unique:{
+        args:true,
+        msg:"El nombre de dinosaurio ya esta en uso"
+      }
+    },
     alimentacion : {
       type: DataTypes.ENUM,
       values: ['Herbivoro','Carnivoro','Omnivoro']

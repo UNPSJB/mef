@@ -1,56 +1,4 @@
 <div style="padding-top: 10px">
-<<<<<<< Updated upstream
-  <h1>Dinosaurios
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarDinoModal">
-      Agregar Dino
-    </button>
-  </h1>
-  <table class="table" id="tablaDinos" onclick="sortList()">
-    <input type="text" id="myInput" onkeyup="searchBar()" placeholder="buscar por nombre..">
-    <thead>
-      <th scope="col" onclick="sortTable(0)">#</th>
-      <th scope="col">Activo</th>
-      <th scope="col" onclick="sortTable(1)">Nombre</th>
-      <th scope="col" onclick="sortTable(2)">Alimentacion</th>
-      <th scope="col" onclick="sortTable(3)">Periodo</th>
-      <th scope="col" onclick="sortTable(4)">Subclase</th>
-      <th scope="col" onclick="sortTable(5)">Descubrimiento</th>
-      <th scope="col">Acciones</th>
-    </thead>
-    <tbody>
-      {{#each results}}
-      <tr>
-        <th>{{this.id}}</th>
-        <td>{{this.activo}}</td>
-        <td>{{this.nombre}}</td>
-        <td>{{this.alimentacion}}</td>
-        <td>{{this.periodo}}</td>
-        <td>{{this.SubClase.descripcion}}</td>
-        <td>{{this.descubrimiento}}</td>
-        <!-- acciones aca -->
-        <td>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarDinoModal{{this.id}}">
-            Editar Dino
-          </button>
-          {{>dinosaurio/editar this}}
-          
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eliminarDinoModal{{this.id}}">
-            Eliminar Dino
-          </button>
-          {{>dinosaurio/eliminar this}}
-
-          <a href="/dinosaurios/editar?id={{this.id}}"><i class="far fa-edit"></i></a>
-          <!--editar-->
-
-          <a href="/dinosaurios/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
-          {{!-- otras acciones mas --}}
-
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-=======
     <h1>Dinosaurios  <a href="/dinosaurios/agregarDino" class="btn btn-primary" rel="noopener noreferrer">+</a></h1>
     <table class="table table-striped table-bordered" id="example">
         <thead>
@@ -83,14 +31,7 @@
         {{/each}}
         </tbody>    
     </table>
->>>>>>> Stashed changes
-</div>
-
-{{! MODAL AGREGAR DINO}}
-{{>dinosaurio/agregar}}
-        
-
-
+</div>       
 <script>
 function searchBar() {
   // Declare variables
