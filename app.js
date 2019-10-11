@@ -53,7 +53,7 @@ app.use(session({
 
 
 // Arranca la magia
-app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
+// app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
 
 app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
 app.use('/users', permisos.estaLogueado, usersRouter);

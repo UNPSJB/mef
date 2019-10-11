@@ -1,8 +1,8 @@
 <div style="padding-top: 10px">
   <h1>Dinosaurios
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarDinoModal">
+    <a href="dinosaurios/agregar" class="btn btn-primary">
       Agregar Dino
-    </button>
+    </a>
   </h1>
   <table class="table" id="tablaDinos" onclick="sortList()">
     <input type="text" id="myInput" onkeyup="searchBar()" placeholder="buscar por nombre..">
@@ -28,11 +28,7 @@
         <td>{{this.descubrimiento}}</td>
         <!-- acciones aca -->
         <td>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarDinoModal{{this.id}}">
-            Editar Dino
-          </button>
-          {{>dinosaurio/editar this}}
-          
+          <a href="/dinosaurios/moldes?id={{this.id}}" class="btn btn-primary">Administrar Huesos</a>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eliminarDinoModal{{this.id}}">
             Eliminar Dino
           </button>
@@ -40,8 +36,6 @@
 
           <a href="/dinosaurios/editar?id={{this.id}}"><i class="far fa-edit"></i></a>
           <!--editar-->
-
-          <a href="/dinosaurios/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
           {{!-- otras acciones mas --}}
 
         </td>
@@ -49,13 +43,7 @@
       {{/each}}
     </tbody>
   </table>
-</div>
-
-{{! MODAL AGREGAR DINO}}
-{{>dinosaurio/agregar}}
-        
-
-
+</div>       
 <script>
 function searchBar() {
   // Declare variables
