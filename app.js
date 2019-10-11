@@ -10,8 +10,6 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser'); // sequelize store dependencia
 var database = require('./models');
 var permisos = require('./auth/permisos');
-// ALEX ESTUVO ACA
-const flash = require('connect-flash');
 
 
 //rutas
@@ -41,7 +39,6 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-app.use(flash());
 
 
 app.use(methodOverride('_method'));
@@ -68,25 +65,10 @@ app.use(session({
 // app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
 
 app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
-<<<<<<< Updated upstream
 app.use('/users', permisos.estaLogueado, usersRouter);
 app.use('/dinosaurios', permisos.estaLogueado, dinosauriosRouter);
 app.use('/fosiles', permisos.estaLogueado, fosilesRouter);
 app.use('/subclases',permisos.estaLogueado, subclaseRouter);
-=======
-app.use('/users', usersRouter);
-app.use('/dinosaurios', dinosauriosRouter);
-app.use('/fosiles',  fosilesRouter);
-app.use('/subclases', subclaseRouter);
-
-// app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
-// app.use('/users', permisos.estaLogueado, usersRouter);
-// app.use('/dinosaurios', permisos.estaLogueado, permisos.esColeccion, dinosauriosRouter);
-// app.use('/fosiles', permisos.estaLogueado, fosilesRouter);
-// app.use('/subclases',permisos.estaLogueado, subclaseRouter);
-
-
->>>>>>> Stashed changes
 // app.use('/login');
 // app.use('/register');
 // catch 404 and forward to error handler
@@ -108,7 +90,6 @@ app.use(function(err, req, res, next) {
 // ALEX ESTUVO ACA 
 // Global Variables
 app.use((req, res, next) => {
-  app.locals.success = req.flash('success');
   next();
 });
 

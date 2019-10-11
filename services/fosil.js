@@ -9,7 +9,6 @@ module.exports ={
         return fosil.findByPk(id);
     },
     createFosil(numero_coleccion,peso,disponible,fecha_encontrado,observacion){
-        // req.flash('success', 'Link agregado correctamente');
         return fosil.create({
                 numero_coleccion,
                 peso,

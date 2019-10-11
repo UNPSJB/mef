@@ -9,7 +9,6 @@ var permisos = require('../auth/permisos');
 router.get('/', function(req, res, next) {
   console.log(req.session.userId);
   console.log(req.session.rol);
-  req.flash('success', 'Link agregado correctamente');  
   res.render('home',{layout:'second'});
 });
 

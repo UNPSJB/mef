@@ -4,7 +4,6 @@ const fosilService = require("../services/fosil");
 
 router.get('/', (req, res, next) => {
   fosilService.getFosiles().then(results => {
-    req.flash('success', 'Link agregado correctamente');  
     res.render("fosiles/fosil", {
       results
     });
@@ -12,7 +11,6 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/agregar', (req, res, next) => { 
-  req.flash('success', 'Link agregado correctamente');  
   res.render("fosiles/agregar");
 });
 
@@ -20,7 +18,6 @@ router.get('/editar', (req, res, next) => {
   fosilService
     .getFosil(req.body.id)
     .then(fosil => {
-      req.flash('success', 'Link agregado correctamente');  
       res.render("fosiles/editar", { fosil });
     })
     .catch(err => {
@@ -61,7 +58,6 @@ router.post('/', (req, res, next) => {
       observacion
     )
     .then(() => {
-      req.flash('success', 'Link agregado correctamente');  
       res.redirect("/fosiles");
     });
 });
