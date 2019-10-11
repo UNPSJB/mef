@@ -1,4 +1,5 @@
 <div style="padding-top: 10px">
+    <h1>Fosiles <a href="/fosiles/agregar" class="btn btn-primary" rel="noopener noreferrer">+</a></h1>
     <table class="table">
         <thead>
             {{!-- <th scope="col">Hueso</th> --}}
@@ -18,6 +19,13 @@
                 <td>{{this.disponible}}</td>
                 <td>{{this.fecha_encontrado}}</td>
                 <td>{{this.observacion}}</td>
+                {{!-- Acciones --}}
+                <td>
+                    <a href="/fosiles/editar?id={{this.id}}"><i class="far fa-edit"></i></a> <!--editar-->
+                    <a href="/fosiles/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
+                        {{!-- otras acciones mas --}}
+                </td>
+
             </tr>
         {{/each}}
         </tbody>    
