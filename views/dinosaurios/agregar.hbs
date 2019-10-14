@@ -51,7 +51,7 @@
                 <label for="exampleFormControlSelect1">Subclase</label>
                 <select multiple class="form-control" name="idsubclase" id="exampleFormControlSelect1" autocomplete="off" required>
                   {{#each subclases}}
-                  <option value="{{subclase.id}}">{{subclase.descripcion}}</option>
+                  <option value="{{this.id}}">{{this.descripcion}}</option>
                   {{/each}}
                 </select>
               </div>
