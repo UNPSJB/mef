@@ -59,7 +59,19 @@ router.patch('/moldes/toggle', (req,res)=>{
   res.send(200);
 });
 
-
+router.post('/', (req,res,next) =>{ // esto llama a dino service
+  const {nombre, alimentacion, periodo, descubrimiento, idsubclase} = req.body;
+  const {cant_cervicales,cant_dorsales,cant_sacras,cant_caudales,cant_cos_cervicales,cant_cos_dorsales,cant_hemales,cant_metacarpianos,cant_metatarsos,cant_dedos_mano,cant_dedos_pata} = req.body;
+  dinoService.createDinosaurio(nombre, alimentacion, periodo, descubrimiento, idsubclase) // es una promesa
+    .then((dinosaurio) => {
+      // createHueso(nombre, numero, DinosaurioId){
+      huesoService.createHuesos(dinosaurio.id, [cant_cervicales,cant_dorsales,cant_sacras,cant_caudales,cant_cos_cervicales,cant_cos_dorsales,cant_hemales,cant_metacarpianos,cant_metatarsos,cant_dedos_mano,cant_dedos_pata]);
+      res.redirect('/dinosaurios'); //@TODO agregar mas experiencia
+    })
+    .catch((errores)=>{
+      res.render("dinosaurios/agregar",{errores})
+    });
+});
 
 router.put('/', (req,res,next)=>{
     dinoService.updateDinosaurio(req.body)
