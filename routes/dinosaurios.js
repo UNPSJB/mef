@@ -67,13 +67,22 @@ router.post('/', (req,res,next) =>{ // esto llama a dino service
       res.redirect('/dinosaurios'); //@TODO agregar mas experiencia
     })
     .catch((errores)=>{
-      res.render("dinosaurios/agregar",{errores})
-    });
+      const dino = req.body;
+      subclaseService.getSubclases()
+  .then((subclases)=>{
+      res.render("dinosaurios/agregar",{errores,dino,subclases})
+    })});
 });
 
 router.put('/', (req,res)=>{
     dinoService.updateDinosaurio(req.body)
-      .then(() => res.redirect('/dinosaurios'));
+      .then(() => res.redirect('/dinosaurios'))
+      .catch((errores)=>{
+        const dino = req.body;
+        subclaseService.getSubclases()
+  .then((subclases)=>{
+        res.render("dinosaurios/editar",{errores,dino,subclases})
+      })});
 });
 
 router.delete('/' , (req,res) =>{

@@ -6,11 +6,11 @@
                 <div class="form-group">
                   <label for="InputNombreCientifico">Nombre cientifico</label>
                   <input type="text" class="form-control" name="nombre" id="InputNombreCientifico"
-                    placeholder="Ingrese Nombre Cientifico" required {{#if subclase}}value="{{subclase.nombre}}" {{/if}}>
+                    placeholder="Ingrese Nombre Cientifico" required {{#if dino}}value="{{dino.nombre}}" {{/if}}>
 
                   <small id="nombreCientificohelp" class="form-text-muted text-muted">Podes cambiarlo despues</small>
                 </div>
-                {{#if subclase}}<input name="id" type="number" value="{{subclase.id}}" hidden> {{/if}}
+                {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
 
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                   <label class="btn btn-secondary form-check-label">
@@ -45,7 +45,7 @@
                 <div class="form-group pt-3">
                   <label for="InputFechaDescubrimiento">Fecha Descubrimiento</label>
                   <input type="date" name="descubrimiento" max="hoy()"id="InputFechaDescubrimiento" required
-                    {{#if subclase}}value="{{subclase.descubrimiento}}" {{/if}}>
+                    {{#if dino}}value="{{dino.descubrimiento}}" {{/if}}>
                 </div>
                 <div class="form-group-vertical">
                 <label for="exampleFormControlSelect1">Subclase</label>
