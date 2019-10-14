@@ -44,7 +44,7 @@
 
                 <div class="form-group pt-3">
                   <label for="InputFechaDescubrimiento">Fecha Descubrimiento</label>
-                  <input type="date" name="descubrimiento" id="InputFechaDescubrimiento" required
+                  <input type="date" name="descubrimiento" max="hoy()"id="InputFechaDescubrimiento" required
                     {{#if subclase}}value="{{subclase.descubrimiento}}" {{/if}}>
                 </div>
                 <div class="form-group-vertical">
@@ -83,3 +83,9 @@
     </div>
     </form>
 </div>
+
+<script>
+function hoy(){
+  return new Date();
+}
+</script>

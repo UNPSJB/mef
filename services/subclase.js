@@ -19,9 +19,7 @@ module.exports = {
         return subclase.findByPk(id)
         .then((subclaseEncontrado)=>{
             subclaseEncontrado.destroy();
-        }).catch( (err) =>{
-            console.log("subclase no existe"+err)
-        });
+        })
     },
     updateSubclase(subclaseModificado){
         return subclase.upsert(subclaseModificado);

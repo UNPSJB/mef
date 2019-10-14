@@ -25,8 +25,6 @@ router.get('/agregar', (req,res,next) => {
       subclases
     })
   });
-
-
 });
 
 router.get('/editar', async (req,res,next) => {
@@ -35,7 +33,7 @@ router.get('/editar', async (req,res,next) => {
   subclaseService.getSubclases()
   .then((subclases)=>{
     res.render('dinosaurios/editar', { dino, subclases });    
-  }).catch((err)=>{  console.log(err)}); //@TODO mostrar dino sin editar o algo
+  }); //@TODO mostrar dino sin editar o algo
 });
 
 router.get('/eliminar', (req,res,next)=>{
@@ -73,12 +71,12 @@ router.post('/', (req,res,next) =>{ // esto llama a dino service
     });
 });
 
-router.put('/', (req,res,next)=>{
+router.put('/', (req,res)=>{
     dinoService.updateDinosaurio(req.body)
       .then(() => res.redirect('/dinosaurios'));
 });
 
-router.delete('/' , (req,res,next) =>{
+router.delete('/' , (req,res) =>{
   dinoService.deleteDinosaurio(req.body.id)
     .then(() => res.redirect('/dinosaurios'));
 });
