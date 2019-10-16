@@ -8,13 +8,14 @@ module.exports ={
     getFosil(id){
         return fosil.findByPk(id);
     },
-    createFosil(numero_coleccion,peso,disponible,fecha_encontrado,observacion){
+    createFosil(numero_coleccion,peso,disponible,fecha_encontrado,observacion,HuesoId){
         return fosil.create({
                 numero_coleccion,
                 peso,
                 disponible,
                 fecha_encontrado,
-                observacion
+                observacion,
+                HuesoId
             });
     },
     updateFosil(fosilReq){
