@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', permisos.redirectHome,(req, res) => {
-  res.render('login',{layout:'second'});
+  res.render('login', {layout:'login'});
 });
 
 router.get('/register', permisos.redirectHome, (req, res) => {
@@ -25,7 +25,7 @@ router.post('/login', (req, res) => {
   accountService.auth(email, password)
     .then(user => {req.session.userId = 5;
       if( !user) {
-        res.render('login', {layout:'second', error: "email y/o contrasena incorrectos!", email});
+        res.render('login', {layout:'login', error: "email y/o contrasena incorrectos!", email});
       }
       if (user) {
         console.log(user);
