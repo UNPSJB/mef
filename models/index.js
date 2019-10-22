@@ -16,8 +16,9 @@ if (config.use_env_variable) {
 }
 // https://stackoverflow.com/questions/18112204/get-all-directories-within-directory-nodejs
 
-const subfolders = (source) => fs.
+/*const subfolders = (source) => fs.
   readdirSync(source, { withFileTypes: true }).filter(dirent => dirent.isDirectory()).map(dirent => dirent.name);
+*/
 
 // raiz del archivo
 fs
@@ -28,9 +29,11 @@ fs
   .forEach(file => {
     const model = sequelize['import'](path.join(__dirname, file));
     db[model.name] = model;
+
   });
 
-const sub = subfolders(__dirname);
+/* const sub = subfolders(__dirname);
+
 // subcarpetas
 sub.forEach(sub =>{
   const newdir = __dirname + '/' + sub;
@@ -42,7 +45,7 @@ sub.forEach(sub =>{
     const model = sequelize['import'](path.join(newdir, file));
     db[model.name] = model;
   });
-});
+}); */
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

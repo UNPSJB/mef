@@ -15,8 +15,11 @@ var permisos = require('./auth/permisos');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dinosauriosRouter = require('./routes/dinosaurios');
-var fosilesRouter = require('./routes/fosiles');
+//var fosilesRouter = require('./routes/fosiles');
 var subclaseRouter = require('./routes/subclases');
+
+//primer paso declarar la ruta para los clientes
+var clientesRouter = require('./routes/clientes');
 
 var app = express();
 
@@ -53,13 +56,16 @@ app.use(session({
 
 
 // Arranca la magia
-app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
+//app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
 
 app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
 app.use('/users', permisos.estaLogueado, usersRouter);
-app.use('/dinosaurios', permisos.estaLogueado, dinosauriosRouter);
-app.use('/fosiles', permisos.estaLogueado, fosilesRouter);
+app.use('/dinosaurios', dinosauriosRouter);
+//app.use('/fosiles', permisos.estaLogueado, fosilesRouter);
 app.use('/subclases',permisos.estaLogueado, subclaseRouter);
+//segundo paso indicarle a la aplicacion que para rutas con /clientes el midware de cliente resolvera la peticion
+app.use('/clientes',clientesRouter);
+
 // app.use('/login');
 // app.use('/register');
 // catch 404 and forward to error handler

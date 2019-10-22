@@ -1,0 +1,35 @@
+const models = require('../models')
+let cliente = models.Cliente;
+let persona = models.Persona;
+let personaService = require('./persona');
+
+
+module.exports = {
+    getClientes(){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
+        return cliente.findAll({include:[persona]});
+    },
+    getCliente( id ){
+        return cliente.findByPk(id, {include:[persona]});
+    },
+   createCliente(tipo, PersonaId){
+        return cliente.create({
+            tipo,
+            PersonaId
+        });
+    },
+    updateCliente(clienteReq){
+        return cliete.upsert(clienteReq)
+                .catch(()=>{
+                    console.log("male sal cliente insert");
+                });
+    },
+    deleteCliente(id){
+        return cliente.findByPk(id)
+            .then( (clienteEncontrado) => {
+                clienteEncontrado.destroy(clienteEncontrado);
+            })
+            .catch((err) => {
+                console.log("mal sale otrave "+err);
+            });
+    }
+};

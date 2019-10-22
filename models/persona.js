@@ -1,7 +1,14 @@
 'use strict';
-module.exports = (sequelize, DataTypes) =>{
+module.exports = (sequelize,DataTypes) =>{
     const Persona = sequelize.define('Persona', {
-        identificacion: DataTypes.INTEGER, //##-********-## o ********
+        identificacion: {               //##-********-## o ********
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: {
+                args: true,
+                msg: 'bale berga la vida'
+            }
+        },
         activo: DataTypes.BOOLEAN,
         nombre:DataTypes.STRING, //solo alfabetico
         apellido:DataTypes.STRING,//solo alfabetico
@@ -11,10 +18,8 @@ module.exports = (sequelize, DataTypes) =>{
         fecha_nacimiento: DataTypes.DATEONLY,
         telefono: DataTypes.STRING
     })
-    Persona.associate = function(models) {
-        models.Persona.hasMany(models.Rol);
-    };
     return Persona;
 };
-//
-//agregarRol(Rol)
+
+
+    
