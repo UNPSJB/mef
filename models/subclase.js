@@ -3,7 +3,14 @@ module.exports = (sequelize, DataTypes) => {
   const SubClase = sequelize.define('SubClase', {
     descripcion: {
       type:DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      validate: {
+        
+      },
+      unique:{
+          msg: "El nombre de subclase ya existe.",
+        }
+      
     },
     clase : {
       type: DataTypes.ENUM,

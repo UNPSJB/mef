@@ -1,25 +1,66 @@
-<h1>Login @ <a href="/register">Registrarse!</a></h1>
 {{#if error}}
 <div class="alert alert-danger">
-  {{error}}
+    {{error}}
 </div>
-
 {{/if}}
-<form action="/login" method="POST">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" {{#if email}}value="{{email}}"{{/if}}>
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 
-{{!-- pasted from bootstrap --}}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-5 bg-secondary d-flex justify-content-center align-items-center slider">
+            <!-- Imagen fija no crece ni disminuye -->
+            <!-- <img src="../img/palomitas.jpg" width="100px" height="100px" alt=""> -->
+            <!-- Imagen crece y disminuye conforme sea la pantalla de grande -->
+            <img class="img-fluid" src="../img/palomitas.jpg" alt="" />
+        </div>
+        <div class="col-7 mt-2 bg-dark">
+            <nav class="navbar navbar-dark bg-dark">
+                <a class="navbar-brand" href="/">Mef Home</a>
+            </nav>
+            <div class="col-sm-11 my-5 mb-5">
+                <h2 class="text-center display-4 text-description font-weight-bold">
+                    Welcome
+                </h2>
+            </div>
+
+            <form class="col-8 mx-auto" action="/login" method="POST">
+                <p class="text-description mb-4">
+                    El Mef es un centro de actividades científicas, con
+                    entretenimiento para toda la familia.
+                </p>
+                <input name="email" type="email" class="form-control my-4 text-center" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Ingrese mail" {{#if email}} value="{{email}}" {{/if}} />
+                <input name="pasword" type="password" class="form-control my-4 text-center" id="exampleInputPassword1"
+                    placeholder="Contraseña" />
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-light btn-block">
+                        SignUp
+                    </button>
+                </div>
+
+                <ul class="list-unstyled list-inline text-center mt-5">
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/mefpatagonia/">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/mefpatagonia/?hl=es-la">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/mefpatagonia?lang=es">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.youtube.com/channel/UCS36BW2WmvMZxJTvw5jTMfw">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,7 @@ var cookieParser = require('cookie-parser'); // sequelize store dependencia
 var database = require('./models');
 var permisos = require('./auth/permisos');
 
+
 //rutas
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -35,6 +36,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser())
+// ALEX ESTUVO ACA
+app.use(session({
+  secret: 'lexpgnodesession',
+  resave: false,
+  saveUninitialized: false
+}));
+
+
 app.use(methodOverride('_method'));
 
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -56,7 +65,7 @@ app.use(session({
 
 
 // Arranca la magia
-//app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
+// app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
 
 app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
 app.use('/users', permisos.estaLogueado, usersRouter);
@@ -83,6 +92,14 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// ALEX ESTUVO ACA 
+// Global Variables
+app.use((req, res, next) => {
+  next();
+});
+
+
 
 app.sequelizeSessionStore = SequelizeStore;
 module.exports = app;

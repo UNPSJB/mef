@@ -1,0 +1,46 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Editar Fosil</h3>
+                </div>
+                <div class="card-body">
+                    <form class="pt-3" action="/fosiles?_method=PUT" method="POST">
+                        <div class="form-group">
+                            <label for="InputNumeroColeccion">Numero de Coleccion</label>
+                            <input type="text" class="form-control" name="numero_coleccion" id="InputNumeroColeccion"
+                                placeholder="Ingrese Numero de Coleccion" required 
+                                {{#if fosil}}value="{{fosil.numero_coleccion}}" {{/if}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputPeso">Peso</label>
+                            <input type="number" class="form-control" name="peso" id="InputPeso" placeholder="Ingrese Peso de Fosil"
+                                required>
+                        </div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="col-6 mr-5">Disponible:</label>
+                            <label class="btn btn-secondary form-check-label">
+                                <input type="radio" name="disponible" id="option1" value="true" autocomplete="off"
+                                    required>
+                                Si
+                            </label>
+                            <label class="btn btn-secondary form-check-label">
+                                <input type="radio" name="disponible" id="option2" value="false" autocomplete="off"> No
+                            </label>
+                        </div>
+                        <div class="form-group pt-3">
+                            <label for="fecha_encontrado">Fecha Encontrado</label>
+                            <input name="fecha_encontrado" type="date" id="fecha_encontrado" required>
+                        </div>
+                        <div>
+                            <textarea name="observacion" id="" cols="50" rows="5" placeholder="Ingrese observaciones"></textarea>
+                        </div>
+                        <input type="number" name="HuesoId" value="{{ hueso.id }}" hidden>
+                        <button type="submit" class="btn btn-success btn-block">Agregar Fosil!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
