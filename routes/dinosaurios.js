@@ -51,6 +51,14 @@ router.get('/moldes', (req, res) => {
     });
 });
 
+router.get('/huesos/:id', (req,res)=>{
+  const {id} = req.params;
+  huesoService.getHuesosDino(id)
+    .then((huesos)=>{
+      res.send(JSON.stringify(huesos,null,4))
+    })
+})
+
 router.patch('/moldes/toggle', (req,res)=>{
   const { id } = req.query
   huesoService.toggleDisponibilidadHueso(id);
