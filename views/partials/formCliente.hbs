@@ -1,28 +1,28 @@
-<div class="form-group">
+<div class="form-group" id="form-cliente">
     <label for="InputNombre">Documento</label>
-    <input type="text" class="form-control" name="identificacion" id="InputIdentificacion" placeholder="Ingrese su documentos" required  {{#if cliente}} value="{{cliente.tipo }}" {{/if}} >
+    <input type="text" class="form-cliente form-control" name="identificacion" id="InputIdentificacion" placeholder="Ingrese su documentos" required  {{#if cliente}} value="{{cliente.tipo }}" {{/if}} >
     
     <label for="InputNombre">Nombre</label>
-    <input type="text" class="form-control" name="nombre" id="InputNombre" placeholder="Ingrese Nombre" required  {{#if this}}value="{{this.nombre}}" {{/if}}>
+    <input type="text" class="form-cliente form-control" name="nombre" id="InputNombre" placeholder="Ingrese Nombre" required  {{#if this}}value="{{this.nombre}}" {{/if}}>
     
     <label for="InputApellido">Apellido</label>
-    <input type="text" class="form-control" name="apellido" id="InputApellido" placeholder="Ingrese Apellido" required  {{#if this}}value="{{this.apellido}}" {{/if}}>
+    <input type="text" class="form-cliente form-control" name="apellido" id="InputApellido" placeholder="Ingrese Apellido" required  {{#if this}}value="{{this.apellido}}" {{/if}}>
     
     <label for="InputDireccion">Direccion</label>
-    <input type="text" class="form-control" name="direccion" id="InputDireccion" placeholder="Ingrese Direccion" required  {{#if this}}value="{{this.direccion}}" {{/if}}>
+    <input type="text" class="form-cliente form-control" name="direccion" id="InputDireccion" placeholder="Ingrese Direccion" required  {{#if this}}value="{{this.direccion}}" {{/if}}>
     
     <label for="InputLocalidad">Localidad</label>
-    <input type="text" class="form-control" name="localidad" id="InputLocalidad" placeholder="Ingrese Localidad" required  {{#if this}}value="{{this.localidad}}" {{/if}}>
+    <input type="text" class="form-cliente form-control" name="localidad" id="InputLocalidad" placeholder="Ingrese Localidad" required  {{#if this}}value="{{this.localidad}}" {{/if}}>
 
     <label for="InputEmail">Email</label>
-    <input type="email" class="form-control" name="email" id="InputEmail" placeholder="Ingrese Email" required  {{#if this}}value="{{this.email}}" {{/if}}>
+    <input type="email" class="form-cliente form-control" name="email" id="InputEmail" placeholder="Ingrese Email" required  {{#if this}}value="{{this.email}}" {{/if}}>
     
     <label for="InputFechaNacimiento">Fecha Nacimiento</label>
     <br>
-    <input type="date" name="fecha_nacimiento" id="InputFechaNacimiento" required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
+    <input type="date" class="form-cliente form-control" name="fecha_nacimiento" id="InputFechaNacimiento" required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
     <br>
     <label for="InputTelefono">Telefono</label>
-    <input type="tel" class="form-control" name="telefono" id="InputTelefono"  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Ingrese Telefono" required  {{#if this}}value="{{this.telefono}}" {{/if}}>
+    <input type="tel" class="form-cliente form-control" name="telefono" id="InputTelefono"  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Ingrese Telefono" required  {{#if this}}value="{{this.telefono}}" {{/if}}>
 
     {{#if cliente}}<input name="id" type="number" value="{{cliente.id}}" hidden> {{/if}}
         

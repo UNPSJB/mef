@@ -14,11 +14,34 @@ router.get('/',(req, res, next) => {
 });
 
 router.get('/agregar', (req,res,next) => {
-    clienteService.getClientes()
-    .then((clientes) => {
-        res.render('clientes/agregar',{clientes});
-    })
-    .catch((err)=>{console.log(err)});
+    personaService.getPersonas()
+    .then((personas)=>{
+        clienteService.getClientes()
+        .then((clientes) => {
+            personas = [
+                {   id:12,
+                    nombre:'oli'},
+                {   id:13,
+                    nombre:'we'},
+                {   id:14,
+                    nombre:'mundo'},
+            ]
+
+            cliente = [
+                {id:12,
+                nombre:'oli'}
+            ]
+
+            var resultados = personas.filter( function(persona){
+                cliente.forEach(cliente => {
+                    cliente.persona.id == persona.id;
+                });
+            });
+            console.log(resultados);
+            res.render('clientes/agregar',{clientes});
+        })
+    });
+    
 });
 
 router.get('/editar',(req,res,next) => {
@@ -39,31 +62,16 @@ router.get('/eliminar', (req,res,next)=>{
   });
   
   router.post('/', (req,res,next) =>{
-    const {identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipo } = req.body;
-    var expregCuil = /\d{2}-(\d|[a-zA-Z]){8}-\d{2}/;
-    var expregDoc = /(\d|[a-zA-Z]){8}/;
-    
-    //Esto esta bien asqueroso necesito mejorar para trabajar las validaciones en otro lugar tal vez.
-    if (expregCuil.test(identificacion) | expregDoc.test(identificacion)){//VALIDO QUE EL FORMATO DEL IDENTIFICADOR SEA ##-********-## o ********
-        personaService.createPersona(   identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
-        .then((persona)=>{
-            clienteService.createCliente(tipo, persona.id) 
-            .then(() => {
-                res.redirect('/clientes');
-            })
-            .catch((err) => { 
-            //error de cliente
-            });
-        }).catch((err) => { //error de persona
-            console.log(err);
-            res.render('clientes/agregar', {err});
-        });
-
-    }else{//ERROR FORMATO NO VALIDO
-        var err = 'Identificador no cumple formato ##-********-## o ********';
-        res.render('clientes/agregar', {err} );
+    const {identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, personaid, tipo } = req.body;
+    if(tipo == 'nuevo'){
+        clienteService.createCliente(tipoCliente,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
+        .then(()=>{ res.redirect('/redirect')});
     }
 
+    if(tipo == 'existe'){
+        clienteService.createCliente(tipoCliente, personaid)
+        .then(()=>{ res.redirect('/redirect')});
+    }
   });
   
 

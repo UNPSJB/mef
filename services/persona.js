@@ -3,7 +3,7 @@ let persona = models.Persona;
 
 
 module.exports = {
-    getPersona(){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
+    getPersonas(){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
         return persona.findAll();
     },
     getPersona( id ){

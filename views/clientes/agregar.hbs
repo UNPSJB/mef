@@ -5,12 +5,12 @@
     <div class="row pb-3">
       <div class="col-4">
         <label class="btn btn-secondary form-check-label">
-          <input type="radio" name="tipo" id="option1" value="Existe Persona" autocomplete="off" required> Existente
+          <input type="radio" name="tipo" id="existe" value="existe" autocomplete="off" required> Existente
         </label>
       </div>
 
       <div class="col-8">
-        <select class="form-control">
+        <select class="lista-cliente form-control" name='personaid'>
           {{#each clientes}}
             <option value="{{this.id}}">{{this.Persona.identificacion}} - {{this.Persona.nombre}} {{this.Persona.apellido}}</option>
           {{/each}}
@@ -22,7 +22,7 @@
     <div class="row bg-light pt-3">
       <div class="col-4 d-flex">
         <label class="btn btn-secondary form-check-label align-self-center">
-          <input type="radio" name="tipo" id="option1" value="Nueva Persona" autocomplete="off" required> Nuevo
+          <input type="radio" name="tipo" id="nuevo" value="nuevo" autocomplete="off" required> Nuevo
         </label>
       </div>
       <div class="col-8">
@@ -32,11 +32,11 @@
 
     <div class="row">
       <label class="btn btn-secondary form-check-label">
-        <input type="radio" name="tipo" id="option1" value="Particular" autocomplete="off" required> Particular
+        <input type="radio" name="tipoCliente" id="option1" value="Particular" autocomplete="off" required> Particular
     </label>
 
     <label class="btn btn-secondary form-check-label">
-        <input type="radio" name="tipo" id="option2" value="Institucional" autocomplete="off" > Institucional
+        <input type="radio" name="tipoCliente" id="option2" value="Institucional" autocomplete="off" > Institucional
     </label>
     </div>
     
@@ -44,16 +44,25 @@
       <button type="submit" class="btn btn-primary">Agregar Cliente!</button>
     </div>
   </div>
-  
-  
-  {{#if err}}
-  <div class="alert alert-danger" >
-    {{err}}
-  </div>
-  {{/if}}
-
-  <div id="div1">
-    
-  </div>
-
 </form>
+
+<script>
+  $("#existe").click(function(){
+    $(".form-cliente").each(function(){
+      this.disabled = true;
+    })
+    $(".lista-cliente").each(function(){
+        this.disabled = false;
+      })
+  });
+
+  $("#nuevo").click(function(){
+      $(".lista-cliente").each(function(){
+        this.disabled = true;
+      })
+       $(".form-cliente").each(function(){
+        this.disabled = false;
+      })
+    });
+
+</script> 

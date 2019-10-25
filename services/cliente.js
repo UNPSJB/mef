@@ -17,6 +17,15 @@ module.exports = {
             PersonaId
         });
     },
+    createCliente(tipo, identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono){
+        personaService.createPersona(  identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
+        .then((persona)=>{
+            return cliente.create({
+                tipo,
+                PersonaId:persona.id
+            })
+        })
+    },
     updateCliente(clienteReq){
         return cliete.upsert(clienteReq)
                 .catch(()=>{
