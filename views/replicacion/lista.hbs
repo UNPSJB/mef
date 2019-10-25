@@ -1,0 +1,54 @@
+<h1>Lista de pedidos <a class="btn btn-success" href="/replicas/pedidos/agregar" role="button">Crear Pedido</a> </h1>
+<div class="container">
+    <table class="table">
+        <thead>
+            <th>#</th>
+            <th>Autorizado</th>
+            <th>Estado</th>
+            <th>Cliente</th>
+            <th>Motivo</th>
+            <th>Acciones</th>
+        </thead>
+        <tbody>
+            {{#each pedidos}}
+            <tr class="{{this.estado}}">
+                <td>{{this.id}}</td>
+                <td>{{this.autorizacion}}</td>
+                <td>{{this.estado}}</td>
+                <td>{{this.Persona.id}}</td>
+                <td>{{this.motivo}}</td>
+                
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<script>
+$(".Presupuestado").each(function(){
+    $(this).append("<td> "+ fabricar("facturar",1) + fabricar("cancelar",1) +  " </td>")
+})
+$(".Facturado").each(function(){
+    $(this).append("<td>"+ fabricar("confirmar",1) + "</td>")
+})
+$(".Confirmado").each(function(){
+    $(this).append("<td>"+ fabricar("fabricar",1)+"</td>")
+})
+$(".Fabricando").each(function(){
+    $(this).append("<td>"+ fabricar("finalizar",1) + fabricar("demorar",1) +  "</td>")
+})
+$(".Demorado").each(function(){
+    $(this).append("<td>"+ fabricar("reanudar",1) +  "</td>")
+})
+$(".Finalizado").each(function(){
+    $(this).append("<td>"+ fabricar("entregar",1)+"</td>")
+})
+$(".Entregado").each(function(){
+    $(this).append("<td>No hay mas acciones.</td>")
+})
+
+function fabricar(accion, id){
+    let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
+    return `<a class='btn btn-primary' href='/replicas/pedidos/${accion}/${id}'>${capitlizado}</a>`;
+}
+</script>

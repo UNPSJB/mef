@@ -6,6 +6,19 @@
                     <h3>Agregar Fosil</h3>
                 </div>
                 <div class="card-body">
+                    <label  for="dinosaurio">Seleccionar Dinosauio</label>
+                    <select class="form-control" name="dinosaurio" id="dinosaurioId">
+                        <option value="Condorraptor">Condorraptor</option>
+                        <option value="Carnotaurus">Carnotaurus</option>
+                        <option value="Piatnitzkysaurus">Piatnitzkysaurus</option>
+                    </select>
+                    <label class="mt-3" for="hueso">Seleccionar Hueso</label>
+                    <select class="form-control" name="hueso" id="huesoId">
+                        <option value="Femur">Femur</option>
+                        <option value="Humero">Humero</option>
+                        <option value="Pubis">Pubis</option>
+                    </select>
+
                     <form class="pt-3" action="/fosiles" method="POST">
                         <div class="form-group">
                             <label for="InputNumeroColeccion">Numero de Coleccion</label>
@@ -44,14 +57,3 @@
         </div>
     </div>
 </div>
-
-
-
-{{!--
-Hueso (#6) no se hace
-Numero de Colección
-Peso (KG)
-Disponible [VERDADERO | FALSO]
-Fecha Encontrado[dd/mm/yyyy]
-Observación
---}}

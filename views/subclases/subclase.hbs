@@ -1,5 +1,5 @@
 <div style="padding-top: 10px"></div>
-<h1>Subclases  <button data-target="#agregarModal" data-toggle="modal" class="btn btn-primary" rel="noopener noreferrer">+</button></h1>
+<h1>Subclases  <a href="/subclases/agregar" class="btn btn-primary" >+</a></h1>
 <table class="table">
   <thead>
     <th scope="col">Nombre</th>
@@ -13,7 +13,7 @@
       <td>{{this.clase}}</td>
       <!-- acciones aca -->
       <td>
-        <a href="#" data-toggle="modal" data-target="#editar{{this.id}}"><i class="far fa-edit"></i></a>
+        <a href="/subclases/editar?id={{this.id}}"><i class="far fa-edit"></i></a>
         <!--editar-->
         <a href="#" data-toggle="modal" data-target="#eliminar{{this.id}}"><i class="fas fa-minus-circle"></i></a>
           {{!-- otras acciones mas --}}

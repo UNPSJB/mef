@@ -45,14 +45,19 @@ router.post('/', (req,res,next) =>{
         res.redirect('/subclases')
     })
     .catch((errores)=>{
-        res.render("subclases/agregar", {errores})
+        const subclase = req.body;
+        res.render("subclases/agregar", {errores,subclase})
     });
 });
 
 router.put('/', (req,res,next)=>{
     const subclase = req.body;
     subclaseService.updateSubclase(subclase)
-    .then(()=> res.redirect('/subclases'));
+    .then(()=> res.redirect('/subclases'))
+    .catch((errores)=>{
+        const subclase = req.body;
+        res.render("subclases/editar", {errores,subclase})
+    });
 });
 
 router.delete('/' , (req,res,next) =>{

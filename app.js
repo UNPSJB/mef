@@ -11,13 +11,13 @@ var cookieParser = require('cookie-parser'); // sequelize store dependencia
 var database = require('./models');
 var permisos = require('./auth/permisos');
 
-
 //rutas
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dinosauriosRouter = require('./routes/dinosaurios');
 var fosilesRouter = require('./routes/fosiles');
 var subclaseRouter = require('./routes/subclases');
+var replicasRouter = require('./routes/replicas');
 
 var app = express();
 
@@ -33,14 +33,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser())
-// ALEX ESTUVO ACA
-app.use(session({
-  secret: 'lexpgnodesession',
-  resave: false,
-  saveUninitialized: false
-}));
-
-
 app.use(methodOverride('_method'));
 
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -58,19 +50,17 @@ app.use(session({
     sameSite: true,
     secure: process.env.NODE_ENV === 'production'
   }
-}));
-
-
-// Arranca la magia
-// app.use((req, res, next) => (req.path.startsWith('/login') || req.path.startsWith('/register') || req.session.userId) ? next() : res.redirect('/login'));
+  })
+);
 
 app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
-app.use('/users', permisos.estaLogueado, usersRouter);
-app.use('/dinosaurios', permisos.estaLogueado, dinosauriosRouter);
-app.use('/fosiles', permisos.estaLogueado, fosilesRouter);
-app.use('/subclases',permisos.estaLogueado, subclaseRouter);
-// app.use('/login');
-// app.use('/register');
+// app.use('/users', permisos.estaLogueado, usersRouter);
+app.use('/users', usersRouter);
+app.use('/dinosaurios', dinosauriosRouter);
+app.use('/fosiles', fosilesRouter);
+app.use('/subclases', subclaseRouter);
+app.use('/replicas', replicasRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -86,14 +76,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// ALEX ESTUVO ACA 
-// Global Variables
-app.use((req, res, next) => {
-  next();
-});
-
-
 
 app.sequelizeSessionStore = SequelizeStore;
 module.exports = app;

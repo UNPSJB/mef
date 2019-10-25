@@ -25,8 +25,6 @@ router.get('/agregar', (req,res,next) => {
       subclases
     })
   });
-
-
 });
 
 router.get('/editar', async (req,res,next) => {
@@ -35,7 +33,7 @@ router.get('/editar', async (req,res,next) => {
   subclaseService.getSubclases()
   .then((subclases)=>{
     res.render('dinosaurios/editar', { dino, subclases });    
-  }).catch((err)=>{  console.log(err)}); //@TODO mostrar dino sin editar o algo
+  }); //@TODO mostrar dino sin editar o algo
 });
 
 router.get('/eliminar', (req,res,next)=>{
@@ -53,20 +51,49 @@ router.get('/moldes', (req, res) => {
     });
 });
 
+router.get('/huesos/:id', (req,res)=>{
+  const {id} = req.params;
+  huesoService.getHuesosDino(id)
+    .then((huesos)=>{
+      res.send(JSON.stringify(huesos,null,4))
+    })
+})
+
 router.patch('/moldes/toggle', (req,res)=>{
   const { id } = req.query
   huesoService.toggleDisponibilidadHueso(id);
   res.send(200);
 });
 
-
-
-router.put('/', (req,res,next)=>{
-    dinoService.updateDinosaurio(req.body)
-      .then(() => res.redirect('/dinosaurios'));
+router.post('/', (req,res,next) =>{ // esto llama a dino service
+  const {nombre, alimentacion, periodo, descubrimiento, idsubclase} = req.body;
+  const {cant_cervicales,cant_dorsales,cant_sacras,cant_caudales,cant_cos_cervicales,cant_cos_dorsales,cant_hemales,cant_metacarpianos,cant_metatarsos,cant_dedos_mano,cant_dedos_pata} = req.body;
+  dinoService.createDinosaurio(nombre, alimentacion, periodo, descubrimiento, idsubclase) // es una promesa
+    .then((dinosaurio) => {
+      // createHueso(nombre, numero, DinosaurioId){
+      huesoService.createHuesos(dinosaurio.id, [cant_cervicales,cant_dorsales,cant_sacras,cant_caudales,cant_cos_cervicales,cant_cos_dorsales,cant_hemales,cant_metacarpianos,cant_metatarsos,cant_dedos_mano,cant_dedos_pata]);
+      res.redirect('/dinosaurios'); //@TODO agregar mas experiencia
+    })
+    .catch((errores)=>{
+      const dino = req.body;
+      subclaseService.getSubclases()
+  .then((subclases)=>{
+      res.render("dinosaurios/agregar",{errores,dino,subclases})
+    })});
 });
 
-router.delete('/' , (req,res,next) =>{
+router.put('/', (req,res)=>{
+    dinoService.updateDinosaurio(req.body)
+      .then(() => res.redirect('/dinosaurios'))
+      .catch((errores)=>{
+        const dino = req.body;
+        subclaseService.getSubclases()
+  .then((subclases)=>{
+        res.render("dinosaurios/editar",{errores,dino,subclases})
+      })});
+});
+
+router.delete('/' , (req,res) =>{
   dinoService.deleteDinosaurio(req.body.id)
     .then(() => res.redirect('/dinosaurios'));
 });
