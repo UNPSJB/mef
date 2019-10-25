@@ -1,18 +1,30 @@
-<form class="pt-3" action="/subclases" method="POST">
-<div class="form-group">
-   <label>Descripcion</label>
-   <input type="text" name="descripcion" placeholder="Ingrese Descripcion Subclase" required >
-   <small id="descripcion">Hola mundo</small>
-</div>
-
-<div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="col-4 mr-5">Clase:</label>
-        <label class="btn btn-secondary form-check-label">
-            <input type="radio" name="clase" id="option1" value="Saurisquio" autocomplete="off" required> Saurisquio
-        </label>
-        <label class="btn btn-secondary form-check-label">
-            <input type="radio" name="clase" id="option2" value="Ornitisquio" autocomplete="off"> Ornitisquio
-        </label>
-    </div>
-    <button type="submit" class="btn btn-primary">Agregar Subclase!</button>
-</form>
+      <form action="/subclases" method="POST">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <h1>Agregar Subclase</h1>
+                  <label>Descripcion:</label>
+                  <input type="text" name="descripcion" class="form-control" placeholder="Ingrese Descripcion Subclase"
+                    style="display: block" required {{#if subclase}}value="{{subclase.descripcion}}" {{/if}}>
+                  <small id="descripcion">Podes modificarlo despues!</small>
+                </div>
+                <div class="form-group">
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="col-2 mr-5">Clase:</label>
+                    <label class="btn btn-secondary form-check-label mr-2">
+                      <input type="radio" name="clase" id="option1" value="Saurisquio" autocomplete="off" required>
+                      Saurisquio
+                    </label>
+                    <label class="btn btn-secondary form-check-label">
+                      <input type="radio" name="clase" id="option2" value="Ornitisquio" autocomplete="off"> Ornitisquio
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary form-control">Agregar Subclase</button>
+                </div>
+              </div>
+            </div>
+        </div>
+      </form>

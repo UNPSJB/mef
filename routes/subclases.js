@@ -43,13 +43,21 @@ router.post('/', (req,res,next) =>{
     subclaseService.createSubclase(descripcion,clase)
     .then((subclase)=>{
         res.redirect('/subclases')
+    })
+    .catch((errores)=>{
+        const subclase = req.body;
+        res.render("subclases/agregar", {errores,subclase})
     });
 });
 
 router.put('/', (req,res,next)=>{
     const subclase = req.body;
     subclaseService.updateSubclase(subclase)
-    .then(()=> res.redirect('/subclases'));
+    .then(()=> res.redirect('/subclases'))
+    .catch((errores)=>{
+        const subclase = req.body;
+        res.render("subclases/editar", {errores,subclase})
+    });
 });
 
 router.delete('/' , (req,res,next) =>{

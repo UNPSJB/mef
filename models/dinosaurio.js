@@ -7,7 +7,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       defaultValue:true
     },
-    nombre: DataTypes.STRING,
+    nombre: {
+      type:DataTypes.STRING,
+      unique:{
+        args:true,
+        msg:"El nombre de dinosaurio ya esta en uso"
+      }
+    },
     alimentacion : {
       type: DataTypes.ENUM,
       values: ['Herbivoro','Carnivoro','Omnivoro']
@@ -24,11 +30,59 @@ module.exports = (sequelize, DataTypes) => {
         key:'id',        // id de la tabla SubClases
       }
     }
+  },{
+    hooks:{
+      afterValidate: (dinosaurio) => {
+        /*
+        Torax
+        Vertebral
+        Craneo
+          Cráneo
+          Paladar
+          Mandíbula
+
+        Pelvis
+          Coracoide
+          Coracoide
+          Ilion
+          Ilion
+          Pubis
+          Pubis          
+          Ischion
+          Ischion          
+
+        Brazo
+          Radio
+          Radio
+          Unla
+          Unla          
+          Húmero
+          Húmero
+          Escápula
+          Escápula          
+        
+        Manos
+
+        Piernas
+          Fémur
+          Fémur
+          Tibia
+          Tibia          
+          Fíbula
+          Fíbula        
+          
+        Pies
+
+        HUESOS QUE SE CARGAN AUTOMÁTICAMENTE
+      
+        */ 
+      }      
+    }
   });
 
   Dinosaurio.associate = function(models) {
     models.Dinosaurio.belongsTo(models.SubClase);
-    models.Dinosaurio.hasMany(models.Hueso);
+    //models.Dinosaurio.hasMany(models.Hueso);
   };
   return Dinosaurio;
 };

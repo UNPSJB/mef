@@ -1,17 +1,25 @@
 'use strict';
-module.exports = (sequelize, DataTypes) =>{
+module.exports = (sequelize,DataTypes) =>{
     const Persona = sequelize.define('Persona', {
+        identificacion: {               //##-********-## o ********
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: {
+                args: true,
+                msg: 'bale berga la vida'
+            }
+        },
         activo: DataTypes.BOOLEAN,
-        nombre:DataTypes.STRING,
-        apellido:DataTypes.STRING,
+        nombre:DataTypes.STRING, //solo alfabetico
+        apellido:DataTypes.STRING,//solo alfabetico
         direccion:DataTypes.STRING,
         localidad:DataTypes.STRING,
         email:DataTypes.STRING,
         fecha_nacimiento: DataTypes.DATEONLY,
         telefono: DataTypes.STRING
     })
-    Persona.associate = function(models) {
-
-    };
     return Persona;
 };
+
+
+    

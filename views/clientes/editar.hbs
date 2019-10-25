@@ -1,0 +1,8 @@
+<input type="radio" name="tab" value="igotnone" onclick="show1();" />
+  Persona 
+<input type="radio" name="tab" value="igottwo" onclick="show2();" />
+  No Persona
+
+<form class="pt-3" action="/clientes?_method=PUT" method="POST">
+   {{> formCliente cliente}}
+</form>

@@ -4,10 +4,10 @@ let subclase = models.SubClase;
 module.exports = {
     
     getSubclases(){
-        return subclase.findAll().catch((e)=>{console.log(e)});
+        return subclase.findAll();
     },
     getSubclase(id){
-        return subclase.findByPk(id).catch(e=>console.log(e));
+        return subclase.findByPk(id);
     },
     createSubclase(descripcion,clase){
         return subclase.create({
@@ -19,9 +19,7 @@ module.exports = {
         return subclase.findByPk(id)
         .then((subclaseEncontrado)=>{
             subclaseEncontrado.destroy();
-        }).catch( (err) =>{
-            console.log("subclase no existe"+err)
-        });
+        })
     },
     updateSubclase(subclaseModificado){
         return subclase.upsert(subclaseModificado);

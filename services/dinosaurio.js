@@ -19,10 +19,7 @@ module.exports = {
             });
     },
     updateDinosaurio(dinoReq){
-        return dino.upsert(dinoReq) //update or insert = upsert XD
-                .catch(() =>{// sale mal
-                    console.log("dino update sale mal");
-                })    
+        return dino.upsert(dinoReq) //update or insert = upsert XD    
     },
     deleteDinosaurio(id){
         return dino.findByPk(id)
@@ -30,8 +27,5 @@ module.exports = {
                 //existe ? lo modifico
                 dinoEncontrado.destroy(dinoEncontrado);
             })//dino no existe
-            .catch( (err) =>{//preguntar sobre esto
-                console.log("dino no existe"+err)
-            })
     }
 }
