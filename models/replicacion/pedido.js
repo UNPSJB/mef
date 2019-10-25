@@ -2,22 +2,37 @@
 
 module.exports = (sequelize, DataTypes) =>{
     const Pedido = sequelize.define('Pedido', {
-        autorizacion : DataTypes.BOOLEAN,
+        autorizacion : {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull:false,
+        },
         motivo : DataTypes.STRING,
         tipo: {
             type: DataTypes.ENUM,
             values : ['Interno','Externo']
+        },
+        estado:{
+            type: DataTypes.ENUM,
+            values : ['Presupuestado','Facturado','Confirmado','Fabricando','Demorado','Finalizado','Entregado',],
+            defaultValue: 'Presupuestado',
+            allowNull : false
+        },
+        PersonaId:{
+            type: DataTypes.INTEGER,
+            references:{
+                model:'Personas',
+                key:'id'
+            }
         }
     },{
         hooks:{
             afterValidate: (replica)=>{
                 if(replica.tipo == 'Interno'){
-                    // estado inicial interno = 'confirmado'
-
+                    replica.estado = 'Confirmado'
                 }
                 if(replica.tipo == 'Externo'){
-                    // estado inicial externo = 'presupuestado'
-
+                    replica.estado = 'Presupuestado'
                 }
             }
         }
@@ -25,7 +40,8 @@ module.exports = (sequelize, DataTypes) =>{
     Pedido.associate = function (models){
         // ALEX ESTUVO ACA
         // models.Pedido.hasMany(models.Replica);
-        // models.Pedido.hasMany(models.Detalle);
+        models.Pedido.hasMany(models.Detalle);
+        models.Pedido.belongsTo(models.Persona);
         // models.Pedido.hasMany(models.Estado);
         // models.Pedido.hasMany(models.EmpleadoTaller);
     }
@@ -44,7 +60,6 @@ module.exports = (sequelize, DataTypes) =>{
 // finalizar()  genera una replica
 // entregar(unaFechaEnvio,unaFechaEntrega)
 // presupuestar(unDineroAprox)
-//
 
 
 

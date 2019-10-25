@@ -7,7 +7,20 @@ module.exports = (sequelize, DataTypes) =>{
         fecha_fin: DataTypes.DATEONLY,
         fecha_baja:DataTypes.DATEONLY,
         obs: DataTypes.STRING,
-        
+        PedidoId:{
+            type:DataTypes.INTEGER,
+            references:{
+                model:'Pedidos',
+                key:'id'
+            }
+        },
+        HuesoId:{
+            type:DataTypes.INTEGER,
+            references:{
+                model:'Huesos',
+                key:'id'
+            }
+        }
     });
     Replica.associate = function (models){
         models.Replica.belongsTo(models.Pedido);

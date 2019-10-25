@@ -6,6 +6,13 @@ module.exports = (sequelize, DataTypes) =>{
         cantidad_empleados : DataTypes.INTEGER,
         inicio_estimada: DataTypes.DATEONLY,
         fin_estimada: DataTypes.DATEONLY,
+        PedidoId:{
+            type:DataTypes.INTEGER,
+            references:{
+                model:'Pedidos',
+                key:'id'
+            }
+        }
 
     });
     Fabricando.associate = function (models){
