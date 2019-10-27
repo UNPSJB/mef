@@ -5,10 +5,11 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false,
       validate: {
-        unique:{
-          
-          msg: "El nombre de subclase ya existe."
-        }
+        
+      },
+      unique:{
+        args: true,
+        msg: "El nombre de subclase ya existe."
       },
       
     },

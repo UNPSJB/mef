@@ -1,7 +1,29 @@
 const express = require("express");
 const router = express.Router();
+
+// Servicios requeridos
+const dinoService = require("../services/dinosaurio");
 const fosilService = require("../services/fosil");
 const huesoService = require("../services/hueso");
+const bones = [
+  "Craneo",
+  "Mandibula",
+  "Paladar",
+  "Vertebras Cervicales",
+  "Costillas Cervicales",
+  "Vertebras Dorsales",
+  "Costillas Dorsales",
+  "Escapula",
+  "Humero",
+  "Radio",
+  "Unla",
+  "Manos", 
+  "Pies",
+  "Pelvis",
+  "Vertebras Sacras",
+  "Vertebras Caudales",
+  "Hemales"
+];
 
 router.get("/", (req, res, next) => {
   fosilService.getFosiles().then(results => {
@@ -12,7 +34,9 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/agregarFosil", (req, res, next) => {
-  res.render("fosiles/agregarFosil");
+  dinoService.getDinosaurios().then(results => {
+    res.render("fosiles/agregarFosil", { results, bones });
+  });
 });
 
 router.get("/huesos/:id/agregar", (req, res, next) => {
@@ -29,7 +53,9 @@ router.get("/huesos/:id/agregar", (req, res, next) => {
 router.get("/editar", async (req, res, next) => {
   try {
     const fosil = await fosilService.getFosil(req.query.id);
-    res.render("fosiles/editar", { fosil });
+    const hueso = await huesoService.getHueso(fosil.HuesoId);
+    console.log(hueso)
+    res.render("fosiles/editar", { fosil , hueso });
   } catch (error) {
     console.log(err);
   }
@@ -54,25 +80,30 @@ router.put("/", (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   const {
+    dinosaurio,
+    hueso,
     numero_coleccion,
     peso,
     disponible,
     fecha_encontrado,
-    observacion,
-    HuesoId
+    observacion
   } = req.body;
-  fosilService
-    .createFosil(
-      numero_coleccion,
-      peso,
-      disponible,
-      fecha_encontrado,
-      observacion,
-      HuesoId
-    )
-    .then(() => {
-      res.redirect("/fosiles");
+  dinoService.getDinosaurio(dinosaurio).then(dino => {
+    huesoService.getHuesoDino(dino.id, hueso).then(bone => {
+      fosilService
+        .createFosil(
+          numero_coleccion,
+          peso,
+          disponible,
+          fecha_encontrado,
+          observacion,
+          bone.id
+        )
+        .then(() => {
+          res.redirect("/fosiles");
+        });
     });
+  });
 });
 
 module.exports = router;
