@@ -2,6 +2,7 @@
 // ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
 module.exports = (sequelize, DataTypes) =>{
     const Demorado = sequelize.define('Demorado', {
+        fecha:DataTypes.DATEONLY,
         descripcion : DataTypes.STRING,
         retraso_estimado: DataTypes.STRING, //3 meses, 2 semanas, dos semanas, cinco anos
         PedidoId:{

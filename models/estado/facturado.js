@@ -2,6 +2,7 @@
 // ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
 module.exports = (sequelize, DataTypes) =>{
     const Facturado = sequelize.define('Facturado', {
+        fecha:DataTypes.DATEONLY,
         PedidoId:{
             type:DataTypes.INTEGER,
             references:{
@@ -12,7 +13,7 @@ module.exports = (sequelize, DataTypes) =>{
     });
     Facturado.associate = function (models){
         models.Facturado.belongsTo(models.Pedido);
-        models.Facturado.belongsTo(models.Presupuestado);
+        //models.Facturado.belongsTo(models.Presupuestado);
         //hasOne(unPago)
     }
     return Facturado;
