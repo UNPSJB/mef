@@ -4,9 +4,15 @@ const dinoService = require('../services/dinosaurio');
 const huesoService = require('../services/dinosaurio');
 const replicasService = require('../services/replicas');
 
-router.get('/', (req,res)=>{
+router.get('/',  (req,res)=>{
     replicasService.getPedidos()
     .then((pedidos)=>{
+        pedidos.map(async(pedido)=>{
+            // estadoInstance  'Presupuestado'
+            // se lo agregamos a cada pedido
+            const nombreEstado = await pedido.estado;
+            return pedido.estadoInstance = nombreEstado.constructor.name; 
+        })
         res.render('replicacion/lista', {pedidos})
     })
 });
@@ -86,10 +92,10 @@ router.post('/pedidos/:accion/:id', (req,res)=>{
 router.post('/', (req,res)=>{
     // console.log(req.body)
     const {tipo, dinosaurio, hueso, cliente, descripcion, monto,finoferta} = req.body;
-    if(tipo == "Interno")
-        replicasService.createPedido(tipo, dinosaurio, hueso);
-    if(tipo == "Externo")
-        replicasService.createPedido(tipo, dinosaurio, hueso, cliente, descripcion, monto,finoferta);
+    // if(tipo == "Interno")
+        replicasService.createPedido(null, dinosaurio, hueso);
+    // if(tipo == "Externo")
+    //     replicasService.createPedido(tipo, dinosaurio, hueso, cliente, descripcion, monto,finoferta);
     res.redirect('/replicas');
 });
 module.exports = router;

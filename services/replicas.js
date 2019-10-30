@@ -5,6 +5,8 @@ let detalle = models.Detalle;
 let confirmado = models.Confirmado;
 let presupuesto = models.Presupuestado;
 let persona = models.Persona;
+const Pedido = require('../models/replicacion/pedido');
+
 
 module.exports = {
   getPedidos(args) {
@@ -25,18 +27,22 @@ module.exports = {
   },
   createPedido(tipo, dinosaurio, huesos) {
     //crea el pedido y sus detalles
-    return pedido
-      .create({
-        tipo
-      })
-      .then(pedido => {
-        //cuando hayas creado el pedido
-        //si sos interno ...
-        //crear confirmado
-        confirmado.create({
-          PedidoId: pedido.id
-        });
-      });
+    return Pedido.solicitar(null,null).then((res)=>{
+      console.log("res")
+    }).catch(e=>{
+      console.log("sale mal")
+    });
+      // .create({
+      //   tipo
+      // })
+      // .then(pedido => {
+      //   //cuando hayas creado el pedido
+      //   //si sos interno ...
+      //   //crear confirmado
+      //   confirmado.create({
+      //     PedidoId: pedido.id
+      //   });
+      // });
   },
   createPedido(
     tipo,

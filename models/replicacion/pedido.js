@@ -26,33 +26,53 @@ module.exports = (sequelize,
                 return Presupuestado.create({PedidoId : p.id}).then(()=>p) //devuelve el pedido
             })
         }
-        confirmar(...args){
-            return this.estadoInstance.confirmar(this, ...args);
-            // confirmar (this, ..args) cambiar de estado a facturado
+        cancelar(...args){
+            return this.estado.cancelar(this, ...args);
         }
-        hacer(func, ...args) {
-            let estado = this.estadoInstance;
+        facturar(...args){
+            return this.estado.facturar(this, ...args);
+        }
+        pagar(...args){
+            return this.estado.pagar(this, ...args);
+        }
+        asignar(...args){
+            return this.estado.asignar(this, ...args);
+        }
+        parar(...args){
+            return this.estado.parar(this, ...args);
+        }
+        reanudar(...args){
+            return this.estado.reanudar(this, ...args);
+        }
+        terminar(...args){
+            return this.estado.terminar(this, ...args);
+        }
+        entregar(...args){
+            return this.estado.entregar(this, ...args);
+        }
+
+
+        async hacer(func, ...args) {
+            let estado = await this.estado;
             if (func in estado) {
                 estado[func](this, ...args);
             }
         }
-        
+        // get estadosTodos        
         get estados() {
             return Promise.all([
-                this.getCancelados(),
-                this.getConfirmados(),
+                this.getCancelado(),
+                this.getConfirmado(),
                 this.getDemorados(),
-                this.getEntregados(),
-                this.getFabricandos(),
-                this.getFacturados(),
-                this.getFinalizados(),
-                this.getPresupuestados(), 
+                this.getEntregado(),
+                this.getFabricando(),
+                this.getFacturado(),
+                this.getFinalizado(),
+                this.getPresupuestado(), 
             ]).then(estados => {
                 return estados.filter(e => e != null).sort((e1,e2) => e1.fecha - e2.fecha);
             });
         }
-        //
-        // get estadosTodos
         // get estadosUltimo
         get estado() {
             return this.estados.then(estados => estados.pop(0));
@@ -83,7 +103,7 @@ module.exports = (sequelize,
     Pedido.hasMany(Detalle(sequelize, DataTypes));
     Pedido.hasOne(Cancelado(sequelize,DataTypes));
     Pedido.hasOne(Confirmado(sequelize,DataTypes));
-    Pedido.hasOne(Demorado(sequelize,DataTypes));
+    Pedido.hasMany(Demorado(sequelize,DataTypes));
     Pedido.hasOne(Entregado(sequelize,DataTypes));
     Pedido.hasOne(Fabricando(sequelize,DataTypes));
     Pedido.hasOne(Facturado(sequelize,DataTypes));
