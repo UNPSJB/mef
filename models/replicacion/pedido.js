@@ -12,13 +12,13 @@ const Finalizado = require('../estado/finalizado');
 const Pagado = require('../estado/pago');
 const Presupuestado = require('../estado/presupuestado');
 
-module.exports = (sequelize,
-     DataTypes) => {
+module.exports = (sequelize,DataTypes) => {
     class Pedido extends Sequelize.Model {
-        static solicitar(dino, huesos) {
-            return Pedido.create().then(p => {
-                return Confirmado.create({PedidoId: p.id}).then(()=>p);/// arreglar
-            })
+        static solicitar() {
+            return Pedido.create({
+                autorizacion:true,
+                type:'Interno'
+            }) //
         }
         static presupuestar() {
             // solicitar y presupuestar son estaticos porque son los puntos de entrada
@@ -101,14 +101,14 @@ module.exports = (sequelize,
     }, {sequelize});
 
     Pedido.hasMany(Detalle(sequelize, DataTypes));
-    Pedido.hasOne(Cancelado(sequelize,DataTypes));
-    Pedido.hasOne(Confirmado(sequelize,DataTypes));
-    Pedido.hasMany(Demorado(sequelize,DataTypes));
-    Pedido.hasOne(Entregado(sequelize,DataTypes));
-    Pedido.hasOne(Fabricando(sequelize,DataTypes));
-    Pedido.hasOne(Facturado(sequelize,DataTypes));
-    Pedido.hasOne(Finalizado(sequelize,DataTypes));
-    Pedido.hasOne(Pagado(sequelize,DataTypes));
+    Pedido.hasOne(Cancelado(sequelize, DataTypes));
+    Pedido.hasOne(Confirmado(sequelize, DataTypes));
+    Pedido.hasMany(Demorado(sequelize, DataTypes));
+    Pedido.hasOne(Entregado(sequelize, DataTypes));
+    Pedido.hasOne(Fabricando(sequelize, DataTypes));
+    Pedido.hasOne(Facturado(sequelize, DataTypes));
+    Pedido.hasOne(Finalizado(sequelize, DataTypes));
+    Pedido.hasOne(Pagado(sequelize, DataTypes));
     Pedido.hasOne(Presupuestado(sequelize, DataTypes));
     
     Pedido.belongsTo(Persona(sequelize, DataTypes));

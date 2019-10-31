@@ -1,22 +1,17 @@
 'use strict'
-// ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
+const Sequelize = require('sequelize');
+
 module.exports = (sequelize, DataTypes) =>{
-    const Facturado = sequelize.define('Facturado', {
-        fecha:DataTypes.DATEONLY,
-        PedidoId:{
-            type:DataTypes.INTEGER,
-            references:{
-                model:'Pedidos',
-                key:'id'
-            }
+    class Facturado extends Sequelize.Model{
+        confirmar(pedido,{
+            
+        }){
+
         }
-    });
-    Facturado.associate = function (models){
-        models.Facturado.belongsTo(models.Pedido);
-        //models.Facturado.belongsTo(models.Presupuestado);
-        //hasOne(unPago)
-    }
+    };
+    Facturado.belongsTo(Pedido(sequelize,DataTypes));
+    Facturado.belongsTo(Presupuestado(sequelize,DataTypes));
+    
+    Facturado.hasOne(Pago(sequelize, DataTypes));
     return Facturado;
 }
-
-// 

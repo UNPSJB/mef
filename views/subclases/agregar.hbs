@@ -1,30 +1,32 @@
-      <form action="/subclases" method="POST">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <h1>Agregar Subclase</h1>
-                  <label>Descripcion:</label>
-                  <input type="text" name="descripcion" class="form-control" placeholder="Ingrese Descripcion Subclase"
-                    style="display: block" required {{#if subclase}}value="{{subclase.descripcion}}" {{/if}}>
-                  <small id="descripcion">Podes modificarlo despues!</small>
-                </div>
-                <div class="form-group">
-                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="col-2 mr-5">Clase:</label>
-                    <label class="btn btn-secondary form-check-label mr-2">
-                      <input type="radio" name="clase" id="option1" value="Saurisquio" autocomplete="off" required>
-                      Saurisquio
-                    </label>
-                    <label class="btn btn-secondary form-check-label">
-                      <input type="radio" name="clase" id="option2" value="Ornitisquio" autocomplete="off"> Ornitisquio
-                    </label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary form-control">Agregar Subclase</button>
-                </div>
-              </div>
-            </div>
-        </div>
-      </form>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      {{#if error}}
+        <div class="alert alert-danger">
+      {{error.message}}
+      </div>
+      {{/if}}
+      <form action="/subclases" method="post">
+      <div class="form-group">
+        {{>input label='Descripcion del dino' small='ah re loco'}}
+        {{!-- <label>Descripcion:</label>
+        <input type="text" name="descripcion" class="form-control" placeholder="Ingrese Descripcion Subclase" style="display: block" required>
+        <small id="descripcion">Podes modificarlo despues!</small> --}}
+      </div>
+      <div class="form-group">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="col-2 mr-5">Clase:</label>
+        <label class="btn btn-secondary form-check-label mr-2">
+          <input type="radio" name="clase" id="option1" value="Saurisquio" autocomplete="off" required> Saurisquio
+        </label>
+        <label class="btn btn-secondary form-check-label">
+          <input type="radio" name="clase" id="option2" value="Ornitisquio" autocomplete="off"> Ornitisquio
+        </label>
+      </div>
+      </div>
+      <button type="submit">Agregar!</button>
+    </div>
+    </form>
+  </div>
+</div>
