@@ -79,3 +79,5 @@ app.use(function(err, req, res, next) {
 
 app.sequelizeSessionStore = SequelizeStore;
 module.exports = app;
+
+//app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));

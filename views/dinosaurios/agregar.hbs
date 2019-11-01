@@ -2,15 +2,15 @@
   <h5 class="modal-title" id="agregarDinoModalLabel">Agregar Dinosaurio</h5>
   <form action="/dinosaurios" method="POST">
     <div class="row">
-              <div class="col-6">
-                <div class="form-group">
-                  <label for="InputNombreCientifico">Nombre cientifico</label>
-                  <input type="text" class="form-control" name="nombre" id="InputNombreCientifico"
-                    placeholder="Ingrese Nombre Cientifico" required {{#if dino}}value="{{dino.nombre}}" {{/if}}>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="InputNombreCientifico">Nombre cientifico</label>
+          <input type="text" class="form-control" name="nombre" id="InputNombreCientifico"
+            placeholder="Ingrese Nombre Cientifico" required {{#if dino}}value="{{dino.nombre}}" {{/if}}>
 
-                  <small id="nombreCientificohelp" class="form-text-muted text-muted">Podes cambiarlo despues</small>
-                </div>
-                {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
+          <small id="nombreCientificohelp" class="form-text-muted text-muted">Podes cambiarlo despues</small>
+        </div>
+        {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
 
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <label class="btn btn-secondary form-check-label">
@@ -27,31 +27,34 @@
         <br>
         <div class="btn-group btn-group-toggle pt-3" data-toggle="buttons">
           <label class="btn btn-secondary">
-            <input class="form-check-input" type="radio" name="periodo" value="Cretacico" id="option1" autocomplete="off"
-              required> CRETÁCICO
+            <input class="form-check-input" type="radio" name="periodo" value="Cretacico" id="option1"
+              autocomplete="off" required> CRETÁCICO
           </label>
           <label class="btn btn-secondary">
-            <input class="form-check-input" type="radio" name="periodo" value="Jurasico" id="option2" autocomplete="off">
+            <input class="form-check-input" type="radio" name="periodo" value="Jurasico" id="option2"
+              autocomplete="off">
             JURÁSICO
           </label>
           <label class="btn btn-secondary">
-            <input class="form-check-input" type="radio" name="periodo" value="Triasico" id="option3" autocomplete="off">
+            <input class="form-check-input" type="radio" name="periodo" value="Triasico" id="option3"
+              autocomplete="off">
             TRIÁSICO
           </label>
         </div>
-                <div class="form-group pt-3">
-                  <label for="InputFechaDescubrimiento">Fecha Descubrimiento</label>
-                  <input type="date" name="descubrimiento" max="hoy()"id="InputFechaDescubrimiento" required
-                    {{#if dino}}value="{{dino.descubrimiento}}" {{/if}}>
-                </div>
-                <div class="form-group-vertical">
-                <label for="exampleFormControlSelect1">Subclase</label>
-                <select multiple class="form-control" name="idsubclase" id="exampleFormControlSelect1" autocomplete="off" required>
-                  {{#each subclases}}
-                  <option value="{{this.id}}">{{this.descripcion}}</option>
-                  {{/each}}
-                </select>
-              </div>
+        <div class="form-group pt-3">
+          <label for="InputFechaDescubrimiento">Fecha Descubrimiento</label>
+          <input type="date" name="descubrimiento" max="hoy()" id="InputFechaDescubrimiento" required
+            {{#if dino}}value="{{dino.descubrimiento}}" {{/if}}>
+        </div>
+        <div class="form-group-vertical">
+          <label for="exampleFormControlSelect1">Subclase</label>
+          <select multiple class="form-control" name="idsubclase" id="exampleFormControlSelect1" autocomplete="off"
+            required>
+            {{#each subclases}}
+            <option value="{{this.id}}">{{this.descripcion}}</option>
+            {{/each}}
+          </select>
+        </div>
 
       </div>
       <div class="col-6 auto">
@@ -61,20 +64,20 @@
             value="1" placeholder="cantidad de huesos" required><br>
           <label>Cantidad de Vertebras Dorsales:</label> <input type="number" min="1" max="100" name="cant_dorsales"
             value="1" placeholder="cantidad de huesos" required><br>
-          <label>Cantidad de Vertebras Sacras:</label> <input type="number" min="1" max="100" name="cant_sacras" value="1"
-            placeholder="cantidad de huesos" required><br>
+          <label>Cantidad de Vertebras Sacras:</label> <input type="number" min="1" max="100" name="cant_sacras"
+            value="1" placeholder="cantidad de huesos" required><br>
           <label>Cantidad de Vertebras Caudales:</label> <input type="number" min="1" max="100" name="cant_caudales"
             value="1" placeholder="cantidad de huesos" required><br>
-          <label>Cantidad de Costillas Cervicales:</label> <input type="number" min="1" max="100" name="cant_cos_cervicales"
-            value="1" placeholder="cantidad de huesos" required><br>
+          <label>Cantidad de Costillas Cervicales:</label> <input type="number" min="1" max="100"
+            name="cant_cos_cervicales" value="1" placeholder="cantidad de huesos" required><br>
           <label>Cantidad de Costillas Dorsales:</label> <input type="number" min="1" max="100" name="cant_cos_dorsales"
             value="1" placeholder="cantidad de huesos" required><br>
           <label>Cantidad de Hemales:</label> <input type="number" min="1" max="100" name="cant_hemales" value="1"
             placeholder="cantidad de huesos" required><br>
           <label>Cantidad de Metacarpianos:</label> <input type="number" min="1" max="100" name="cant_metacarpianos"
             value="1" placeholder="cantidad de huesos" required><br>
-          <label>Cantidad de Metatarsales:</label> <input type="number" min="1" max="100" name="cant_metatarsos" value="1"
-            placeholder="cantidad de huesos" required><br>
+          <label>Cantidad de Metatarsales:</label> <input type="number" min="1" max="100" name="cant_metatarsos"
+            value="1" placeholder="cantidad de huesos" required><br>
           <label>Cantidad de Dedos Mano:</label> <input type="number" min="1" max="100" name="cant_dedos_mano" value="1"
             placeholder="cantidad de huesos" required><br>
           <label>Cantidad de Dedos Pie:</label> <input type="number" min="1" max="100" name="cant_dedos_pata" value="1"
@@ -89,5 +92,5 @@
         </div>
       </div>
     </div>
-    </form>
+  </form>
 </div>
