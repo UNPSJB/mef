@@ -2,7 +2,7 @@
 // ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
 module.exports = (sequelize, DataTypes) =>{
     const Fabricando = sequelize.define('Fabricando', {
-        fecha:DataTypes.DATEONLY,
+        fecha:DataTypes.DATE,
         descripcion : DataTypes.STRING,
         cantidad_empleados : DataTypes.INTEGER,
         inicio_estimada: DataTypes.DATEONLY,

@@ -9,27 +9,16 @@ const Entregado = require('../estado/entregado');
 const Fabricando = require('../estado/fabricando');
 const Facturado = require('../estado/facturado');
 const Finalizado = require('../estado/finalizado');
-const Pagado = require('../estado/pago');
+const Pago = require('../estado/pago');
 const Presupuestado = require('../estado/presupuestado');
 
 module.exports = (sequelize,DataTypes) => {
     class Pedido extends Sequelize.Model {
-        static solicitar() {
-            return Pedido.create({
-                autorizacion:true,
-                type:'Interno'
-            }) //
-        }
-        static presupuestar() {
-            // solicitar y presupuestar son estaticos porque son los puntos de entrada
-            return Pedido.create().then(p =>{
-                return Presupuestado.create({PedidoId : p.id}).then(()=>p) //devuelve el pedido
-            })
-        }
-        cancelar(...args){
+        cancelar(arg){//nos pasan el req.body
+            const { id, descripcion, motivo } = arg
             return this.estado.cancelar(this, ...args);
         }
-        facturar(...args){
+        facturar(arg){
             return this.estado.facturar(this, ...args);
         }
         pagar(...args){
@@ -50,15 +39,7 @@ module.exports = (sequelize,DataTypes) => {
         entregar(...args){
             return this.estado.entregar(this, ...args);
         }
-
-
-        async hacer(func, ...args) {
-            let estado = await this.estado;
-            if (func in estado) {
-                estado[func](this, ...args);
-            }
-        }
-        // get estadosTodos        
+       
         get estados() {
             return Promise.all([
                 this.getCancelado(),
@@ -66,7 +47,7 @@ module.exports = (sequelize,DataTypes) => {
                 this.getDemorados(),
                 this.getEntregado(),
                 this.getFabricando(),
-                this.getFacturado(),
+                // this.getFacturado(),
                 this.getFinalizado(),
                 this.getPresupuestado(), 
             ]).then(estados => {
@@ -75,7 +56,9 @@ module.exports = (sequelize,DataTypes) => {
         }
         // get estadosUltimo
         get estado() {
-            return this.estados.then(estados => estados.pop(0));
+            return this.estados.then(estados => {
+                return estados.pop(0)
+            });
         }
     }
     //@TODO agregar metodos que faltan
@@ -86,6 +69,7 @@ module.exports = (sequelize,DataTypes) => {
             defaultValue: false,
             allowNull:false,
         },
+        estadoInstance: DataTypes.STRING,
         motivo : DataTypes.STRING,
         tipo: {
             type: DataTypes.ENUM,
@@ -106,9 +90,9 @@ module.exports = (sequelize,DataTypes) => {
     Pedido.hasMany(Demorado(sequelize, DataTypes));
     Pedido.hasOne(Entregado(sequelize, DataTypes));
     Pedido.hasOne(Fabricando(sequelize, DataTypes));
-    Pedido.hasOne(Facturado(sequelize, DataTypes));
+    // Pedido.hasOne(Facturado);
     Pedido.hasOne(Finalizado(sequelize, DataTypes));
-    Pedido.hasOne(Pagado(sequelize, DataTypes));
+    Pedido.hasOne(Pago(sequelize, DataTypes));
     Pedido.hasOne(Presupuestado(sequelize, DataTypes));
     
     Pedido.belongsTo(Persona(sequelize, DataTypes));

@@ -13,8 +13,7 @@
     </tbody>
 </table>
 
-
-
+<form action="/replicas/pedidos/{{accion}}/{{id}}" method="post">
 <h2>Detalles del Pago</h2>
 <label for="tipopago" >Tipo de Pago: <br>
 <input class="form" type="radio" name="tipopago" id="" value="Efectivo"> Efectivo
@@ -28,3 +27,4 @@
 <input class="form-control" type="number" name="monto" min="0" id="" placeholder="Ingrese monto">
 
 <button type="submit" class="btn btn-success form-control" >Facturar</button>
+</form>

@@ -2,7 +2,7 @@
 // ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
 module.exports = (sequelize, DataTypes) =>{
     const Confirmado = sequelize.define('Confirmado', {
-        fecha:DataTypes.DATEONLY,
+        fecha:DataTypes.DATE,
         descripcion : {
             type: DataTypes.STRING,
             defaultValue: "Confirmado"

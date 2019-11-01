@@ -3,19 +3,34 @@
 
 const Sequelize = require('sequelize');
 const Pedido = require('../replicacion/Pedido');
-
+const Cancelado = require('./cancelado');
+const Facturado = require('./facturado');
 
 module.exports = (sequelize, DataTypes) =>{
    class Presupuestado extends Sequelize.Model{
-
+        cancelar(){
+            Cancelado.create({
+                fecha:new Date(),
+                PedidoId:this.PedidoId,
+            })
+        }
+        facturar(){
+            Facturado.create({
+                fecha:new Date(),
+                PedidoId:this.PedidoId
+            })
+        }
    }
    Presupuestado.init({
-    fecha:DataTypes.DATEONLY,
-    descripcion : DataTypes.STRING,
-    cantidad_huesos : DataTypes.INTEGER,
-    monto : DataTypes.FLOAT,
-    fecha_fin_oferta : DataTypes.DATEONLY,
-    PedidoId:{
+    fecha:DataTypes.DATE,
+    descripcion: {
+        type:DataTypes.STRING,
+        defaultValue:'Presupuestado'
+    },
+    cantidad_huesos: DataTypes.INTEGER,
+    monto: DataTypes.FLOAT,
+    fecha_fin_oferta: DataTypes.DATEONLY,
+    PedidoId: {
         type:DataTypes.INTEGER,
         references:{
             model:'Pedidos',
