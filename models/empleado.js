@@ -1,15 +1,15 @@
 'use strict';
 module.exports = (sequelize,DataTypes) => {
-    const Cliente = sequelize.define('Cliente', {
+    const Empleado = sequelize.define('Empleado', {
         descripcion: {
             type:DataTypes.STRING,
-            defaultValue: "Cliente"
+            defaultValue: "Empleado"
         },  //Variable que proviene de la clase rol
-        tipo : {                        //Variable que proviene de la clase rol
+      /*  tipo : {                        //Variable que proviene de la clase rol
             type: DataTypes.ENUM,
             allowNull: false,   
             values: ['Particular','Institucional']
-        },
+        },*/
         fecha_fin: DataTypes.DATEONLY,
         PersonaId:{
 			type: DataTypes.INTEGER,
@@ -20,8 +20,8 @@ module.exports = (sequelize,DataTypes) => {
 		}
     })
 
-    Cliente.associate = function(models){
-        models.Cliente.belongsTo(models.Persona);
+    Empleado.associate = function(models){
+        models.Empleado.belongsTo(models.Persona);
     };
-    return Cliente;
+    return Empleado;
 }

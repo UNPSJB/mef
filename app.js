@@ -21,6 +21,7 @@ var subclaseRouter = require('./routes/subclases');
 
 //primer paso declarar la ruta para los clientes
 var clientesRouter = require('./routes/clientes');
+var empleadosRouter = require('./routes/empleados');
 
 var app = express();
 
@@ -74,6 +75,7 @@ app.use('/dinosaurios', dinosauriosRouter);
 app.use('/subclases',permisos.estaLogueado, subclaseRouter);
 //segundo paso indicarle a la aplicacion que para rutas con /clientes el midware de cliente resolvera la peticion
 app.use('/clientes',clientesRouter);
+app.use('/empleados',empleadosRouter);
 
 // app.use('/login');
 // app.use('/register');
