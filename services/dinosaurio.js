@@ -1,6 +1,6 @@
 const models = require('../models')
-let dino = models.Dinosaurio;
-let subclase  = models.SubClase;
+const dino = models.Dinosaurio;
+const subclase = models.SubClase;
 //aca va la logica del negocio
 module.exports = {
     getDinosaurios(){//{ tags }//aca se pide datos a la BD        

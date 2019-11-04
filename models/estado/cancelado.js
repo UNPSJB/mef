@@ -1,7 +1,15 @@
 'use strict'
 // ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
-module.exports = (sequelize, DataTypes) =>{
-    const Cancelado = sequelize.define('Cancelado', {
+const Sequelize = require('sequelize');
+const Pedido = require('../replicacion/pedido');
+
+module.exports = (sequelize, DataTypes) => {
+    class Cancelado extends Sequelize.Model{
+        reanudar(){
+
+        }
+    }
+    Cancelado.init({
         fecha:DataTypes.DATE,
         fecha_baja:DataTypes.DATEONLY,
         obs: DataTypes.STRING,
@@ -9,11 +17,16 @@ module.exports = (sequelize, DataTypes) =>{
             type: DataTypes.STRING,
             defaultValue: "Cancelado"
         },
-        
-    });
-    Cancelado.associate = function (models){
-        models.Cancelado.belongsTo(models.Pedido);
-        
+        PedidoId:{
+            type:DataTypes.INTEGER,
+            references:{
+                model:'Pedidos',
+                key:'id'
+            }
+        } 
+    },{sequelize});
+    Cancelado.associate = function(models){
+        Cancelado.belongsTo(models.Pedido);
     }
     return Cancelado;
 }

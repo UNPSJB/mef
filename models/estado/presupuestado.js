@@ -3,22 +3,25 @@
 
 const Sequelize = require('sequelize');
 const Pedido = require('../replicacion/Pedido');
-const Cancelado = require('./cancelado');
 const Facturado = require('./facturado');
+const models = require('../index');
+const replicaService = require('../../services/replicas')
 
 module.exports = (sequelize, DataTypes) =>{
    class Presupuestado extends Sequelize.Model{
-        cancelar(){
-            Cancelado.create({
-                fecha:new Date(),
-                PedidoId:this.PedidoId,
+        cancelar(pedido, args){
+            sequelize.models.Cancelado.create({
+                fecha: new Date(),
+                PedidoId:pedido.id
+            }).then(cancelado=>{
+                pedido.estadoInstance = 'Cancelado';
+                console.log(pedido);
+                replicaService.updatePedido(pedido);
+                
             })
+            .catch(e=>console.log('cancelar pedido fallo :',e))
         }
         facturar(){
-            Facturado.create({
-                fecha:new Date(),
-                PedidoId:this.PedidoId
-            })
         }
    }
    Presupuestado.init({

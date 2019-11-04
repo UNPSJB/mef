@@ -6,9 +6,7 @@ const Pago = require('../estado/pago');
 
 module.exports = (sequelize, DataTypes) =>{
     class Facturado extends Sequelize.Model{
-        confirmar(pedido,{
-            
-        }){
+        confirmar(pedido){
 
         }
     };
@@ -18,11 +16,12 @@ module.exports = (sequelize, DataTypes) =>{
             defaultValue:'Facturado'
         },
         fecha:{
-            type:DataTypes.DATE
+            type:DataTypes.DATEONLY
         }
     },{sequelize});
-
-    Facturado.belongsTo(Pedido(sequelize,DataTypes));
+    Facturado.associate = function(models){
+        Facturado.belongsTo(models.Pedido);
+    }
     // Facturado.belongsTo(Presupuestado(sequelize,DataTypes));
     
     // Facturado.hasOne(Pago(sequelize, DataTypes));

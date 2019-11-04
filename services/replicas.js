@@ -1,21 +1,19 @@
 const models = require("../models");
-let dino = models.Dinosaurio;
-let pedido = models.Pedido;
-let Detalle = models.Detalle;
-let Confirmado = models.Confirmado;
-let Presupuesto = models.Presupuestado;
-let persona = models.Persona;
-const Pedido = require('../models/replicacion/pedido');
-const huesoService = require('./hueso');
+// const pedido = models.Pedido;
+const Detalle = models.Detalle;
+const Confirmado = models.Confirmado;
+const Presupuesto = models.Presupuestado;
+const persona = models.Persona;
+const huesoService = models.Hueso;
 
 module.exports = {
   getPedidos(args) {
-    return pedido.findAll({
+    return models.pedido.findAll({
       include: [persona],
-      where: {
+      where:{
         ...args
       }
-    });
+    })
   },
   getPedido(args) {
     return pedido.findOne({
@@ -85,6 +83,8 @@ module.exports = {
       })
     }
   },
-  updatePedido() {},
+  updatePedido(pedido) {
+    return pedido.upsert(pedido);
+  },
   deletePedido() {}
 };
