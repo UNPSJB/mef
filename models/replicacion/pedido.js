@@ -2,6 +2,18 @@
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize,DataTypes) => {
+    const Persona = require('../core/persona')(sequelize,DataTypes);
+    const Detalle = require('./detalle')(sequelize,DataTypes);
+    const Cancelado = require('../estado/cancelado')(sequelize,DataTypes);
+    const Confirmado = require('../estado/confirmado')(sequelize,DataTypes);
+    const Demorado = require('../estado/demorado')(sequelize,DataTypes);
+    const Entregado = require('../estado/entregado')(sequelize,DataTypes);
+    const Fabricando = require('../estado/fabricando')(sequelize,DataTypes);
+    const Facturado = require('../estado/facturado')(sequelize,DataTypes);
+    const Finalizado = require('../estado/finalizado')(sequelize,DataTypes);
+    const Pago = require('../estado/pago')(sequelize,DataTypes);
+    const Presupuestado = require('../estado/presupuestado')(sequelize,DataTypes);
+
     class Pedido extends Sequelize.Model {
         async hacer(func, args){
                 const estado = await this.estado;
@@ -55,19 +67,19 @@ module.exports = (sequelize,DataTypes) => {
             }
         }
     }, {sequelize});
-    Pedido.associate = function(models){
-        models.Pedido.hasMany(models.Detalle);
-        models.Pedido.hasMany(models.Demorado);
-        models.Pedido.hasOne(models.Confirmado);
-        models.Pedido.hasOne(models.Entregado);
-        models.Pedido.hasOne(models.Cancelado);
-        models.Pedido.hasOne(models.Fabricando);
-        models.Pedido.hasOne(models.Facturado);
-        models.Pedido.hasOne(models.Finalizado);
-        models.Pedido.hasOne(models.Pago);
-        models.Pedido.hasOne(models.Presupuestado);    
-        models.Pedido.belongsTo(models.Persona);
-    }
+    Pedido.hasMany(Detalle);
+    Pedido.hasMany(Demorado);
+    Pedido.hasOne(Confirmado);
+    Pedido.hasOne(Entregado);
+    Pedido.hasOne(Cancelado);
+    Pedido.hasOne(Fabricando);
+    Pedido.hasOne(Facturado);
+    Pedido.hasOne(Finalizado);
+    Pedido.hasOne(Pago);
+    Pedido.hasOne(Presupuestado);    
+    Pedido.belongsTo(Persona);
+
+    // return [Pedido, Detalle];
     return Pedido;
 }
 

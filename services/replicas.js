@@ -1,15 +1,9 @@
-const models = require("../models");
-// const pedido = models.Pedido;
-const Detalle = models.Detalle;
-const Confirmado = models.Confirmado;
-const Presupuesto = models.Presupuestado;
-const persona = models.Persona;
-const huesoService = models.Hueso;
+const models = require('../models');
 
 module.exports = {
   getPedidos(args) {
-    return models.pedido.findAll({
-      include: [persona],
+    return models.Pedido.findAll({
+      include: [models.Persona],
       where:{
         ...args
       }

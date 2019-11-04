@@ -2,12 +2,16 @@ const express = require('express')
 const router = express.Router();
 const dinoService = require('../services/dinosaurio');
 const replicasService = require('../services/replicas');
+const huesoService = require('../services/hueso');
 
 router.get('/',  (req,res)=>{
-    replicasService.getPedidos()
-    .then((pedidos)=>{      
-        res.render('replicacion/lista', {pedidos})
-    })       
+    try{
+        replicasService.getPedidos().then((pedidos)=>{      
+            res.render('replicacion/lista', {pedidos})
+        })       
+    }catch(e){
+        console.log("sale todo mal",e)
+    }
 });
 
 router.get('/pedidos/agregar', (req,res)=>{
@@ -29,9 +33,8 @@ router.post('/pedidos/:accion/:id', (req,res)=>{
     replicasService.getPedido({id}).then(async (pedido)=>{
         try {
             const que_hacer = await pedido.hacer(accion,req.body);
-            console.log(que_hacer);
         } catch (error) {
-            console.log("replicas router sale mal\n\n");
+            console.log("replicas router sale mal:",error);
         }
     })
     .then(accion=> res.redirect('/replicas'))

@@ -1,7 +1,6 @@
 'use strict'
 // ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
 const Sequelize = require('sequelize');
-const Pedido = require('../replicacion/pedido');
 
 module.exports = (sequelize, DataTypes) => {
     class Cancelado extends Sequelize.Model{
@@ -25,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
             }
         } 
     },{sequelize});
-    Cancelado.associate = function(models){
-        Cancelado.belongsTo(models.Pedido);
-    }
+    // Cancelado.associate = function(models){
+        // Cancelado.belongsTo(models.Pedido);
+    // }
     return Cancelado;
 }
