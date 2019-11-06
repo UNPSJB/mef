@@ -51,12 +51,8 @@ router.get('/eliminar', (req,res,next)=>{
     const {identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, personaid, tipo } = req.body;
    
     if(tipo == 'nuevo'){
-        try {
             return clienteService.createCliente(tipoCliente,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
             .then(()=>{ res.redirect('/clientes')});
-        } catch (error) {
-            console.log(error, ':::::::::::: clientes roto');
-        }
     }
 
     if(tipo == 'existe'){
