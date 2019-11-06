@@ -1,0 +1,8 @@
+<h1>Cancelar replicacion de Pedido</h1>
+<span class="bg-warning form-control">Esta a punto de {{accion}} el siguiente pedido</span>
+
+{{> replica/detalle}}
+<form action="/replicas/pedidos/{{accion}}/{{id}}" method="post">
+<button type="submit" class="btn btn-danger">Confirmar</button>
+<a href="/replicas" class="btn btn-secondary">Rechazar</a>
+</form>

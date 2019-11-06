@@ -1,24 +1,11 @@
 <h1>Fabricar Pedido</h1>
 <span class="bg-warning form-control">Esta a punto de poner en fabricacion el siguiente pedido</span>
-<h2>Detalles del pedido</h2>
-<table class="table">
-    <thead>
-        <th>#</th>
-        <th>Dino</th>
-        <th>Huesos</th>
-        <th>Detalles</th>
-    </thead>
-    <tbody>
-        <tr></tr>
-        <tr></tr>
-    </tbody>
-</table>
-
-<label for="inicio">
+{{> replica/detalle}}
+<label class="form-group" for="inicio">
     Fecha Inicio 
     <input class="form-control" type="date" name="fechainicio" id="">
 </label>
-<label for="fin">
+<label class="form-group" for="fin">
     Fecha Fin 
     <input class="form-control" type="date" name="fechafin" id="">
 </label>
@@ -35,3 +22,8 @@
 <div class="form-group bg-secondary">
 
 </div>
+
+<form action="/replicas/pedidos/{{accion}}/{{id}}" method="post">
+<button type="submit" class="btn btn-success">Confirmar</button>
+<a href="/replicas" class="btn btn-secondary">Rechazar</a>
+</form>

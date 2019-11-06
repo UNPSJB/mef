@@ -1,66 +1,55 @@
-const models = require("../models");
-let dino = models.Dinosaurio;
-let pedido = models.Pedido;
-let detalle = models.Detalle;
-let confirmado = models.Confirmado;
-let presupuesto = models.Presupuestado;
-let persona = models.Persona;
+const models = require('../models');
 
 module.exports = {
   getPedidos(args) {
-    return pedido.findAll({
-      include: [persona],
-      where: {
+    return models.Pedido.findAll({
+      include: [models.Persona],
+      where:{
         ...args
-      }
-    });
+      },
+      order:[
+        ['createdAt', 'DESC']
+      ] 
+    })
   },
   getPedido(args) {
-    return pedido.findOne({
+    return models.Pedido.findOne({
       where : {
         ...args
       },
-      include: [persona]
+      include: [models.Persona]
     })
   },
-  createPedido(tipo, dinosaurio, huesos) {
-    //crea el pedido y sus detalles
-    return pedido
-      .create({
-        tipo
-      })
-      .then(pedido => {
-        //cuando hayas creado el pedido
-        //si sos interno ...
-        //crear confirmado
-        confirmado.create({
-          PedidoId: pedido.id
-        });
-      });
+  solicitar(huesos){
+    return models.Pedido.create({
+      autorizacion:true,
+      tipo: 'Interno',
+      estadoInstance: 'Confirmado'
+    }).then(pedido=>{
+      pedido.crearDetalles(huesos,pedido.id)
+    })
   },
-  createPedido(
-    tipo,
-    dinosaurio,
+  presupuestar(
     huesos,
     cliente,
     descripcion,
     monto,
-    finoferta
+    fecha_fin_oferta
   ) {
     //crea el pedido y sus detalles
-    return pedido
-      .create({
-        tipo
+    return models.Pedido.create({
+        tipo:'Externo',
+        estadoInstance: 'Presupuestado', 
+        PersonaId:null, //@TODO aca va cliente
       })
       .then(pedido => {
-        //cuando hayas creado el pedido
-        //si sos externo
-        //crear presupuesto
-        presupuesto.create({
-          PedidoId: pedido.id
-        });
+        //una vez que hayas creado el presupuesto
+        //agregarle todos sus ddetalles
+        pedido.crearDetalles(huesos);
       });
   },
-  updatePedido() {},
+  updatePedido(pedido) {
+    return models.Pedido.upsert(pedido);
+  },
   deletePedido() {}
 };
