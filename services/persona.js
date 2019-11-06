@@ -19,9 +19,7 @@ module.exports = {
             email, 
             fecha_nacimiento, 
             telefono 
-        }).catch((err)=>{
-            console.log(err + "AAAAAAAAAAAAAAAAAAAAAAAA");
-        });
+        })
     },
     updatePersona(personaReq){
         return persona.upsert(personaReq)

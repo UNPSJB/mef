@@ -18,13 +18,17 @@ module.exports = {
         });
     },
     createCliente(tipo, identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono){
-        personaService.createPersona(  identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
-        .then((persona)=>{
-            return cliente.create({
-                tipo,
-                PersonaId:persona.id
+        try {
+            return personaService.createPersona(identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
+            .then((persona)=>{
+                return cliente.create({
+                    tipo,
+                    PersonaId:persona.id
+                })
             })
-        })
+        } catch (error) {
+            console.log(error,':::::error de cliente')
+        }
     },
     updateCliente(clienteReq){
         return cliete.upsert(clienteReq)
