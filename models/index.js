@@ -6,7 +6,6 @@ const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
-const db = {};
 
 var sequelize;
 if (config.use_env_variable) {
@@ -19,30 +18,18 @@ if (config.use_env_variable) {
 const subfolders = (source) => fs.
   readdirSync(source, { withFileTypes: true }).filter(dirent => dirent.isDirectory()).map(dirent => dirent.name);
 
-// raiz del archivo
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    const model = sequelize['import'](path.join(__dirname, file));
-    db[model.name] = model;
-  });
-
-const sub = subfolders(__dirname);
 // subcarpetas
-sub.forEach(sub =>{
-  const newdir = __dirname + '/' + sub;
-  fs.readdirSync(newdir)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    const model = sequelize['import'](path.join(newdir, file));
-    db[model.name] = model;
-  });
-});
+const models = subfolders(__dirname).map(sub => {
+  if (sub === "estado") return [];
+  let ruta = __dirname + '/' + sub;
+  return fs.readdirSync(ruta)
+    .filter(file => {
+      return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+    })
+    .map(file => sequelize['import'](path.join(ruta, file)));
+}).reduce((acc, models)=> [...acc, ...models], []);
+
+const db = models.reduce((acc, model) => Object.assign(acc, {[model.name] : model}), {});
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
@@ -52,5 +39,4 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize; //estas lineas son diferentes, no eliminar
-
 module.exports = db;

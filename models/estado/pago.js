@@ -1,15 +1,20 @@
 'use strict'
-// ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
+const Sequelize = require('sequelize');
+
 module.exports = (sequelize, DataTypes) =>{
-    const Pago = sequelize.define('Pago', {
+    class Pago extends Sequelize.Model{
+
+    }
+    Pago.init({
+        fecha:DataTypes.DATE,
         tipo : {
             type:DataTypes.ENUM,
             values: ['Efectivo', 'Cheque']
         },
         monto : DataTypes.FLOAT,
-    });
+    }, {sequelize});
     Pago.associate = function (models){
-        models.Pago.belongsTo(models.Facturado);
+        models.Pago.belongsTo(models.Pedido);
     }
     return Pago;
 }

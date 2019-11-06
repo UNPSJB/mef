@@ -1,6 +1,6 @@
-var models = require('../models');
-let dino = models.Dinosaurio;
-var hueso = models.Hueso;
+const models = require('../models');
+const dino = models.Dinosaurio;
+const hueso = models.Hueso;
 
 const craneo = ['Paladar','Mandíbula','Cráneo'];
 
