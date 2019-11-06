@@ -5,13 +5,31 @@
 {{/if}}
 <div style="padding-top: 10px">
 <div class="jumbotron">
-  <h1 class="display-4">Seleccione una seccion para continuar!</h1>
-  <p class="lead">Haga clic en un boton abajo para ir a la seccion correspondiente.</p>
+  <h1 class="display-4 text-center">HOME</h1>
+  <p class="lead text-center">Haga clic en un boton abajo para ir a la seccion correspondiente.</p>
   <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="/dinosaurios" role="button">Dinosaurios</a>
-  <a class="btn btn-primary btn-lg" href="/fosiles" role="button">Fosiles</a>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Usuarios</a>
-  <a class="btn btn-primary btn-lg" href="/subclases" role="button">Subclases</a>
-  <a class="btn btn-primary btn-lg" href="/replicas" role="button">Replicas</a>
+  <div class="card-columns pt-4">
+    <a class="card bg-info btn btn-info btn-lg" style="height: 80px;" href="/dinosaurios" role="button">
+      <i class="fas fa-dragon align-top"></i>
+      Dinosaurios
+    </a>
+    <a class="card bg-success btn btn-success btn-lg" style="height: 80px;" href="/fosiles" role="button">
+      <i class="fas fa-bone"></i>
+      Fosiles
+    </a>
+    <a class="card bg-success btn btn-success btn-lg" style="height: 80px;" href="#" role="button">
+      <i class="fas fa-user"></i>
+      Usuarios
+    </a>
+    <a class="card bg-info btn btn-info btn-lg" style="height: 80px;" href="/subclases" role="button">
+      <i class="fas fa-chevron-circle-down"></i>
+      Subclases
+    </a>
+    <a class="card bg-info btn btn-info btn-lg" style="height: 80px;" href="/replicas" role="button">
+      <i class="fas fa-highlighter"></i>
+      Replicas
+    </a>
+  </div>  
 </div>
+
 </div>
