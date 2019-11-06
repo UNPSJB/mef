@@ -5,13 +5,13 @@ let personaService = require('./persona');
 
 
 module.exports = {
-    getClientes(){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
+    getClientes(){
         return cliente.findAll({include:[persona]});
     },
     getCliente( id ){
         return cliente.findByPk(id, {include:[persona]});
     },
-   createCliente(tipo, PersonaId){
+   createClienteExiste(tipo, PersonaId){
         return cliente.create({
             tipo,
             PersonaId

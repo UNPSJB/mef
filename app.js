@@ -18,6 +18,7 @@ var dinosauriosRouter = require('./routes/dinosaurios');
 var fosilesRouter = require('./routes/fosiles');
 var subclaseRouter = require('./routes/subclases');
 var replicasRouter = require('./routes/replicas');
+var clientesRouter = require('./routes/clientes');
 
 var app = express();
 
@@ -60,6 +61,7 @@ app.use('/dinosaurios', dinosauriosRouter);
 app.use('/fosiles', fosilesRouter);
 app.use('/subclases', subclaseRouter);
 app.use('/replicas', replicasRouter);
+app.use('/clientes', clientesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

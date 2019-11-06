@@ -7,45 +7,32 @@ const personaService = require('../services/persona.js');
 //lista todos los clientes
 router.get('/',(req, res, next) => {
     clienteService.getClientes().then((results)=>{
-        res.render('clientes/cliente',{
-            results
-        });
+        res.render('clientes/cliente',{results});
     });
 });
 
 router.get('/agregar', (req,res,next) => {
-    personaService.getPersonas()
-    .then((personas)=>{
-        clienteService.getClientes()
-        .then((clientes) => {
-            personas = [
-                {   id:12,
-                    nombre:'oli'},
-                {   id:13,
-                    nombre:'we'},
-                {   id:14,
-                    nombre:'mundo'},
-            ]
-
-            cliente = [
-                {id:12,
-                nombre:'oli'}
-            ]
-
-            var resultados = personas.filter( function(persona){
-                cliente.forEach(cliente => {
-                    cliente.persona.id == persona.id;
+    personaService.getPersonas().then((personas)=>{
+        clienteService.getClientes().then((clientes)=>{
+            
+            let noClientes = personas.filter(person=>{
+                let noCliente = true; 
+                clientes.forEach(client=>{
+                    if(person.id == client.Persona.id){
+                        noCliente = false;
+                    } 
                 });
+                return noCliente;
             });
-            console.log(resultados);
-            res.render('clientes/agregar',{clientes});
-        })
+            noClientes.forEach((persona)=>{
+                console.log(persona.id, persona.identificacion, persona.nombre, persona.apellido);
+            })
+            res.render('clientes/agregar',{ noClientes });
+        }); 
     });
-    
 });
 
 router.get('/editar',(req,res,next) => {
-//ver cuando id no existe
 clienteService.getCliente(req.query.id)
     .then((cliente) =>{
         res.render('clientes/editar', { cliente });
@@ -63,17 +50,17 @@ router.get('/eliminar', (req,res,next)=>{
   
   router.post('/', (req,res,next) =>{
     const {identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, personaid, tipo } = req.body;
+   
     if(tipo == 'nuevo'){
         clienteService.createCliente(tipoCliente,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
-        .then(()=>{ res.redirect('/redirect')});
+        .then(()=>{ res.redirect('/clientes')});
     }
 
     if(tipo == 'existe'){
-        clienteService.createCliente(tipoCliente, personaid)
-        .then(()=>{ res.redirect('/redirect')});
+        clienteService.createClienteExiste(tipoCliente, personaid)
+        .then(()=>{ res.redirect('/clientes')});
     }
   });
-  
 
   router.put('/', (req,res,next)=>{
     clienteService.updateCliente(req.body)
