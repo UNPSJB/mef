@@ -2,17 +2,15 @@
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) =>{
-    // const replicaService = require('../../services/replicas');
     class Presupuestado extends Sequelize.Model{
         cancelar(pedido, args){
             sequelize.models.Cancelado.create({
                 fecha: new Date(),
                 PedidoId:pedido.id
             }).then(cancelado=>{
-                // pedido.estadoInstance = 'Cancelado';
-                // console.log(pedido);
-                // replicaService.updatePedido(pedido);
-                
+                pedido.update({
+                    estadoInstance:'Cancelado'
+                })                
             })
             .catch(e=>console.log('cancelar pedido fallo :',e))
         }

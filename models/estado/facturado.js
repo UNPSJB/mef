@@ -1,8 +1,5 @@
 'use strict'
 const Sequelize = require('sequelize');
-const Pedido = require('../replicacion/pedido');
-const Presupuestado = require('../estado/Presupuestado');
-const Pago = require('../estado/pago');
 
 module.exports = (sequelize, DataTypes) =>{
     class Facturado extends Sequelize.Model{

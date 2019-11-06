@@ -1,5 +1,6 @@
 <h1>Lista de pedidos <a class="btn btn-success" href="/replicas/pedidos/agregar" role="button">Crear Pedido</a> </h1>
 <div class="container">
+    {{#if pedidos}}
     <table class="table">
         <thead>
             <th>#</th>
@@ -11,6 +12,7 @@
             <th>Acciones</th>
         </thead>
         <tbody>
+    {{/if}}            
             {{#each pedidos}}
             <tr class="{{this.estadoInstance}}">
                 <td class="id">{{this.id}}</td>
@@ -21,10 +23,14 @@
                 <td>{{this.tipo}}</td>
             </tr>
             {{else}}
-            <h2>No hay pedidos agregados.</h2>
+            <div class="container pt-4 text-center">
+                <h3>No hay pedidos agregados.</h3>
+            </div>
             {{/each}}
+    {{#if pedidos}}
         </tbody>
     </table>
+    {{/if}}
 </div>
 
 <script>
@@ -32,10 +38,10 @@ $(".Presupuestado").each(function(){
     $(this).append("<td> "+ fabricar("facturar", $(this).find('.id')[0].innerText) + fabricar("cancelar", $(this).find('.id')[0].innerText) +  " </td>");
 })
 $(".Facturado").each(function(){
-    $(this).append("<td>"+ fabricar("confirmar",$(this).find('.id')[0].innerText) + "</td>")
+    $(this).append("<td>"+ fabricar("confirmar",$(this).find('.id')[0].innerText)  + "</td>")
 })
 $(".Confirmado").each(function(){
-    $(this).append("<td>"+ fabricar("fabricar", $(this).find('.id')[0].innerText)+"</td>")
+    $(this).append("<td>"+ fabricar("fabricar", $(this).find('.id')[0].innerText)+ fabricar("cancelar", $(this).find('.id')[0].innerText)+"</td>")
 })
 $(".Fabricando").each(function(){
     $(this).append("<td>"+ fabricar("finalizar",$(this).find('.id')[0].innerText) + fabricar("demorar",$(this).find('.id')[0].innerText) +  "</td>")

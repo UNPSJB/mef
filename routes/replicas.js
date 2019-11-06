@@ -5,26 +5,31 @@ const replicasService = require('../services/replicas');
 const huesoService = require('../services/hueso');
 
 router.get('/',  (req,res)=>{
-    try{
-        replicasService.getPedidos().then((pedidos)=>{      
-            res.render('replicacion/lista', {pedidos})
-        })       
-    }catch(e){
-        console.log("sale todo mal",e)
-    }
+    replicasService.getPedidos().then((pedidos)=>{      
+        res.render('replicacion/lista', {pedidos})
+    })       
 });
-
+router.get("/prohibido",(req,res)=>{
+    res.render('replicacion/prohibido')
+})
 router.get('/pedidos/agregar', (req,res)=>{
     dinoService.getDinosaurios().then((dinosaurios)=>{
         res.render('replicacion/agregar',{dinosaurios})
     })
 })
-
+router.get('/pedidos/detalle/:id', (req,res)=>{
+    const { id } = req.params;
+    replicasService.getPedido().then(async pedido=>{
+        const estados = await pedido.estados;
+        console.log(estados);
+        res.render("replicacion/detalle", {id, estados});
+    })
+})
 router.get('/pedidos/:accion/:id', (req,res)=>{
     const {accion , id} = req.params;
     try{
         res.render(`replicacion/${accion}`,{ accion , id });
-    }catch(e){
+    }catch(e){//@TODO que hacer
         res.redirect('/404')
     }    
 })
@@ -32,15 +37,16 @@ router.post('/pedidos/:accion/:id', (req,res)=>{
     const {accion , id} = req.params;
     replicasService.getPedido({id}).then(async (pedido)=>{
         try {
-            const que_hacer = await pedido.hacer(accion,req.body);
+            await pedido.hacer(accion,req.body);
         } catch (error) {
-            console.log("replicas router sale mal:",error);
+            /**
+             * @TODO agregar una vista de que no se puede hacer
+             */
+            console.log("log error::::::",error);
         }
     })
-    .then(accion=> res.redirect('/replicas'))
-    .catch(e=> {
-        res.redirect('/404')
-    })    
+    .then(()=> res.redirect('/replicas'))
+    .catch(()=> {res.redirect('/404')})
 })
 
 router.post('/', (req,res)=>{

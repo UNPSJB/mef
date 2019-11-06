@@ -3,7 +3,23 @@ const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) =>{
     class Confirmado extends Sequelize.Model{
-        fabricar(pedido,PedidoId){
+        fabricar(pedido,args){
+            return sequelize.models.Fabricando.create({
+                PedidoId:pedido.id
+            }).then( () =>{
+                pedido.update({
+                    estadoInstance:'Fabricando'
+                })           
+            })
+        }
+        cancelar(pedido,args){
+            return sequelize.models.Cancelado.create({
+                PedidoId:pedido.id
+            }).then(()=>{
+                pedido.update({
+                    estadoInstance:'Cancelado'
+                })
+            })
         }
     }
     

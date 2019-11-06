@@ -16,8 +16,10 @@ module.exports = (sequelize,DataTypes) => {
 
     class Pedido extends Sequelize.Model {
         async hacer(func, args){
-                const estado = await this.estado;
-                const res = await estado[func](this,args);//this es el pedido, args es el formulario [si lo hay] de el req.body
+            const estado = await this.estado;
+            console.log('estado:',estado.dataValues, 'funcion', func, '@',this.id);
+            const res = await estado[func](this,args);//this es el pedido, args es el formulario [si lo hay] de el req.body
+            return res;
         }
         get estados() {
             return Promise.all([
@@ -30,19 +32,39 @@ module.exports = (sequelize,DataTypes) => {
                 this.getFinalizado(),
                 this.getPresupuestado(), 
             ]).then(estados => {
-                return estados.filter(e => !!e ).sort((e1,e2) => {
-                    return new Date(e2.createdAt) - new Date(e1.createdAt)
+                return estados.filter(e =>{
+                    if(e == []){
+                        return false;
+                    }
+                    if(e == null){
+                        return false;
+                    }
+                    if('createdAt' in e){
+                        return e;
+                    }else{
+                        return false;
+                    }
+                }).sort((e1,e2) => {
+                    return e2.createdAt - e1.createdAt;
                 });
             });
         }
-        // get estadosUltimo
         get estado() {
             return this.estados.then(estados => {
-                return estados.pop(0)
+                return estados[0]
             });
         }
+        crearDetalles(huesos){
+            for (let index = 0; index < huesos.length; index++) {                
+                Detalle.create({
+                PedidoId:this.id,
+                cantidad:1,
+                HuesoId: huesos[index],
+                renglon: index,
+                })
+            }
+        }
     }
-    //@TODO agregar metodos que faltan
 
     Pedido.init({
         autorizacion : {
@@ -66,7 +88,24 @@ module.exports = (sequelize,DataTypes) => {
                 key:'id'
             }
         }
-    }, {sequelize});
+    }, {
+        hooks:{
+            afterCreate(pedido){
+                if(pedido.estadoInstance === 'Presupuestado'){
+                    Presupuestado.create({
+                        PedidoId:pedido.id,
+                        fecha: new Date()
+                    })
+                }
+                if(pedido.estadoInstance === 'Confirmado'){
+                    Confirmado.create({
+                        PedidoId:pedido.id,
+                        fecha : new Date()
+                    })
+                }
+            }
+        },        
+    sequelize});
     Pedido.hasMany(Detalle);
     Pedido.hasMany(Demorado);
     Pedido.hasOne(Confirmado);

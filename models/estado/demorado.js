@@ -1,7 +1,11 @@
 'use strict'
+const Sequelize = require('sequelize');
 // ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
 module.exports = (sequelize, DataTypes) =>{
-    const Demorado = sequelize.define('Demorado', {
+    class Demorado extends Sequelize.Model{
+
+    }
+    Demorado.init({
         fecha:DataTypes.DATE,
         descripcion : {
             type:DataTypes.STRING,
@@ -16,7 +20,7 @@ module.exports = (sequelize, DataTypes) =>{
                 key:'id'
             }
         }
-    });
+    }, {sequelize});
     Demorado.associate = function (models){
         models.Demorado.belongsTo(models.Pedido);
     }

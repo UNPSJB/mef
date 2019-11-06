@@ -30,7 +30,7 @@ const models = subfolders(__dirname).map(sub => {
 }).reduce((acc, models)=> [...acc, ...models], []);
 
 const db = models.reduce((acc, model) => Object.assign(acc, {[model.name] : model}), {});
-console.log(db);
+
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

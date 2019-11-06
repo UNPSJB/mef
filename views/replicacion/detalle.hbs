@@ -1,0 +1,16 @@
+<h1>Detalle de Pedido#{{id}}</h1>
+
+<table class="table">
+<thead>
+    <th>Descripcion</th>
+    <th>Creado</th>
+</thead>
+<tbody>
+    {{#each estados}}
+        <tr>
+            <td>{{this.descripcion}} </td>
+            <td>{{this.createdAt}}</td>
+        </tr>
+    {{/each}}
+</tbody>
+</table>
