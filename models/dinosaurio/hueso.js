@@ -51,6 +51,7 @@ module.exports = (sequelize, DataTypes) => {
           case 'Ilion':
           case 'Pubis':
           case 'Ischion':
+          case 'Pelvis':
             hueso.subtipohueso = 'Pelvis';
             hueso.tipohueso = 'Apendicular';  
             break;
@@ -58,22 +59,26 @@ module.exports = (sequelize, DataTypes) => {
           case 'Unla':
           case 'Húmero':
           case 'Escápula':
+          case 'Brazo':
             hueso.subtipohueso = 'Brazo';    
             hueso.tipohueso = 'Apendicular';
             break;
           case 'Fémur': 
           case 'Tibia':
           case 'Fíbula':
+          case 'Piernas':
             hueso.subtipohueso = 'Piernas';    
             hueso.tipohueso = 'Apendicular';
             break;
           case 'Metatarsales':
           case 'Dedos Pie':
+          case 'Pies':
             hueso.subtipohueso = 'Pies';    
             hueso.tipohueso = 'Apendicular';
             break;
           case 'Metacarpianos':
           case 'Dedos Mano':
+          case 'Manos':
             hueso.subtipohueso = 'Manos';                 
             hueso.tipohueso = 'Apendicular'
             break;
@@ -82,16 +87,19 @@ module.exports = (sequelize, DataTypes) => {
           case 'Vertebras Dorsales':
           case 'Vertebras Sacras':
           case 'Vertebras Caudales':
+          case 'Vertebral':
+          case 'Vertebras':
             hueso.subtipohueso = 'Vertebral';                 
             hueso.tipohueso = 'Axial'
             break;
           case'Costillas Cervicales':
           case'Costillas Dorsales':
+          case'Torax':
+          case'Torso':
             hueso.subtipohueso = 'Torax';                 
             hueso.tipohueso = 'Axial'
             break;
         }
-
       }
     }
   });

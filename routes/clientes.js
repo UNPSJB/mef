@@ -23,9 +23,6 @@ router.get('/agregar', (req,res,next) => {
                 });
                 return noCliente;
             });
-            noClientes.forEach((persona)=>{
-                console.log(persona.id, persona.identificacion, persona.nombre, persona.apellido);
-            })
             res.render('clientes/agregar',{ noClientes });
         }); 
     });
