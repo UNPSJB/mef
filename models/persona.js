@@ -6,7 +6,7 @@ module.exports = (sequelize,DataTypes) =>{
             allowNull: false,
             unique: {
                 args: true,
-                msg: 'bale berga la vida'
+                msg: 'La identificacion ya está en uso.'
             }
         },
         activo: DataTypes.BOOLEAN,

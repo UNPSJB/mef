@@ -18,13 +18,12 @@ router.get('/agregar', (req,res,next) => {
     .then((personas)=>{
         empleadoService.getEmpleados()
         .then((empleados) => {
-            
-            /*var resultados = personas.filter( function(persona){
-                empleado.forEach(empleado => {
-                    empleado.persona.id == persona.id;
-                });
-            });*/
-            
+            // var resultados = personas.filter( function(persona){
+            //     empleado.forEach(empleado => {
+            //         empleado.persona.id == persona.id;
+            //     });
+            // });
+            //console.log(resultados);
             res.render('empleados/agregar',{empleados});
         })
     });
@@ -37,7 +36,7 @@ empleadoService.getEmpleado(req.query.id)
     .then((empleado) =>{
         res.render('empleados/editar', { empleado });
     })
-    .catch((err)=>{  console.log(err)}); //@TODO mostrar dino sin editar o algo
+    .catch((err)=>{  console.log(err)});
 })
 
 router.get('/eliminar', (req,res,next)=>{
@@ -51,16 +50,19 @@ router.get('/eliminar', (req,res,next)=>{
   router.post('/', (req,res,next) =>{
     const {documento, nombre, apellido,  direccion,  ciudad, email,  fecha_nacimiento, telefono, tipo} = req.body;
     
+    
    
     if(tipo == 'nuevo'){
-        empleadoService.createEmpleado(documento, nombre, apellido,  direccion,  ciudad, email,  fecha_nacimiento, telefono)
+        return empleadoService.createEmpleados(documento, nombre, apellido,  direccion,  ciudad, email,  fecha_nacimiento, telefono)
         .then(()=>{ res.redirect('/empleados')});
     }
     
-    if(tipo == 'existe'){
-        empleadoService.createEmpleado(tipoempleado, personaid)
-        .then(()=>{ res.redirect('/empleado')});
+    if(tipo == 'existe'){empleados
+        return empleadoService.createEmpleado(tipoempleado, personaid)
+        .then(()=>{ res.redirect('/empleados')});
     }
+
+
   });
   
 
