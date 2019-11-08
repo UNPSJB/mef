@@ -40,12 +40,19 @@ module.exports = {
     return models.Pedido.create({
         tipo:'Externo',
         estadoInstance: 'Presupuestado', 
-        PersonaId:null, //@TODO aca va cliente
+        PersonaId:cliente, //@TODO aca va cliente
+        motivo:descripcion
       })
-      .then(pedido => {
+      .then(async pedido => {
         //una vez que hayas creado el presupuesto
         //agregarle todos sus ddetalles
         pedido.crearDetalles(huesos);
+        const estado = await pedido.estado;
+        estado.update({
+          cantidad_huesos:huesos.length,
+          monto,
+          fecha_fin_oferta
+        })
       });
   },
   updatePedido(pedido) {
