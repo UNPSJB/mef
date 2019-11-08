@@ -4,6 +4,7 @@ const dinoService = require('../services/dinosaurio');
 const replicasService = require('../services/replicas');
 const huesoService = require('../services/hueso');
 const clienteService = require('../services/cliente');
+const models = require('../models');
 
 router.get('/',  (req,res)=>{
     replicasService.getPedidos().then((pedidos)=>{      
@@ -29,9 +30,17 @@ router.get('/pedidos/detalle/:id', (req,res)=>{
     })
 })
 router.get('/pedidos/:accion/:id', (req,res)=>{
+    /**
+     * @TODO mostrar lista de detalles
+     */
     const {accion , id} = req.params;
     try{
-        res.render(`replicacion/${accion}`,{ accion , id });
+        replicasService.getPedido({id}).then(async pedido =>{
+            const detalles = await pedido.getDetalles({
+                include:[models.Pedido, models.Hueso]
+            });
+            res.render(`replicacion/${accion}`,{ accion , id , detalles , pedido  });
+        })
     }catch(e){//@TODO que hacer
         res.redirect('/404')
     }    
