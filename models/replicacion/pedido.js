@@ -106,7 +106,9 @@ module.exports = (sequelize,DataTypes) => {
             }
         },        
     sequelize});
-    Pedido.hasMany(Detalle);
+    Pedido.hasMany(Detalle)
+    Detalle.belongsTo(Pedido);
+    Detalle.belongsTo(sequelize.models.Hueso);
     Pedido.hasMany(Demorado);
     Pedido.hasOne(Confirmado);
     Pedido.hasOne(Entregado);
