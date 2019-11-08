@@ -14,7 +14,15 @@ module.exports = (sequelize, DataTypes) =>{
             })
             .catch(e=>console.log('cancelar pedido fallo :',e))
         }
-        facturar(){
+        facturar(pedido, args){
+            sequelize.models.Facturado.create({
+                fecha: new Date(),
+                PedidoId:pedido.id
+            }).then( ()=>{
+                pedido.update({
+                    estadoInstance:'Facturado'
+                })
+            })
         }
    }
    Presupuestado.init({

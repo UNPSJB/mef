@@ -3,5 +3,7 @@
 
 {{> replica/detalle}}
 
-<button class="btn btn-primary">Confirmar</button>
-<button class="btn btn-secondary">Rechazar</button>
+<form action="/replicas/pedidos/{{accion}}/{{id}}" method="post">
+<button type="submit" class="btn btn-primary">Confirmar</button>
+<a href="/replicas" class="btn btn-secondary">Rechazar</a>
+</form>
