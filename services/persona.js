@@ -3,8 +3,12 @@ const models = require('../models');
 let persona = models.Persona;
 
 module.exports = {
-    getPersonas(){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
-        return persona.findAll();
+    getPersonas(args){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
+        return persona.findAll({
+            where:{
+                ...args
+            }
+        });
     },
     getPersona( id ){
         return persona.findByPk(id);

@@ -3,6 +3,7 @@ const router = express.Router();
 const dinoService = require('../services/dinosaurio');
 const replicasService = require('../services/replicas');
 const huesoService = require('../services/hueso');
+const clienteService = require('../services/cliente');
 
 router.get('/',  (req,res)=>{
     replicasService.getPedidos().then((pedidos)=>{      
@@ -14,7 +15,9 @@ router.get("/prohibido",(req,res)=>{
 })
 router.get('/pedidos/agregar', (req,res)=>{
     dinoService.getDinosaurios().then((dinosaurios)=>{
-        res.render('replicacion/agregar',{dinosaurios})
+        clienteService.getClientes().then(clientes=>{
+            res.render('replicacion/agregar',{dinosaurios,clientes})
+        })
     })
 })
 router.get('/pedidos/detalle/:id', (req,res)=>{

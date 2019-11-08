@@ -24,11 +24,16 @@
             <div class="col-8">
                 <div class="form-group">
                     <label for="cliente">Cliente:</label>
-                    <input class="cliente form-control" type="text" name="cliente" id="" required>
+                    {{!-- <input class="cliente form-control" type="text" name="cliente" id="" required> --}}
+                    <select class="cliente form-control" name="cliente" id="" required>
+                        {{#each clientes}}
+                        <option value="{{this.id}}">{{this.Persona.identificacion}} - {{this.Persona.nombre}} {{this.Persona.apellido}} - {{this.Persona.email}} - {{this.tipo}} - {{this.Persona.direccion}},{{this.Persona.localidad}}</option>
+                        {{/each}}
+                    </select>
                     <label for="descripcion">Descripcion:</label>
-                    <input class="cliente form-control" type="text" name="descripcion" id="" required>
+                    <input class="cliente form-control" type="text" name="descripcion" id="" placeholder="Ingrese descripcion del pedido" required>
                     <label for="monto">Monto:</label>
-                    <input class="cliente form-control" type="number" name="monto" min="0" id="" required>
+                    <input class="cliente form-control" type="number" name="monto" min="0" id="" placeholder="Ingrese el monto de presupuesto del pedido" required>
                     <label for="fin-oferta">Fin de Oferta:</label>
                     <input class="cliente form-control" type="date" name="finoferta" id="" required>
                 </div>
