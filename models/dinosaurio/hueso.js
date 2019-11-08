@@ -105,6 +105,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Hueso.associate = function(models) {
     models.Hueso.belongsTo(models.Dinosaurio);
+    models.Hueso.hasMany(models.Detalle,{as:'Detalles',foreignKey:'HuesoId'});
   };
   return Hueso;
 };
