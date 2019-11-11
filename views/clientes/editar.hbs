@@ -1,8 +1,9 @@
-<input type="radio" name="tab" value="igotnone" onclick="show1();" />
-  Persona 
-<input type="radio" name="tab" value="igottwo" onclick="show2();" />
-  No Persona
-
 <form class="pt-3" action="/clientes?_method=PUT" method="POST">
    {{> formCliente cliente}}
+
+  <div class="row">
+      <button type="submit" class="btn btn-primary">Editar Cliente</button>
+      <a href="/clientes" class="btn btn-primary">Nah!</a>
+  </div>
 </form>
+

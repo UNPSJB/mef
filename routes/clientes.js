@@ -23,6 +23,9 @@ router.get('/agregar', (req,res,next) => {
                 });
                 return noCliente;
             });
+            noClientes.forEach((cli)=>{
+                console.log(cli);
+            });
             res.render('clientes/agregar',{ noClientes });
         }); 
     });
@@ -59,8 +62,12 @@ router.get('/eliminar', (req,res,next)=>{
   });
 
   router.put('/', (req,res,next)=>{
+    const {identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente,idCliente,idPersona} = req.body;
     clienteService.updateCliente(req.body)
-    .then(() => res.redirect('/clientes'));
+    .then(() => {
+        personaService.updatePersona(req.body);
+        res.redirect('/clientes')
+    });
   });
   
   router.delete('/' , (req,res,next) =>{

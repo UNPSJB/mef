@@ -27,9 +27,13 @@ module.exports = {
         })
     },
     updateCliente(clienteReq){
-        return cliete.upsert(clienteReq)
+        return cliente.upsert(clienteReq)
+        .then((cliente)=>{
+            console.log(clienteReq);
+            console.log(cliente);
+        })
                 .catch(()=>{
-                    console.log("male sal cliente insert");
+                    console.log("ocurrio un error en el upsert de cliente");
                 });
     },
     deleteCliente(id){
