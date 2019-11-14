@@ -40,7 +40,6 @@ router.get("/eliminar", (req, res, next) => {
     .getFosil(req.query.id)
     .then(fosil => res.render("fosiles/eliminar", { fosil }))
     .catch(err => {
-      console.log(err);
     }); //@TODO hacer pagina de volver o algo
 });
 

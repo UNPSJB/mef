@@ -1,0 +1,56 @@
+<form class="pt-3" action="/empleados" method="POST">
+  <div class="container">
+    {{> persona/agregar}}
+
+    <label class="btn btn-secondary form-check-label align-self-center">
+      <input name="tipo" type="radio" id="nuevo" value="nuevo" autocomplete="off" required>
+      Nuevo
+    </label>
+
+    <label class="btn btn-secondary form-check-label">
+      <input name="tipo" type="radio" id="existe" value="existe" autocomplete="off" required>
+      Existente
+    </label>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Agregar Empleado!</button>
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</form>
+
+<script>
+  $("#existe").click(function () {
+    $(".form-empleado").each(function () {
+      this.disabled = true;
+    })
+    $(".lista-empleado").each(function () {
+      this.disabled = false;
+    })
+  });
+
+  $("#nuevo").click(function () {
+    $(".lista-empleado").each(function () {
+      this.disabled = true;
+    })
+    $(".form-empleado").each(function () {
+      this.disabled = false;
+    })
+  });
+
+</script>

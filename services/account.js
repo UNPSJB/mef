@@ -11,11 +11,4 @@ module.exports = {
         return null;
       });
   },
-  // roleExist : (r) => (req, res, next) => {
-  //   if (req.session.roles.indexOf(r) === -1) {
-  //     res.redirect('/users/login');
-  //   } else {
-  //     next();
-  //   }
-  // }
 }

@@ -1,7 +1,20 @@
 'use strict'
-// ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
+const Sequelize = require('sequelize');
+
 module.exports = (sequelize, DataTypes) =>{
-    const Finalizado = sequelize.define('Finalizado', {
+    class Finalizado extends Sequelize.Model{
+        entregar(pedido,args){
+            return sequelize.models.Entregado.create({
+                PedidoId:pedido.id
+            }).then(()=>{
+                pedido.update({
+                    estadoInstance:'Entregado'
+                })
+            })
+        }
+    }
+    Finalizado.init({
+        fecha:DataTypes.DATE,
         finalizacion: DataTypes.DATEONLY, //fecha definitiva de creado, la pone el cliente
         PedidoId:{
             type:DataTypes.INTEGER,
@@ -10,7 +23,7 @@ module.exports = (sequelize, DataTypes) =>{
                 key:'id'
             }
         }
-    });
+    },{sequelize});
     Finalizado.associate = function (models){
         models.Finalizado.belongsTo(models.Pedido);
     }
@@ -18,5 +31,3 @@ module.exports = (sequelize, DataTypes) =>{
 }
 
 // crearReplicas(unaColHuesos)
-// 
-//
