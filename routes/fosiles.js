@@ -17,7 +17,7 @@ const bones = [
   "Humero",
   "Radio",
   "Unla",
-  "Manos", 
+  "Manos",
   "Pies",
   "Pelvis",
   "Vertebras Sacras",
@@ -33,33 +33,31 @@ router.get("/", (req, res, next) => {
   });
 });
 
-router.get("/agregarFosil", (req, res, next) => {
+router.get("/agregar", (req, res, next) => {
   dinoService.getDinosaurios().then(results => {
-    res.render("fosiles/agregarFosil", { results, bones });
+    res.render("fosiles/agregar", { results, bones });
   });
 });
 
-router.get("/huesos/:id/agregar", (req, res, next) => {
-  huesoService
-    .getHueso(req.params.id)
-    .then(hueso => {
-      res.render("fosiles/agregar", { hueso });
-    })
-    .catch(er => {
-      res.redirect("/dinosaurios");
-    });
+router.get("/editar", async (req, res, next) => {
+  const fosil = await fosilService.getFosil(req.query.id);
+  dinoService.getDinosaurios().then(results => {
+    res.render("fosiles/editar", { results, bones , fosil});
+  });
 });
 
-router.get("/editar", async (req, res, next) => {
-  try {
-    const fosil = await fosilService.getFosil(req.query.id);
-    const hueso = await huesoService.getHueso(fosil.HuesoId);
-    console.log(hueso)
-    res.render("fosiles/editar", { fosil , hueso });
-  } catch (error) {
-    console.log(err);
-  }
-});
+// ESTO ERA PARA TRAER LOS HUESOS DEL DINOSAURIO
+// router.get("/huesos/:id/agregar", (req, res, next) => {
+//   huesoService
+//     .getHueso(req.params.id)
+//     .then(hueso => {
+//       res.render("fosiles/agregar", { hueso });
+//     })
+//     .catch(er => {
+//       res.redirect("/dinosaurios");
+//     });
+// });
+
 
 router.get("/eliminar", (req, res, next) => {
   fosilService
@@ -80,30 +78,30 @@ router.put("/", (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   const {
-    dinosaurio,
-    hueso,
+    DinosaurioId,
+    huesos,
     numero_coleccion,
     peso,
     disponible,
     fecha_encontrado,
     observacion
   } = req.body;
-  dinoService.getDinosaurio(dinosaurio).then(dino => {
-    huesoService.getHuesoDino(dino.id, hueso).then(bone => {
-      fosilService
-        .createFosil(
-          numero_coleccion,
-          peso,
-          disponible,
-          fecha_encontrado,
-          observacion,
-          bone.id
-        )
-        .then(() => {
-          res.redirect("/fosiles");
-        });
-    });
+  dinoService.getDinosaurio(DinosaurioId).then(dino => {
+    fosilService
+      .createFosil(
+        numero_coleccion,
+        peso,
+        disponible,
+        fecha_encontrado,
+        observacion,
+        DinosaurioId,
+        huesos
+      )
+      .then(() => {
+        res.redirect("/fosiles");
+      });
   });
 });
+// createFosil(numero_coleccion,peso,disponible,fecha_encontrado,observacion,HuesoId){
 
 module.exports = router;

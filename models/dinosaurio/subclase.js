@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         args: true,
         msg: "El nombre de subclase ya existe."
       },
+      unique:{
+          msg: "El nombre de subclase ya existe.",
+        }
       
     },
     clase : {

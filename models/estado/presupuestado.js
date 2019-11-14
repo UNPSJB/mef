@@ -5,7 +5,14 @@ module.exports = (sequelize, DataTypes) =>{
         descripcion : DataTypes.STRING,
         cantidad_huesos : DataTypes.INTEGER,
         monto : DataTypes.FLOAT,
-        fecha_fin_oferta : DataTypes.DATEONLY
+        fecha_fin_oferta : DataTypes.DATEONLY,
+        PedidoId:{
+            type:DataTypes.INTEGER,
+            references:{
+                model:'Pedidos',
+                key:'id'
+            }
+        }
     });
     Presupuestado.associate = function (models){
         models.Presupuestado.belongsTo(models.Pedido);
