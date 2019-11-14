@@ -1,4 +1,8 @@
-<h1>Lista de pedidos <a class="btn btn-success" href="/replicas/pedidos/agregar" role="button">Crear Pedido</a> </h1>
+<h1>Lista de pedidos
+    <a class="btn btn-success" href="/replicas/pedidos/agregar" role="button">Crear Pedido</a>
+    
+</h1>
+
 <div class="container">
     {{#if pedidos}}
     <table class="table">
@@ -60,8 +64,8 @@ $(".Entregado").each(function(){
     $(this).append("<td>No hay mas acciones.</td>")
 })
 
-function fabricar(accion, id){
-    let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
-    return `<a class='btn btn-primary' href='/replicas/pedidos/${accion}/${id}'>${capitlizado}</a>`;
-}
+    function fabricar(accion, id) {
+        let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
+        return `<a class='btn btn-primary' href='/replicas/pedidos/${accion}/${id}'>${capitlizado}</a>`;
+    }
 </script>
