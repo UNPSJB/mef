@@ -1,6 +1,6 @@
 <div class="form-group" id="form-empleado">
     <label for="InputNombre">Documento</label>
-    <input type="text" class="form-empleado form-control" name="identificacion" id="InputIdentificacion" placeholder="Ingrese su documentos" required  {{#if empleado}} value="{{empleado.tipo }}" {{/if}} >
+    <input type="text" class="form-empleado form-control" name="identificacion" id="InputIdentificacion" placeholder="Ingrese su documentos" required  {{#if this}} value="{{this.tipo }}" {{/if}} >
     
     <label for="InputNombre">Nombre</label>
     <input type="text" class="form-empleado form-control" name="nombre" id="InputNombre" placeholder="Ingrese Nombre" required  {{#if this}}value="{{this.nombre}}" {{/if}}>
