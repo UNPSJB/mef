@@ -5,9 +5,9 @@ let personaService = require('./persona');
 
 
 module.exports = {
-    getClientes(){
+    getClientes(){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
         return cliente.findAll({include:[persona]});
-    },
+    }, 
     getCliente( id ){
         return cliente.findByPk(id, {include:[persona]});
     },
