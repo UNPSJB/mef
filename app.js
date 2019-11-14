@@ -15,12 +15,10 @@ var permisos = require('./auth/permisos');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dinosauriosRouter = require('./routes/dinosaurios');
-//var fosilesRouter = require('./routes/fosiles');
+var fosilesRouter = require('./routes/fosiles');
 var subclaseRouter = require('./routes/subclases');
 var replicasRouter = require('./routes/replicas');
 var clientesRouter = require('./routes/clientes');
-
-//primer paso declarar la ruta para los clientes
 var clientesRouter = require('./routes/clientes');
 var empleadosRouter = require('./routes/empleados');
 
@@ -28,7 +26,6 @@ var app = express();
 
 // view engine setup
 app.engine('hbs', hbs({defaultLayout:'main', extname:'.hbs'}));
-// app.set('views', './views');
 app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
@@ -58,14 +55,14 @@ app.use(session({
   })
 );
 
-app.use('/', indexRouter); /// a este no se le pone pq tiene register y login adentro
-app.use('/users', permisos.estaLogueado, usersRouter);
+app.use('/', indexRouter); 
+app.use('/users', usersRouter);
 app.use('/dinosaurios', dinosauriosRouter);
-//app.use('/fosiles', permisos.estaLogueado, fosilesRouter);
-app.use('/subclases',permisos.estaLogueado, subclaseRouter);
-//segundo paso indicarle a la aplicacion que para rutas con /clientes el midware de cliente resolvera la peticion
+app.use('/fosiles', fosilesRouter);
+app.use('/subclases', subclaseRouter);
 app.use('/clientes',clientesRouter);
 app.use('/empleados',empleadosRouter);
+app.use('/replicas', replicasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

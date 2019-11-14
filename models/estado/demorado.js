@@ -1,6 +1,5 @@
 'use strict'
 const Sequelize = require('sequelize');
-// ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
 module.exports = (sequelize, DataTypes) =>{
     class Demorado extends Sequelize.Model{
 
@@ -27,6 +26,3 @@ module.exports = (sequelize, DataTypes) =>{
     return Demorado;
 }
 
-// 
-//
-//

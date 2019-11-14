@@ -22,7 +22,3 @@ module.exports = (sequelize, DataTypes) =>{
     }
     return Entregado;
 }
-
-// 
-// 
-//

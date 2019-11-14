@@ -18,12 +18,6 @@ router.get('/agregar', (req,res,next) => {
     .then((personas)=>{
         empleadoService.getEmpleados()
         .then((empleados) => {
-            // var resultados = personas.filter( function(persona){
-            //     empleado.forEach(empleado => {
-            //         empleado.persona.id == persona.id;
-            //     });
-            // });
-            //console.log(resultados);
             res.render('empleados/agregar',{empleados});
         })
     });
