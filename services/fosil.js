@@ -1,4 +1,4 @@
-const models = require('../models')
+const models = require('../models');
 let fosil = models.Fosil;
 
 module.exports ={

@@ -82,7 +82,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Dinosaurio.associate = function(models) {
     models.Dinosaurio.belongsTo(models.SubClase);
-    models.Dinosaurio.hasMany(models.Hueso);
+    //models.Dinosaurio.hasMany(models.Hueso);
   };
   return Dinosaurio;
 };

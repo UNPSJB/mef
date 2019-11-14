@@ -4,17 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     descripcion: {
       type:DataTypes.STRING,
       allowNull:false,
-      validate: {
-        
-      },
       unique:{
-        args: true,
-        msg: "El nombre de subclase ya existe."
-      },
-      unique:{
-          msg: "El nombre de subclase ya existe.",
-        }
-      
+        args:true,
+        msg:"La subclase ya existe!"
+      }
     },
     clase : {
       type: DataTypes.ENUM,

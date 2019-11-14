@@ -1,95 +1,74 @@
 const express = require('express')
 const router = express.Router();
 const dinoService = require('../services/dinosaurio');
-const huesoService = require('../services/dinosaurio');
 const replicasService = require('../services/replicas');
+const huesoService = require('../services/hueso');
+const clienteService = require('../services/cliente');
+const models = require('../models');
 
-router.get('/', (req,res)=>{
-    replicasService.getPedidos()
-    .then((pedidos)=>{
+router.get('/',  (req,res)=>{
+    replicasService.getPedidos().then((pedidos)=>{      
         res.render('replicacion/lista', {pedidos})
-    })
+    })       
 });
-
+router.get("/prohibido",(req,res)=>{
+    res.render('replicacion/prohibido')
+})
 router.get('/pedidos/agregar', (req,res)=>{
     dinoService.getDinosaurios().then((dinosaurios)=>{
-        res.render('replicacion/agregar',{dinosaurios})
+        clienteService.getClientes().then(clientes=>{
+            res.render('replicacion/agregar',{dinosaurios,clientes})
+        })
     })
 })
-
+router.get('/pedidos/detalle/:id', (req,res)=>{
+    const { id } = req.params;
+    replicasService.getPedido().then(async pedido=>{
+        const estados = await pedido.estados;
+        console.log(estados);
+        res.render("replicacion/detalle", {id, estados});
+    })
+})
 router.get('/pedidos/:accion/:id', (req,res)=>{
+    /**
+     * @TODO mostrar lista de detalles
+     */
     const {accion , id} = req.params;
-    switch(accion){
-        case 'facturar':
-            res.render("replicacion/facturar");
-            break;
-        case 'confirmar':
-            res.render("replicacion/confirmar");
-            break;
-        case 'fabricar':
-            res.render("replicacion/fabricar");
-            break;
-        case 'asignar':
-            res.render("replicacion/asignar");
-            break;
-        case 'demorar':
-            res.render("replicacion/demorar");
-            break;
-        case 'reanudar':
-            res.render("replicacion/reanudar");
-            break;
-        case 'finalizar':
-            res.render("replicacion/finalizar");
-            break;
-        case 'entregar':
-            res.render("replicacion/entregar");
-            break;
-        default:
-            res.redirect('/404')
-    }
-    
+    try{
+        replicasService.getPedido({id}).then(async pedido =>{
+            const detalles = await pedido.getDetalles({
+                include:[models.Pedido, models.Hueso]
+            });
+            const estado = await pedido.estado;
+            res.render(`replicacion/${accion}`,{ accion, id, detalles, pedido, estado  });
+        })
+    }catch(e){//@TODO que hacer
+        res.redirect('/404')
+    }    
 })
 router.post('/pedidos/:accion/:id', (req,res)=>{
     const {accion , id} = req.params;
-    switch(accion){
-        case 'facturar':
-            //@TODO facturar
-            break;
-        case 'confirmar':
-            //@TODO confirmar
-            break;
-        case 'fabricar':
-            //@TODO fabricar
-            break;
-        case 'asignar':
-            //@TODO asignar
-            break;
-        case 'demorar':
-            //@TODO demorar
-            break;
-        case 'reanudar':
-            //@TODO reanudar
-            break;
-        case 'finalizar':
-            //@TODO finalizar
-            break;
-        case 'entregar':
-            //@TODO entregar
-            break;
-        default:
-            res.redirect('/404')
-    }
-    
+    replicasService.getPedido({id}).then(async (pedido)=>{
+        try {
+            await pedido.hacer(accion,req.body);
+        } catch (error) {
+            /**
+             * @TODO agregar una vista de que no se puede hacer
+             */
+            console.log("log error::::::",error);
+        }
+    })
+    .then(()=> res.redirect('/replicas'))
+    .catch(()=> {res.redirect('/404')})
 })
 
-
 router.post('/', (req,res)=>{
-    // console.log(req.body)
     const {tipo, dinosaurio, hueso, cliente, descripcion, monto,finoferta} = req.body;
-    if(tipo == "Interno")
-        replicasService.createPedido(tipo, dinosaurio, hueso);
-    if(tipo == "Externo")
-        replicasService.createPedido(tipo, dinosaurio, hueso, cliente, descripcion, monto,finoferta);
-    res.redirect('/replicas');
+    if(tipo === "Interno"){
+        replicasService.solicitar(hueso).then(e=>res.redirect('/replicas'));
+    }
+    if(tipo === "Externo"){
+        replicasService.presupuestar(hueso, cliente, descripcion, monto,finoferta).then(e=>res.redirect('/replicas'));
+    }
 });
 module.exports = router;

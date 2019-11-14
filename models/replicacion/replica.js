@@ -1,5 +1,4 @@
 'use strict'
-// ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
 module.exports = (sequelize, DataTypes) =>{
     const Replica = sequelize.define('Replica', {
         codigo: DataTypes.STRING,

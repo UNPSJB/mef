@@ -1,25 +1,51 @@
 'use strict'
-// ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
+const Sequelize = require('sequelize');
+
 module.exports = (sequelize, DataTypes) =>{
-    const Presupuestado = sequelize.define('Presupuestado', {
-        descripcion : DataTypes.STRING,
-        cantidad_huesos : DataTypes.INTEGER,
-        monto : DataTypes.FLOAT,
-        fecha_fin_oferta : DataTypes.DATEONLY,
-        PedidoId:{
-            type:DataTypes.INTEGER,
-            references:{
-                model:'Pedidos',
-                key:'id'
-            }
+    class Presupuestado extends Sequelize.Model{
+        cancelar(pedido, args){
+            sequelize.models.Cancelado.create({
+                fecha: new Date(),
+                PedidoId:pedido.id
+            }).then(cancelado=>{
+                pedido.update({
+                    estadoInstance:'Cancelado'
+                })                
+            })
+            .catch(e=>console.log('cancelar pedido fallo :',e))
         }
-    });
-    Presupuestado.associate = function (models){
-        models.Presupuestado.belongsTo(models.Pedido);
-        // models.Presupuestado.belongsTo(models.Cliente);
+        facturar(pedido, args){
+            sequelize.models.Facturado.create({
+                fecha: new Date(),
+                PedidoId:pedido.id
+            }).then( ()=>{
+                pedido.update({
+                    estadoInstance:'Facturado'
+                })
+            })
+        }
+   }
+   Presupuestado.init({
+    fecha:DataTypes.DATE,
+    descripcion: {
+        type:DataTypes.STRING,
+        defaultValue:'Presupuestado'
+    },
+    cantidad_huesos: DataTypes.INTEGER,
+    monto: DataTypes.FLOAT,
+    fecha_fin_oferta: DataTypes.DATEONLY,
+    PedidoId: {
+        type:DataTypes.INTEGER,
+        references:{
+            model:'Pedidos',
+            key:'id'
+        }
     }
-    return Presupuestado;
+   }, {sequelize});
+   Presupuestado.associate = function (models){
+        Presupuestado.belongsTo(models.Pedido);
+   }
+   return Presupuestado;
 }
 
 // asignarHuesos(colHuesos)
-// 
