@@ -26,6 +26,7 @@ module.exports = {
     },
     getHueso(id){
         return hueso.findOne({
+            include:[dino],
             where:{
                 id
             }
@@ -38,6 +39,14 @@ module.exports = {
             }
         })
     },
+    getHuesoDino(DinosaurioId, subtipohueso ){
+        return hueso.findOne({
+            where:{
+                DinosaurioId , subtipohueso 
+            }
+        })
+    }
+    ,
     createHueso(nombre, numero, DinosaurioId){
         return hueso.create({
             nombre,

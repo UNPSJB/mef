@@ -18,17 +18,39 @@ module.exports = (sequelize, DataTypes) => {
     disponible: DataTypes.BOOLEAN,
     fecha_encontrado: DataTypes.DATEONLY,
     observacion: DataTypes.STRING,
-    HuesoId: {
+    huesos: {
+      type: DataTypes.ENUM,
+      values: [
+        "Craneo",
+        "Mandibula",
+        "Paladar",
+        "Vertebras Cervicales",
+        "Costillas Cervicales",
+        "Vertebras Dorsales",
+        "Costillas Dorsales",
+        "Escapula",
+        "Humero",
+        "Radio",
+        "Unla",
+        "Manos",
+        "Pies",
+        "Pelvis",
+        "Vertebras Sacras",
+        "Vertebras Caudales",
+        "Hemales"
+      ]
+    },
+    DinosaurioId: {
       type: DataTypes.INTEGER,
       references: {
-        model: "Huesos", //nombre en la tabla Pg
+        model: "Dinosaurios", //nombre en la tabla Pg
         key: "id" // id de la tabla PgSubClases
       }
     }
   });
 
   Fosil.associate = function(models) {
-    models.Fosil.belongsTo(models.Hueso);
+    models.Fosil.belongsTo(models.Dinosaurio);
   };
   return Fosil;
 };
