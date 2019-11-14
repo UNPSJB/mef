@@ -1,5 +1,4 @@
 'use strict'
-// ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
@@ -24,8 +23,6 @@ module.exports = (sequelize, DataTypes) => {
             }
         } 
     },{sequelize});
-    // Cancelado.associate = function(models){
-        // Cancelado.belongsTo(models.Pedido);
-    // }
+
     return Cancelado;
 }
