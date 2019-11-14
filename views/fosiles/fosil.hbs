@@ -1,36 +1,37 @@
 <div style="padding-top: 10px">
-    <h1>Fosiles 
-        <a href="/fosiles/huesos/agregar" class="btn btn-primary" rel="noopener noreferrer">+</a>
-        <a href="/fosiles/agregarFosil" class="btn btn-primary" rel="noopener noreferrer">a_F</a>
+    <h1>Fosiles
+        <a href="/fosiles/agregar" class="btn btn-primary" rel="noopener noreferrer">+</a>
     </h1>
-    <table class="table">
+    <table class="table table-hover table-striped table-bordered" id="example">
         <thead>
-            {{!-- <th scope="col">Hueso</th> --}}
             <th scope="col">#</th>
             <th scope="col">Numero de Coleccion</th>
-            <th scope="col">Peso</th>
+            <th scope="col">Peso (Kg)</th>
             <th scope="col">Disponible</th>
             <th scope="col">Fecha Encontrado</th>
-            <th scope="col">Observacion</th>
+            <th scope="col">Hueso Referencia</th>
+            <th scope="col">Dinosaurio</th>
+            <th scope="col">Acciones</th>
         </thead>
         <tbody>
-        {{#each results}}
+            {{#each results}}
             <tr>
                 <th>{{this.id}}</th>
                 <td>{{this.numero_coleccion}}</td>
                 <td>{{this.peso}}</td>
                 <td>{{this.disponible}}</td>
                 <td>{{this.fecha_encontrado}}</td>
-                <td>{{this.observacion}}</td>
+                <td>{{this.huesos}}</td>
+                <td>{{this.DinosaurioId}}</td>
                 {{!-- Acciones --}}
                 <td>
-                    <a href="/fosiles/editar?id={{this.id}}"><i class="far fa-edit"></i></a> <!--editar-->
-                    <a href="/fosiles/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
-                        {{!-- otras acciones mas --}}
+                    <a href="/fosiles/editar?id={{this.id}}"><i class="far fa-edit"></i></a>
+                    <!--editar-->
+                    <a href="/fosiles/eliminar?id={{this.id}}"><i class="fas fa-minus-circle" style="color:red"></i></a>
+                    {{!-- otras acciones mas --}}
                 </td>
-
             </tr>
-        {{/each}}
-        </tbody>    
+            {{/each}}
+        </tbody>
     </table>
 </div>
