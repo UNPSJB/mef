@@ -62,12 +62,42 @@ router.get('/eliminar', (req,res,next)=>{
   });
 
   router.put('/', (req,res,next)=>{
-    const {identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente,idCliente,idPersona} = req.body;
-    clienteService.updateCliente(req.body)
-    .then(() => {
-        personaService.updatePersona(req.body);
-        res.redirect('/clientes')
-    });
+    const {idPersona,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono} = req.body;
+    const {idCliente,tipoCliente} = req.body;
+    var personaBody={
+        "id":idPersona,
+        "identificacion":identificacion,
+        "nombre":nombre,
+        "apellido":apellido,
+        "direccion":direccion,
+        "localidad":localidad,
+        "email":email,
+        "fecha_nacimiento":fecha_nacimiento,
+        "telefono":telefono
+    }
+    var clienteBody={
+        "id":idCliente,
+        "tipo":tipoCliente
+    }
+    console.log(personaBody,clienteBody);
+    
+    return clienteService.getCliente(idCliente)
+    .then((cliente)=>{
+        clienteService.updateCliente(clienteBody)
+        .then((cliente)=>{
+            personaService.getPersona(idPersona)
+            .then((persona)=>{
+                console.log("Persona Antes: "+persona.id,persona.identificacion,persona.nombre);
+
+                personaService.updatePersona(personaBody)
+                .then(()=>{
+                    console.log("Persona Despues: "+persona.id,persona.identificacion,persona.nombre);
+
+                    res.redirect('/clientes');      
+                })
+            })
+        })
+    })
   });
   
   router.delete('/' , (req,res,next) =>{

@@ -26,10 +26,7 @@ module.exports = {
         })
     },
     updatePersona(personaReq){
-        return persona.upsert(personaReq)
-                .catch(()=>{
-                    console.log("male sal cliente insert");
-                });
+        return persona.upsert(personaReq);
     },
     deletePersona(id){
         return persona.findByPk(id)

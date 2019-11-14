@@ -33,5 +33,9 @@
         <input type="radio" name="tipoCliente" id="option2" value="Institucional" autocomplete="off" > Institucional
     </label>
     </div>
+
     {{#if this}}<input name="idCliente" type="number" value="{{this.id}}" hidden> {{/if}}
+    
+    {{#if this}}<input name="idPersona" type="number" value="{{this.Persona.id}}" hidden> {{/if}}
+
 </div>

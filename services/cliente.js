@@ -27,14 +27,7 @@ module.exports = {
         })
     },
     updateCliente(clienteReq){
-        return cliente.upsert(clienteReq)
-        .then((cliente)=>{
-            console.log(clienteReq);
-            console.log(cliente);
-        })
-                .catch(()=>{
-                    console.log("ocurrio un error en el upsert de cliente");
-                });
+        return cliente.upsert(clienteReq);
     },
     deleteCliente(id){
         return cliente.findByPk(id)
