@@ -5,130 +5,83 @@
                 <h1>Crear pedido de replicacion</h1>
             </div>
             <div class="card-body">
-                <label for="tipoReplicacion">Seleccione Tipo</label>
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="interno-tab" data-toggle="tab" href="#interno" role="tab"
-                            aria-controls="interno" aria-selected="true">Interno</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="externo-tab" data-toggle="tab" href="#externo" role="tab"
-                            aria-controls="externo" aria-selected="false">Externo</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="interno" role="tabpanel" aria-labelledby="interno-tab">
-                        <div class="container">
-                            <div class="row">
-                                <label class="form-group col-6" id="Example">
-                                    <div class="card card-body">
-                                        <label for="cliente">Cliente:</label>
-                                        <input class="cliente form-control" type="text" name="cliente" value="MEF" id=""
-                                            required />
-                                        <label for="descripcion">Descripcion:</label>
-                                        <input class="cliente form-control" type="text" name="descripcion"
-                                            value="pedido interno" id="" required />
-                                        <label for="monto">Monto:</label>
-                                        <input class="cliente form-control" type="number" name="monto" min="0" value="0"
-                                            id="" required />
-                                        <label for="fin-oferta">Fin de Oferta:</label>
-                                        <input class="cliente form-control" type="date" name="finoferta" id=""
-                                            required />
-                                    </div>
-                                </label>
-                                <div class="col-6 pb-3">
-                                    <div class="form-group">
-                                        <h3>Seleccione Dinosaurio</h3>
-                                        <select class="form-control" name="dinosaurio" onchange="buscarHuesos()"
-                                            id="selectHueso" required>
-                                            {{!-- @TODO traer dinos --}}
-                                            <option value="" selected aria-required="true">Seleccione un Dinosaurio
-                                            </option>
-                                            {{#each dinosaurios}}
-                                            <option value="{{ this.id }}">{{ this.nombre }}</option>
-                                            {{/each}}
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <h3>Seleccione huesos</h3>
-                                        <label for="Total">
-                                            Replica total (todos los huesos replicados)
-                                            <button type="button" class="btn btn-primary" id="total">
-                                                Seleccionar Todo
-                                            </button>
-                                            <button type="button" class="btn btn-danger" id="resetear">
-                                                Reset
-                                            </button>
-                                        </label>
-                                        <div class="container border">
-                                            <div class="row">
-                                                <div class="col-sm border" style="height: 21vh; overflow: auto">
-                                                    <label for="huesos" id="listaHuesos">
-
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm border">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                {{!-- BARRA DE NAVEGACION --}}
+                <div class="container">
+                    <div class="row">
+                        <div class="col pb-2">
+                            {{!-- Hola tabs --}}
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="interno-tab" data-toggle="tab" href="#interno" role="tab"
+                                        aria-controls="interno" aria-selected="true">Interno</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="externo-tab" data-toggle="tab" href="#externo" role="tab"
+                                        aria-controls="externo" aria-selected="false">Externo</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            {{!-- Hola Empty --}}
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col" class="tab-content" id="myTabContent">
+                            {{!-- Hola tab contenido --}}
+                            <div class="tab-pane fade show active" id="interno" role="tabpanel" aria-labelledby="interno-tab">
+                            </div>
+                            <div class="tab-pane fade" id="externo" role="tabpanel" aria-labelledby="externo-tab">
+                                <label class="col form-group" id="Example">
+                                    <label class="font-weight-bold" for="cliente">Cliente:</label>
+                                    
+                                    <select name="cliente" class="cliente form-control">
+                                        {{#each clientes}}
+                                            <option value="{{this.id}}" > {{ this.Persona.nombre }} {{this.Persona.apellido}} {{this.Persona.identificacion}} </option>
+                                        {{/each}}
+                                    </select>
 
-                    <div class="tab-pane fade" id="externo" role="tabpanel" aria-labelledby="externo-tab">
-                        <div class="contain">
-                            <div class="row">
-                                <label class="form-group col-6" id="Example">
-                                    <div class="card card-body">
-                                        <label for="cliente">Cliente:</label>
-                                        <input class="cliente form-control" type="text" name="cliente" id="" required />
-                                        <label for="descripcion">Descripcion:</label>
-                                        <input class="cliente form-control" type="text" name="descripcion" id=""
-                                            required />
-                                        <label for="monto">Monto:</label>
-                                        <input class="cliente form-control" type="number" name="monto" min="0" id=""
-                                            required />
-                                        <label for="fin-oferta">Fin de Oferta:</label>
-                                        <input class="cliente form-control" type="date" name="finoferta" id=""
-                                            required />
-                                    </div>
+                                    <label class="font-weight-bold" for="descripcion">Descripcion:</label>
+                                    <input class="cliente form-control" type="text" name="descripcion" id="" required />
+                                    <label for="monto">Monto:</label>
+                                    <input class="cliente form-control" type="number" name="monto" min="0" id=""
+                                        required />
+                                    <label for="fin-oferta">Fin de Oferta:</label>
+                                    <input class="cliente form-control" type="date" name="finoferta" id="" required />
                                 </label>
-                                <div class="col-6 pb-3">
-                                    <div class="form-group">
-                                        <h3>Seleccione Dinosaurio</h3>
-                                        <select class="form-control" name="dinosaurio" onchange="buscarHuesos()"
-                                            id="selectHueso" required>
-                                            {{!-- @TODO traer dinos --}}
-                                            <option value="" selected aria-required="true">Seleccione un Dinosaurio
-                                            </option>
-                                            {{#each dinosaurios}}
-                                            <option value="{{ this.id }}">{{ this.nombre }}</option>
-                                            {{/each}}
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <h3>Seleccione huesos</h3>
-                                        <label for="Total">
-                                            Replica total (todos los huesos replicados)
-                                            <button type="button" class="btn btn-primary" id="total">
-                                                Seleccionar Todo
-                                            </button>
-                                            <button type="button" class="btn btn-danger" id="resetear">
-                                                Reset
-                                            </button>
-                                        </label>
-                                        <div class="container border">
-                                            <div class="row">
-                                                <div class="col-sm border" style="height: 21vh; overflow: auto">
-                                                    <label for="huesos" id="listaHuesos">
-
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm border">
-                                                </div>
-                                            </div>
+                            </div>
+                        </div>
+                        <div class="col-6 pb-3">
+                            {{!-- Hola Dinosaurio --}}
+                            <div class="form-group">
+                                <h3>Seleccione Dinosaurio</h3>
+                                <select class="form-control" name="dinosaurio" onchange="buscarHuesos()" id="selectHueso"
+                                    required>
+                                    {{!-- @TODO traer dinos --}}
+                                    <option value="" selected aria-required="true">Seleccione un Dinosaurio
+                                    </option>
+                                    {{#each dinosaurios}}
+                                    <option value="{{ this.id }}">{{ this.nombre }}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <h3>Seleccione huesos</h3>
+                                <label for="Total">
+                                    Replica total (todos los huesos replicados)
+                                    <button type="button" class="btn btn-primary" id="total">
+                                        Seleccionar Todo
+                                    </button>
+                                    <button type="button" class="btn btn-danger" id="resetear">
+                                        Reset
+                                    </button>
+                                </label>
+                                <div class="container border">
+                                    <div class="row">
+                                        <div class="col-sm border" style="height: 21vh; overflow: auto">
+                                            <label for="huesos" id="listaHuesos">
+                                            </label>
+                                        </div>
+                                        <div class="col-sm border">
                                         </div>
                                     </div>
                                 </div>
@@ -136,9 +89,9 @@
                         </div>
                     </div>
                 </div>
+                <input type="text" name="tipo" id="tipo" value="Interno" hidden>
                 <button class="btn btn-success form-control" type="submit">Enviar</button>
             </div>
-
         </div>
     </form>
 </div>
@@ -150,15 +103,17 @@
 
 <script>
     $(document).ready(() => {
-        $("#interno").click(function () {
+        $("#interno-tab").click(function () {
             $("#collapseExample").collapse("show");
+            $("#tipo").val("Interno");
             $(".cliente").each(function () {
                 this.required = false;
                 this.disabled = true;
             });
         });
-        $("#externo").click(function () {
+        $("#externo-tab").click(function () {
             $("#collapseExample").collapse("hide");
+            $("#tipo").val("Externo")            
             $(".cliente").each(function () {
                 this.disabled = false;
                 this.required = true;
