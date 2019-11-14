@@ -1,8 +1,3 @@
-/**
- * hacer el all()
- * 
- */
-
 const express = require('express');
 const router = express.Router();
 const dinoService = require('../services/dinosaurio');
@@ -38,7 +33,9 @@ router.get('/editar', async (req,res,next) => {
 
 router.get('/eliminar', (req,res,next)=>{
   dinoService.getDinosaurio(req.query.id)
-  .then((dino)=> res.render('dinosaurios/eliminar', { dino }))
+  .then((dino)=> {
+    res.render('dinosaurios/eliminar', { dino })
+  })
   .catch((err)=>{console.log(err)}) //@TODO hacer pagina de volver o algo
 });
 

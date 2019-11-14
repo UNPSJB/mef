@@ -33,8 +33,6 @@ module.exports = {
             .then( (personaEncontrado) => {
                 personaEncontrado.destroy(personaEncontrado);
             })
-            .catch((err) => {
-                console.log("mal sale otrave "+err);
-            });
+            
     }
 }
