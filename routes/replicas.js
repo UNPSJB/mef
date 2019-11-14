@@ -11,6 +11,8 @@ router.get('/', (req,res)=>{
     })
 });
 
+
+
 router.get('/pedidos/agregar', (req,res)=>{
     dinoService.getDinosaurios().then((dinosaurios)=>{
         res.render('replicacion/agregar',{dinosaurios})

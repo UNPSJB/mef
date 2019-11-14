@@ -14,7 +14,17 @@
             <th scope="col">Huesos</th>
         </thead>
         <tbody>
-
+            {{#each results}}
+            <tr>
+                <th>{{this.id}}</th>
+                <td>{{this.activo}}</td>
+                <td>{{this.nombre}}</td>
+                <td>{{this.alimentacion}}</td>
+                <td>{{this.periodo}}</td>
+                <td>{{this.SubClase.descripcion}}</td>
+                <td>{{this.descubrimiento}}</td>
+            </tr>
+            {{#each}}
         </tbody>
     </table>
 </div>
