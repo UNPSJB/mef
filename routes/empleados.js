@@ -42,12 +42,12 @@ router.get('/eliminar', (req,res,next)=>{
   });
   
   router.post('/', (req,res,next) =>{
-    const {documento, nombre, apellido,  direccion,  ciudad, email,  fecha_nacimiento, telefono, tipo} = req.body;
+    const {identificacion, nombre, apellido,  direccion,  ciudad, email,  fecha_nacimiento, telefono, tipo} = req.body;
     
     
    
     if(tipo == 'nuevo'){
-        return empleadoService.createEmpleados(documento, nombre, apellido,  direccion,  ciudad, email,  fecha_nacimiento, telefono)
+        return empleadoService.createEmpleados(identificacion, nombre, apellido,  direccion,  ciudad, email,  fecha_nacimiento, telefono)
         .then(()=>{ res.redirect('/empleados')});
     }
     
