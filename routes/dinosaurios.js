@@ -1,8 +1,3 @@
-/**
- * hacer el all()
- * 
- */
-
 const express = require('express');
 const router = express.Router();
 const dinoService = require('../services/dinosaurio');
