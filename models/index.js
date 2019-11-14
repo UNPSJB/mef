@@ -15,9 +15,9 @@ if (config.use_env_variable) {
 }
 // https://stackoverflow.com/questions/18112204/get-all-directories-within-directory-nodejs
 
-/*const subfolders = (source) => fs.
+const subfolders = (source) => fs.
   readdirSync(source, { withFileTypes: true }).filter(dirent => dirent.isDirectory()).map(dirent => dirent.name);
-*/
+
 
 // subcarpetas
 const models = subfolders(__dirname).map(sub => {
