@@ -4,7 +4,6 @@ let Rol = models.Rol;
 
 module.exports = {
   getUsers() {
-    // comentario
   },
   findUser(email) { 
     return User.findOne({

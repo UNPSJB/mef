@@ -7,8 +7,6 @@ var permisos = require('../auth/permisos');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log(req.session.userId);
-  console.log(req.session.rol);
   res.render('home',{layout:'second'});
 });
 
@@ -28,7 +26,7 @@ router.post('/login', (req, res) => {
         res.render('login', {layout:'login', error: "email y/o contrasena incorrectos!", email});
       }
       if (user) {
-        console.log(user);
+        // console.log(user);
         req.session.userId = user.id;
         // req.session.rol = user.Rol.descripcion || 'taller'; //viene de la DB @profe
         req.session.rol = 'taller'; //viene de la DB @profe
