@@ -27,17 +27,12 @@ module.exports = {
     },
     updatePersona(personaReq){
         return persona.upsert(personaReq)
-                .catch(()=>{
-                    console.log("male sal cliente insert");
-                });
     },
     deletePersona(id){
         return persona.findByPk(id)
             .then( (personaEncontrado) => {
                 personaEncontrado.destroy(personaEncontrado);
             })
-            .catch((err) => {
-                console.log("mal sale otrave "+err);
-            });
+            
     }
 }

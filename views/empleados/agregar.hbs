@@ -1,0 +1,106 @@
+<form class="pt-3" action="/empleados" method="POST">
+  <div class="container">
+
+    <div class="form-group">
+      <label for="InputDocumento">Documento</label>
+      <input type="number" class="form-control" name="documento" id="InputDocumentoEmpleado"
+        placeholder="Ingrese Documento Empleado">
+    </div>
+
+    <div class="form-group">
+      <label for="InputNombreEmpleado">Nombre</label>
+      <input type="text" class="form-control" name="nombre" id="InputNombreEmpleado"
+        placeholder="Ingrese Nombre Empleado" required>
+    </div>
+
+    <div class="form-group">
+      <label for="InputApellidoEmpleado">Apellido</label>
+      <input type="text" class="form-control" name="apellido" id="InputApellidoEmpleado"
+        placeholder="Ingrese Apellido Empleado">
+    </div>
+
+    <div class="form-group">
+      <label for="InputDireccion">Dirección</label>
+      <input type="text" class="form-control" name="direccion" id="InputDireccionEmpleado"
+        placeholder="Ingrese Dirección Empleado">
+    </div>
+
+    <div class="form-group">
+      <label for="InputCiudad">Ciudad</label>
+      <input type="text" class="form-control" name="ciudad" id="InputCiudadEmpleado"
+        placeholder="Ingrese Ciudad del Empleado">
+    </div>
+
+
+    <div class="form-group">
+      <label for="InputEmail">Email</label>
+      <input type="email" class="form-control" name="email" id="InputEmailEmpleado"
+        placeholder="Ingrese Email del Empleado">
+    </div>
+
+   
+    <div class="form-group pt-3">
+                  <label for="InputFechaNacimiento">Fecha de Nacimiento</label>
+                  <input type="date" name="fecha_nacimiento" max="hoy()"id="InputFechaNacimiento" required
+                    {{!-- {{#if dino}}value="{{dino.descubrimiento}}" {{/if}}> --}}
+                  >
+    </div>
+    <div class="form-group">
+      <label for="InputTelefono">Telefono</label>
+      <input type="text" class="form-control" name="telefono" id="InputTelefonoEmpleado"
+        placeholder="Ingrese Telefono Empleado">
+    </div>
+
+
+    <label class="btn btn-secondary form-check-label align-self-center">
+      <input name="tipo" type="radio" id="nuevo" value="nuevo" autocomplete="off" required>
+      Nuevo
+    </label>
+
+    <label class="btn btn-secondary form-check-label">
+      <input name="tipo" type="radio" id="existe" value="existe" autocomplete="off" required>
+      Existente
+    </label>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Agregar Empleado!</button>
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</form>
+
+<script>
+  $("#existe").click(function () {
+    $(".form-empleado").each(function () {
+      this.disabled = true;
+    })
+    $(".lista-empleado").each(function () {
+      this.disabled = false;
+    })
+  });
+
+  $("#nuevo").click(function () {
+    $(".lista-empleado").each(function () {
+      this.disabled = true;
+    })
+    $(".form-empleado").each(function () {
+      this.disabled = false;
+    })
+  });
+
+</script>

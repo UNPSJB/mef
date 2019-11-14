@@ -10,8 +10,8 @@
 
       <div class="col-8">
         <select class="lista-cliente form-control" name='personaid'>
-          {{#each noClientes}}
-            <option value="{{this.id}}">{{this.identificacion}} - {{this.nombre}} {{this.apellido}} </option>
+          {{#each clientes}}
+            <option value="{{this.id}}">{{this.Persona.identificacion}} - {{this.Persona.nombre}} {{this.Persona.apellido}}</option>
           {{/each}}
         </select>
       </div>
@@ -31,7 +31,7 @@
 
     <div class="row">
       <label class="btn btn-secondary form-check-label">
-        <input type="radio" name="tipoCliente" id="option1" value="Particular" autocomplete="off" required > Particular
+        <input type="radio" name="tipoCliente" id="option1" value="Particular" autocomplete="off" required> Particular
     </label>
 
     <label class="btn btn-secondary form-check-label">

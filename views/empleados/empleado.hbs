@@ -1,11 +1,10 @@
 <div style="padding-top: 10px">
-    <h1>Clientes  <a href="/clientes/agregar" class="btn btn-primary" rel="noopener noreferrer">+</a></h1><table class="table table-striped table-bordered" id="example">
+    <h1>Empleados  <a href="/empleados/agregar" class="btn btn-primary" rel="noopener noreferrer">+</a></h1><table class="table table-striped table-bordered" id="example">
         <table class="table table-striped table-bordered" id="example">
             <thead>
             <th scope="col">Documento</th>    
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
-            <th scope="col">Tipo</th>
             <th scope="col">Direccion</th>
             <th scope="col">Localidad</th>
             <th scope="col">Email</th>
@@ -19,7 +18,6 @@
                     <td>{{this.Persona.identificacion}}</td>
                     <td>{{this.Persona.nombre}}</td>
                     <td>{{this.Persona.apellido}}</td>
-                    <td>{{this.tipo}}</td>
                     <td>{{this.Persona.direccion}}</td>
                     <td>{{this.Persona.localidad}}</td>
                     <td>{{this.Persona.email}}</td>
@@ -27,13 +25,11 @@
                     <td>{{this.Persona.telefono}}</td>
                     <!-- acciones aca -->
                     <td>
-                        <a href="/clientes/editar?id={{this.id}}"><i class="far fa-edit"></i></a> <!--editar-->
-                        <a href="/clientes/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
+                        <a href="/empleados/editar?id={{this.id}}"><i class="far fa-edit"></i></a> <!--editar-->
+                        <a href="/empleados/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
                     {{!-- otras acciones mas --}}
                     </td>
                 </tr>
         {{/each}}
         </table>
 </div>
-
-<!-- Large modal VER MAS TARDE NO OLVIDAR-->
