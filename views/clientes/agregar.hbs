@@ -1,11 +1,10 @@
-
 <form class="pt-3" action="/clientes" method="POST">
   <div class="container">
     
     <div class="row pb-3">
       <div class="col-4">
         <label class="btn btn-secondary form-check-label">
-          <input type="radio" name="tipo" id="existe" value="existe" autocomplete="off" required> Existente
+          <input type="radio" name="tipo" id="existe" value="existe" autocomplete="off" required checked> Existente
         </label>
       </div>
 
@@ -47,6 +46,15 @@
 </form>
 
 <script>
+  $("#document").ready(function() {
+    $(".form-cliente").each(function(){
+       this.disabled = true;
+    })
+    $(".lista-cliente").each(function(){
+        this.disabled = false;
+    })
+   });
+
   $("#existe").click(function(){
     $(".form-cliente").each(function(){
       this.disabled = true;

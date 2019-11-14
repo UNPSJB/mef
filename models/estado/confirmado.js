@@ -1,9 +1,42 @@
 'use strict'
-// ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
+const Sequelize = require('sequelize');
+
 module.exports = (sequelize, DataTypes) =>{
-    const Confirmado = sequelize.define('Confirmado', {
-        descripcion : DataTypes.STRING,
-    });
+    class Confirmado extends Sequelize.Model{
+        fabricar(pedido,args){
+            return sequelize.models.Fabricando.create({
+                PedidoId:pedido.id
+            }).then( () =>{
+                pedido.update({
+                    estadoInstance:'Fabricando'
+                })           
+            })
+        }
+        cancelar(pedido,args){
+            return sequelize.models.Cancelado.create({
+                PedidoId:pedido.id
+            }).then(()=>{
+                pedido.update({
+                    estadoInstance:'Cancelado'
+                })
+            })
+        }
+    }
+    
+    Confirmado.init({
+        fecha:DataTypes.DATE,
+        descripcion : {
+            type: DataTypes.STRING,
+            defaultValue: "Confirmado"
+        },
+        PedidoId:{
+            type:DataTypes.INTEGER,
+            references:{
+                model:'Pedidos',
+                key:'id'
+            }
+        }
+    }, {sequelize});
     Confirmado.associate = function (models){
         models.Confirmado.belongsTo(models.Pedido);
     }

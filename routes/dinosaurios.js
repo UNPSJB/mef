@@ -1,8 +1,3 @@
-/**
- * hacer el all()
- * 
- */
-
 const express = require('express');
 const router = express.Router();
 const dinoService = require('../services/dinosaurio');
@@ -52,6 +47,14 @@ router.get('/moldes', (req, res) => {
       res.render("huesos/hueso",{huesos, jefeexhibicion:true});
     });
 });
+
+router.get('/huesos/:id', (req,res)=>{
+  const {id} = req.params;
+  huesoService.getHuesosDino(id)
+    .then((huesos)=>{
+      res.send(JSON.stringify(huesos,null,4))
+    })
+})
 
 router.patch('/moldes/toggle', (req,res)=>{
   const { id } = req.query

@@ -1,10 +1,14 @@
-const models = require('../models')
+
+const models = require('../models');
 let persona = models.Persona;
 
-
 module.exports = {
-    getPersonas(){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
-        return persona.findAll();
+    getPersonas(args){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
+        return persona.findAll({
+            where:{
+                ...args
+            }
+        });
     },
     getPersona( id ){
         return persona.findByPk(id);
@@ -19,23 +23,16 @@ module.exports = {
             email, 
             fecha_nacimiento, 
             telefono 
-        }).catch((err)=>{
-            console.log(err + "AAAAAAAAAAAAAAAAAAAAAAAA");
-        });
+        })
     },
     updatePersona(personaReq){
         return persona.upsert(personaReq)
-                .catch(()=>{
-                    console.log("male sal cliente insert");
-                });
     },
     deletePersona(id){
         return persona.findByPk(id)
             .then( (personaEncontrado) => {
                 personaEncontrado.destroy(personaEncontrado);
             })
-            .catch((err) => {
-                console.log("mal sale otrave "+err);
-            });
+            
     }
 }

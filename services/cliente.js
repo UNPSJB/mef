@@ -11,14 +11,14 @@ module.exports = {
     getCliente( id ){
         return cliente.findByPk(id, {include:[persona]});
     },
-   createCliente(tipo, PersonaId){
+   createClienteExiste(tipo, PersonaId){
         return cliente.create({
             tipo,
             PersonaId
         });
     },
     createCliente(tipo, identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono){
-        personaService.createPersona(  identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
+        return personaService.createPersona(identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
         .then((persona)=>{
             return cliente.create({
                 tipo,
