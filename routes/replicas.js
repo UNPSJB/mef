@@ -39,7 +39,8 @@ router.get('/pedidos/:accion/:id', (req,res)=>{
             const detalles = await pedido.getDetalles({
                 include:[models.Pedido, models.Hueso]
             });
-            res.render(`replicacion/${accion}`,{ accion , id , detalles , pedido  });
+            const estado = await pedido.estado;
+            res.render(`replicacion/${accion}`,{ accion, id, detalles, pedido, estado  });
         })
     }catch(e){//@TODO que hacer
         res.redirect('/404')

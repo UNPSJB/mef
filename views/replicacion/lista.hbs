@@ -8,7 +8,6 @@
             <th>Estado</th>
             <th>Cliente</th>
             <th>Motivo</th>
-            <th>Tipo Pedido</th>
             <th>Acciones</th>
         </thead>
         <tbody>
@@ -18,9 +17,14 @@
                 <td class="id">{{this.id}}</td>
                 <td>{{this.autorizacion}}</td> 
                 <td>{{this.estadoInstance}}</td>
-                <td>{{this.Persona.nombre}} {{this.Persona.apellido}}</td>
+                <td>
+                    {{#with this.Persona as |Cliente|}}
+                        {{Cliente.nombre}} {{Cliente.apellido}}
+                    {{else}}
+                        <i>Interno</i>
+                    {{/with}}
+                    </td>
                 <td>{{this.motivo}}</td>
-                <td>{{this.tipo}}</td>
             </tr>
             {{else}}
             <div class="container pt-4 text-center">
