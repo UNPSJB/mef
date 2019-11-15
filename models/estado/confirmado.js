@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) =>{
     }
     
     Confirmado.init({
-        fecha:DataTypes.DATE,
         descripcion : {
             type: DataTypes.STRING,
             defaultValue: "Confirmado"

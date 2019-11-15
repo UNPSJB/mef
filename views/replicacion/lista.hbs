@@ -63,6 +63,9 @@ $(".Finalizado").each(function(){
 $(".Entregado").each(function(){
     $(this).append("<td>No hay mas acciones.</td>")
 })
+$(".Cancelado").each(function(){
+    $(this).append("<td>No hay mas acciones.</td>")
+})
 
     function fabricar(accion, id) {
         let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
