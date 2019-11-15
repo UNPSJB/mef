@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
     Cancelado.init({
-        fecha:DataTypes.DATE,
         fecha_baja:DataTypes.DATEONLY,
         obs: DataTypes.STRING,
         descripcion : {
