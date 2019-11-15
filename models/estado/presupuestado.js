@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) =>{
     class Presupuestado extends Sequelize.Model{
         cancelar(pedido, args){
             sequelize.models.Cancelado.create({
-                fecha: new Date(),
                 PedidoId:pedido.id
             }).then(cancelado=>{
                 pedido.update({
@@ -16,17 +15,27 @@ module.exports = (sequelize, DataTypes) =>{
         }
         facturar(pedido, args){
             sequelize.models.Facturado.create({
-                fecha: new Date(),
                 PedidoId:pedido.id
             }).then( ()=>{
-                pedido.update({
-                    estadoInstance:'Facturado'
+                //actualiza el estado
+                sequelize.models.Pago.create({
+                    tipo:args.tipopago,
+                    monto: args.presupuesto
+                })
+            }).then( () =>{
+                sequelize.models.Confirmado.create({
+                    PedidoId: pedido.id
+                }).then( (confirmado)=>{
+                    //confirmado
+                    pedido.update({
+                        autorizacion:true,
+                        estadoInstance: 'Confirmado'
+                    })
                 })
             })
         }
    }
    Presupuestado.init({
-    fecha:DataTypes.DATE,
     descripcion: {
         type:DataTypes.STRING,
         defaultValue:'Presupuestado'

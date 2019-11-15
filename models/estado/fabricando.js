@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) =>{
         }
     }
     Fabricando.init({
-        fecha:DataTypes.DATE,
         descripcion : {
             type:DataTypes.STRING,
             defaultValue:'Fabricando'

@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) =>{
 
     }
     Demorado.init({
-        fecha:DataTypes.DATE,
         descripcion : {
             type:DataTypes.STRING,
             defaultValue:'Demorado',
