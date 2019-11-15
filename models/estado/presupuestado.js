@@ -4,30 +4,30 @@ const Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) =>{
     class Presupuestado extends Sequelize.Model{
         cancelar(pedido, args){
-            sequelize.models.Cancelado.create({
-                PedidoId:pedido.id
-            }).then(cancelado=>{
-                pedido.update({
+            const PedidoId = pedido.id;
+            return sequelize.models.Cancelado.create({
+                PedidoId
+            }).then(()=>{
+                return pedido.update({
                     estadoInstance:'Cancelado'
                 })                
             })
-            .catch(e=>console.log('cancelar pedido fallo :',e))
         }
         facturar(pedido, args){
-            sequelize.models.Facturado.create({
-                PedidoId:pedido.id
-            }).then( ()=>{
+            const PedidoId = pedido.id;
+            return sequelize.models.Facturado.create({
+                PedidoId
+            }).then(()=>{
                 //actualiza el estado
-                sequelize.models.Pago.create({
+                return sequelize.models.Pago.create({
                     tipo:args.tipopago,
                     monto: args.presupuesto
                 })
-            }).then( () =>{
-                sequelize.models.Confirmado.create({
-                    PedidoId: pedido.id
-                }).then( (confirmado)=>{
-                    //confirmado
-                    pedido.update({
+            }).then(() =>{
+                return sequelize.models.Confirmado.create({
+                    PedidoId
+                }).then(()=>{
+                    return pedido.update({
                         autorizacion:true,
                         estadoInstance: 'Confirmado'
                     })
