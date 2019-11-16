@@ -17,12 +17,13 @@ module.exports = (sequelize, DataTypes) =>{
             }).then(async ()=>{
                 const detalles = await pedido.getDetalles([sequelize.models.Hueso]);
                 detalles.forEach(item=>{
+                    console.log('item:::::::',item);
                     sequelize.models.Replica.create({
                         PedidoId,
-                        HuesoId:item.Hueso.id
+                        HuesoId:item.HuesoId
                     })
                 })
-                pedido.update({
+                return pedido.update({
                     estadoInstance:'Finalizado'
                 })
             })
