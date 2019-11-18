@@ -26,7 +26,7 @@ router.get('/pedidos/detalle/:id', (req,res)=>{
     replicasService.getPedido().then(async pedido=>{
         const estados = await pedido.estados;
         console.log(estados);
-        res.render("replicacion/detalle", {id, estados});
+        res.render("replicacion/detalle", {id, estados, pedido});
     })
 })
 router.get('/pedidos/:accion/:id', (req,res)=>{
