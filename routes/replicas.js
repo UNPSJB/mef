@@ -46,20 +46,33 @@ router.get('/pedidos/:accion/:id', (req,res)=>{
         res.redirect('/404')
     }    
 })
+router.get('/empleados/:id', (req,res)=>{
+    const {id} = req.params;
+    replicasService.getPedido(id)
+    .then((pedido)=>{
+        pedido.getEmpleados()
+        .then((empleadosTrabajando)=>{
+            res.send(JSON.stringify(empleadosTrabajando),null,4);
+        })
+    });
+})
+
 router.post('/pedidos/:accion/:id', (req,res)=>{
     const {accion , id} = req.params;
-    replicasService.getPedido({id}).then(async (pedido)=>{
-        try {
-            await pedido.hacer(accion,req.body);
-        } catch (error) {
-            /**
-             * @TODO agregar una vista de que no se puede hacer
-             */
-            console.log("log error::::::",error);
-        }
-    })
-    .then(()=> res.redirect('/replicas'))
-    .catch(()=> {res.redirect('/404')})
+    console.log("ACCION: ",accion,"IDES: ",id);
+    console.log("BODYYY: ",req.body);
+    // replicasService.getPedido({id}).then(async (pedido)=>{
+    //     try {
+    //         await pedido.hacer(accion,req.body);
+    //     } catch (error) {
+    //         /**
+    //          * @TODO agregar una vista de que no se puede hacer
+    //          */
+    //         console.log("log error::::::",error);
+    //     }
+    // })
+    // .then(()=> res.redirect('/replicas'))
+    // .catch(()=> {res.redirect('/404')})
 })
 
 router.post('/', (req,res)=>{

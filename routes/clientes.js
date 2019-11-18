@@ -83,17 +83,13 @@ router.get('/eliminar', (req,res,next)=>{
     console.log(personaBody,clienteBody);
     
     return clienteService.getCliente(idCliente)
-    .then((cliente)=>{
+    .then(()=>{
         clienteService.updateCliente(clienteBody)
-        .then((cliente)=>{
+        .then(()=>{
             personaService.getPersona(idPersona)
-            .then((persona)=>{
-                console.log("Persona Antes: "+persona.id,persona.identificacion,persona.nombre);
-
+            .then(()=>{
                 personaService.updatePersona(personaBody)
                 .then(()=>{
-                    console.log("Persona Despues: "+persona.id,persona.identificacion,persona.nombre);
-
                     res.redirect('/clientes');      
                 })
             })

@@ -1,6 +1,8 @@
 const models = require('../models')
 let empleado = models.Empleado;
 let persona = models.Persona;
+let pedido = models.Pedido;
+let empleadoPedido = models.empleadoPedido;
 let personaService = require('./persona');
 
 
@@ -17,6 +19,23 @@ module.exports = {
             PersonaId
         });
     },
+    asignarAPedido(pedidoId,empleadoId){
+        return pedido.findByPk(pedidoId)
+        .then((pedidoNuevo)=>{
+            empleado.findByPk(empleadoId)
+            .then((empleado)=>{
+                empleado.getPedidos()
+                .then((pedidosTrabajando)=>{
+                    pedidosTrabajando.push(pedidoNuevo)
+                    empleado.setPedidos(pedidosTrabajando);
+                })
+            })
+        });
+    },
+    getPedidosTrabajando(empleadoID){
+        return empleado.getPedidos();
+    }
+    ,
     createEmpleados(documento, nombre, apellido,  direccion,  ciudad, email,  fecha_nacimiento, telefono){
         
         
