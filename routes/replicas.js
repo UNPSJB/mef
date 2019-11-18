@@ -17,7 +17,7 @@ router.get("/prohibido",(req,res)=>{
 router.get('/pedidos/agregar', (req,res)=>{
     dinoService.getDinosaurios().then((dinosaurios)=>{
         clienteService.getClientes().then(clientes=>{
-            res.render('replicacion/agregar',{dinosaurios,clientes})
+            res.render('replicacion/agregar',{dinosaurios,clientes}) 
         })
     })
 })
