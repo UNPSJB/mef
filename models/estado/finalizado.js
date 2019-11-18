@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) =>{
         }
     }
     Finalizado.init({
-        fecha:DataTypes.DATE,
         finalizacion: DataTypes.DATEONLY, //fecha definitiva de creado, la pone el cliente
         PedidoId:{
             type:DataTypes.INTEGER,

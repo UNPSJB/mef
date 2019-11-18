@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) =>{
 
     }
     Pago.init({
-        fecha:DataTypes.DATE,
         tipo : {
             type:DataTypes.ENUM,
             values: ['Efectivo', 'Cheque']

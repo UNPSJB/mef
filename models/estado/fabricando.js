@@ -10,17 +10,26 @@ module.exports = (sequelize, DataTypes) =>{
             /**
              * @TODO agregar Replicas creadas del detalle de las replicas
              */
+            const PedidoId = pedido.id;
+            
             return sequelize.models.Finalizado.create({
-                PedidoId:pedido.id
-            }).then(()=>{
-                pedido.update({
+                PedidoId
+            }).then(async ()=>{
+                const detalles = await pedido.getDetalles([sequelize.models.Hueso]);
+                detalles.forEach(item=>{
+                    console.log('item:::::::',item);
+                    sequelize.models.Replica.create({
+                        PedidoId,
+                        HuesoId:item.HuesoId
+                    })
+                })
+                return pedido.update({
                     estadoInstance:'Finalizado'
                 })
             })
         }
     }
     Fabricando.init({
-        fecha:DataTypes.DATE,
         descripcion : {
             type:DataTypes.STRING,
             defaultValue:'Fabricando'
