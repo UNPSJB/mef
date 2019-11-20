@@ -3,6 +3,7 @@ const router = express.Router();
 const dinoService = require('../services/dinosaurio');
 const replicasService = require('../services/replicas');
 const huesoService = require('../services/hueso');
+const empleadoService = require('../services/empleado');
 const clienteService = require('../services/cliente');
 const models = require('../models');
 
@@ -25,7 +26,6 @@ router.get('/pedidos/detalle/:id', (req,res)=>{
     const { id } = req.params;
     replicasService.getPedido().then(async pedido=>{
         const estados = await pedido.estados;
-        console.log(estados);
         res.render("replicacion/detalle", {id, estados});
     })
 })
@@ -46,8 +46,21 @@ router.get('/pedidos/:accion/:id', (req,res)=>{
         res.redirect('/404')
     }    
 })
+router.get('/empleados', (req,res)=>{
+    try{
+        return empleadoService.getEmpleados()
+        .then((empleados) => {
+            res.send(JSON.stringify(empleados,null,4));
+    })
+    }catch(err){
+        console.log(err);
+    }
+    
+});
+
 router.post('/pedidos/:accion/:id', (req,res)=>{
     const {accion , id} = req.params;
+
     replicasService.getPedido({id}).then(async (pedido)=>{
         try {
             await pedido.hacer(accion,req.body);

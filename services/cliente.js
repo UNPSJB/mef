@@ -27,10 +27,7 @@ module.exports = {
         })
     },
     updateCliente(clienteReq){
-        return cliete.upsert(clienteReq)
-                .catch(()=>{
-                    console.log("male sal cliente insert");
-                });
+        return cliente.upsert(clienteReq);
     },
     deleteCliente(id){
         return cliente.findByPk(id)

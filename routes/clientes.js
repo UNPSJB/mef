@@ -24,6 +24,9 @@ router.get('/agregar', (req,res,next) => {
                 });
                 return noCliente;
             });
+            noClientes.forEach((cli)=>{
+                console.log(cli);
+            });
             res.render('clientes/agregar',{ noClientes });
         }); 
     });
@@ -60,8 +63,38 @@ router.get('/eliminar', (req,res,next)=>{
   });
 
   router.put('/', (req,res,next)=>{
-    clienteService.updateCliente(req.body)
-    .then(() => res.redirect('/clientes'));
+    const {idPersona,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono} = req.body;
+    const {idCliente,tipoCliente} = req.body;
+    var personaBody={
+        "id":idPersona,
+        "identificacion":identificacion,
+        "nombre":nombre,
+        "apellido":apellido,
+        "direccion":direccion,
+        "localidad":localidad,
+        "email":email,
+        "fecha_nacimiento":fecha_nacimiento,
+        "telefono":telefono
+    }
+    var clienteBody={
+        "id":idCliente,
+        "tipo":tipoCliente
+    }
+    console.log(personaBody,clienteBody);
+    
+    return clienteService.getCliente(idCliente)
+    .then(()=>{
+        clienteService.updateCliente(clienteBody)
+        .then(()=>{
+            personaService.getPersona(idPersona)
+            .then(()=>{
+                personaService.updatePersona(personaBody)
+                .then(()=>{
+                    res.redirect('/clientes');      
+                })
+            })
+        })
+    })
   });
   
   router.delete('/' , (req,res,next) =>{
