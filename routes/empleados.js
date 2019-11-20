@@ -3,14 +3,17 @@ const router = express.Router();
 const empleadoService = require('../services/empleado.js');
 const personaService = require('../services/persona.js');
 
-
 //lista todos los empleados
 router.get('/',(req, res, next) => {
-    empleadoService.getEmpleados().then((results)=>{
-        res.render('empleados/empleado',{
-            results
+    console.log('ASIGNANDO PEDIDOOO:');
+    empleadoService.asignarAPedido(2,1).then((result)=>{
+        console.log(result);
+        empleadoService.getEmpleados().then((results)=>{
+            res.render('empleados/empleado',{
+                results
+            });
         });
-    });
+    })
 });
 
 router.get('/agregar', (req,res,next) => {

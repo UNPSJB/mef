@@ -117,7 +117,14 @@ module.exports = (sequelize,DataTypes) => {
     Pedido.hasOne(Finalizado);
     Pedido.hasOne(Pago);
     Pedido.hasOne(Presupuestado);    
-    Pedido.belongsTo(Persona); 
+    Pedido.belongsTo(Persona);
+    Pedido.belongsToMany(sequelize.models.Empleado,{
+        through:'PedidoEmpleado'
+    });
+    
+    sequelize.models.Empleado.belongsToMany(Pedido,{
+        through:'PedidoEmpleado'
+    });
 
     // return [Pedido, Detalle];
     return Pedido;
