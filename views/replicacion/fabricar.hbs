@@ -27,7 +27,7 @@
             <div class="col-sm border" style="height: 21vh; overflow: auto">
                 <label for="empleados" id="listaEmpleados">
 
-                </label>master
+                </label>
             </div>
             <div class="col-sm border">
             </div>
@@ -41,24 +41,28 @@
 </form>
 
 <script>
-$(document).ready{function(){
-    fetch(`http://localhost:3000/replicas/empleados/${id}`, { mode: "cors" })//necesito a todos los empleados
+$(document).ready(() => {
+    fetch(`http://localhost:3000/replicas/empleados`, { mode: "cors" })//necesito a todos los empleados
     .then((res)=>{
         return res.json();
     })
     .then((json)=>{
-        let arr[]
-        let contenedor = document.getElementById("listaEmpleado");
+        let arr = [];
+        let contenedor = document.getElementById("listaEmpleados");
         contenedor.innerHTML = "";
         const entries = Object.entries(json);
         for (var key in json) {
-            arr.push(generateCheckbox(json[key].id))
+            arr.push(generateCheckbox(json[key].id, json[key].Persona.nombre, json[key].Persona.apellido))
             arr.push("<br>")
         }
         contenedor.innerHTML = arr;
-        .catch((err) => {
+    })
+    .catch((err) => {
             console.log(err)
         })
-    })
-}}
+});
+
+function generateCheckbox(id, nombre, apellido) {
+    return `<input type="checkbox" name="empleado" value="${id}"> ${nombre}  ${apellido}`;
+}
 </script>

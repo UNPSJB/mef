@@ -20,6 +20,10 @@ module.exports = {
       include: [models.Persona]
     })
   },
+  obtenerPedido(id){
+    return pedido.findByPk(id, {include:[persona]});
+  }
+  ,
   solicitar(huesos){
     return models.Pedido.create({
       autorizacion:true,
