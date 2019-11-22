@@ -7,33 +7,37 @@ module.exports = (sequelize, DataTypes) =>{
             console.log('No se puede realizar la accion');
         }
         finalizar(pedido,args){
-            /**
-             * @TODO agregar Replicas creadas del detalle de las replicas
-             */
             const PedidoId = pedido.id;
+            const fechaInicio = pedido.createdAt;
+            const fechaFin = args.fechafin;
+            const tipoPedido = pedido.tipo;
             return sequelize.models.Finalizado.create({
                 PedidoId
             }).then(async ()=>{
-                const tipoPedido = pedido.tipo;
-                console.log(tipoPedido);
-
-                if(tipoPedido == 'Interno')
-                    console.log('INTERNO');
-                else
-                    console.log('EXTERNO');
-
+                
                 if(tipoPedido == 'Interno'){
                     const detalles = await pedido.getDetalles([sequelize.models.Hueso]);
                     detalles.forEach(item=>{
-                        console.log('item:::::::',item);
                         sequelize.models.Replica.create({
                         PedidoId,
-                        HuesoId:item.HuesoId
+                        HuesoId:item.HuesoId,
+                        fecha_inicio: fechaInicio,
+                        fecha_fin: fechaFin
                         })
                     })
                 }
-                else
-                    console.log('EXTERNO');
+                else{
+                    const detalles = await pedido.getDetalles([sequelize.models.Hueso]);
+                    detalles.forEach(item=>{
+                        sequelize.models.Replica.create({
+                        PedidoId,
+                        HuesoId:item.HuesoId,
+                        fecha_inicio: fechaInicio,
+                        fecha_fin: fechaFin,
+                        fecha_baja: fechaFin
+                        })
+                    })
+                } 
                 
                 return pedido.update({
                     estadoInstance:'Finalizado'
