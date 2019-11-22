@@ -11,18 +11,30 @@ module.exports = (sequelize, DataTypes) =>{
              * @TODO agregar Replicas creadas del detalle de las replicas
              */
             const PedidoId = pedido.id;
-            
             return sequelize.models.Finalizado.create({
                 PedidoId
             }).then(async ()=>{
-                const detalles = await pedido.getDetalles([sequelize.models.Hueso]);
-                detalles.forEach(item=>{
-                    console.log('item:::::::',item);
-                    sequelize.models.Replica.create({
+                const tipoPedido = pedido.tipo;
+                console.log(tipoPedido);
+
+                if(tipoPedido == 'Interno')
+                    console.log('INTERNO');
+                else
+                    console.log('EXTERNO');
+
+                if(tipoPedido == 'Interno'){
+                    const detalles = await pedido.getDetalles([sequelize.models.Hueso]);
+                    detalles.forEach(item=>{
+                        console.log('item:::::::',item);
+                        sequelize.models.Replica.create({
                         PedidoId,
                         HuesoId:item.HuesoId
+                        })
                     })
-                })
+                }
+                else
+                    console.log('EXTERNO');
+                
                 return pedido.update({
                     estadoInstance:'Finalizado'
                 })

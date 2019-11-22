@@ -24,9 +24,7 @@ router.get('/agregar', (req,res,next) => {
                 });
                 return noCliente;
             });
-            noClientes.forEach((cli)=>{
-                console.log(cli);
-            });
+
             res.render('clientes/agregar',{ noClientes });
         }); 
     });
@@ -37,7 +35,6 @@ clienteService.getCliente(req.query.id)
     .then((cliente) =>{
         res.render('clientes/editar', { cliente });
     })
-    .catch((err)=>{  console.log(err)}); //@TODO mostrar dino sin editar o algo
 })
 
 router.get('/eliminar', (req,res,next)=>{
@@ -50,16 +47,24 @@ router.get('/eliminar', (req,res,next)=>{
   
   router.post('/', (req,res,next) =>{
     const {identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, personaid, tipo } = req.body;
-   
     if(tipo == 'nuevo'){
-            return clienteService.createCliente(tipoCliente,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
-            .then(()=>{ res.redirect('/clientes')});
-    }
+        return clienteService.createCliente(tipoCliente,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
+        .then(()=>{ res.redirect('/clientes')})
+        .catch(errores =>{
+            res.render('clientes/agregar',{ errores });
+        });
+        
+    }   
 
     if(tipo == 'existe'){
         return clienteService.createClienteExiste(tipoCliente, personaid)
-        .then(()=>{ res.redirect('/clientes')});
+        .then(()=>{ res.redirect('/clientes')})
+        .catch(errores =>{
+            res.render('clientes/agregar',{ errores });
+        });
     }
+
+    
   });
 
   router.put('/', (req,res,next)=>{
@@ -80,7 +85,6 @@ router.get('/eliminar', (req,res,next)=>{
         "id":idCliente,
         "tipo":tipoCliente
     }
-    console.log(personaBody,clienteBody);
     
     return clienteService.getCliente(idCliente)
     .then(()=>{

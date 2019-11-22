@@ -57,7 +57,7 @@ app.use(session({
 
 app.use('/', indexRouter); 
 app.use('/users', usersRouter);
-app.use('/dinosaurios', permisos.permisoPara([permisos.ROLES.COLECCION]), dinosauriosRouter);
+app.use('/dinosaurios', dinosauriosRouter);
 app.use('/fosiles', fosilesRouter);
 app.use('/subclases', subclaseRouter);
 app.use('/clientes',clientesRouter);

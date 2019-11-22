@@ -53,17 +53,11 @@ module.exports = {
 
    updateEmpleado(empleadoReq){ //@TODO mostrar dino sin editar o algo
         return cliete.upsert(empleadoReq)
-                .catch(()=>{
-                    console.log("male sal empleado insert");
-                });
     },
     deleteEmpleado(id){
         return empleado.findByPk(id)
             .then( (empleadoEncontrado) => {
                 empleadoEncontrado.destroy(empleadoEncontrado);
             })
-            .catch((err) => {
-                console.log("mal sale otrave "+err);
-            });
     }
 };
