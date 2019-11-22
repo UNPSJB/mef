@@ -32,10 +32,7 @@ module.exports = {
     deleteCliente(id){
         return cliente.findByPk(id)
             .then( (clienteEncontrado) => {
-                clienteEncontrado.destroy(clienteEncontrado);
+                return clienteEncontrado.destroy(clienteEncontrado);
             })
-            .catch((err) => {
-                console.log("mal sale otrave "+err);
-            });
     }
 };
