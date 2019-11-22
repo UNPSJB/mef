@@ -91,16 +91,15 @@ module.exports = (sequelize,DataTypes) => {
     }, {
         hooks:{
             afterCreate(pedido){
+                const PedidoId = pedido.id;
                 if(pedido.estadoInstance === 'Presupuestado'){
                     Presupuestado.create({
-                        PedidoId:pedido.id,
-                        fecha: new Date()
+                        PedidoId,
                     })
                 }
                 if(pedido.estadoInstance === 'Confirmado'){
                     Confirmado.create({
-                        PedidoId:pedido.id,
-                        fecha : new Date()
+                        PedidoId,
                     })
                 }
             }
@@ -119,6 +118,13 @@ module.exports = (sequelize,DataTypes) => {
     Pedido.hasOne(Pago);
     Pedido.hasOne(Presupuestado);    
     Pedido.belongsTo(Persona);
+    Pedido.belongsToMany(sequelize.models.Empleado,{
+        through:'PedidoEmpleado'
+    });
+    
+    sequelize.models.Empleado.belongsToMany(Pedido,{
+        through:'PedidoEmpleado'
+    });
 
     // return [Pedido, Detalle];
     return Pedido;
