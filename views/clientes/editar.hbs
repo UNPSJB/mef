@@ -12,22 +12,22 @@
                 Documento
               </label>
               <input type="text" class="form-empleado form-control" name="identificacion" id="InputIdentificacion"
-                placeholder="Ingrese su documento" required {{#if this}} value="{{this.Persona.identificacion}}" {{/if}}>
+                placeholder="Ingrese su documento" required {{#if cliente}} value="{{cliente.Persona.identificacion}}" {{/if}}>
               <label class="font-weight-bold" for="nombre">
                 Nombre
               </label>
               <input type="text" class="form-empleado form-control" name="nombre" id="InputNombre"
-                placeholder="Ingrese Nombre" required {{#if this}}value="{{this.nombre}}" {{/if}}>
+                placeholder="Ingrese Nombre" required {{#if cliente}}value="{{cliente.Persona.nombre}}" {{/if}}>
               <label class="font-weight-bold" for="apellido">
                 Apellido
               </label>
               <input type="text" class="form-empleado form-control" name="apellido" id="InputApellido"
-                placeholder="Ingrese Apellido" required {{#if this}}value="{{this.apellido}}" {{/if}}>
+                placeholder="Ingrese Apellido" required {{#if cliente}}value="{{cliente.Persona.apellido}}" {{/if}}>
               <label class="font-weight-bold" for="direccion">
                 Direccion
               </label>
               <input type="text" class="form-empleado form-control" name="direccion" id="InputDireccion"
-                placeholder="Ingrese Direccion" required {{#if this}}value="{{this.direccion}}" {{/if}}>
+                placeholder="Ingrese Direccion" required {{#if cliente}}value="{{cliente.Persona.direccion}}" {{/if}}>
 
             </div>
             <div class="col-6">
@@ -35,18 +35,18 @@
                 Localidad
               </label>
               <input type="text" class="form-empleado form-control" name="localidad" id="InputLocalidad"
-                placeholder="Ingrese Localidad" required {{#if this}}value="{{this.localidad}}" {{/if}}>
+                placeholder="Ingrese Localidad" required {{#if cliente}}value="{{cliente.Persona.localidad}}" {{/if}}>
               <label class="font-weight-bold" for="email">
                 Email
               </label>
               <input type="email" class="form-empleado form-control" name="email" id="InputEmail"
-                placeholder="Ingrese Email" required {{#if this}}value="{{this.email}}" {{/if}}>
+                placeholder="Ingrese Email" required {{#if cliente}}value="{{cliente.Persona.email}}" {{/if}}>
               <label class="font-weight-bold" for="fechaNacimiento">
                 Fecha Nacimiento
               </label>
               <br>
               <input type="date" class="form-empleado form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
-                required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
+                required {{#if cliente}}value="{{cliente.Persona.fecha_nacimiento}}" {{/if}}>
               <br>
               <label class="font-weight-bold" for="InputTelefono">
                 Telefono
@@ -56,7 +56,7 @@
               </small>
               <input type="tel" class="form-empleado form-control" name="telefono" id="InputTelefono"
                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Ingrese Telefono" required
-                {{#if this}}value="{{this.telefono}}" {{/if}}>
+                {{#if cliente}}value="{{cliente.Persona.telefono}}" {{/if}}>
 
               <label class="btn btn-secondary form-check-label">
                 <input type="radio" name="tipoCliente" id="option1" value="Particular" autocomplete="off" required>
@@ -66,7 +66,8 @@
                 <input type="radio" name="tipoCliente" id="option2" value="Institucional" autocomplete="off">
                 Institucional
               </label>
-              {{#if this}}<input name="id" type="number" value="{{this.id}}" hidden> {{/if}}
+              {{#if cliente}}<input name="id" type="number" value="{{cliente.id}}" hidden> {{/if}}
+              {{#if cliente}}<input name="idPersona" type="number" value="{{cliente.Persona.id}}" hidden> {{/if}}
               </label>
             </div>
           </div>

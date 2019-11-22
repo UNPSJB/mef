@@ -60,8 +60,15 @@ router.get('/eliminar', (req,res,next)=>{
   });
 
   router.put('/', (req,res,next)=>{
+    console.log(req.body)
     clienteService.updateCliente(req.body)
-    .then(() => res.redirect('/clientes'));
+    .then(() =>{
+        console.log("cliente editado")
+        res.redirect('/clientes');
+        
+    })
+
+
   });
   
   router.delete('/' , (req,res,next) =>{
