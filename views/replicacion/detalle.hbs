@@ -70,10 +70,14 @@
                         <thead>
                             <th>Estado</th>
                             <th>Fecha de cambio</th>
+                            <th>Acciones</th>
                         </thead>
                         <tbody>
                             <td></td>
                             <td></td>
+                            <td>
+                                <button class="btn btn-primary" id="button-info">info</button>
+                            </td>
                         </tbody>
                     </table>
                 </div>
@@ -81,8 +85,19 @@
         </div>
         <div class="col-4 border">
             <div class="container">
-                
+                <div id="content">
+                    {{!-- AQUI VA LA INFO DEL ESTADO --}}
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#button-info').click(function () {
+            $('#content').text();
+        });
+    });
+</script>
