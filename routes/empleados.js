@@ -5,13 +5,10 @@ const personaService = require('../services/persona.js');
 
 //lista todos los empleados
 router.get('/',(req, res, next) => {
-    console.log('ASIGNANDO PEDIDOOO:');
-    empleadoService.asignarAPedido(2,1).then((result)=>{
-        console.log(result);
         empleadoService.getEmpleados().then((results)=>{
             res.render('empleados/empleado',{
                 results
-            });
+
         });
     })
 });
@@ -33,7 +30,6 @@ empleadoService.getEmpleado(req.query.id)
     .then((empleado) =>{
         res.render('empleados/editar', { empleado });
     })
-    .catch((err)=>{  console.log(err)});
 })
 
 router.get('/eliminar', (req,res,next)=>{
