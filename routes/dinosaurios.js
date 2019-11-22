@@ -4,7 +4,7 @@ const dinoService = require('../services/dinosaurio');
 const huesoService = require('../services/hueso');
 const subclaseService = require('../services/subclase');
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res, next) => {/// TALLER accede aca
   dinoService.getDinosaurios()
     .then((results) => {
       res.render('dinosaurios/dinosaurio', {
@@ -40,7 +40,7 @@ router.get('/eliminar', (req,res,next)=>{
 });
 
 // HUESOS
-router.get('/moldes', (req, res) => {
+router.get('/moldes', (req, res) => { /// TALLER
   const { id } = req.query;
   huesoService.getHuesosDino(id)
     .then((huesos)=>{
@@ -56,7 +56,7 @@ router.get('/huesos/:id', (req,res)=>{
     })
 })
 
-router.patch('/moldes/toggle', (req,res)=>{
+router.patch('/moldes/toggle', (req,res)=>{ /// esto NO PUEDE SER ACCEDIDO por bones
   const { id } = req.query
   huesoService.toggleDisponibilidadHueso(id);
   res.send(200);

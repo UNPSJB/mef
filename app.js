@@ -58,8 +58,8 @@ app.use(session({
 app.use('/', indexRouter); 
 app.use('/users', usersRouter);
 app.use('/dinosaurios', permisos.permisoPara([permisos.ROLES.COLECCION]), dinosauriosRouter);
-app.use('/fosiles', fosilesRouter);
-app.use('/subclases', subclaseRouter);
+app.use('/fosiles', fosilesRouter); /// solo coleccion
+app.use('/subclases', subclaseRouter); /// solo coleccion
 app.use('/clientes',clientesRouter);
 app.use('/empleados',empleadosRouter);
 app.use('/replicas', replicasRouter);

@@ -33,11 +33,11 @@ module.exports = {
     permisoPara(args){ //aca van quienes tienen permiso
         // const rol = req.session.rol;
         return function (req,res,next) {
-            if(!req.session.userId) res.redirect('/403')  //no tiene session
-            if(req.session.rol in ROLES){
+            if(req.session.rol in args){
                 next(); //tiene session y permiso
             }
-            res.redirect('403');
+            console.log('no estas logueado');
+            res.redirect('/403');
         }
     }
 }
