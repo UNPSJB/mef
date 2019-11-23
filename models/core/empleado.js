@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     class Empleado extends Sequelize.Model {
 
         asignarAPedido(pedidoId, empleadoId) {
-            console.log('PEDIDOID: ',pedidoId,' EMPLEADOID: ',empleadoId);
             return sequelize.models.Pedido.findByPk(pedidoId)
                 .then((pedidoNuevo) => {
                     return sequelize.models.Empleado.findByPk(empleadoId)
