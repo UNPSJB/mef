@@ -21,9 +21,7 @@ module.exports ={
     },
     updateFosil(fosilReq){
         return fosil.upsert(fosilReq) //update or insert = upsert XD
-                .catch(() =>{// sale mal
-                    console.log("fosil update sale mal");
-                })    
+
     },
     deleteFosil(id){
         return fosil.findByPk(id)

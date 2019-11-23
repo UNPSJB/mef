@@ -18,7 +18,6 @@ function buscarSubclases() {
       let resultados = filtrar(res);
       dibujarOpciones(resultados);
     })
-    .catch((e) => console.log('upsi... ' + e));
 }
 function filtrar(subclases){
   let resultados = [];

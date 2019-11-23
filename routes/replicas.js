@@ -8,7 +8,7 @@ const clienteService = require('../services/cliente');
 const models = require('../models');
 
 router.get('/',  (req,res)=>{
-    replicasService.getPedidos().then((pedidos)=>{      
+    replicasService.getPedidos().then((pedidos)=>{
         res.render('replicacion/lista', {pedidos})
     })       
 });

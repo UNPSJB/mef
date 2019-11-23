@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) =>{
                 model:'Pedidos',
                 key:'id'
             }
+        },
+        fecha:{
+            type: DataTypes.DATE,
+            defaultValue: new Date(),
+            allowNull:false
         }
     },{sequelize});
     Finalizado.associate = function (models){
