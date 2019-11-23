@@ -3,5 +3,15 @@
 
 {{> replica/detalle detalles}}
 
-<button class="btn btn-primary">Confirmar</button>
-<button class="btn btn-secondary">Rechazar</button>
+<br>
+<form class="form" action="/replicas/pedidos/{{accion}}/{{id}}" method="post">
+<div class="form-group">
+    <label for="retraso_estimado">Ingrese Fecha de Demora</label>
+        <input class="form-control" type="text" name="retraso_estimado" id="" placeholder="Ej. Una semana, un mes, un año" >
+        <small>Fecha estimada de retraso del pedido</small>
+    
+</div>
+
+<button type="submit" class="btn btn-primary">Confirmar</button>
+<a href="/replicas" class="btn btn-secondary">Rechazar</a>
+</form>

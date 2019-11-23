@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) =>{
             values: ['Efectivo', 'Cheque']
         },
         monto : DataTypes.FLOAT,
+        fecha:{
+            type: DataTypes.DATE,
+            defaultValue: new Date(),
+            allowNull:false
+        }
     }, {sequelize});
     Pago.associate = function (models){
         models.Pago.belongsTo(models.Pedido);

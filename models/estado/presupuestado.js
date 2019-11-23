@@ -40,6 +40,11 @@ module.exports = (sequelize, DataTypes) =>{
         type:DataTypes.STRING,
         defaultValue:'Presupuestado'
     },
+    fecha:{
+        type: DataTypes.DATE,
+        defaultValue: new Date(),
+        allowNull:false
+    },
     cantidad_huesos: DataTypes.INTEGER,
     monto: DataTypes.FLOAT,
     fecha_fin_oferta: DataTypes.DATEONLY,
