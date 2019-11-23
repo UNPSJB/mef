@@ -3,14 +3,14 @@ const router = express.Router();
 const empleadoService = require('../services/empleado.js');
 const personaService = require('../services/persona.js');
 
-
 //lista todos los empleados
 router.get('/',(req, res, next) => {
-    empleadoService.getEmpleados().then((results)=>{
-        res.render('empleados/empleado',{
-            results
+        empleadoService.getEmpleados().then((results)=>{
+            res.render('empleados/empleado',{
+                results
+
         });
-    });
+    })
 });
 
 router.get('/agregar', (req,res,next) => {
@@ -30,7 +30,6 @@ empleadoService.getEmpleado(req.query.id)
     .then((empleado) =>{
         res.render('empleados/editar', { empleado });
     })
-    .catch((err)=>{  console.log(err)});
 })
 
 router.get('/eliminar', (req,res,next)=>{

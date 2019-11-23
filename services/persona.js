@@ -26,7 +26,7 @@ module.exports = {
         })
     },
     updatePersona(personaReq){
-        return persona.upsert(personaReq)
+        return persona.upsert(personaReq);
     },
     deletePersona(id){
         return persona.findByPk(id)
