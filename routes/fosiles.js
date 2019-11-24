@@ -1,4 +1,5 @@
 const express = require("express");
+const permisos = require('../auth/permisos');
 const router = express.Router();
 
 // Servicios requeridos
@@ -101,6 +102,5 @@ router.post("/", (req, res, next) => {
       });
   });
 });
-// createFosil(numero_coleccion,peso,disponible,fecha_encontrado,observacion,HuesoId){
 
 module.exports = router;
