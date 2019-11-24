@@ -12,6 +12,36 @@ const ROLES = {
     SECRETARIA
 }
 
+const FABRICAR = 'fabricar'
+const DEMORAR = 'demorar'
+const REANUDAR = 'reanudar'
+const FINALIZAR = 'finalizar'
+const ENTREGAR = 'entregar'
+const QUITAR = 'quitar'
+const ASIGNAR = 'asignar'
+
+const PRESUPUESTAR = 'presupuestar'
+const CANCELAR = 'cancelar'
+const FACTURAR = 'facturar'
+const CONFIRMAR = 'confirmar'
+
+
+const EXHIBICION_ESTADOS = {
+    PRESUPUESTAR,
+    CANCELAR,
+    FACTURAR,
+    CONFIRMAR,
+} 
+const TALLER_ESTADOS = {
+    FABRICAR,
+    DEMORAR,
+    REANUDAR,
+    FINALIZAR,
+    ENTREGAR,
+    QUITAR,
+    ASIGNAR
+}
+
 module.exports = {
     ROLES,
     estaLogueado(req,res,next){
@@ -29,6 +59,37 @@ module.exports = {
     }, 
     esColeccion(req,res,next){
         req.session.rol === ROLES.COLECCION ? next() : res.redirect('/error') //@TODO cambiar, agregar mas experiencia
+    },
+    permisosParaEstado(){
+        return function(req,res,next){
+            switch(req.params){
+                case FABRICAR:
+                case DEMORAR:
+                case REANUDAR:
+                case FINALIZAR:
+                case ENTREGAR:
+                case QUITAR:
+                case ASIGNAR:
+                    if(TALLER_ESTADOS.includes(req.session.rol)){
+                        return next()
+                    }else{
+                        return res.redirect('/403');
+                    }
+                    break;
+                case PRESUPUESTAR:
+                case CANCELAR:
+                case FACTURAR:
+                case CONFIRMAR:
+                    if(EXHIBICION_ESTADOS.includes(req.session.rol)){
+                        return next()
+                    }else{
+                        return res.redirect('/403');
+                    }
+                    break
+                default:
+                    return res.redirect('404');             
+            }
+        }
     },
     permisoPara(args){ //aca van quienes tienen permiso
         // const rol = req.session.rol;

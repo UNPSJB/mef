@@ -26,7 +26,9 @@ const bones = [
   "Hemales"
 ];
 
-router.get("/", (req, res, next) => {
+router.get("/", 
+permisos.permisoPara([permisos.ROLES.COLECCION,permisos.ROLES.EXHIBICION]),
+(req, res, next) => {
   fosilService.getFosiles().then(results => {
     res.render("fosiles/fosil", {
       results
@@ -34,49 +36,48 @@ router.get("/", (req, res, next) => {
   });
 });
 
-router.get("/agregar", (req, res, next) => {
+router.get("/agregar", 
+permisos.permisoPara([permisos.ROLES.COLECCION]),
+(req, res, next) => {
   dinoService.getDinosaurios().then(results => {
     res.render("fosiles/agregar", { results, bones });
   });
 });
 
-router.get("/editar", async (req, res, next) => {
+router.get("/editar", 
+permisos.permisoPara([permisos.ROLES.COLECCION]),
+async (req, res, next) => {
   const fosil = await fosilService.getFosil(req.query.id);
   dinoService.getDinosaurios().then(results => {
     res.render("fosiles/editar", { results, bones , fosil});
   });
 });
 
-// ESTO ERA PARA TRAER LOS HUESOS DEL DINOSAURIO
-// router.get("/huesos/:id/agregar", (req, res, next) => {
-//   huesoService
-//     .getHueso(req.params.id)
-//     .then(hueso => {
-//       res.render("fosiles/agregar", { hueso });
-//     })
-//     .catch(er => {
-//       res.redirect("/dinosaurios");
-//     });
-// });
-
-
-router.get("/eliminar", (req, res, next) => {
+router.get("/eliminar", 
+permisos.permisoPara([permisos.ROLES.COLECCION]),
+(req, res, next) => {
   fosilService
     .getFosil(req.query.id)
     .then(fosil => res.render("fosiles/eliminar", { fosil }))
     .catch(err => {
-    }); //@TODO hacer pagina de volver o algo
+    });
 });
 
-router.delete("/", (req, res, next) => {
+router.delete("/", 
+permisos.permisoPara([permisos.ROLES.COLECCION]),
+(req, res, next) => {
   fosilService.deleteFosil(req.body.id).then(() => res.redirect("/fosiles"));
 });
 
-router.put("/", (req, res, next) => {
+router.put("/", 
+permisos.permisoPara([permisos.ROLES.COLECCION]),
+(req, res, next) => {
   fosilService.updateFosil(req.body).then(() => res.redirect("/fosiles"));
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", 
+permisos.permisoPara([permisos.ROLES.COLECCION]),
+(req, res, next) => {
   const {
     DinosaurioId,
     huesos,
