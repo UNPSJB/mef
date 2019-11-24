@@ -4,10 +4,10 @@ const Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) =>{
     class Facturado extends Sequelize.Model{
         confirmar(pedido,args){
-            sequelize.models.Confirmado.create({
+            return sequelize.models.Confirmado.create({
                 PedidoId: pedido.id
             }).then( ()=>{
-                pedido.update({
+                return pedido.update({
                     estadoInstance:'Confirmado',
                     autorizacion:true
                 })
@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) =>{
             type:DataTypes.STRING,
             defaultValue:'Facturado'
         },
+        fecha:{
+            type: DataTypes.DATE,
+            defaultValue: new Date(),
+            allowNull:false
+        }
     },{sequelize});
     Facturado.associate = function(models){
         Facturado.belongsTo(models.Pedido);

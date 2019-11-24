@@ -25,7 +25,9 @@ module.exports = (sequelize,DataTypes) => {
             return Promise.all([
                 this.getCancelado(),
                 this.getConfirmado(),
-                this.getDemorados(),
+                this.getDemorados().then(ultimo =>{
+                    return ultimo.pop()
+                }),
                 this.getEntregado(),
                 this.getFabricando(),
                 this.getFacturado(),
@@ -44,8 +46,9 @@ module.exports = (sequelize,DataTypes) => {
                     }else{
                         return false;
                     }
+
                 }).sort((e1,e2) => {
-                    return e2.createdAt - e1.createdAt;
+                    return e2.fecha - e1.fecha;
                 });
             });
         }
@@ -117,7 +120,15 @@ module.exports = (sequelize,DataTypes) => {
     Pedido.hasOne(Finalizado);
     Pedido.hasOne(Pago);
     Pedido.hasOne(Presupuestado);    
-    Pedido.belongsTo(Persona); 
+    Pedido.belongsTo(Persona);
+    sequelize.models.Demorado.belongsTo(Pedido);
+    Pedido.belongsToMany(sequelize.models.Empleado,{
+        through:'PedidoEmpleado'
+    });
+    
+    sequelize.models.Empleado.belongsToMany(Pedido,{
+        through:'PedidoEmpleado'
+    });
 
     // return [Pedido, Detalle];
     return Pedido;

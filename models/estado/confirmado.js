@@ -2,21 +2,41 @@
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) =>{
+
     class Confirmado extends Sequelize.Model{
+        
         fabricar(pedido,args){
+            const {fechainicio,fechafin,empleado} = args;
+            const descripcion = 'Fabricando';
+            const inicio_estimada = fechainicio;
+            const fin_estimada = fechafin;
+            // const cantidad_empleados = empleado.length;
+            const PedidoId = pedido.id;
+
             return sequelize.models.Fabricando.create({
-                PedidoId:pedido.id
-            }).then( () =>{
-                pedido.update({
-                    estadoInstance:'Fabricando'
-                })           
+                PedidoId,
+                descripcion,
+                // cantidad_empleados,
+                inicio_estimada,
+                fin_estimada
             })
+            .then(()=>{
+                // empleado.forEach(emp => {
+                //     return sequelize.models.Empleado.findByPk(emp)
+                //     .then((empleado)=>{
+                //         return empleado.asignarAPedido(PedidoId,empleado.id);
+                //     })
+                // });
+
+                return pedido.update({estadoInstance:'Fabricando'});
+            });
         }
         cancelar(pedido,args){
+            const PedidoId = pedido.id;
             return sequelize.models.Cancelado.create({
-                PedidoId:pedido.id
+                PedidoId
             }).then(()=>{
-                pedido.update({
+                return pedido.update({
                     estadoInstance:'Cancelado'
                 })
             })
@@ -27,6 +47,11 @@ module.exports = (sequelize, DataTypes) =>{
         descripcion : {
             type: DataTypes.STRING,
             defaultValue: "Confirmado"
+        },
+        fecha:{
+            type: DataTypes.DATE,
+            defaultValue: new Date(),
+            allowNull:false
         },
         PedidoId:{
             type:DataTypes.INTEGER,

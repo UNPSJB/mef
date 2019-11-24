@@ -27,18 +27,12 @@ module.exports = {
         })
     },
     updateCliente(clienteReq){
-        return cliete.upsert(clienteReq)
-                .catch(()=>{
-                    console.log("male sal cliente insert");
-                });
+        return cliente.upsert(clienteReq);
     },
     deleteCliente(id){
         return cliente.findByPk(id)
             .then( (clienteEncontrado) => {
-                clienteEncontrado.destroy(clienteEncontrado);
+                return clienteEncontrado.destroy(clienteEncontrado);
             })
-            .catch((err) => {
-                console.log("mal sale otrave "+err);
-            });
     }
 };
