@@ -1,3 +1,63 @@
+<div class="container pt-4">
+    <div class="card mx-auto mt-4 text-center">
+        <div class="card-header bg-dark text-white">
+            <h2>Entregar Replicacion</h2>
+        </div>
+        <div class="card-body">
+            <span class="bg-info form-control text-center text-white">Esta a punto de {{accion}} el siguiente
+                pedido</span>
+            <h5 class="card-title pt-2">Pedido de Replicacion Nº {{id}}</h5>
+            <div class="row">
+                <div class="container col-8">
+                    <div class="form-group">
+                        <label for="example-date-input" class="col-form-label">Fecha de Envio</label>
+                        <div class="col">
+                            <input class="form-control" type="date" name="fecha_envio">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="example-date-input" class="col-form-label">Fecha de Entrega</label>
+                        <div class="col">
+                            <input class="form-control" type="date" name="fecha_entrega">
+                        </div>
+                    </div>
+                </div>
+                {{!-- <div class="container col-6">
+                    <p class="card-text">Ingrese Observacion de Transporte:</p>
+                    <textarea class="form-control   " placeholder="Igrese Observacion..." name="transporte" rows="5"></textarea>
+                    <br>
+                </div> --}}
+            </div>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+                Ver Detalle
+            </button>
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content modal-xl">
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            {{> replica/detalle detalles}}
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-dark text-muted">
+            <form action="/replicas/pedidos/{{accion}}/{{id}}" method="post">
+                <button type="submit" class="btn btn-success">Confirmar</button>
+                <a href="/replicas" class="btn btn-danger">Rechazar</a>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+{{!--
 <h1>Entregar Pedido</h1>
 <span class="bg-warning form-control">Esta a punto de poner de entregar el pedido</span>
 {{> replica/detalle detalles}}
@@ -7,8 +67,8 @@
 <label for="fechaentrega">
     Fecha entrega <input class="form-control" type="date" name="fechaentrega" id="">
 </label>
-{{!-- @TODO casi todos van a ser asi --}}
 <form action="/replicas/pedidos/{{accion}}/{{id}}" method="post">
-<button type="submit" class="btn btn-success">Confirmar</button>
-<a href="/replicas" class="btn btn-secondary">Rechazar</a>
+    <button type="submit" class="btn btn-success">Confirmar</button>
+    <a href="/replicas" class="btn btn-secondary">Rechazar</a>
 </form>
+--}}
