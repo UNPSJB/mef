@@ -1,6 +1,6 @@
-var models = require('../models');
-let dino = models.Dinosaurio;
-var hueso = models.Hueso;
+const models = require('../models');
+const dino = models.Dinosaurio;
+const hueso = models.Hueso;
 
 const craneo = ['Paladar','Mandíbula','Cráneo'];
 
@@ -13,6 +13,8 @@ const manos = ['Metacarpianos','Dedos Mano'];
 const vertebras = ['Hemales','Vertebras Cervicales','Vertebras Dorsales','Vertebras Sacras','Vertebras Caudales'];
 const torso = ['Costillas Cervicales','Costillas Dorsales'];
 
+const base = ['Craneo','Pelvis','Brazo', 'Piernas', 'Pies','Manos', 'Vertebras', 'Torso'];
+
 const huesosPersonalizados = ['Vertebras Cervicales','Vertebras Dorsales','Vertebras Sacras','Vertebras Caudales','Costillas Cervicales','Costillas Dorsales','Hemales','Metacarpianos','Metatarsales','Dedos Mano','Dedos Pie'];
 
 
@@ -24,6 +26,7 @@ module.exports = {
     },
     getHueso(id){
         return hueso.findOne({
+            include:[dino],
             where:{
                 id
             }
@@ -36,6 +39,14 @@ module.exports = {
             }
         })
     },
+    getHuesoDino(DinosaurioId, subtipohueso ){
+        return hueso.findOne({
+            where:{
+                DinosaurioId , subtipohueso 
+            }
+        })
+    }
+    ,
     createHueso(nombre, numero, DinosaurioId){
         return hueso.create({
             nombre,
@@ -44,6 +55,9 @@ module.exports = {
         });
     },
     createHuesos(DinosaurioId, args){
+        base.forEach(nombre=>{
+            hueso.create({nombre,numero:1,DinosaurioId});
+        })
         craneo.forEach((nombre)=>{
             hueso.create({nombre,numero:1,DinosaurioId});            
         });

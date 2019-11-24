@@ -1,22 +1,12 @@
 <h1>Finalizar Pedido</h1>
-<span class="bg-warning form-control">Esta a punto de poner de demorar el pedido</span>
-<h2>Detalles del pedido</h2>
-<table class="table">
-    <thead>
-        <th>#</th>
-        <th>Dino</th>
-        <th>Huesos</th>
-        <th>Detalles</th>
-    </thead>
-    <tbody>
-        <tr></tr>
-        <tr></tr>
-    </tbody>
-</table>
+<span class="bg-warning form-control">Esta a punto de poner de {{accion}} el pedido#{{id}}</span>
+{{> replica/detalle detalles}}
+{{!-- @TODO casi todos van a ser asi --}}
+<form action="/replicas/pedidos/{{accion}}/{{id}}" method="post">
 <label for="fechafin">
     Fecha Finalizacion de Replica
     <input class="form-control" type="date" name="fechafin" id="">
 </label>
-
-<button class="btn btn-primary">Confirmar</button>
-<button class="btn btn-secondary">Rechazar</button>
+<button type="submit" class="btn btn-success">Confirmar</button>
+<a href="/replicas" class="btn btn-secondary">Rechazar</a>
+</form>

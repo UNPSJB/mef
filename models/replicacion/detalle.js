@@ -1,5 +1,4 @@
 'use strict'
-// ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
 module.exports = (sequelize, DataTypes) =>{
     const Detalle = sequelize.define('Detalle', {
         renglon : DataTypes.STRING,
@@ -19,9 +18,6 @@ module.exports = (sequelize, DataTypes) =>{
             }
         }
     });
-    Detalle.associate = function (models){
-        models.Detalle.belongsTo(models.Pedido);
-        models.Detalle.belongsTo(models.Hueso);
-    }
+    
     return Detalle;
 }

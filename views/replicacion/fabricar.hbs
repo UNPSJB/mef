@@ -1,37 +1,68 @@
-<h1>Fabricar Pedido</h1>
-<span class="bg-warning form-control">Esta a punto de poner en fabricacion el siguiente pedido</span>
-<h2>Detalles del pedido</h2>
-<table class="table">
-    <thead>
-        <th>#</th>
-        <th>Dino</th>
-        <th>Huesos</th>
-        <th>Detalles</th>
-    </thead>
-    <tbody>
-        <tr></tr>
-        <tr></tr>
-    </tbody>
-</table>
+<form action="/replicas/pedidos/{{accion}}/{{id}}" method="post">
+    <h1>Fabricar Pedido</h1>
+    <span class="bg-warning form-control">Esta a punto de poner en fabricacion el siguiente pedido</span>
+    {{> replica/detalle detalles}}
+    <label class="form-group" for="inicio">
+        Fecha Inicio
+        <input class="form-control" type="date" name="fechainicio" id="">
+    </label>
+    <label class="form-group" for="fin">
+        Fecha Fin
+        <input class="form-control" type="date" name="fechafin" id="">
+    </label>
+    <br>
+    <label for="asignacion">
+        <h3>Asignar empleados</h3>
+    </label>
+    <br>
+    
+    <label for="empleadosasignados">Empleados asignados:</label>
 
-<label for="inicio">
-    Fecha Inicio 
-    <input class="form-control" type="date" name="fechainicio" id="">
-</label>
-<label for="fin">
-    Fecha Fin 
-    <input class="form-control" type="date" name="fechafin" id="">
-</label>
-<br>
-<label for="asignacion">
-    <h3>Asignar empleados</h3>
-</label>
-<br>
-<label for="empleadosasignados">Empleados asignados:</label>
-<div class="form-group bg-secondary">
+    <div class="form-group bg-secondary">
 
-</div>
-<label for="empleadossinasignar">Empleados disponibles:</label>
-<div class="form-group bg-secondary">
+    </div>
+    <label for="empleadossinasignar">Empleados disponibles:</label>
+    <div class="container border">
+        <div class="row">
+            <div class="col-sm border" style="height: 21vh; overflow: auto">
+                <label for="empleados" id="listaEmpleados">
 
-</div>
+                </label>
+            </div>
+            <div class="col-sm border">
+            </div>
+        </div>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-success">Confirmar</button>
+    <a href="/replicas" class="btn btn-secondary">Rechazar</a>
+</form>
+
+<script>
+$(document).ready(() => {
+    fetch(`http://localhost:3000/replicas/empleados`, { mode: "cors" })//necesito a todos los empleados
+    .then((res)=>{
+        return res.json();
+    })
+    .then((json)=>{
+        let arr = [];
+        let contenedor = document.getElementById("listaEmpleados");
+        contenedor.innerHTML = "";
+        const entries = Object.entries(json);
+        for (var key in json) {
+            arr.push(generateCheckbox(json[key].id, json[key].Persona.nombre, json[key].Persona.apellido))
+            arr.push("<br>")
+        }
+        contenedor.innerHTML = arr;
+    })
+    .catch((err) => {
+            console.log(err)
+        })
+});
+
+function generateCheckbox(id, nombre, apellido) {
+    return `<input type="checkbox" name="empleado" value="${id}"> ${nombre}  ${apellido}`;
+}
+</script>

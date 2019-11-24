@@ -1,4 +1,4 @@
-const models = require('../models')
+const models = require('../models');
 let fosil = models.Fosil;
 
 module.exports ={
@@ -8,21 +8,20 @@ module.exports ={
     getFosil(id){
         return fosil.findByPk(id);
     },
-    createFosil(numero_coleccion,peso,disponible,fecha_encontrado,observacion,HuesoId){
+    createFosil(numero_coleccion,peso,disponible,fecha_encontrado,observacion,DinosaurioId,huesos){
         return fosil.create({
                 numero_coleccion,
                 peso,
                 disponible,
                 fecha_encontrado,
                 observacion,
-                HuesoId
+                DinosaurioId,
+                huesos
             });
     },
     updateFosil(fosilReq){
         return fosil.upsert(fosilReq) //update or insert = upsert XD
-                .catch(() =>{// sale mal
-                    console.log("fosil update sale mal");
-                })    
+
     },
     deleteFosil(id){
         return fosil.findByPk(id)

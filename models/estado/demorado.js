@@ -1,8 +1,33 @@
 'use strict'
-// ALEX ESTUVO ACA, Y LAUTARO TAMBIEN
+const Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) =>{
-    const Demorado = sequelize.define('Demorado', {
-        descripcion : DataTypes.STRING,
+    class Demorado extends Sequelize.Model{
+        reanudar(pedido,args){
+            return pedido.update({
+                estadoInstance:'Fabricando'
+            }).then(async ()=>{                
+                let fabricando = await pedido.getFabricando();
+                return fabricando.update({
+                    fecha: new Date()
+                })
+            })
+        }
+
+        demorar(pedido,args){
+            console.log('No se puede realizar esa accion viejo');
+        }
+    }
+    Demorado.init({
+        fecha:{
+            type: DataTypes.DATE,
+            defaultValue: new Date(),
+            allowNull:false
+        },
+        descripcion : {
+            type:DataTypes.STRING,
+            defaultValue:'Demorado',
+            allowNull:false  
+        } ,
         retraso_estimado: DataTypes.STRING, //3 meses, 2 semanas, dos semanas, cinco anos
         PedidoId:{
             type:DataTypes.INTEGER,
@@ -11,13 +36,7 @@ module.exports = (sequelize, DataTypes) =>{
                 key:'id'
             }
         }
-    });
-    Demorado.associate = function (models){
-        models.Demorado.belongsTo(models.Pedido);
-    }
+    }, {sequelize});
     return Demorado;
 }
 
-// 
-//
-//

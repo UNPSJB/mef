@@ -1,6 +1,19 @@
+const TALLER = 'taller';
+const COLECCION = 'coleccion';
+const EXHIBICION = 'exhibicion';
+const RRHH = 'rrhh';
+const SECRETARIA = 'secretaria';
 
+const ROLES = {
+    TALLER,
+    COLECCION,
+    EXHIBICION,
+    RRHH,
+    SECRETARIA
+}
 
 module.exports = {
+    ROLES,
     estaLogueado(req,res,next){
         //tiene cookie userId, continua sino al login
         req.session.userId ? next() : res.redirect('/login');//@TODO cambiar, agregar mas experiencia
@@ -9,12 +22,22 @@ module.exports = {
         req.session.userId ? res.redirect('/') : next();   //@TODO cambiar, agregar mas experiencia
     },
     esExhibicion(req,res,next){
-        req.session.rol === 'exhibicion' ? next() : res.redirect('/error'); //@TODO cambiar, agregar mas experiencia
+        req.session.rol === ROLES.EXHIBICION ? next() : res.redirect('/error'); //@TODO cambiar, agregar mas experiencia
     },
     esTaller(req,res,next){
-        req.session.rol === 'taller' ? next() : res.redirect('/error') ////@TODO cambiar, agregar mas experiencia
+        req.session.rol === ROLES.TALLER ? next() : res.redirect('/error') ////@TODO cambiar, agregar mas experiencia
     }, 
     esColeccion(req,res,next){
-        req.session.rol === 'coleccion' ? next() : res.redirect('/error') //@TODO cambiar, agregar mas experiencia
+        req.session.rol === ROLES.COLECCION ? next() : res.redirect('/error') //@TODO cambiar, agregar mas experiencia
+    },
+    permisoPara(args){ //aca van quienes tienen permiso
+        // const rol = req.session.rol;
+        return function (req,res,next) {
+            if(!req.session.userId) res.redirect('/403')  //no tiene session
+            if(req.session.rol in ROLES){
+                next(); //tiene session y permiso
+            }
+            res.redirect('403');
+        }
     }
 }
