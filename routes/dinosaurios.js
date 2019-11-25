@@ -52,7 +52,12 @@ router.get('/moldes/:id', (req, res) => { /// TALLER
   const { id } = req.params;
   huesoService.getHuesosDino(id)
     .then((huesos)=>{
-      res.render("huesos/hueso",{huesos, jefeexhibicion:true});
+      if(req.session.rol === permisos.ROLES.TALLER){
+        const taller = true;
+        res.render("huesos/hueso",{huesos, taller});
+      }else{
+        res.render("huesos/hueso",{huesos});
+      }
     });
 });
 
