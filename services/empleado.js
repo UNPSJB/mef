@@ -2,7 +2,6 @@ const models = require('../models')
 let empleado = models.Empleado;
 let persona = models.Persona;
 let pedido = models.Pedido;
-let empleadoPedido = models.empleadoPedido;
 let personaService = require('./persona');
 
 

@@ -14,27 +14,27 @@
         </div>
         <div class="col-7 mt-2 bg-dark">
             <nav class="navbar navbar-dark bg-dark">
-                <a class="navbar-brand" href="/">Mef Home</a>
+                <a class="navbar-brand" href="/" style="font-family: serif;">Mef</a>
             </nav>
-            <div class="col-sm-11 my-5 mb-5">
+            <div class="col-12 my-5 mb-5">
                 <h2 class="text-center display-4 text-description font-weight-bold">
-                    Welcome
+                    Bienvenido!
                 </h2>
             </div>
 
             <form class="col-8 mx-auto" action="/login" method="POST">
-                <p class="text-description mb-4">
+                <p class="text-description mb-4" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
                     El Mef es un centro de actividades científicas, con
                     entretenimiento para toda la familia.
                 </p>
                 <input name="email" type="email" class="form-control my-4 text-center" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="Ingrese mail" {{#if email}} value="{{email}}" {{/if}} />
-                <input name="pasword" type="password" class="form-control my-4 text-center" id="exampleInputPassword1"
+                <input name="password" type="password" class="form-control my-4 text-center" id="exampleInputPassword1"
                     placeholder="Contraseña" />
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-light btn-block">
-                        SignUp
+                        Ingresar
                     </button>
                 </div>
 

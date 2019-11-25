@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) =>{
     Entregado.init({
         fecha_envio: DataTypes.DATEONLY,
         fecha_entrega: DataTypes.DATEONLY, //fecha definitiva de creado, la pone el cliente
+        fecha:{
+            type: DataTypes.DATE,
+            defaultValue: new Date(),
+            allowNull:false
+        },
         PedidoId:{
             type:DataTypes.INTEGER,
             references:{

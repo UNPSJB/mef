@@ -3,21 +3,18 @@ const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
     class Empleado extends Sequelize.Model {
-
-        asignarAPedido(pedidoId, empleadoId) {
-            console.log('PEDIDOID: ',pedidoId,' EMPLEADOID: ',empleadoId);
-            return sequelize.models.Pedido.findByPk(pedidoId)
-                .then((pedidoNuevo) => {
-                    return sequelize.models.Empleado.findByPk(empleadoId)
-                        .then((empleado) => {
-                            return empleado.getPedidos()
-                                .then((pedidosTrabajando) => {
-                                    pedidosTrabajando.push(pedidoNuevo)
-                                    return empleado.setPedidos(pedidosTrabajando);
-                                })
-                        })
-                });
-        }
+      asignarAPedido(pedidoId, empleadoId) {
+        return sequelize.models.Pedido.findByPk(pedidoId).then(pedidoNuevo => {
+          return sequelize.models.Empleado.findByPk(empleadoId).then(
+            empleado => {
+              return empleado.getPedidos().then(pedidosTrabajando => {
+                pedidosTrabajando.push(pedidoNuevo);
+                return empleado.setPedidos(pedidosTrabajando);
+              });
+            }
+          );
+        });
+      }
     }
     Empleado.init({
         descripcion: {
@@ -34,8 +31,5 @@ module.exports = (sequelize, DataTypes) => {
             }
         }
     }, {sequelize});
-    Empleado.associate = function (models) {
-        models.Empleado.belongsTo(models.Persona);
-    };
     return Empleado;
 }

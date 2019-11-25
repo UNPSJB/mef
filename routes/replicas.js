@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router();
+const permisos = require('../auth/permisos');
 const dinoService = require('../services/dinosaurio');
 const replicasService = require('../services/replicas');
 const huesoService = require('../services/hueso');
@@ -7,15 +8,19 @@ const empleadoService = require('../services/empleado');
 const clienteService = require('../services/cliente');
 const models = require('../models');
 
-router.get('/',  (req,res)=>{
-    replicasService.getPedidos().then((pedidos)=>{      
+router.get('/',  
+    permisos.permisoPara([permisos.ROLES.TALLER, permisos.ROLES.EXHIBICION]),
+    (req,res)=>{
+    replicasService.getPedidos().then((pedidos)=>{
         res.render('replicacion/lista', {pedidos})
     })       
 });
 router.get("/prohibido",(req,res)=>{
     res.render('replicacion/prohibido')
 })
-router.get('/pedidos/agregar', (req,res)=>{
+router.get('/pedidos/agregar', 
+permisos.permisoPara([permisos.ROLES.EXHIBICION]),
+(req,res)=>{
     dinoService.getDinosaurios().then((dinosaurios)=>{
         clienteService.getClientes().then(clientes=>{
             res.render('replicacion/agregar',{dinosaurios,clientes}) 
@@ -29,16 +34,13 @@ router.get('/pedidos/detalle/:id', (req,res)=>{
         res.render("replicacion/detalle", {id, estados});
     })
 })
-router.get('/pedidos/:accion/:id', (req,res)=>{
-    /**
-     * @TODO mostrar lista de detalles
-     */
+router.get('/pedidos/:accion/:id', 
+    permisos.permisosParaEstado(),
+    (req,res)=>{
     const {accion , id} = req.params;
     try{
         replicasService.getPedido({id}).then(async pedido =>{
-            const detalles = await pedido.getDetalles({
-                include:[models.Pedido, models.Hueso]
-            });
+            const detalles = await pedido.getDetalles({include:[models.Pedido, models.Hueso]});
             const estado = await pedido.estado;
             res.render(`replicacion/${accion}`,{ accion, id, detalles, pedido, estado  });
         })

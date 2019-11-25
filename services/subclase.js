@@ -2,7 +2,6 @@ const models = require('../models')
 let subclase = models.SubClase;
 
 module.exports = {
-    
     getSubclases(){
         return subclase.findAll();
     },

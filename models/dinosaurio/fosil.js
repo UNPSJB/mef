@@ -48,9 +48,5 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
-
-  Fosil.associate = function(models) {
-    models.Fosil.belongsTo(models.Dinosaurio);
-  };
   return Fosil;
 };
