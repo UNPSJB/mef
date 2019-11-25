@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Sequelize = require('sequelize')
 const permisos = require('../auth/permisos');
 const dinoService = require('../services/dinosaurio');
 const huesoService = require('../services/hueso');
@@ -29,17 +30,17 @@ permisos.permisoPara([permisos.ROLES.COLECCION]),
   });
 });
 
-router.get('/editar', async (req,res,next) => {
+router.get('/editar/:id', async (req,res,next) => {
   //ver cuando id no existe
-  const dino = await dinoService.getDinosaurio(req.query.id);
+  const dino = await dinoService.getDinosaurio(req.params.id);
   subclaseService.getSubclases()
   .then((subclases)=>{
     res.render('dinosaurios/editar', { dino, subclases });    
   }); //@TODO mostrar dino sin editar o algo
 });
 
-router.get('/eliminar', (req,res,next)=>{
-  dinoService.getDinosaurio(req.query.id)
+router.get('/eliminar/:id', (req,res,next)=>{
+  dinoService.getDinosaurio(req.params.id)
   .then((dino)=> {
     res.render('dinosaurios/eliminar', { dino })
   })
@@ -47,8 +48,8 @@ router.get('/eliminar', (req,res,next)=>{
 });
 
 // HUESOS
-router.get('/moldes', (req, res) => { /// TALLER
-  const { id } = req.query;
+router.get('/moldes/:id', (req, res) => { /// TALLER
+  const { id } = req.params;
   huesoService.getHuesosDino(id)
     .then((huesos)=>{
       res.render("huesos/hueso",{huesos, jefeexhibicion:true});
@@ -99,9 +100,16 @@ router.put('/',permisos.permisoPara([permisos.ROLES.COLECCION]), (req,res)=>{
     });
 });
 
-router.delete('/' ,permisos.permisoPara([permisos.ROLES.COLECCION]) ,(req,res) =>{
-  dinoService.deleteDinosaurio(req.body.id)
-    .then(() => res.redirect('/dinosaurios'));
+router.delete('/' ,permisos.permisoPara([permisos.ROLES.COLECCION]) ,async (req,res) =>{
+  const { id } = req.body;
+  try {
+    await dinoService.deleteDinosaurio(id)
+    return res.redirect('/dinosaurios')
+  } catch (errores) {
+    dinoService.getDinosaurio(id).then(dino =>{
+      res.render('dinosaurios/eliminar', {errores, dino})
+    })    
+  }
 });
 
 
