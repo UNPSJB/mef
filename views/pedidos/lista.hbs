@@ -1,6 +1,5 @@
 <h1>Lista de pedidos
-    <a class="btn btn-success" href="/replicas/pedidos/agregar" role="button">Crear Pedido</a>
-    
+    <a class="btn btn-success" href="/pedidos/agregar" role="button">Crear Pedido</a>
 </h1>
 
 <div class="container">
@@ -69,6 +68,6 @@ $(".Cancelado").each(function(){
 
     function fabricar(accion, id) {
         let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
-        return `<a class='btn btn-primary' href='/replicas/pedidos/${accion}/${id}'>${capitlizado}</a>`;
+        return `<a class='btn btn-primary' href='/pedidos/${accion}/${id}'>${capitlizado}</a>`;
     }
 </script>

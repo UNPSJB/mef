@@ -17,8 +17,7 @@ var usersRouter = require('./routes/users');
 var dinosauriosRouter = require('./routes/dinosaurios');
 var fosilesRouter = require('./routes/fosiles');
 var subclaseRouter = require('./routes/subclases');
-var replicasRouter = require('./routes/replicas');
-var clientesRouter = require('./routes/clientes');
+var pedidosRouter = require('./routes/pedidos');
 var clientesRouter = require('./routes/clientes');
 var empleadosRouter = require('./routes/empleados');
 
@@ -62,7 +61,7 @@ app.use('/fosiles', fosilesRouter);
 app.use('/subclases', subclaseRouter);
 app.use('/clientes',clientesRouter);
 app.use('/empleados',empleadosRouter);
-app.use('/replicas', replicasRouter);
+app.use('/pedidos', pedidosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
