@@ -33,3 +33,7 @@ Vas a tener que modificar los archivos generados en la carpeta *models*
     npx sequelize-cli model:generate --name TipoHueso --attributes nombre:string
 
     npx sequelize-cli model:generate --name SubTipoHueso --attributes nombre:string
+
+## Correr todas las migraciones
+
+    npx sequelize-cli db:seed:all

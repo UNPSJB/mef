@@ -71,8 +71,6 @@ module.exports = {
                 case ENTREGAR:
                 case QUITAR:
                 case ASIGNAR:
-                    console.log(req.session.rol);
-                    console.log(ROLES.TALLER)
                     if(req.session.rol === ROLES.TALLER){
                         return next();
                     }else{
@@ -87,7 +85,6 @@ module.exports = {
                     }else{
                         return res.redirect('/403');
                     }
-                    break
                 default:
                     return res.redirect('404');             
             }
