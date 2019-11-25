@@ -2,7 +2,6 @@ const models = require('../models')
 let empleado = models.Empleado;
 let persona = models.Persona;
 let pedido = models.Pedido;
-let empleadoPedido = models.empleadoPedido;
 let personaService = require('./persona');
 
 
@@ -37,11 +36,11 @@ module.exports = {
         return empleado.getPedidos();
     }
     ,
-    createEmpleados(documento, nombre, apellido,  direccion,  ciudad, email,  fecha_nacimiento, telefono){
+    createEmpleados(documento, nombre, apellido,  direccion,  localidad, email,  fecha_nacimiento, telefono){
         
         
             
-            return personaService.createPersona(documento, nombre, apellido,  direccion,  ciudad, email,  fecha_nacimiento, telefono)
+            return personaService.createPersona(documento, nombre, apellido,  direccion,  localidad, email,  fecha_nacimiento, telefono)
             .then((persona)=>{
                 return empleado.create({
                     PersonaId:persona.id
@@ -52,7 +51,7 @@ module.exports = {
     },
 
    updateEmpleado(empleadoReq){ //@TODO mostrar dino sin editar o algo
-        return cliete.upsert(empleadoReq)
+        return empleado.upsert(empleadoReq)
     },
     deleteEmpleado(id){
         return empleado.findByPk(id)

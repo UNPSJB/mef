@@ -1,11 +1,11 @@
 {{#if rol}}
 <div class="alert alert-success">
-    <p>Bienvenide {{rol}}! Buen dia! </p>
+    <p>Bienvenide, actualmente tenes permisos de: {{rol}}! </p>
 </div>
 {{/if}}
 <div style="padding-top: 10px">
 <div class="jumbotron">
-  <h1 class="display-4 text-center">HOME</h1>
+  <h1 class="display-4 text-center">Bienvenido</h1>
   <p class="lead text-center">Haga clic en un boton abajo para ir a la seccion correspondiente.</p>
   <hr class="my-4">
   <div class="card-columns pt-4">
@@ -27,11 +27,15 @@
     </a>
     <a class="card bg-info btn btn-info btn-lg" style="height: 80px;" href="/replicas" role="button">
       <i class="fas fa-highlighter"></i>
-      Replicas
+       Pedidos  {{!-- HAY QUE EDITAR LA RUTA XQ DICE REPLICAS PERO VA A PEDIDOS --}}
     </a>
     <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/guias" role="button">
       <i class="fas fa-user"></i>
       Guias
+    </a>
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/empleados" role="button">
+      <i class="fas fa-user"></i>
+      Empleados
     </a>
   </div>  
 </div>
