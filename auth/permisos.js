@@ -62,7 +62,8 @@ module.exports = {
     },
     permisosParaEstado(){
         return function(req,res,next){
-            switch(req.params){
+            console.log(req.params)
+            switch(req.params.accion){
                 case FABRICAR:
                 case DEMORAR:
                 case REANUDAR:
@@ -70,22 +71,20 @@ module.exports = {
                 case ENTREGAR:
                 case QUITAR:
                 case ASIGNAR:
-                    if(TALLER_ESTADOS.includes(req.session.rol)){
-                        return next()
+                    if(req.session.rol === ROLES.TALLER){
+                        return next();
                     }else{
                         return res.redirect('/403');
                     }
-                    break;
                 case PRESUPUESTAR:
                 case CANCELAR:
                 case FACTURAR:
                 case CONFIRMAR:
-                    if(EXHIBICION_ESTADOS.includes(req.session.rol)){
+                    if(req.session.rol === ROLES.EXHIBICION){
                         return next()
                     }else{
                         return res.redirect('/403');
                     }
-                    break
                 default:
                     return res.redirect('404');             
             }

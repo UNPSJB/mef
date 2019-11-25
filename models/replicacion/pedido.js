@@ -130,19 +130,5 @@ module.exports = (sequelize,DataTypes) => {
         through:'PedidoEmpleado'
     });
 
-    // return [Pedido, Detalle];
     return Pedido;
 }
-
-// getEstadoPedidos()
-// asignarEmpleados(colEmpleados)
-// asignarDinosaurio(unDino)
-// asignarHuesos(colHuesos)  una coleccion de huesos  
-// confirmar()
-// cancelar()
-// fabricar() inicia la fabricacion
-// demorar(unMotivo)
-// facturar(unPago) ///poneleeeee
-// finalizar()  genera una replica
-// entregar(unaFechaEnvio,unaFechaEntrega)
-// presupuestar(unDineroAprox)

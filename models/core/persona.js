@@ -18,6 +18,15 @@ module.exports = (sequelize,DataTypes) =>{
         fecha_nacimiento: DataTypes.DATEONLY,
         telefono: DataTypes.STRING
     })
+
+    Persona.associate = function(models){
+        models.Cliente.belongsTo(models.Persona);
+        models.Persona.hasMany(models.Cliente);
+        models.Empleado.belongsTo(models.Persona);
+        models.Persona.hasMany(models.Empleado);
+        models.Persona.hasOne(models.User);
+        models.User.belongsTo(models.Persona);
+    };
     return Persona;
 };
 

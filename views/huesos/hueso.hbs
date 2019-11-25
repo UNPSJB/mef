@@ -1,21 +1,23 @@
-
+<h1>Lista de huesos</h1>
 <div class="padding-top:10px">
-    <table class="table table-striped">
+    <table class="table table-striped" id="datatable">
         <thead>
             <th>Numero</th>
             <th>Hueso</th>
-            <th>Subtipo</th>
             <th>Tipo</th>
+            <th>Subtipo</th>
+            {{#if taller}}
             <th>Tiene Molde</th>
+            {{/if}}
         </thead>
         <tbody>
+          {{#if taller}}
             {{#each huesos}}
             <tr>
                 <td>{{this.numero}}</td>
                 <td>{{this.nombre}}</td>
-                <td>{{this.subtipohueso}}</td>
                 <td>{{this.tipohueso}}</td>
-                
+                <td>{{this.subtipohueso}}</td>
                 <td>                    
                     <form action="/dinosaurios/moldes?_method=PATCH" method="POST">
                         <label class="switch">
@@ -30,6 +32,16 @@
                 </td>
             </tr>
             {{/each}}
+            {{else}}
+            {{#each huesos}}
+            <tr>
+                <td>{{this.numero}}</td>
+                <td>{{this.nombre}}</td>
+                <td>{{this.tipohueso}}</td>
+                <td>{{this.subtipohueso}}</td>
+            </tr>
+            {{/each}}
+          {{/if}}
         </tbody>
     </table>
 </div>

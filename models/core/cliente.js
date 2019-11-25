@@ -19,9 +19,5 @@ module.exports = (sequelize,DataTypes) => {
 			}
 		}
     })
-
-    Cliente.associate = function(models){
-        models.Cliente.belongsTo(models.Persona);
-    };
     return Cliente;
 }
