@@ -1,4 +1,8 @@
 const models = require('../models');
+const INTERNO = 'Interno';
+const EXTERNO = 'Externo';
+const CONFIRMADO = 'Confirmado';
+const PRESUPUESTADO = 'Presupuestado'
 
 module.exports = {
   getPedidos(args) {
@@ -22,13 +26,12 @@ module.exports = {
   },
   obtenerPedido(id){
     return pedido.findByPk(id, {include:[persona]});
-  }
-  ,
+  },
   solicitar(huesos){
     return models.Pedido.create({
       autorizacion:true,
-      tipo: 'Interno',
-      estadoInstance: 'Confirmado'
+      tipo:INTERNO,
+      estadoInstance:CONFIRMADO
     }).then(pedido=>{
       pedido.crearDetalles(huesos,pedido.id)
     })
@@ -42,8 +45,8 @@ module.exports = {
   ) {
     //crea el pedido y sus detalles
     return models.Pedido.create({
-        tipo:'Externo',
-        estadoInstance: 'Presupuestado', 
+        tipo:EXTERNO,
+        estadoInstance:PRESUPUESTADO, 
         PersonaId:cliente, //@TODO aca va cliente
         motivo:descripcion
       })
