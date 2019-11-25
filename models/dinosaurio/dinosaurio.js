@@ -30,10 +30,18 @@ module.exports = (sequelize, DataTypes) => {
         key:'id',        // id de la tabla SubClases
       }
     }
-  },{
-    hooks:{
-      afterValidate: (dinosaurio) => {
-        /*
+  },{ });
+
+  Dinosaurio.associate = function(models) {
+    models.Dinosaurio.belongsTo(models.SubClase);
+    models.Fosil.belongsTo(models.Dinosaurio);
+    models.Dinosaurio.hasMany(models.Hueso); 
+    models.Dinosaurio.hasMany(models.Fosil);
+    models.Dinosaurio.hasMany(models.Replica);
+  };
+  return Dinosaurio;
+};
+    /*
         Torax
         Vertebral
         Craneo
@@ -76,16 +84,3 @@ module.exports = (sequelize, DataTypes) => {
         HUESOS QUE SE CARGAN AUTOMÁTICAMENTE
       
         */ 
-      }      
-    }
-  });
-
-  Dinosaurio.associate = function(models) {
-    models.Dinosaurio.belongsTo(models.SubClase);
-    models.Fosil.belongsTo(models.Dinosaurio);
-    models.Dinosaurio.hasMany(models.Hueso); 
-    models.Dinosaurio.hasMany(models.Fosil);
-    models.Dinosaurio.hasMany(models.Replica);
-  };
-  return Dinosaurio;
-};
