@@ -1,26 +1,132 @@
-<form class="pt-3" action="/empleados" method="POST">
-  <div class="container">
-<h1>Agregar Empleado</h1>
+<div class="container">
+  <form class="pt-3" action="/empleados" method="POST">
+    <div class="card mt-4">
+      <div class="card-header text-center bg-dark text-white" id="agregarEmpleadoModalLabel">
+        <h1>Agregar empleado</h1>
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col pb-2">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-link active" id="existente-tab" data-toggle="tab" href="#existente" role="tab"
+                  aria-controls="existente" aria-selected="true">
+                  Existente
+                </li>
+                <li class="nav-link" id="nuevo-tab" data-toggle="tab" href="#nuevo" role="tab" aria-controls="nuevo"
+                  aria-selected="false">
+                  Nuevo
+                </li>
+              </ul>
+            </div>
+            <div class="col">
+              {{!-- Empty --}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col" class="tab-content" id="myTabContent">
+              <div class="tab-pane fade" id="existente" role="tabpanel" aria-labelledby="existente-tab">
+              </div>
+              <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
+                {{!-- CONTENIDO DE LA PESTAÑA NUEVO --}}
 
-    {{> persona/agregar}}
+                <div class="row">
+                  <div class="col-6 pb-2">
+                    <label class="font-weight-bold" for="identificacion">
+                      Documento
+                    </label>
+                    <input type="text" class="form-empleado form-control" name="identificacion" id="InputIdentificacion"
+                      placeholder="Ingrese su documento" required {{#if this}} value="{{this.tipo }}" {{/if}}>
+                    <label class="font-weight-bold" for="nombre">
+                      Nombre
+                    </label>
+                    <input type="text" class="form-empleado form-control" name="nombre" id="InputNombre"
+                      placeholder="Ingrese Nombre" required {{#if this}}value="{{this.nombre}}" {{/if}}>
+                    <label class="font-weight-bold" for="apellido">
+                      Apellido
+                    </label>
+                    <input type="text" class="form-empleado form-control" name="apellido" id="InputApellido"
+                      placeholder="Ingrese Apellido" required {{#if this}}value="{{this.apellido}}" {{/if}}>
+                    <label class="font-weight-bold" for="direccion">
+                      Direccion
+                    </label>
+                    <input type="text" class="form-empleado form-control" name="direccion" id="InputDireccion"
+                      placeholder="Ingrese Direccion" required {{#if this}}value="{{this.direccion}}" {{/if}}>
 
-    <label class="btn btn-secondary form-check-label align-self-center">
-      <input name="tipo" type="radio" id="nuevo" value="nuevo" autocomplete="off" required>
-      Nuevo
-    </label>
+                  </div>
+                  <div class="col-6">
+                    <label class="font-weight-bold" for="localidad">
+                      Localidad
+                    </label>
+                    <input type="text" class="form-empleado form-control" name="localidad" id="InputLocalidad"
+                      placeholder="Ingrese Localidad" required {{#if this}}value="{{this.localidad}}" {{/if}}>
+                    <label class="font-weight-bold" for="email">
+                      Email
+                    </label>
+                    <input type="email" class="form-empleado form-control" name="email" id="InputEmail"
+                      placeholder="Ingrese Email" required {{#if this}}value="{{this.email}}" {{/if}}>
+                    <label class="font-weight-bold" for="fechaNacimiento">
+                      Fecha Nacimiento
+                    </label>
+                    <br>
+                    <input type="date" class="form-empleado form-control" name="fecha_nacimiento"
+                      id="InputFechaNacimiento" required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
+                    <br>
+                    <label class="font-weight-bold" for="InputTelefono">
+                      Telefono
+                    </label>
+                    <small>
+                      xxx - xx - xxx
+                    </small>
+                    <input type="tel" class="form-empleado form-control" name="telefono" id="InputTelefono"
+                      pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Ingrese Telefono" required
+                      {{#if this}}value="{{this.telefono}}" {{/if}}>
 
-    <label class="btn btn-secondary form-check-label">
-      <input name="tipo" type="radio" id="existe" value="existe" autocomplete="off" required>
-      Existente
-    </label>
+                    <label class="btn btn-secondary form-check-label align-self-center">
+                      <input type="radio" name="tipo" id="nuevo" value="nuevo" autocomplete="off" required> Nuevo
+                    </label>
+                    <label class="btn btn-secondary form-check-label">
+                      <input type="radio" name="tipo" id="existe" value="existe" autocomplete="off" required checked>
+                      Existente
+                    </label>
 
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">Agregar Empleado!</button>
-    </div>
+                    {{#if this}}<input name="id" type="number" value="{{this.id}}" hidden> {{/if}}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <button type="submit" class="btn btn-primary">Agregar Empleado!</button>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>
 
 
-  </div>
-</form>
+
+<script>
+  $(document).ready(() => {
+    $("#existente-tab").click(function () {
+      $("#collapseExample").collapse("show");
+      $("#tipo").val("Existente");
+      $(".empleado").each(function () {
+        this.required = false;
+        this.disabled = true;
+      });
+    });
+    $("#nuevo-tab").click(function () {
+      $("#collapseExample").collapse("hide");
+      $("#tipo").val("Nuevo")
+      $(".empleado").each(function () {
+        this.disabled = false;
+        this.required = true;
+      });
+    });
+  });
+</script>
 
 <script>
   $("#existe").click(function () {

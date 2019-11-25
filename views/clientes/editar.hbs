@@ -1,10 +1,80 @@
-<h1>Editar Cliente</h1>
-<form class="pt-3" action="/clientes?_method=PUT" method="POST">
-   {{> persona/formCliente cliente}}
+<div class="container">
+  <form class="pt-3" action="/clientes?_method=PUT" method="POST">
+    <div class="card mt-4">
+      <div class="card-header text-center bg-dark text-white" id="agregarClienteModalLabel">
+        <h1>Editar cliente</h1>
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 pb-2">
+              <label class="font-weight-bold" for="identificacion">
+                Documento
+              </label>
+              <input type="text" class="form-empleado form-control" name="identificacion" id="InputIdentificacion"
+                placeholder="Ingrese su documento" required {{#if cliente}} value="{{cliente.Persona.identificacion}}" {{/if}}>
+              <label class="font-weight-bold" for="nombre">
+                Nombre
+              </label>
+              <input type="text" class="form-empleado form-control" name="nombre" id="InputNombre"
+                placeholder="Ingrese Nombre" required {{#if cliente}}value="{{cliente.Persona.nombre}}" {{/if}}>
+              <label class="font-weight-bold" for="apellido">
+                Apellido
+              </label>
+              <input type="text" class="form-empleado form-control" name="apellido" id="InputApellido"
+                placeholder="Ingrese Apellido" required {{#if cliente}}value="{{cliente.Persona.apellido}}" {{/if}}>
+              <label class="font-weight-bold" for="direccion">
+                Direccion
+              </label>
+              <input type="text" class="form-empleado form-control" name="direccion" id="InputDireccion"
+                placeholder="Ingrese Direccion" required {{#if cliente}}value="{{cliente.Persona.direccion}}" {{/if}}>
 
-  <div class="row">
-      <button type="submit" class="btn btn-primary">Editar Cliente</button>
-      <a href="/clientes" class="btn btn-primary">Nah!</a>
-  </div>
-</form>
+            </div>
+            <div class="col-6">
+              <label class="font-weight-bold" for="localidad">
+                Localidad
+              </label>
+              <input type="text" class="form-empleado form-control" name="localidad" id="InputLocalidad"
+                placeholder="Ingrese Localidad" required {{#if cliente}}value="{{cliente.Persona.localidad}}" {{/if}}>
+              <label class="font-weight-bold" for="email">
+                Email
+              </label>
+              <input type="email" class="form-empleado form-control" name="email" id="InputEmail"
+                placeholder="Ingrese Email" required {{#if cliente}}value="{{cliente.Persona.email}}" {{/if}}>
+              <label class="font-weight-bold" for="fechaNacimiento">
+                Fecha Nacimiento
+              </label>
+              <br>
+              <input type="date" class="form-empleado form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
+                required {{#if cliente}}value="{{cliente.Persona.fecha_nacimiento}}" {{/if}}>
+              <br>
+              <label class="font-weight-bold" for="InputTelefono">
+                Telefono
+              </label>
+              <small>
+                xxx - xx - xxx
+              </small>
+              <input type="tel" class="form-empleado form-control" name="telefono" id="InputTelefono"
+                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Ingrese Telefono" required
+                {{#if cliente}}value="{{cliente.Persona.telefono}}" {{/if}}>
 
+              <label class="btn btn-secondary form-check-label">
+                <input type="radio" name="tipoCliente" id="option1" value="Particular" autocomplete="off" required>
+                Particular
+              </label>
+              <label class="btn btn-secondary form-check-label">
+                <input type="radio" name="tipoCliente" id="option2" value="Institucional" autocomplete="off">
+                Institucional
+              </label>
+              {{#if cliente}}<input name="idCliente" type="number" value="{{cliente.id}}" hidden> {{/if}}
+              {{#if cliente}}<input name="idPersona" type="number" value="{{cliente.Persona.id}}" hidden> {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <button type="submit" class="btn btn-primary">Editar Cliente!</button>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>

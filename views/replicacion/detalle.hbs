@@ -1,8 +1,8 @@
 <h1>Detalle de Pedido#{{id}}</h1>
 
-{{> replica/detalle detalles}}
+{{!-- {{> replica/detalle detalles}} --}}
 
-<table class="table">
+{{!-- <table class="table">
 <thead>
     <th>Descripcion</th>
     <th>Creado</th>
@@ -15,4 +15,89 @@
         </tr>
     {{/each}}
 </tbody>
-</table>
+</table> --}}
+
+<div class="container">
+    <div class="row justify-content-md-center border">
+        <div class="col-lg-8 border">
+            <div class="row border">
+                <div class="col border">
+                    <b>Pedido N°: </b>
+                </div>
+                <div class="col border">
+                    <b>Estado Actual: </b>
+                </div>
+            </div>
+            <div class="row border">
+                <div class="col border">
+                    <b>Cliente: </b>
+                </div>
+                <div class="col border">
+                    <b>Monto: </b>
+                </div>
+                <div class="col border">
+                    <b>Dinosaurio: </b>
+                </div>
+            </div>
+            <div class="row border">
+                <div class="col border">
+                    <b>Motivo: </b>
+                </div>
+            </div>
+            <div class="row border">
+                <div class="col border">
+                    <b>Huesos del pedido</b><br>
+                    <table class="table">
+                        <thead>
+                            <th>N°</th>
+                            <th>Hueso</th>
+                            <th>Cantidad</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row border">
+                <div class="col border">
+                    <b>Registro de cambios</b>
+                    <table class="table">
+                        <thead>
+                            <th>Estado</th>
+                            <th>Fecha de cambio</th>
+                            <th>Acciones</th>
+                        </thead>
+                        <tbody>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button class="btn btn-primary" id="button-info">info</button>
+                            </td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 border">
+            <div class="container">
+                <div id="content">
+                    {{!-- AQUI VA LA INFO DEL ESTADO --}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#button-info').click(function () {
+            $('#content').text();
+        });
+    });
+</script>
