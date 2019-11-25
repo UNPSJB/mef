@@ -1,9 +1,74 @@
-<h1>Editar Empleado</h1>
-<input type="radio" name="tab" value="igotnone" onclick="show1();" />
-  Persona 
-<input type="radio" name="tab" value="igottwo" onclick="show2();" />
-  No Persona
+<div class="container">
+  <form class="pt-3" action="/empleados?_method=PUT" method="POST">
+    <div class="card mt-4">
+      <div class="card-header text-center bg-dark text-white" id="agregarEmpleadoModalLabel">
+        <h1>Editar Empleado</h1>
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 pb-2">
+              <label class="font-weight-bold" for="identificacion">
+                Documento
+              </label>
+              <input type="text" class="form-empleado form-control" name="identificacion" id="InputIdentificacion"
+                placeholder="Ingrese su documento" required {{#if empleado}} value="{{empleado.Persona.identificacion}}"
+                {{/if}}>
+              <label class="font-weight-bold" for="nombre">
+                Nombre
+              </label>
+              <input type="text" class="form-empleado form-control" name="nombre" id="InputNombre"
+                placeholder="Ingrese Nombre" required {{#if empleado}}value="{{empleado.Persona.nombre}}" {{/if}}>
+              <label class="font-weight-bold" for="apellido">
+                Apellido
+              </label>
+              <input type="text" class="form-empleado form-control" name="apellido" id="InputApellido"
+                placeholder="Ingrese Apellido" required {{#if empleado}}value="{{empleado.Persona.apellido}}" {{/if}}>
+              <label class="font-weight-bold" for="direccion">
+                Direccion
+              </label>
+              <input type="text" class="form-empleado form-control" name="direccion" id="InputDireccion"
+                placeholder="Ingrese Direccion" required {{#if empleado}}value="{{empleado.Persona.direccion}}" {{/if}}>
 
-<form class="pt-3" action="/clientes?_method=PUT" method="POST">
-   {{> persona/agregar empleado}}
-</form>
+            </div>
+            <div class="col-6">
+              <label class="font-weight-bold" for="localidad">
+                Localidad
+              </label>
+              <input type="text" class="form-empleado form-control" name="localidad" id="InputLocalidad"
+                placeholder="Ingrese Localidad" required {{#if empleado}}value="{{empleado.Persona.localidad}}" {{/if}}>
+              <label class="font-weight-bold" for="email">
+                Email
+              </label>
+              <input type="email" class="form-empleado form-control" name="email" id="InputEmail"
+                placeholder="Ingrese Email" required {{#if empleado}}value="{{empleado.Persona.email}}" {{/if}}>
+              <label class="font-weight-bold" for="fechaNacimiento">
+                Fecha Nacimiento
+              </label>
+              <br>
+              <input type="date" class="form-empleado form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
+                required {{#if empleado}}value="{{empleado.Persona.fecha_nacimiento}}" {{/if}}>
+              <br>
+              <label class="font-weight-bold" for="InputTelefono">
+                Telefono
+              </label>
+              <small>
+                xxx - xx - xxx
+              </small>
+              <input type="tel" class="form-empleado form-control" name="telefono" id="InputTelefono"
+                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Ingrese Telefono" required
+                {{#if empleado}}value="{{empleado.Persona.telefono}}" {{/if}}>
+
+
+              {{#if empleado}}<input name="idEmpleado" type="number" value="{{Empleado.id}}" hidden> {{/if}}
+              {{#if empleado}}<input name="idPersona" type="number" value="{{empleado.Persona.id}}" hidden> {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <button type="submit" class="btn btn-primary">Editar Empleado!</button>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>
