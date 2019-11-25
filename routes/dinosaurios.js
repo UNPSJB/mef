@@ -14,8 +14,8 @@ router.get('/',
     .then((results) => {
       res.render('dinosaurios/dinosaurio', {
         results
-      });
-    });
+      })
+    })
 });
 
 router.get('/agregar',
@@ -73,28 +73,30 @@ router.post('/',permisos.permisoPara([permisos.ROLES.COLECCION]), (req,res,next)
   const {nombre, alimentacion, periodo, descubrimiento, idsubclase} = req.body;
   const {cant_cervicales,cant_dorsales,cant_sacras,cant_caudales,cant_cos_cervicales,cant_cos_dorsales,cant_hemales,cant_metacarpianos,cant_metatarsos,cant_dedos_mano,cant_dedos_pata} = req.body;
   dinoService.createDinosaurio(nombre, alimentacion, periodo, descubrimiento, idsubclase) // es una promesa
-    .then((dinosaurio) => {
-      // createHueso(nombre, numero, DinosaurioId){
-      huesoService.createHuesos(dinosaurio.id, [cant_cervicales,cant_dorsales,cant_sacras,cant_caudales,cant_cos_cervicales,cant_cos_dorsales,cant_hemales,cant_metacarpianos,cant_metatarsos,cant_dedos_mano,cant_dedos_pata]);
-      res.redirect('/dinosaurios'); //@TODO agregar mas experiencia
+  .then((dinosaurio) => {
+    // createHueso(nombre, numero, DinosaurioId){
+    huesoService.createHuesos(dinosaurio.id, [cant_cervicales,cant_dorsales,cant_sacras,cant_caudales,cant_cos_cervicales,cant_cos_dorsales,cant_hemales,cant_metacarpianos,cant_metatarsos,cant_dedos_mano,cant_dedos_pata]);
+    res.redirect('/dinosaurios'); //@TODO agregar mas experiencia
+  })
+  .catch((errores)=>{
+    const dino = req.body;
+    subclaseService.getSubclases()
+    .then((subclases)=>{
+        res.render("dinosaurios/agregar",{errores,dino,subclases})
     })
-    .catch((errores)=>{
-      const dino = req.body;
-      subclaseService.getSubclases()
-  .then((subclases)=>{
-      res.render("dinosaurios/agregar",{errores,dino,subclases})
-    })});
+  });
 });
 
 router.put('/',permisos.permisoPara([permisos.ROLES.COLECCION]), (req,res)=>{
     dinoService.updateDinosaurio(req.body)
-      .then(() => res.redirect('/dinosaurios'))
-      .catch((errores)=>{
-        const dino = req.body;
-        subclaseService.getSubclases()
-  .then((subclases)=>{
+    .then(() => res.redirect('/dinosaurios'))
+    .catch((errores)=>{
+      const dino = req.body;
+      subclaseService.getSubclases()
+      .then((subclases)=>{
         res.render("dinosaurios/editar",{errores,dino,subclases})
-      })});
+      })
+    });
 });
 
 router.delete('/' ,permisos.permisoPara([permisos.ROLES.COLECCION]) ,(req,res) =>{
