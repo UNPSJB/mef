@@ -6,8 +6,8 @@ const huesoService = require('../services/hueso');
 const subclaseService = require('../services/subclase');
 
 router.get('/', 
-  permisos.permisoPara(
-    [permisos.ROLES.TALLER, 
+  permisos.permisoPara([
+    permisos.ROLES.TALLER, 
     permisos.ROLES.COLECCION,
     permisos.ROLES.EXHIBICION]), (req, res, next) => {/// TALLER accede aca
   dinoService.getDinosaurios()

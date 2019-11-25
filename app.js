@@ -55,7 +55,7 @@ app.use(session({
 );
 
 app.use('/', indexRouter); // esta planteado dentro del router 
-app.use('/dinosaurios', permisos.estaLogueado, permisos.permisoPara([permisos.ROLES.COLECCION]), dinosauriosRouter);
+app.use('/dinosaurios', permisos.estaLogueado, dinosauriosRouter);
 app.use('/fosiles', permisos.estaLogueado, fosilesRouter); /// solo coleccion
 app.use('/subclases', 
   permisos.estaLogueado, 
