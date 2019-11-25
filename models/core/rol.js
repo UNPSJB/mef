@@ -4,7 +4,5 @@ module.exports = (sequelize,DataTypes) =>{
         descripcion: DataTypes.STRING,
         fecha_fin: DataTypes.DATEONLY
     });
-    Rol.associate = function(models){
-    };
     return Rol;
 };

@@ -13,7 +13,6 @@ var permisos = require('./auth/permisos');
 
 //rutas
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var dinosauriosRouter = require('./routes/dinosaurios');
 var fosilesRouter = require('./routes/fosiles');
 var subclaseRouter = require('./routes/subclases');
@@ -55,14 +54,16 @@ app.use(session({
   })
 );
 
-app.use('/', indexRouter); 
-app.use('/users', usersRouter);
-app.use('/dinosaurios', dinosauriosRouter);
-app.use('/fosiles', fosilesRouter);
-app.use('/subclases', subclaseRouter);
-app.use('/clientes',clientesRouter);
-app.use('/empleados',empleadosRouter);
-app.use('/replicas', replicasRouter);
+app.use('/', indexRouter); // esta planteado dentro del router 
+app.use('/dinosaurios', permisos.estaLogueado, dinosauriosRouter);
+app.use('/fosiles', permisos.estaLogueado, fosilesRouter); /// solo coleccion
+app.use('/subclases', 
+  permisos.estaLogueado, 
+  permisos.permisoPara([permisos.ROLES.COLECCION]), 
+  subclaseRouter); /// solo coleccion
+app.use('/clientes', permisos.estaLogueado, clientesRouter);
+app.use('/empleados', permisos.estaLogueado, empleadosRouter);
+app.use('/replicas', permisos.estaLogueado, replicasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

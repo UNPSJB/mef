@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router();
+const permisos = require('../auth/permisos');
 const dinoService = require('../services/dinosaurio');
 const replicasService = require('../services/replicas');
 const huesoService = require('../services/hueso');
@@ -29,10 +30,9 @@ router.get('/pedidos/detalle/:id', (req,res)=>{
         res.render("replicacion/detalle", {id, estados});
     })
 })
-router.get('/pedidos/:accion/:id', (req,res)=>{
-    /**
-     * @TODO mostrar lista de detalles
-     */
+router.get('/pedidos/:accion/:id', 
+    permisos.permisosParaEstado(),
+    (req,res)=>{
     const {accion , id} = req.params;
     try{
         replicasService.getPedido({id}).then(async pedido =>{
