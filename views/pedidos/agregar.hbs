@@ -39,7 +39,7 @@
                                 <label class="col form-group" id="Example">
                                     <label class="font-weight-bold" for="cliente">Cliente:</label>
 
-                                    <select name="cliente" class="cliente form-control">
+                                    <select name="cliente" class="cliente form-control" disabled>
                                         {{#each clientes}}
                                         <option value="{{this.Persona.id}}"> {{ this.Persona.nombre }}
                                             {{this.Persona.apellido}} {{this.Persona.identificacion}} </option>
@@ -47,12 +47,12 @@
                                     </select>
 
                                     <label class="font-weight-bold" for="descripcion">Descripcion:</label>
-                                    <input class="cliente form-control" type="text" name="descripcion" id="" required />
+                                    <input class="cliente form-control" type="text" name="descripcion" id="" required disabled />
                                     <label for="monto">Monto:</label>
                                     <input class="cliente form-control" type="number" name="monto" min="0" id=""
-                                        required />
+                                        required disabled />
                                     <label for="fin-oferta">Fin de Oferta:</label>
-                                    <input class="cliente form-control" type="date" name="finoferta" id="" required />
+                                    <input class="cliente form-control" type="date" name="finoferta" id="" required disabled />
                                 </label>
                             </div>
                         </div>

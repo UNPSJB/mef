@@ -15,7 +15,7 @@ router.get('/',
         res.render('pedidos/lista', {pedidos})
     })       
 });
-router.get('/pedidos/agregar', 
+router.get('/agregar', 
 permisos.permisoPara([permisos.ROLES.EXHIBICION]),
 (req,res)=>{
     dinoService.getDinosaurios().then((dinosaurios)=>{

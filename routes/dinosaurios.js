@@ -67,7 +67,7 @@ permisos.permisoPara([permisos.ROLES.TALLER, permisos.ROLES.COLECCION]),
 });
 
 router.get('/huesos/:id', 
-permisos.permisoPara([permisos.ROLES.TALLER,permisos.ROLES.COLECCION]),
+permisos.permisoPara([permisos.ROLES.TALLER,permisos.ROLES.COLECCION, permisos.ROLES.EXHIBICION]),
 (req,res)=>{
   const {id} = req.params;
   huesoService.getHuesosDino(id)
