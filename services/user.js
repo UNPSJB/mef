@@ -1,6 +1,5 @@
 const models = require('../models')
-let User = models.User;
-let Rol = models.Rol;
+const User = models.User;
 
 module.exports = {
   getUsers() {
@@ -10,7 +9,7 @@ module.exports = {
       where: {
         email
       },
-      include:Rol
+      include:models.Rol
     });
   },
   createUser(email, password) {

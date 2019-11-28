@@ -2,11 +2,10 @@ var express = require('express');
 var router = express.Router();
 var accountService = require("../services/account");
 var userService = require("../services/user");
-var rolService = require("../services/rol");
 var permisos = require('../auth/permisos');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', permisos.estaLogueado, function(req, res, next) {
   res.render('home',{layout:'second'});
 });
 
@@ -18,25 +17,23 @@ router.get('/register', permisos.redirectHome, (req, res) => {
   res.render('register',{layout:'second'});
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', permisos.redirectHome, (req, res) => {
   const { email, password } = req.body;
-  accountService.auth(email, password)
-    .then(user => {req.session.userId = 5;
+  return accountService.auth(email, password)
+    .then(user => {
       if( !user) {
         res.render('login', {layout:'login', error: "email y/o contrasena incorrectos!", email});
       }
       if (user) {
-        // console.log(user);
         req.session.userId = user.id;
-        // req.session.rol = user.Rol.descripcion || 'taller'; //viene de la DB @profe
-        req.session.rol = 'taller'; //viene de la DB @profe
-        res.redirect('/');
-        //decidir como asignar roles, @profe
+        req.session.rol = user.Rol.descripcion; //viene de la DB @profe
+        let rol = req.session.rol;
+        res.render('home', {rol});
       }
     });
 });
 
-router.post('/register', (req, res) => {
+router.post('/register', permisos.redirectHome, (req, res) => {
   const { email, password } = req.body;
   userService.createUser(email, password )
   .then(() => {
@@ -47,5 +44,11 @@ router.post('/register', (req, res) => {
   });
   //@TODO redireccionar a una pagina de no pudo ser creado o algo asi
 });
+
+router.delete('/logout', permisos.estaLogueado, (req,res)=>{
+  req.session.destroy(()=>{
+    res.redirect('/login');
+  });
+})
 
 module.exports = router;

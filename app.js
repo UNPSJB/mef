@@ -13,7 +13,6 @@ var permisos = require('./auth/permisos');
 
 //rutas
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var dinosauriosRouter = require('./routes/dinosaurios');
 var fosilesRouter = require('./routes/fosiles');
 var subclaseRouter = require('./routes/subclases');
@@ -55,10 +54,12 @@ app.use(session({
 );
 
 app.use('/', indexRouter); 
-app.use('/users', usersRouter);
 app.use('/dinosaurios', dinosauriosRouter);
 app.use('/fosiles', fosilesRouter);
-app.use('/subclases', subclaseRouter);
+app.use('/subclases', 
+  permisos.estaLogueado, 
+  permisos.permisoPara([permisos.ROLES.COLECCION]), 
+  subclaseRouter);
 app.use('/clientes',clientesRouter);
 app.use('/empleados',empleadosRouter);
 app.use('/pedidos', pedidosRouter);

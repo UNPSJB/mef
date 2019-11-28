@@ -1,0 +1,29 @@
+<div style="padding-top: 10px">
+    <h1>Visitas guiadas</h1>
+    <table class="table table-striped table-bordered" id="example">
+        <thead>
+            <th scope="col">Exhibicion</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Guia</th>
+            <th scope="col">Cantidad de personas</th>
+            <th scope="col">Fecha de visita</th>
+            <th scope="col">Horario</th>
+            <th scope="col">Acciones</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{this.Exhibicion}}</td>
+                <td>{{this.cliente}}</td>
+                <td>{{this.guia}}</td>
+                <td>{{this.cantidad}}</td>
+                <td>{{this.fecha}}</td>
+                <td>{{this.horario}}</td>
+                <td>
+                    <a href="/visitas/editar?id={{this.id}}"><i class="far fa-edit"></i></a>
+                    <!--editar-->
+                    <a href="/visitas/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

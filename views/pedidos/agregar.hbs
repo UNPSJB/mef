@@ -12,12 +12,16 @@
                             {{!-- Hola tabs --}}
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="interno-tab" data-toggle="tab" href="#interno" role="tab"
-                                        aria-controls="interno" aria-selected="true">Interno</a>
+                                    <a class="nav-link active" id="interno-tab" data-toggle="tab" href="#interno"
+                                        role="tab" aria-controls="interno" aria-selected="true">
+                                        Interno
+                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="externo-tab" data-toggle="tab" href="#externo" role="tab"
-                                        aria-controls="externo" aria-selected="false">Externo</a>
+                                        aria-controls="externo" aria-selected="false">
+                                        Externo
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -28,15 +32,17 @@
                     <div class="row">
                         <div class="col" class="tab-content" id="myTabContent">
                             {{!-- Hola tab contenido --}}
-                            <div class="tab-pane fade show active" id="interno" role="tabpanel" aria-labelledby="interno-tab">
+                            <div class="tab-pane fade show active" id="interno" role="tabpanel"
+                                aria-labelledby="interno-tab">
                             </div>
                             <div class="tab-pane fade" id="externo" role="tabpanel" aria-labelledby="externo-tab">
                                 <label class="col form-group" id="Example">
                                     <label class="font-weight-bold" for="cliente">Cliente:</label>
-                                    
+
                                     <select name="cliente" class="cliente form-control">
                                         {{#each clientes}}
-                                            <option value="{{this.Persona.id}}" > {{ this.Persona.nombre }} {{this.Persona.apellido}} {{this.Persona.identificacion}} </option>
+                                        <option value="{{this.Persona.id}}"> {{ this.Persona.nombre }}
+                                            {{this.Persona.apellido}} {{this.Persona.identificacion}} </option>
                                         {{/each}}
                                     </select>
 
@@ -54,8 +60,8 @@
                             {{!-- Hola Dinosaurio --}}
                             <div class="form-group">
                                 <h3>Seleccione Dinosaurio</h3>
-                                <select class="form-control" name="dinosaurio" onchange="buscarHuesos()" id="selectHueso"
-                                    required>
+                                <select class="form-control" name="dinosaurio" onchange="buscarHuesos()"
+                                    id="selectHueso" required>
                                     {{!-- @TODO traer dinos --}}
                                     <option value="" selected aria-required="true">Seleccione un Dinosaurio
                                     </option>
@@ -113,7 +119,7 @@
         });
         $("#externo-tab").click(function () {
             $("#collapseExample").collapse("hide");
-            $("#tipo").val("Externo")            
+            $("#tipo").val("Externo")
             $(".cliente").each(function () {
                 this.disabled = false;
                 this.required = true;

@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
           case 'Paladar':
           case 'Mandíbula':
           case 'Cráneo':
+          case 'Craneo':
             hueso.subtipohueso = 'Craneo';
             hueso.tipohueso = 'Axial';
             break;
