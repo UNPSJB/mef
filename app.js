@@ -42,10 +42,10 @@ app.use(session({
   store: new SequelizeStore({
     db: database.sequelize
   }),
-  name: process.SESS_NAME,
+  name: 'sid',
   saveUninitialized:false,
   resave:false,
-  secret: process.env.SESS_SECRET,
+  secret: 'ssh!qiert,it\'asecret!',
   cookie: {
     maxAge:1000*60*60*3, //3 horas
     sameSite: true,
