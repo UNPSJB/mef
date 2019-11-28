@@ -1,6 +1,7 @@
 'use strict'
 module.exports = (sequelize, DataTypes) =>{
     const Replica = sequelize.define('Replica', {
+        disponible: DataTypes.BOOLEAN,
         codigo: DataTypes.STRING,
         fecha_inicio: DataTypes.DATEONLY,
         fecha_fin: DataTypes.DATEONLY,
