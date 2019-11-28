@@ -15,9 +15,6 @@ router.get('/',
         res.render('replicacion/lista', {pedidos})
     })       
 });
-router.get("/prohibido",(req,res)=>{
-    res.render('replicacion/prohibido')
-})
 router.get('/pedidos/agregar', 
 permisos.permisoPara([permisos.ROLES.EXHIBICION]),
 (req,res)=>{

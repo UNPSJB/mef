@@ -4,13 +4,20 @@ const Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) =>{
     class Finalizado extends Sequelize.Model{
         entregar(pedido,args){
-            return sequelize.models.Entregado.create({
-                PedidoId:pedido.id
-            }).then(()=>{
-                pedido.update({
-                    estadoInstance:'Entregado'
+            const {fecha_envio, fecha_entrega} = args;
+            if(pedido.tipo === 'Externo'){
+                return sequelize.models.Entregado.create({
+                    fecha_envio,
+                    fecha_entrega,
+                    PedidoId:pedido.id
+                }).then(()=>{
+                    return pedido.update({
+                        estadoInstance:'Entregado'
+                    })
                 })
-            })
+            }else{
+                return new Error("No se puede realizar esa accion, el pedido es interno")
+            }
         }
     }
     Finalizado.init({

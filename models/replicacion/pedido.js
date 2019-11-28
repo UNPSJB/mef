@@ -48,7 +48,7 @@ module.exports = (sequelize,DataTypes) => {
                     }
 
                 }).sort((e1,e2) => {
-                    return e2.fecha - e1.fecha;
+                    return new Date(e2.fecha) - new Date(e1.fecha);
                 });
             });
         }
