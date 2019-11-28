@@ -49,4 +49,10 @@ router.delete('/logout', permisos.estaLogueado, (req,res)=>{
   });
 })
 
+
+router.get('/403', permisos.estaLogueado, function(req, res, next) {
+  res.render('error_403');
+});
+
+
 module.exports = router;
