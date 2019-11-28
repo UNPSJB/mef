@@ -24,13 +24,14 @@ module.exports = (sequelize, DataTypes) =>{
                     monto: args.presupuesto
                 })
             }).then(() =>{
+                return pedido.update({
+                    autorizacion:true,
+                    estadoInstance: 'Confirmado'
+                })  
+            }).then(()=>{
                 return sequelize.models.Confirmado.create({
-                    PedidoId
-                }).then(()=>{
-                    return pedido.update({
-                        autorizacion:true,
-                        estadoInstance: 'Confirmado'
-                    })
+                    PedidoId,
+                    fecha:new Date()
                 })
             })
         }
