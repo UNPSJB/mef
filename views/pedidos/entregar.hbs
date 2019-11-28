@@ -47,28 +47,12 @@
             </div>
         </div>
         <div class="card-footer bg-dark text-muted">
-            <form action="/replicas/pedidos/{{accion}}/{{id}}" method="post">
+            <form action="/pedidos/{{accion}}/{{id}}" method="post">
                 <button type="submit" class="btn btn-success">Confirmar</button>
-                <a href="/replicas" class="btn btn-danger">Rechazar</a>
+                <a href="/pedidos" class="btn btn-danger">Rechazar</a>
             </form>
         </div>
     </div>
 
 </div>
 
-
-{{!--
-<h1>Entregar Pedido</h1>
-<span class="bg-warning form-control">Esta a punto de poner de entregar el pedido</span>
-{{> replica/detalle detalles}}
-<label for="fechaenvio">
-    Fecha envio <input class="form-control" type="date" name="fechaenvio" id="">
-</label>
-<label for="fechaentrega">
-    Fecha entrega <input class="form-control" type="date" name="fechaentrega" id="">
-</label>
-<form action="/replicas/pedidos/{{accion}}/{{id}}" method="post">
-    <button type="submit" class="btn btn-success">Confirmar</button>
-    <a href="/replicas" class="btn btn-secondary">Rechazar</a>
-</form>
---}}
