@@ -32,7 +32,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(cookieParser())
 app.use(methodOverride('_method'));
 
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
