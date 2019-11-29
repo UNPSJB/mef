@@ -19,6 +19,7 @@ var subclaseRouter = require('./routes/subclases');
 var pedidosRouter = require('./routes/pedidos');
 var clientesRouter = require('./routes/clientes');
 var empleadosRouter = require('./routes/empleados');
+var exhibicionesRouter = require('./routes/exhibiciones');
 
 var app = express();
 
@@ -63,6 +64,7 @@ app.use('/subclases',
 app.use('/clientes',clientesRouter);
 app.use('/empleados',empleadosRouter);
 app.use('/pedidos', pedidosRouter);
+app.use('/exhibiciones', exhibicionesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
