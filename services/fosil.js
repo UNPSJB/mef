@@ -2,8 +2,13 @@ const models = require('../models');
 let fosil = models.Fosil;
 
 module.exports ={
-    getFosiles(){
-        return fosil.findAll({include:models.Dinosaurio});
+    getFosiles(args){
+        return fosil.findAll({
+            where:{
+                ...args
+            },
+            include:[models.Dinosaurio]
+        });
     },
     getFosil(id){
         return fosil.findByPk(id);
