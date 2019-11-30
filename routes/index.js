@@ -29,8 +29,7 @@ router.post('/login', permisos.redirectHome, (req, res) => {
         // res.cookie('rol',user.Rol.descripcion);
         
         res.cookie(req.sessionID,req.session.cookie)
-        let rol = req.session.rol;
-        res.render('home', {rol});
+        res.redirect('/');
       }
     });
 });
