@@ -24,6 +24,7 @@ router.post('/login', permisos.redirectHome, (req, res) => {
         res.render('login', {layout:'login', error: "email y/o contrasena incorrectos!", email});
       }
       if (user) {
+        req
         req.session.userId = user.id;
         req.session.rol = user.Rol.descripcion;
         // res.cookie('rol',user.Rol.descripcion);
