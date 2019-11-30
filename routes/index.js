@@ -28,7 +28,9 @@ router.post('/login', permisos.redirectHome, (req, res) => {
         req.session.userId = user.id;
         req.session.rol = user.Rol.descripcion;
         // res.cookie('rol',user.Rol.descripcion);
-        req.session.save();
+        req.session.save(function(err) {
+          console.log("salvada")
+        })
         res.cookie(req.sessionID,req.session.cookie)
         res.redirect('/');
       }
