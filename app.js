@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var methodOverride = require('method-override');
 var session = require('express-session');
-var cookieParser = require('cookie-parser'); // sequelize store dependencia
 var database = require('./models');
 var permisos = require('./auth/permisos');
 
