@@ -46,8 +46,6 @@ module.exports = {
     ROLES,
     estaLogueado(req,res,next){
         //tiene cookie userId, continua sino al login
-        console.log(req.session);
-        console.log(req.session.userId);
         req.session.userId ? next() : res.redirect('/login');//@TODO cambiar, agregar mas experiencia
     },
     redirectHome(req,res,next){
@@ -64,7 +62,6 @@ module.exports = {
     },
     permisosParaEstado(){
         return function(req,res,next){
-            console.log(req.params)
             switch(req.params.accion){
                 case FABRICAR:
                 case DEMORAR:
