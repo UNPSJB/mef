@@ -29,8 +29,6 @@ module.exports ={
                 // existe ? lo modifico
                 fosilEncontrado.destroy(fosilEncontrado);
             })// fosil no existe
-            .catch( (err) =>{//preguntar sobre esto
-                console.log("fosil no existe"+err)
-            })
+           
     }
 }
