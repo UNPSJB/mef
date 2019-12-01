@@ -42,7 +42,7 @@
         </div>
         <div class="row">
           {{!-- esto de abajo te dice si es nuevo o existente --}}
-          <input type="hidden" name="tipo" id="Nuevo" value="existe" autocomplete="off" required hidden>
+          <input type="hidden" name="tipo" id="Nuevo" value="nuevo" autocomplete="off" required hidden>
           <button type="submit" class="btn btn-success form-control">Agregar Cliente</button>
         </div>
       </div>
@@ -54,14 +54,14 @@
 <script>
   $(document).ready(() => {
     $("#existente-tab").click(function () {
-      $("#tipo").val("Existente");
+      $("#tipo").val("existe");
       $(".empleado").each(function () {
         this.required = false;
         this.disabled = true;
       });
     });
     $("#nuevo-tab").click(function () {
-      $("#tipo").val("Nuevo")
+      $("#tipo").val("nuevo")
       $(".empleado").each(function () {
         this.disabled = false;
         this.required = true;
