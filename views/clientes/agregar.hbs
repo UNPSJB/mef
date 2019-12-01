@@ -21,11 +21,9 @@
           {{!-- PESTAÑA EXISTENTE --}}
           <div class="tab-pane fade" id="existente" role="tabpanel" aria-labelledby="existente-tab">
             Seleccione Persona:
-            <select name="persona" class="persona form-control">
+            <select name="PersonaId" class="persona form-control">
               {{#each noClientes}}
-              <option value="{{this.id}}"> {{this.nombre }}
-                {{this.apellido}} {{this.identificacion}}
-              </option>
+              <option value="{{this.id}}"> {{this.identificacion}} | {{this.nombre }} {{this.apellido}} </option>
               {{/each}}
             </select>
           </div>
@@ -42,7 +40,7 @@
         </div>
         <div class="row">
           {{!-- esto de abajo te dice si es nuevo o existente --}}
-          <input type="hidden" name="tipo" id="Nuevo" value="nuevo" autocomplete="off" required hidden>
+          <input type="hidden" name="tipo" id="tipo" value="nuevo" autocomplete="off" required hidden>
           <button type="submit" class="btn btn-success form-control">Agregar Cliente</button>
         </div>
       </div>
