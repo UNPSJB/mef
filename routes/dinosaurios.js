@@ -47,7 +47,6 @@ permisos.permisoPara([permisos.ROLES.COLECCION]),
   .then((dino)=> {
     res.render('dinosaurios/eliminar', { dino })
   })
-  .catch((err)=>{console.log(err)}) //@TODO hacer pagina de volver o algo
 });
 
 // HUESOS

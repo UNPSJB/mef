@@ -1,141 +1,47 @@
 <div class="container">
   <form action="/clientes" method="POST">
     <div class="card mt-4">
-      <div class="card-header text-center bg-dark text-white" id="agregarClienteModalLabel">
+      <div class="card-header text-center bg-dark text-white">
         <h1>Agregar cliente</h1>
       </div>
       <div class="card-body">
-        <div class="container">
-          <div class="row">
-            <div class="col pb-2">
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" id="existente-tab" data-toggle="tab" href="#existente" role="tab"
-                    aria-controls="existente" aria-selected="true">
-                    Existente
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="nuevo-tab" data-toggle="tab" href="#nuevo" role="tab" aria-controls="nuevo"
-                    aria-selected="false">
-                    Nuevo
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="col">
-              {{!-- Empty --}}
-            </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="nuevo-tab" data-toggle="tab" href="#nuevo" role="tab" aria-controls="nuevo" aria-selected="true">Nuevo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="existente-tab" data-toggle="tab" href="#existente" role="tab" aria-controls="existente" aria-selected="false">Existente</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          {{!--PESTAÑA NUEVO --}}
+          <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
+            {{>persona/cliente}}
           </div>
-          <div class="row">
-            <div class="col" class="tab-content" id="myTabContent">
-              <div class="tab-pane fade" id="existente" role="tabpanel" aria-labelledby="existente-tab">
-                {{!-- CONTENIDO DE LA PESTAÑA EXISTENTE --}}
-                <input type="hidden" name="tipo" id="existe" value="existe" autocomplete="off" required hidden>
-               
-                <select name="persona" class="persona form-control">
-                  {{#each noClientes}}
-                  <option value="{{this.id}}"> {{this.nombre }}
-                    {{this.apellido}} {{this.identificacion}} </option>
-                  {{/each}}
-                </select>
-                
-                <label class="btn btn-secondary form-check-label">
-                  <input type="radio" name="tipoCliente" id="option1" value="Particular" autocomplete="off" required>
-                  Particular
-                </label>
-                <label class="btn btn-secondary form-check-label">
-                  <input type="radio" name="tipoCliente" id="option2" value="Institucional" autocomplete="off">
-                  Institucional
-                </label>
-                {{#if this}}<input name="id" type="number" value="{{this.id}}" hidden> {{/if}}
-                </label>
-              </div>
-              <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
-                {{!-- CONTENIDO DE LA PESTAÑA NUEVO --}}
-
-                <div class="row">
-                  <div class="col-6 pb-2">
-                    <label class="font-weight-bold" for="identificacion">
-                      Documento
-                    </label>
-                    <input type="text" class="empleado form-empleado form-control" name="identificacion" id="InputIdentificacion"
-                      placeholder="Ingrese su documento" disabled required {{#if this}} value="{{this.tipo }}" {{/if}}>
-                    <label class="font-weight-bold" for="nombre">
-                      Nombre
-                    </label>
-                    <input type="text" class="empleado form-empleado form-control" name="nombre" id="InputNombre"
-                      placeholder="Ingrese Nombre" disabled required {{#if this}}value="{{this.nombre}}" {{/if}}>
-                    <label class="font-weight-bold" for="apellido">
-                      Apellido
-                    </label>
-                    <input type="text" class="empleado form-empleado form-control" name="apellido" id="InputApellido"
-                      placeholder="Ingrese Apellido" disabled required {{#if this}}value="{{this.apellido}}" {{/if}}>
-                    <label class="font-weight-bold" for="direccion">
-                      Direccion
-                    </label>
-                    <input type="text" class="empleado form-empleado form-control" name="direccion" id="InputDireccion"
-                      placeholder="Ingrese Direccion" disabled required {{#if this}}value="{{this.direccion}}" {{/if}}>
-
-                  </div>
-                  <div class="col-6">
-                    <label class="font-weight-bold" for="localidad">
-                      Localidad
-                    </label>
-                    <input type="text" class="form-empleado form-control" name="localidad" id="InputLocalidad"
-                      placeholder="Ingrese Localidad" disabled required {{#if this}}value="{{this.localidad}}" {{/if}}>
-                    <label class="font-weight-bold" for="email">
-                      Email
-                    </label>
-                    <input type="email" class="form-empleado form-control" name="email" id="InputEmail"
-                      placeholder="Ingrese Email" disabled required {{#if this}}value="{{this.email}}" {{/if}}>
-                    <label class="font-weight-bold" for="fechaNacimiento">
-                      Fecha Nacimiento
-                    </label>
-                    <br>
-                    <input type="date" class="form-empleado form-control" name="fecha_nacimiento"
-                      id="InputFechaNacimiento" disabled required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
-                    <br>
-                    <label class="font-weight-bold" for="InputTelefono">
-                      Telefono
-                    </label>
-                    <small>
-                      xxx - xx - xxx
-                    </small>
-                    <input type="tel" class="form-empleado form-control" name="telefono" id="InputTelefono"
-                      pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Ingrese Telefono" disabled required
-                      {{#if this}}value="{{this.telefono}}" {{/if}}>
-
-
-                    <input type="hidden" name="tipo" id="nuevo" value="nuevo" autocomplete="off" disabled required hidden>
-
-                    {{!-- <label class="btn btn-secondary form-check-label align-self-center">
-                      <input type="radio" name="tipo" id="nuevo" value="nuevo" autocomplete="off" required> 
-                      Nuevo
-                    </label> --}}
-                    {{!-- <label class="btn btn-secondary form-check-label">
-                      <input type="radio" name="tipo" id="existe" value="existe" autocomplete="off" required checked>
-                      Existente
-                    </label> --}}
-                    <label class="btn btn-secondary form-check-label">
-                      <input type="radio" name="tipoCliente" id="option1" value="Particular" autocomplete="off"
-                        required>
-                      Particular
-                    </label>
-                    <label class="btn btn-secondary form-check-label">
-                      <input type="radio" name="tipoCliente" id="option2" value="Institucional" autocomplete="off">
-                      Institucional
-                    </label>
-                    {{#if this}}<input name="id" type="number" value="{{this.id}}" hidden> {{/if}}
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {{!-- PESTAÑA EXISTENTE --}}
+          <div class="tab-pane fade" id="existente" role="tabpanel" aria-labelledby="existente-tab">
+            Seleccione Persona:
+            <select name="PersonaId" class="persona form-control">
+              {{#each noClientes}}
+              <option value="{{this.id}}"> {{this.identificacion}} | {{this.nombre }} {{this.apellido}} </option>
+              {{/each}}
+            </select>
           </div>
-          <div class="row">
-            <button type="submit" class="btn btn-primary">Agregar Cliente!</button>
-          </div>
+        </div>
+        <div class="row">
+          <label class="btn btn-secondary form-check-label">
+            <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required>
+            Particular
+          </label>
+          <label class="btn btn-secondary form-check-label">
+            <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off">
+            Institucional
+          </label>
+        </div>
+        <div class="row">
+          {{!-- esto de abajo te dice si es nuevo o existente --}}
+          <input type="hidden" name="tipo" id="tipo" value="nuevo" autocomplete="off" required hidden>
+          <button type="submit" class="btn btn-success form-control">Agregar Cliente</button>
         </div>
       </div>
   </form>
@@ -146,16 +52,14 @@
 <script>
   $(document).ready(() => {
     $("#existente-tab").click(function () {
-      $("#collapseExample").collapse("show");
-      $("#tipo").val("Existente");
+      $("#tipo").val("existe");
       $(".empleado").each(function () {
         this.required = false;
         this.disabled = true;
       });
     });
     $("#nuevo-tab").click(function () {
-      $("#collapseExample").collapse("hide");
-      $("#tipo").val("Nuevo")
+      $("#tipo").val("nuevo")
       $(".empleado").each(function () {
         this.disabled = false;
         this.required = true;

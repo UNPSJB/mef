@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var methodOverride = require('method-override');
 var session = require('express-session');
-var cookieParser = require('cookie-parser'); // sequelize store dependencia
 var database = require('./models');
 var permisos = require('./auth/permisos');
 
@@ -34,7 +33,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(cookieParser())
 app.use(methodOverride('_method'));
 
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -50,7 +48,7 @@ app.use(session({
   cookie: {
     maxAge:1000*60*60*3, //3 horas
     sameSite: true,
-    secure: process.env.NODE_ENV === 'production'
+    secure: false //process.env.NODE_ENV === 'production'
   }
   })
 );
