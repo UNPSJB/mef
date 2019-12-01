@@ -42,13 +42,17 @@
 
 <script>
 $(".Presupuestado").each(function(){
-    $(this).append("<td> "+ fabricar("facturar", $(this).find('.id')[0].innerText) + fabricar("cancelar", $(this).find('.id')[0].innerText) +  " </td>");
+    $(this).append("<td> "+ 
+        fabricar("facturar", $(this).find('.id')[0].innerText) + 
+        fabricar("cancelar", $(this).find('.id')[0].innerText) +  " </td>");
 })
 $(".Facturado").each(function(){
-    $(this).append("<td>"+ fabricar("confirmar",$(this).find('.id')[0].innerText)  + "</td>")
+    $(this).append("<td>"+ 
+        fabricar("confirmar",$(this).find('.id')[0].innerText)  + "</td>")
 })
 $(".Confirmado").each(function(){
-    $(this).append("<td>"+ fabricar("fabricar", $(this).find('.id')[0].innerText)+ fabricar("cancelar", $(this).find('.id')[0].innerText)+"</td>")
+    $(this).append("<td>"+ 
+        fabricar("fabricar", $(this).find('.id')[0].innerText)+"</td>")
 })
 $(".Fabricando").each(function(){
     $(this).append("<td>"+ 
@@ -58,7 +62,8 @@ $(".Fabricando").each(function(){
          "</td>")
 })
 $(".Demorado").each(function(){
-    $(this).append("<td>"+ fabricar("reanudar",$(this).find('.id')[0].innerText) +  "</td>")
+    $(this).append("<td>"+ 
+        fabricar("reanudar",$(this).find('.id')[0].innerText) +  "</td>")
 })
 $(".Finalizado").each(function(){
     let cliente = $(this).find('.cliente')[0].innerText;
@@ -75,8 +80,8 @@ $(".Cancelado").each(function(){
     $(this).append("<td>No hay mas acciones.</td>")
 })
 
-    function fabricar(accion, id) {
-        let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
-        return `<a class='btn btn-primary' href='/pedidos/${accion}/${id}'>${capitlizado}</a>`;
-    }
+function fabricar(accion, id) {
+    let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
+    return `<a class='btn btn-primary' href='/pedidos/${accion}/${id}'>${capitlizado}</a>`;
+}
 </script>

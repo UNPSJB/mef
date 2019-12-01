@@ -1,19 +1,17 @@
 <div class="container">
-  <form class="pt-3" action="/clientes?_method=PUT" method="POST">
+  <form class="pt-3" action="/visitas?_method=PUT" method="POST">
     <div class="card mt-4">
-      <div class="card-header text-center bg-dark text-white" id="agregarClienteModalLabel">
-        <h1>Editar cliente</h1>
+      <div class="card-header text-center bg-dark text-white" id="agregarVisitaModalLabel">
+        <h1>Editar Visita</h1>
       </div>
-      <div class="card-body">
+      <div class="card-body"> cliente
         <div class="container">
           <div class="row">
             <div class="col-6 pb-2">
-              <label class="font-weight-bold" for="identificacion">
-                Documento
+              <label class="font-weight-bold" for="ExhibicionId">
+                Exhibición
               </label>
-              <input type="text" class="form-empleado form-control" name="identificacion" id="InputIdentificacion"
-                placeholder="Ingrese su documento" required {{#if cliente}} value="{{cliente.Persona.identificacion}}" {{/if}}>
-              <label class="font-weight-bold" for="nombre">
+              <label class="font-weight-bold" for="ClienteId">
                 Nombre
               </label>
               <input type="text" class="form-empleado form-control" name="nombre" id="InputNombre"
@@ -72,7 +70,7 @@
             </div>
           </div>
           <div class="row">
-            <button type="submit" class="btn btn-primary form-control">Editar Cliente</button>
+            <button type="submit" class="btn btn-primary">Editar Cliente!</button>
           </div>
         </div>
       </div>

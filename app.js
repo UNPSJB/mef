@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var methodOverride = require('method-override');
 var session = require('express-session');
-var cookieParser = require('cookie-parser'); // sequelize store dependencia
 var database = require('./models');
 var permisos = require('./auth/permisos');
 
@@ -19,6 +18,8 @@ var subclaseRouter = require('./routes/subclases');
 var pedidosRouter = require('./routes/pedidos');
 var clientesRouter = require('./routes/clientes');
 var empleadosRouter = require('./routes/empleados');
+var visitasRouter = require('./routes/visitas');
+var exhibicionesRouter = require('./routes/exhibiciones');
 
 var app = express();
 
@@ -32,7 +33,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(cookieParser())
 app.use(methodOverride('_method'));
 
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -48,7 +48,7 @@ app.use(session({
   cookie: {
     maxAge:1000*60*60*3, //3 horas
     sameSite: true,
-    secure: process.env.NODE_ENV === 'production'
+    secure: false //process.env.NODE_ENV === 'production'
   }
   })
 );
@@ -59,10 +59,12 @@ app.use('/fosiles', fosilesRouter);
 app.use('/subclases', 
   permisos.estaLogueado, 
   permisos.permisoPara([permisos.ROLES.COLECCION]), 
-  subclaseRouter);
-app.use('/clientes',clientesRouter);
-app.use('/empleados',empleadosRouter);
-app.use('/pedidos', pedidosRouter);
+  subclaseRouter); /// solo coleccion
+app.use('/clientes', permisos.estaLogueado, clientesRouter);
+app.use('/empleados', permisos.estaLogueado, empleadosRouter);
+app.use('/pedidos', permisos.estaLogueado, pedidosRouter);
+app.use('/visitas', visitasRouter);
+app.use('/exhibiciones', exhibicionesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

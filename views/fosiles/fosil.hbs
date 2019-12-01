@@ -5,9 +5,9 @@
     <table class="table table-hover table-striped table-bordered" id="datatable">
         <thead>
             <th scope="col">#</th>
+            <th scope="col">Disponible</th>
             <th scope="col">Numero de Coleccion</th>
             <th scope="col">Peso (Kg)</th>
-            <th scope="col">Disponible</th>
             <th scope="col">Fecha Encontrado</th>
             <th scope="col">Hueso Referencia</th>
             <th scope="col">Dinosaurio</th>
@@ -17,14 +17,14 @@
             {{#each results}}
             <tr>
                 <th>{{this.id}}</th>
-                <td>{{this.numero_coleccion}}</td>
-                <td>{{this.peso}}</td>
                 <td>{{#if this.disponible}}
                     Si
                     {{else}}
                     No
                     {{/if}}
                 </td>
+                <td>{{this.numero_coleccion}}</td>
+                <td>{{this.peso}}</td>
                 <td>{{this.fecha_encontrado}}</td>
                 <td>{{this.huesos}}</td>
                 <td>{{this.Dinosaurio.nombre}}</td>

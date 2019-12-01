@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <div class="container">
                 <div class="alert alert-danger mt-4">{{#if this.name}} {{this.name}} {{/if}}
-                    Segure que queres borrar esto ?
+                    Seguro que queres borrar esto ?
                     </div>
                 <table class="table">
                     <thead>
@@ -38,7 +38,7 @@
                 <form action="/dinosaurios?_method=DELETE" method="POST">
                     <input name="id" type="number" value="{{this.id}}" hidden required>
                     <button type="submit" class="btn btn-danger">Eliminar</button>
-                    <a href="/dinosaurios" class="btn btn-primary">Nah!</a>
+                    <a href="/dinosaurios" class="btn btn-primary">Volver</a>
                 </form>
                 </div>
             </div>
