@@ -9,14 +9,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="font-weight-bold" for="dinosaurio">Seleccionar Dinosauio</label>
-                                <select class="form-control" name="DinosaurioId" id="dinosaurioId" disabled>
+                                <label class="font-weight-bold" for="dinosaurio">Seleccionar Dinosaurio</label>
 
-                                    {{#each results}}
-                                    <option value="{{this.id}}">{{this.nombre}}</option>
-                                    {{/each}}
-
-                                </select>
+                                <input class="form-control" name="" id="dinosaurioId" disabled
+                                    value="{{dinosaurio.nombre}}">
+                                <input type="hidden" name="DinosaurioId" value="{{dinosaurio.id}}">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -37,16 +34,17 @@
                             <div class="form-group">
                                 <label class="font-weight-bold" for="InputNumeroColeccion">Numero de Coleccion</label>
                                 {{#if fosil}}
-                                <input type="text" class="form-control" name="numero_coleccion" id="InputNumeroColeccion"
-                                    placeholder="Ingrese Numero de Coleccion" required value="{{fosil.numero_coleccion}}">
+                                <input type="text" class="form-control" name="numero_coleccion"
+                                    id="InputNumeroColeccion" placeholder="Ingrese Numero de Coleccion" required
+                                    value="{{fosil.numero_coleccion}}">
                                 {{/if}}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="font-weight-bold" for="InputPeso">Peso (Kg)</label>
-                                <input type="number" class="form-control" name="peso" id="InputPeso" placeholder="Ingrese Peso de Fosil"
-                                    required>
+                                <input type="number" class="form-control" name="peso" id="InputPeso"
+                                    placeholder="Ingrese Peso de Fosil" required>
                             </div>
                         </div>
                     </div>
@@ -60,12 +58,13 @@
                                 <label class="pt-3 text-center font-weight-bold">Disponible:</label>
                                 <div class="btn-group btn-block btn-group-toggle pt-2" data-toggle="buttons">
                                     <label class="btn btn-secondary form-check-label">
-                                        <input type="radio" name="disponible" id="option1" value="true" autocomplete="off"
-                                            required>
+                                        <input type="radio" name="disponible" id="option1" value="true"
+                                            autocomplete="off" required>
                                         Si
                                     </label>
                                     <label class="btn btn-secondary form-check-label">
-                                        <input type="radio" name="disponible" id="option2" value="false" autocomplete="off">
+                                        <input type="radio" name="disponible" id="option2" value="false"
+                                            autocomplete="off">
                                         No
                                     </label>
                                 </div>
@@ -74,7 +73,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="font-weight-bold" for="observacion">observaciones</label><br>
-                                <textarea class="form-control" name="observacion" id="" cols="number" rows="5"
+                                <textarea class="form-control" name="observacion" id="" maxlength="100" cols="number" rows="5"
                                     placeholder="Ingrese observaciones"></textarea>
                             </div>
                         </div>
