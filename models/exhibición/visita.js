@@ -1,18 +1,37 @@
 'use strict';
-module.exports = (sequelize,DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
+
     const Visita = sequelize.define('Visita', {
+        GuiaId:{
+            type:DataTypes.INTEGER,
+            references:{
+                model:'Guia',
+                key:'id'
+            }
+        },
+        ExhibicionId:{
+            type:DataTypes.INTEGER,
+            references:{
+                model:'Exhibicion',
+                key:'id'
+            }
+        },
+        ClienteId:{
+            type:DataTypes.INTEGER,
+            references:{
+                model:'Clientes',
+                key:'id'
+            }
+        },
         cantidadDePersonas: DataTypes.INTEGER,
         fechaVisita: DataTypes.DATEONLY,
         horario: DataTypes.STRING,
-        precio: DataTypes.FLOAT, 
-        cancelada : {                        //Variable que proviene de la clase rol
+        precio: DataTypes.FLOAT,
+        cancelada: {
             type: DataTypes.ENUM,
-            allowNull: false,   
-            values: ['Verdadero','Falso']
+            allowNull: false,
+            values: ['Verdadero', 'Falso']
         },
     })
     return Visita;
-    // Exhibición (#28 )
-    // Cliente (#42 )
-    // Guía (#34 )
 }

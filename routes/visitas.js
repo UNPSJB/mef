@@ -1,6 +1,15 @@
 const express = require('express');
 const router = express.Router();
-//cont visitaService = require('../services/visita');
+const visitaService = require('../services/visita');
+
+//lista todas las visitas
+router.get('/', (req, res, next) => {
+    visitaService.getVisitas().then((results) => {
+        res.render('visitas/visita', {
+            results
+        });
+    });
+});
 
 //lista todos las visitas
 router.get('/', (req, res, next) => {
@@ -11,67 +20,81 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/agregar',
-    visitaService.getVisitas()
-        .then((visitas) => {
-            res.render('visitas/agregar', {
-                visitas
-            })
-        }),
+router.get('/agregar', (req, res, next) => {
+    /* Falta esto */
+    /* Falta esto */
+    /* Falta esto */
+    /* Falta esto */
+    /* Falta esto */
+    /* Falta esto */
+    /* Falta esto */
+    /* Falta esto */
+    /* Falta esto */
+    /* Falta esto */
+    /* Falta esto */
+});
 
-    router.get('/editar', (req, res, next) => {
-        visitaService.getVisita(req.query.id)
-            .then((visita) => {
-                res.render('visita/editar', { visita });
-            })
-    }),
+router.get('/editar', (req, res, next) => {
+    visitaService.getvisita(req.query.id)
+        .then((visita) => {
+            res.render('visitas/editar', { visita });
+        })
+})
 
-    router.get('/eliminar', (req, res, next) => {
-        const { id } = req.query;
-        visitaService.getVisita(id)
-            .then((visita) => {
-                res.render('visita/eliminar', { visita });
-            })
-    }),
+router.get('/eliminar', (req, res, next) => {
+    const { id } = req.query;
+    visitaService.getVisita(id)
+        .then((visita) => {
+            res.render('visitas/eliminar', { visita });
+        })
+});
 
-    router.post('/', (req, res, next) => {
-        const { identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, personaid, tipo } = req.body;
-        if (tipo == 'nuevo') {
-            return clienteService.createCliente(tipoCliente, identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
-                .then(() => { res.redirect('/clientes') })
-                .catch(errores => {
-                    res.render('clientes/agregar', { errores });
-                });
+router.post('/', (req, res, next) => {
+    const { identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, personaid, tipo } = req.body;
+    if (tipo == 'nuevo') {
+        return clienteService.createCliente(tipoCliente, identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
+            .then(() => { res.redirect('/clientes') })
+            .catch(errores => {
+                res.render('clientes/agregar', { errores });
+            });
 
-        }
-    }),
+    }
 
-    router.put('/', (req, res, next) => {
-        const { fecha, horario, precio, cancelada } = req.body;
-        var visitaBody = {
-            "fecha": fecha,
-            "horario": horario,
-            "precio": precio,
-            "cancelada": cancelada,
-        }
-    },
-
-
-        // return visitaService.getVisita(idVisita)
-        // .then(()=>{
-        //     visitaService.updateVisita(visitaBody)
-        //     .then(()=>{
-        //                 res.redirect('/visitas');      
-        //             })
-        //         })
+    if (tipo == 'existe') {
+        return clienteService.createClienteExiste(tipoCliente, personaid)
+            .then(() => { res.redirect('/clientes') })
+            .catch(errores => {
+                res.render('clientes/agregar', { errores });
+            });
+    }
 
 
+});
 
-        router.delete('/', (req, res, next) => {
-            // const { id } = req.body;
-            visitaService.deleteVisita(id)
+router.put('/', (req, res, next) => {
+    const { idVisita, identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono } = req.body;
+    var personaBody = {
+        "id": idVisita,
+    }
+    var visitaBody = {
+        "id": idVisita,
+    }
+
+    return visitaService.getVisita(idVisita)
+        .then(() => {
+            visitaService.updateVisita(visitaBody)
                 .then(() => {
-                    res.redirect('/visitas')
-                });
-        }),
-        module.exports = router))
+                    res.redirect('/visitas');
+                })
+        })
+})
+
+router.delete('/', (req, res, next) => {
+    const { id } = req.body;
+    visitaService.deletevisita(id)
+        .then(() => {
+            res.redirect('/visitas')
+        });
+});
+
+module.exports = router;
