@@ -16,11 +16,11 @@ var indexRouter = require('./routes/index');
 var dinosauriosRouter = require('./routes/dinosaurios');
 var fosilesRouter = require('./routes/fosiles');
 var subclaseRouter = require('./routes/subclases');
-var replicasRouter = require('./routes/replicas');
-var clientesRouter = require('./routes/clientes');
+var pedidosRouter = require('./routes/pedidos');
 var clientesRouter = require('./routes/clientes');
 var empleadosRouter = require('./routes/empleados');
 var visitasRouter = require('./routes/visitas');
+var exhibicionesRouter = require('./routes/exhibiciones');
 
 var app = express();
 
@@ -43,10 +43,10 @@ app.use(session({
   store: new SequelizeStore({
     db: database.sequelize
   }),
-  name: process.SESS_NAME,
+  name: 'sid',
   saveUninitialized:false,
   resave:false,
-  secret: process.env.SESS_SECRET,
+  secret: 'ssh!qiert,it\'asecret!',
   cookie: {
     maxAge:1000*60*60*3, //3 horas
     sameSite: true,
@@ -55,17 +55,18 @@ app.use(session({
   })
 );
 
-app.use('/', indexRouter); // esta planteado dentro del router 
-app.use('/dinosaurios', permisos.estaLogueado, dinosauriosRouter);
-app.use('/fosiles', permisos.estaLogueado, fosilesRouter); /// solo coleccion
+app.use('/', indexRouter); 
+app.use('/dinosaurios', dinosauriosRouter);
+app.use('/fosiles', fosilesRouter);
 app.use('/subclases', 
   permisos.estaLogueado, 
   permisos.permisoPara([permisos.ROLES.COLECCION]), 
   subclaseRouter); /// solo coleccion
 app.use('/clientes', permisos.estaLogueado, clientesRouter);
 app.use('/empleados', permisos.estaLogueado, empleadosRouter);
-app.use('/replicas', permisos.estaLogueado, replicasRouter);
+app.use('/pedidos', permisos.estaLogueado, pedidosRouter);
 app.use('/visitas', visitasRouter);
+app.use('/exhibiciones', exhibicionesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

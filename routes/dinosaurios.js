@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Sequelize = require('sequelize')
 const permisos = require('../auth/permisos');
 const dinoService = require('../services/dinosaurio');
 const huesoService = require('../services/hueso');
@@ -30,7 +29,9 @@ permisos.permisoPara([permisos.ROLES.COLECCION]),
   });
 });
 
-router.get('/editar/:id', async (req,res,next) => {
+router.get('/editar/:id', 
+permisos.permisoPara([permisos.ROLES.COLECCION]),
+async (req,res,next) => {
   //ver cuando id no existe
   const dino = await dinoService.getDinosaurio(req.params.id);
   subclaseService.getSubclases()
@@ -39,7 +40,9 @@ router.get('/editar/:id', async (req,res,next) => {
   }); //@TODO mostrar dino sin editar o algo
 });
 
-router.get('/eliminar/:id', (req,res,next)=>{
+router.get('/eliminar/:id', 
+permisos.permisoPara([permisos.ROLES.COLECCION]),
+(req,res,next)=>{
   dinoService.getDinosaurio(req.params.id)
   .then((dino)=> {
     res.render('dinosaurios/eliminar', { dino })
@@ -48,7 +51,9 @@ router.get('/eliminar/:id', (req,res,next)=>{
 });
 
 // HUESOS
-router.get('/moldes/:id', (req, res) => { /// TALLER
+router.get('/moldes/:id', 
+permisos.permisoPara([permisos.ROLES.TALLER, permisos.ROLES.COLECCION]),
+(req, res) => { /// TALLER
   const { id } = req.params;
   huesoService.getHuesosDino(id)
     .then((huesos)=>{
@@ -61,7 +66,9 @@ router.get('/moldes/:id', (req, res) => { /// TALLER
     });
 });
 
-router.get('/huesos/:id', (req,res)=>{
+router.get('/huesos/:id', 
+permisos.permisoPara([permisos.ROLES.TALLER,permisos.ROLES.COLECCION, permisos.ROLES.EXHIBICION]),
+(req,res)=>{
   const {id} = req.params;
   huesoService.getHuesosDino(id)
     .then((huesos)=>{
@@ -69,13 +76,17 @@ router.get('/huesos/:id', (req,res)=>{
     })
 })
 
-router.patch('/moldes/toggle',permisos.permisoPara([permisos.ROLES.TALLER]), (req,res)=>{ /// esto NO PUEDE SER ACCEDIDO por bones
+router.patch('/moldes/toggle',
+permisos.permisoPara([permisos.ROLES.TALLER]), 
+(req,res)=>{ /// esto NO PUEDE SER ACCEDIDO por bones
   const { id } = req.query
   huesoService.toggleDisponibilidadHueso(id);
   res.send(200);
 });
 
-router.post('/',permisos.permisoPara([permisos.ROLES.COLECCION]), (req,res,next) =>{ // esto llama a dino service
+router.post('/',
+permisos.permisoPara([permisos.ROLES.COLECCION]), 
+(req,res,next) =>{ // esto llama a dino service
   const {nombre, alimentacion, periodo, descubrimiento, idsubclase} = req.body;
   const {cant_cervicales,cant_dorsales,cant_sacras,cant_caudales,cant_cos_cervicales,cant_cos_dorsales,cant_hemales,cant_metacarpianos,cant_metatarsos,cant_dedos_mano,cant_dedos_pata} = req.body;
   dinoService.createDinosaurio(nombre, alimentacion, periodo, descubrimiento, idsubclase) // es una promesa
@@ -93,7 +104,9 @@ router.post('/',permisos.permisoPara([permisos.ROLES.COLECCION]), (req,res,next)
   });
 });
 
-router.put('/',permisos.permisoPara([permisos.ROLES.COLECCION]), (req,res)=>{
+router.put('/',
+permisos.permisoPara([permisos.ROLES.COLECCION]), 
+(req,res)=>{
     dinoService.updateDinosaurio(req.body)
     .then(() => res.redirect('/dinosaurios'))
     .catch((errores)=>{
@@ -105,7 +118,9 @@ router.put('/',permisos.permisoPara([permisos.ROLES.COLECCION]), (req,res)=>{
     });
 });
 
-router.delete('/' ,permisos.permisoPara([permisos.ROLES.COLECCION]) ,async (req,res) =>{
+router.delete('/',
+permisos.permisoPara([permisos.ROLES.COLECCION]),
+async (req,res) =>{
   const { id } = req.body;
   try {
     await dinoService.deleteDinosaurio(id)
@@ -116,7 +131,5 @@ router.delete('/' ,permisos.permisoPara([permisos.ROLES.COLECCION]) ,async (req,
     })    
   }
 });
-
-
 
 module.exports = router;
