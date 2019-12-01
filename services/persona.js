@@ -1,4 +1,3 @@
-
 const models = require('../models');
 let persona = models.Persona;
 

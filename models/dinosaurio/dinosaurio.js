@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     models.Dinosaurio.hasMany(models.Hueso); 
     models.Dinosaurio.hasMany(models.Fosil);
     models.Dinosaurio.hasMany(models.Replica);
+    models.Replica.belongsTo(models.Dinosaurio);
   };
   return Dinosaurio;
 };
