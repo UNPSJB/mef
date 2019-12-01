@@ -20,6 +20,7 @@ var replicasRouter = require('./routes/replicas');
 var clientesRouter = require('./routes/clientes');
 var clientesRouter = require('./routes/clientes');
 var empleadosRouter = require('./routes/empleados');
+var visitasRouter = require('./routes/visitas');
 
 var app = express();
 
@@ -64,6 +65,7 @@ app.use('/subclases',
 app.use('/clientes', permisos.estaLogueado, clientesRouter);
 app.use('/empleados', permisos.estaLogueado, empleadosRouter);
 app.use('/replicas', permisos.estaLogueado, replicasRouter);
+app.use('/visitas', visitasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -21,6 +21,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/agregar', (req, res, next) => {
+    res.render('visitas/agregar');
     /* Falta esto */
     /* Falta esto */
     /* Falta esto */
@@ -53,22 +54,11 @@ router.post('/', (req, res, next) => {
     const { identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, personaid, tipo } = req.body;
     if (tipo == 'nuevo') {
         return clienteService.createCliente(tipoCliente, identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
-            .then(() => { res.redirect('/clientes') })
+            .then(() => { res.redirect('/visitas') })
             .catch(errores => {
-                res.render('clientes/agregar', { errores });
-            });
-
-    }
-
-    if (tipo == 'existe') {
-        return clienteService.createClienteExiste(tipoCliente, personaid)
-            .then(() => { res.redirect('/clientes') })
-            .catch(errores => {
-                res.render('clientes/agregar', { errores });
+                res.render('visitas/agregar', { errores });
             });
     }
-
-
 });
 
 router.put('/', (req, res, next) => {
