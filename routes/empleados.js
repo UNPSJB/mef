@@ -24,16 +24,17 @@ router.get('/agregar', (req,res,next) => {
     
 });
 
-router.get('/editar',(req,res,next) => {
+router.get('/editar/:id',(req,res,next) => {
+    const { id } = req.params;
 //ver cuando id no existe
-empleadoService.getEmpleado(req.query.id)
+empleadoService.getEmpleado(id)
     .then((empleado) =>{
         res.render('empleados/editar', { empleado });
     })
 })
 
-router.get('/eliminar', (req,res,next)=>{
-    const {id} = req.query;
+router.get('/eliminar/:id', (req,res,next)=>{
+    const {id} = req.params;
     empleadoService.getEmpleado(id)
     .then((empleado)=> { 
         res.render('empleados/eliminar', {empleado});

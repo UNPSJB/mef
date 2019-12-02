@@ -22,16 +22,16 @@ router.get('/agregar', (req, res, next) => { // esto llama solo a la vista
     res.render('subclases/agregar');
 });
 
-router.get('/editar', (req, res, next) => {
-    const { id } = req.query;
+router.get('/editar/:id', (req, res, next) => {
+    const { id } = req.params;
     subclaseService.getSubclase(id)
         .then((subclase) => {
             res.render('subclases/editar', { subclase });
         })
 });
 
-router.get('/eliminar', (req, res, next) => {
-    const { id } = req.query;
+router.get('/eliminar/:id', (req, res, next) => {
+    const { id } = req.params;
     subclaseService.getSubclase(id)
         .then((subclase) => {
             res.render('subclases/eliminar', { subclase });

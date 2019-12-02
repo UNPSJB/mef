@@ -8,7 +8,7 @@
 module.exports = (sequelize,DataTypes) => {
     const Guia = sequelize.define('Guia', {
         dias_trabaja: {
-            type:DataTypes.STRING.BINARY(7), 
+            type:DataTypes.STRING.BINARY, 
             // Lunes 1000000
             // Martes 010000
             // Lun a Vie 1111100
@@ -18,7 +18,7 @@ module.exports = (sequelize,DataTypes) => {
             type: DataTypes.DATEONLY
         }, 
         horario_trabaja: {
-            type:DataTypes.STRING.BINARY(13),
+            type:DataTypes.STRING.BINARY,
             // 9am a 20pm 11111111111111
             // 9am a 12am - 15pm a 20pm 11110001111
             defaultValue: "11110001111"
