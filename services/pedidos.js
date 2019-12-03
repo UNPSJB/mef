@@ -55,7 +55,7 @@ module.exports = {
         //agregarle todos sus ddetalles
         pedido.crearDetalles(huesos);
         const estado = await pedido.estado;
-        await estado.update({
+        await pedido.update({
           cantidad_huesos:huesos.length,
           monto,
           fecha_fin_oferta

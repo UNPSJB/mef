@@ -1,36 +1,43 @@
 <div style="padding-top: 10px">
-    <h1>Dinosaurios  <a href="/dinosaurios/agregar" class="btn btn-primary" rel="noopener noreferrer">+</a></h1>
-    <table class="table table-striped table-bordered" id="datatable">
-        <thead>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Alimentacion</th>
-            <th scope="col">Periodo</th>
-            <th scope="col">Subclase</th>
-            <th scope="col">Descubrimiento</th>
-            <th scope="col">Acciones</th>
-        </thead>
-        <tbody>
-        {{#each results}}
-                <tr>
-                    <th>{{this.id}}</th>
-                    <td>{{this.nombre}}</td>
-                    <td>{{this.alimentacion}}</td>
-                    <td>{{this.periodo}}</td>
-                    <td>{{this.SubClase.descripcion}}</td>
-                    <td>{{this.descubrimiento}}</td>
-                    <!-- acciones aca -->
-                    <td>
-                        <a href="/dinosaurios/editar/{{this.id}}"><i class="far fa-edit"></i></a> <!--editar-->
-                        <a href="/dinosaurios/eliminar/{{this.id}}"><i class="fas fa-minus-circle"></i></a>
-                        <a href="/dinosaurios/moldes/{{this.id}}"><i  class="fas fa-bone"></i></a>
-                        {{!-- otras acciones mas --}}
-                    </td>
-                </tr>
-        {{/each}}
-        </tbody>    
-    </table>
-</div>       
+  <h1>
+    Dinosaurios
+    <a href="/dinosaurios/agregar" class="btn btn-primary" rel="noopener noreferrer">
+      +
+    </a>
+    {{!-- CORREGIR LA BARRA DE BUSQUEDA PARA QUE BUSQUE EN LA BASE DE DATOS --}}
+  </h1>
+  <table class="table table-striped table-bordered" id="datatable">
+    <thead>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Alimentacion</th>
+      <th scope="col">Periodo</th>
+      <th scope="col">Subclase</th>
+      <th scope="col">Descubrimiento</th>
+      <th scope="col">Acciones</th>
+    </thead>
+    <tbody>
+      {{#each results}}
+      <tr>
+        <th>{{this.id}}</th>
+        <td>{{this.nombre}}</td>
+        <td>{{this.alimentacion}}</td>
+        <td>{{this.periodo}}</td>
+        <td>{{this.SubClase.descripcion}}</td>
+        <td>{{this.descubrimiento}}</td>
+        <!-- acciones aca -->
+        <td>
+          <a href="/dinosaurios/editar/{{this.id}}"><i class="far fa-edit"></i></a>
+          <!--editar-->
+          <a href="/dinosaurios/eliminar/{{this.id}}"><i class="fas fa-minus-circle"></i></a>
+          <a href="/dinosaurios/moldes/{{this.id}}"><i class="fas fa-bone"></i></a>
+          {{!-- otras acciones mas --}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
 <script>
   function searchBar() {
     // Declare variables
