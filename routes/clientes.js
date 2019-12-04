@@ -30,15 +30,16 @@ router.get('/agregar', (req,res,next) => {
     });
 });
 
-router.get('/editar',(req,res,next) => {
-clienteService.getCliente(req.query.id)
+router.get('/editar/:id',(req,res,next) => {
+const { id } = req.params;
+clienteService.getCliente(id)
     .then((cliente) =>{
         res.render('clientes/editar', { cliente });
     })
 })
 
-router.get('/eliminar', (req,res,next)=>{
-    const {id} = req.query;
+router.get('/eliminar/:id', (req,res,next)=>{
+    const { id } = req.params;
     clienteService.getCliente(id)
     .then((cliente)=> { 
         res.render('clientes/eliminar', {cliente});

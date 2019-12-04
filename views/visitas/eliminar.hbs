@@ -1,0 +1,30 @@
+<h1>Eliminar Cliente</h1>
+<div class="alert alert-danger mt-4">Segure que queres borrar esto ?</div>
+ <table class="table">
+     <thead>
+        <th scope="col">Exhibición</th>    
+        <th scope="col">Cliente</th>
+        <th scope="col">Guía</th>
+        <th scope="col">Cantidad de Personas</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Horario</th>
+        <th scope="col">Precio</th>
+        </thead>
+    <tbody>
+        <tr>
+            <th>{{Exhibicion.identificacion}}</th>    
+            <th>{{Cliente.identificacion}}</th>
+            <th>{{Guia.identificacion}}</th>
+            <th>{{Visita.cantidad_personas}}</th>
+            <th>{{Visita.Fecha}}</th>
+            <th>{{Visita.Horario}}</th>
+            <th>{{Visita.Precio}}</th>
+        </tr>
+    </tbody>
+ </table>
+
+<form action="/visitas?_method=DELETE" method="POST" >
+<input name="id" type="number" value="{{visita.id}}" hidden required>
+<button type="submit" class="btn btn-danger">Eliminar</button>
+<a href="/visitas" class="btn btn-primary">No</a>
+</form>

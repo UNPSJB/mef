@@ -1,0 +1,95 @@
+<div class="container">
+  <form action="/visitas" method="POST">
+    <div class="card mt-4">
+      <div class="card-header text-center bg-dark text-white" id="agregarVisitaModalLabel">
+        <h1>Agregar Visita</h1>
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 pb-2">
+              <label class="font-weight-bold" for="ExhibicionId">
+                Exhibición
+              </label>
+              <select class="empleado form-empleado form-control" name="identificacion"
+                id="InputIdentificacion" placeholder="Ingrese Exhibición" required {{#if this}} value="{{this.tipo }}"
+                {{/if}}>
+              </select>
+              <label class="font-weight-bold" for="nombre">
+                Cliente
+              </label>
+              <select class="empleado form-empleado form-control" name="nombre" id="InputNombre"
+                placeholder="Ingrese Cliente" required {{#if this}}value="{{this.nombre}}" {{/if}}>
+              </select>
+              <label class="font-weight-bold" for="apellido">
+                Guia
+              </label>
+              <select class="empleado form-empleado form-control" name="apellido" id="InputApellido"
+                placeholder="Ingrese Guia" required {{#if this}}value="{{this.apellido}}" {{/if}}>
+              </select>
+              <label class="font-weight-bold" for="direccion">
+                Cantidad de Personas
+              </label>
+              <input type="text" class="empleado form-empleado form-control" name="direccion" id="InputDireccion"
+                placeholder="Ingrese Cantidad de Personas" required {{#if this}}value="{{this.direccion}}" {{/if}}>
+
+            </div>
+            <div class="col-6">
+              
+              <label class="font-weight-bold" for="localidad">
+                Fecha
+              </label>
+              <input type="date" class="form-empleado form-control" name="localidad" id="InputLocalidad"
+                placeholder="Ingrese Fecha" required {{#if this}}value="{{this.localidad}}" {{/if}}>
+             
+              <label class="font-weight-bold" for="email">
+                Horario
+              </label>
+              <select class= "form-control" name="Horario" id="">
+                <option value="9">
+                  09:00hs
+                </option>
+                <option value="10">
+                  10:00hs
+                </option>
+                <option value="11">
+                  11:00hs
+                </option>
+                <option value="12">
+                  12:00hs
+                </option>
+                <option value="13">
+                  13:00hs
+                </option>
+                <option value="14">
+                  14:00hs
+                </option>
+                <option value="15">
+                  15:00hs
+                </option>
+                <option value="16">
+                  16:00hs
+                </option>
+                <option value="17">
+                  17:00hs
+                </option>
+                <option value="18">
+                  18:00hs
+                </option>
+
+              </select>
+              
+              <label class="font-weight-bold" for="fechaNacimiento">
+                Precio
+              </label>
+              <input class="form-control" type="number" name="precio" placeholder="Ingrese el Precio de la Visita Guiada">
+
+            </div>
+          </div>
+          <div class="row">
+            <button type="submit" class="btn btn-primary">Agregar Visita!</button>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>

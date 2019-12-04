@@ -44,19 +44,21 @@ router.get("/agregar",
     });
   });
 
-router.get("/editar",
+router.get("/editar/:id",
   permisos.permisoPara([permisos.ROLES.COLECCION]),
   async (req, res, next) => {
-    const fosil = await fosilService.getFosil(req.query.id);
+    const { id } = req.params;
+    const fosil = await fosilService.getFosil(id);
     const dinosaurio = fosil.Dinosaurio
     res.render("fosiles/editar", { dinosaurio, bones, fosil });
   });
 
-router.get("/eliminar",
+router.get("/eliminar/:id",
   permisos.permisoPara([permisos.ROLES.COLECCION]),
   (req, res, next) => {
+    const { id } = req.params;
     fosilService
-      .getFosil(req.query.id)
+      .getFosil(id)
       .then(fosil => res.render("fosiles/eliminar", { fosil }))
       .catch(err => {
       });

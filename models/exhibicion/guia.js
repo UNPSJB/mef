@@ -8,15 +8,20 @@
 module.exports = (sequelize,DataTypes) => {
     const Guia = sequelize.define('Guia', {
         dias_trabaja: {
-            type:DataTypes.STRING,
-            defaultValue: "Lun-Mar-Mie-Jue-Vie"
+            type:DataTypes.STRING.BINARY, 
+            // Lunes 1000000
+            // Martes 010000
+            // Lun a Vie 1111100
+            defaultValue: "1111100"
         },
         fecha_alta: {
             type: DataTypes.DATEONLY
-        },  //Variable que proviene de la clase rol
+        }, 
         horario_trabaja: {
-            type:DataTypes.STRING,
-            defaultValue: "8hs-20hs"
+            type:DataTypes.STRING.BINARY,
+            // 9am a 20pm 11111111111111
+            // 9am a 12am - 15pm a 20pm 11110001111
+            defaultValue: "11110001111"
         },
         PersonaId:{
 			type: DataTypes.INTEGER,
@@ -30,4 +35,4 @@ module.exports = (sequelize,DataTypes) => {
 }
 
 // Un GUIA puede estar en muchas VISITAS GUIADAS 
-// y muchasVISITAS GUIADAS tiene muchos GUIAS
+// y muchas VISITAS GUIADAS tiene muchos GUIAS

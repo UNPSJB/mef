@@ -6,13 +6,13 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-5 bg-secondary d-flex justify-content-center align-items-center slider">
+        <div class="col-7 bg-secondary d-flex justify-content-center align-items-center slider">
             <!-- Imagen fija no crece ni disminuye -->
             <!-- <img src="../img/palomitas.jpg" width="100px" height="100px" alt=""> -->
             <!-- Imagen crece y disminuye conforme sea la pantalla de grande -->
             <img class="img-fluid" src="../images/logo mef.png" alt="" />
         </div>
-        <div class="col-7 mt-2 bg-dark">
+        <div class="col-5 mt-2 bg-dark">
             <nav class="navbar navbar-dark bg-dark">
                 <a class="navbar-brand" href="/" style="font-family: serif;">Mef</a>
             </nav>
@@ -28,9 +28,9 @@
                     entretenimiento para toda la familia.
                 </p>
                 <input name="email" type="email" class="form-control my-4 text-center" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Ingrese mail" {{#if email}} value="{{email}}" {{/if}} />
+                    placeholder="Ingrese mail" {{#if email}} value="{{email}}" {{/if}} required />
                 <input name="password" type="password" class="form-control my-4 text-center" id="exampleInputPassword1"
-                    placeholder="Contraseña" />
+                    placeholder="Contraseña" required />
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-light btn-block">
