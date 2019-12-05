@@ -1,6 +1,6 @@
 <div style="padding-top: 10px">
-    <h1>Exhibiciones</h1>
-    <table class="table table-striped table-bordered" id="example">
+    <h1>Exhibiciones <a href="/exhibiciones/agregar" class="btn btn-primary">+</a></h1>
+    <table class="table table-striped table-bordered" id="datatable">
         <thead>
             <th scope="col">Nombre</th>
             <th scope="col">Duracion</th>
@@ -10,10 +10,11 @@
             <th scope="col">Acciones</th>
         </thead>
         <tbody>
+                {{#each exhibiciones}}
             <tr>
                 <td>{{this.nombre}}</td>
                 <td>{{this.duracion}}</td>
-                <td>{{this.Tematica}}</td>
+                <td>{{this.tematica}}</td>
                 <td>
                     <a href="={{this.id}}" class="btn btn-primary">fosiles</a>
                 </td>
@@ -26,6 +27,7 @@
                     <a href="/exhibiciones/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
                 </td>
             </tr>
+                {{/each}}
         </tbody>
     </table>
 </div>

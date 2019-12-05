@@ -2,7 +2,7 @@ const models = require('../models');
 const INTERNO = 'Interno';
 const EXTERNO = 'Externo';
 const CONFIRMADO = 'Confirmado';
-const PRESUPUESTADO = 'Presupuestado'
+const PRESUPUESTADO = 'Presupuestado';
 
 module.exports = {
   getPedidos(args) {
@@ -33,7 +33,7 @@ module.exports = {
       tipo:INTERNO,
       estadoInstance:CONFIRMADO
     }).then(pedido=>{
-      pedido.crearDetalles(huesos,pedido.id)
+      pedido.crearDetalles(huesos)
     })
   },
   presupuestar(
@@ -55,7 +55,7 @@ module.exports = {
         //agregarle todos sus ddetalles
         pedido.crearDetalles(huesos);
         const estado = await pedido.estado;
-        estado.update({
+        await estado.update({
           cantidad_huesos:huesos.length,
           monto,
           fecha_fin_oferta
@@ -65,5 +65,13 @@ module.exports = {
   updatePedido(pedido) {
     return models.Pedido.upsert(pedido);
   },
-  deletePedido() {}
+  deletePedido() {},
+  getReplicas(args){
+    return models.Replica.findAll({
+      where:{
+        ...args
+      },
+      include:[models.Hueso, models.Dinosaurio]
+    })
+  }
 };

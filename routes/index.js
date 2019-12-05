@@ -24,10 +24,11 @@ router.post('/login', permisos.redirectHome, (req, res) => {
         res.render('login', {layout:'login', error: "email y/o contrasena incorrectos!", email});
       }
       if (user) {
-        req.session.userId = user.id;
-        req.session.rol = user.Rol.descripcion;
-        let rol = req.session.rol;
-        res.render('home', {rol});
+        const session = req.session;
+        session.userId = user.id;
+        session.rol = user.Rol.descripcion;
+        req.session.save();
+        res.redirect('/');
       }
     });
 });
@@ -48,5 +49,11 @@ router.delete('/logout', permisos.estaLogueado, (req,res)=>{
     res.redirect('/login');
   });
 })
+
+
+router.get('/403', permisos.estaLogueado, function(req, res, next) {
+  res.render('error_403');
+});
+
 
 module.exports = router;

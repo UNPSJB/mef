@@ -62,7 +62,6 @@ module.exports = {
     },
     permisosParaEstado(){
         return function(req,res,next){
-            console.log(req.params)
             switch(req.params.accion){
                 case FABRICAR:
                 case DEMORAR:

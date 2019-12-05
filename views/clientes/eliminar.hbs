@@ -1,5 +1,5 @@
 <h1>Eliminar Cliente</h1>
-<div class="alert alert-danger mt-4">Segure que queres borrar esto ?</div>
+<div class="alert alert-danger mt-4">Seguro que queres borrar esto ?</div>
  <table class="table">
      <thead>
         <th scope="col">Documento</th>    
@@ -30,5 +30,5 @@
 <form action="/clientes?_method=DELETE" method="POST" >
 <input name="id" type="number" value="{{cliente.id}}" hidden required>
 <button type="submit" class="btn btn-danger">Eliminar</button>
-<a href="/clientes" class="btn btn-primary">Nah!</a>
+<a href="/clientes" class="btn btn-primary">Volver</a>
 </form>

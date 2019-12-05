@@ -26,6 +26,10 @@ module.exports = (sequelize,DataTypes) =>{
         models.Persona.hasMany(models.Empleado);
         models.Persona.hasOne(models.User);
         models.User.belongsTo(models.Persona);
+        models.Guia.belongsTo(models.Persona);
+        models.Persona.hasMany(models.Guia);
+        models.Idioma.belongsToMany(models.Guia, { through: "IdiomaGuia" });
+        models.Guia.belongsToMany(models.Idioma, { through: "IdiomaGuia" });
     };
     return Persona;
 };

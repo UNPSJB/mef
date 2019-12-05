@@ -30,15 +30,16 @@ router.get('/agregar', (req,res,next) => {
     });
 });
 
-router.get('/editar',(req,res,next) => {
-clienteService.getCliente(req.query.id)
+router.get('/editar/:id',(req,res,next) => {
+const { id } = req.params;
+clienteService.getCliente(id)
     .then((cliente) =>{
         res.render('clientes/editar', { cliente });
     })
 })
 
-router.get('/eliminar', (req,res,next)=>{
-    const {id} = req.query;
+router.get('/eliminar/:id', (req,res,next)=>{
+    const { id } = req.params;
     clienteService.getCliente(id)
     .then((cliente)=> { 
         res.render('clientes/eliminar', {cliente});
@@ -46,18 +47,17 @@ router.get('/eliminar', (req,res,next)=>{
   });
   
   router.post('/', (req,res,next) =>{
-    const {identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, personaid, tipo } = req.body;
-    if(tipo == 'nuevo'){
+    const {identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, PersonaId, tipo } = req.body;
+    if(tipo === 'nuevo'){
         return clienteService.createCliente(tipoCliente,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
         .then(()=>{ res.redirect('/clientes')})
         .catch(errores =>{
             res.render('clientes/agregar',{ errores });
-        });
-        
+        });      
     }   
-
-    if(tipo == 'existe'){
-        return clienteService.createClienteExiste(tipoCliente, personaid)
+    if(tipo === 'existe'){
+        console.log("existe:::::::::")
+        return clienteService.createClienteExiste(tipoCliente, PersonaId)
         .then(()=>{ res.redirect('/clientes')})
         .catch(errores =>{
             res.render('clientes/agregar',{ errores });
