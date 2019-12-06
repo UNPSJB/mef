@@ -23,7 +23,15 @@ permisos.permisoPara([permisos.ROLES.EXHIBICION]),
             res.render('pedidos/agregar',{dinosaurios,clientes}) 
         })
     })
-})
+});
+
+router.get('/:id/empleados/',async (req,res)=>{
+    const {id} = req.params;
+    const pedido = await pedidosService.getPedido({id});
+    const trabajando = await pedido.getEmpleados({include:[models.Persona]});
+    res.send(JSON.stringify(trabajando,null,4))
+});
+
 router.get('/detalle/:id', (req,res)=>{
     const { id } = req.params;
     pedidosService.getPedido().then(async pedido=>{
@@ -54,7 +62,6 @@ router.get('/empleados', (req,res)=>{
     }catch(err){
         console.log(err);
     }
-    
 });
 
 router.post('/:accion/:id', (req,res)=>{
@@ -73,6 +80,14 @@ router.post('/:accion/:id', (req,res)=>{
     .then(()=> res.redirect('/pedidos'))
     .catch(()=> {res.redirect('/404')})
 })
+router.put('/:id',async (req,res)=>{
+    const {id} = req.params;
+    console.log(req.params);
+    console.log(req.body);
+    let pedido = await pedidosService.getPedido(id);
+    
+    res.redirect('/pedidos');
+});
 
 router.post('/', (req,res)=>{
     const {tipo, dinosaurio, hueso, cliente, descripcion, monto,finoferta} = req.body;
