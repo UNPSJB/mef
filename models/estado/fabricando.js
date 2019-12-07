@@ -16,10 +16,6 @@ module.exports = (sequelize, DataTypes) =>{
                 PedidoId,
                 retraso_estimado,
                 fecha:new Date()
-            }).then(()=>{
-                return pedido.update({
-                    estadoInstance:'Demorado'
-                })
             })
         }
         finalizar(pedido,args){
@@ -65,10 +61,6 @@ module.exports = (sequelize, DataTypes) =>{
                         })
                     })
                 } 
-                
-                return pedido.update({
-                    estadoInstance:'Finalizado'
-                })
             })
         }
     }
