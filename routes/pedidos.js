@@ -24,13 +24,20 @@ permisos.permisoPara([permisos.ROLES.EXHIBICION]),
         })
     })
 })
+
 router.get('/detalle/:id', (req,res)=>{
     const { id } = req.params;
-    pedidosService.getPedido().then(async pedido=>{
+    pedidosService.getPedido({id}).then(async pedido=>{
         const estados = await pedido.estados;
-        res.render("pedidos/detalle", {id, estados});
-    })
+        const detalles = await pedido.getDetalles({include:[models.Hueso]});
+        
+        const hueso = await huesoService.getHueso(detalles[0].HuesoId);
+        const dinosaurio = hueso.Dinosaurio;
+        console.log(dinosaurio);
+        res.render("pedidos/detalle", {id, estados, pedido, dinosaurio});
+  })
 })
+// models.Dinosaurio
 router.get('/:accion/:id', 
     permisos.permisosParaEstado(),
     (req,res)=>{
@@ -45,6 +52,7 @@ router.get('/:accion/:id',
         res.redirect('/404')
     }    
 })
+
 router.get('/empleados', (req,res)=>{
     try{
         return empleadoService.getEmpleados()

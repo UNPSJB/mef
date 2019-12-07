@@ -3,45 +3,55 @@
 {{!-- {{> replica/detalle detalles}} --}}
 
 {{!-- <table class="table">
-<thead>
-    <th>Descripcion</th>
-    <th>Creado</th>
-</thead>
-<tbody>
-    {{#each estados}}
+    <thead>
+        <th>Descripcion</th>
+        <th>Creado</th>
+    </thead>
+    <tbody>
+        {{#each estados}}
         <tr>
             <td>{{this.descripcion}} </td>
             <td>{{this.createdAt}}</td>
         </tr>
-    {{/each}}
-</tbody>
+        {{/each}}
+    </tbody>
 </table> --}}
 
 <div class="container">
     <div class="row justify-content-md-center border">
+
         <div class="col-lg-8 border">
             <div class="row border">
                 <div class="col border">
-                    <b>Pedido N°: </b>
-                </div>
-                <div class="col border">
-                    <b>Estado Actual: </b>
+                    {{#with pedido}}
+                    <b>Estado Actual: {{this.estadoInstance}}</b>
+                    {{/with}}
                 </div>
             </div>
             <div class="row border">
                 <div class="col border">
-                    <b>Cliente: </b>
+                    {{#with pedido}}
+                    <b>Cliente:
+                        {{ Persona.nombre }}
+                    </b>
+                    {{/with}}
                 </div>
                 <div class="col border">
                     <b>Monto: </b>
                 </div>
                 <div class="col border">
-                    <b>Dinosaurio: </b>
+                    <b>Dinosaurio:
+                        {{#with dinosaurio}}
+                        {{ nombre }}
+                        {{/with}}
+                    </b>
                 </div>
             </div>
             <div class="row border">
                 <div class="col border">
-                    <b>Motivo: </b>
+                    {{#with pedido}}
+                    <b>Motivo: {{ motivo }}</b>
+                    {{/with}}
                 </div>
             </div>
             <div class="row border">
@@ -51,14 +61,16 @@
                         <thead>
                             <th>N°</th>
                             <th>Hueso</th>
-                            <th>Cantidad</th>
+
                         </thead>
                         <tbody>
+                            {{#each huesos}}
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{this.numero}}</td>
+                                <td>{{this.nombre}}</td>
+
                             </tr>
+                            {{/each}}
                         </tbody>
                     </table>
                 </div>
