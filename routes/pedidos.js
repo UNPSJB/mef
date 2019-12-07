@@ -80,13 +80,21 @@ router.post('/:accion/:id', (req,res)=>{
     .then(()=> res.redirect('/pedidos'))
     .catch(()=> {res.redirect('/404')})
 })
-router.put('/:id',async (req,res)=>{
-    const {id} = req.params;
-    console.log(req.params);
-    console.log(req.body);
-    let pedido = await pedidosService.getPedido(id);
-    
-    res.redirect('/pedidos');
+router.put('/',async (req,res)=>{
+    const {idPedido,empleado} = req.body;
+    let pedido = await pedidosService.getPedido({id:idPedido})
+    let empleados=[];
+    const getEmpleados = async () => {
+        return Promise.all(
+            empleado.map(async empl => {
+                const empleado = await empleadoService.getEmpleado(empl)
+                return empleado;
+            })
+        )        
+    }
+    empleados = await getEmpleados();
+    await pedido.setEmpleados(empleados);
+    res.redirect('/pedidos'); 
 });
 
 router.post('/', (req,res)=>{
