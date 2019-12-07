@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) =>{
     class Facturado extends Sequelize.Model{
         confirmar(pedido,args){
             return sequelize.models.Confirmado.create({
-                PedidoId: pedido.id
+                PedidoId: pedido.id,
+                Fecha: new Date()
             }).then( ()=>{
                 return pedido.update({
                     autorizacion:true

@@ -13,12 +13,13 @@ module.exports = (sequelize, DataTypes) =>{
             const descripcion = 'Fabricando';
             const inicio_estimada = fechainicio;
             const fin_estimada = fechafin;
-            // const cantidad_empleados = empleado.length;
+            const cantidad_empleados = empleado.length;
             const PedidoId = pedido.id;
             return sequelize.models.Fabricando.create({
                 PedidoId,
+                fecha: new Date(),
                 descripcion,
-                // cantidad_empleados,
+                cantidad_empleados,
                 inicio_estimada,
                 fin_estimada,
             })
