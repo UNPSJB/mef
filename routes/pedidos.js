@@ -34,7 +34,7 @@ router.get('/detalle/:id', (req,res)=>{
         const hueso = await huesoService.getHueso(detalles[0].HuesoId);
         const dinosaurio = hueso.Dinosaurio;
         console.log(dinosaurio);
-        res.render("pedidos/detalle", {id, estados, pedido, dinosaurio});
+        res.render("pedidos/detalle", {id, estados, pedido, dinosaurio, hueso});
   })
 })
 // models.Dinosaurio
