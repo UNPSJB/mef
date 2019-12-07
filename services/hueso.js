@@ -13,7 +13,7 @@ const manos = ['Metacarpianos','Dedos Mano'];
 const vertebras = ['Hemales','Vertebras Cervicales','Vertebras Dorsales','Vertebras Sacras','Vertebras Caudales'];
 const torso = ['Costillas Cervicales','Costillas Dorsales'];
 
-const base = ['Craneo','Pelvis','Brazo', 'Piernas', 'Pies','Manos', 'Vertebras', 'Torso'];
+const base = ['Pelvis','Brazo', 'Piernas', 'Pies','Manos', 'Vertebras', 'Torso'];
 
 const huesosPersonalizados = ['Vertebras Cervicales','Vertebras Dorsales','Vertebras Sacras','Vertebras Caudales','Costillas Cervicales','Costillas Dorsales','Hemales','Metacarpianos','Metatarsales','Dedos Mano','Dedos Pie'];
 
