@@ -100,7 +100,12 @@ router.put('/',async (req,res)=>{
             })
         )        
     }
-    empleados = await getEmpleados();
+
+    if(Array.isArray(empleado))
+        empleados = await getEmpleados();
+    else
+        empleados = await empleadoService.getEmpleado(empleado);
+
     await pedido.setEmpleados(empleados);
     res.redirect('/pedidos'); 
 });
