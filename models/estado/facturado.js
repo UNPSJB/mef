@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) =>{
                 PedidoId: pedido.id
             }).then( ()=>{
                 return pedido.update({
-                    estadoInstance:'Confirmado',
                     autorizacion:true
                 })
             })
