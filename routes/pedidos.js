@@ -10,10 +10,18 @@ const models = require('../models');
 
 router.get('/',  
     permisos.permisoPara([permisos.ROLES.TALLER, permisos.ROLES.EXHIBICION]),
-    (req,res)=>{
-    pedidosService.getPedidos().then((pedidos)=>{
-        res.render('pedidos/lista', {pedidos})
-    })       
+    async (req,res)=>{
+        // https://flaviocopes.com/javascript-async-await-array-map/
+        const pedidosPromesa = await pedidosService.getPedidos();
+        const pedidosFunc = async () =>{
+            return Promise.all(pedidosPromesa.map(async pedido=>{
+                pedido.estadoActual = await pedido.estado;
+                pedido.estadoInstance = pedido.estadoActual.constructor.name;
+                return pedido;
+            }))
+        }
+        const pedidos = await pedidosFunc();
+        res.render('pedidos/lista', {pedidos});
 });
 router.get('/agregar', 
 permisos.permisoPara([permisos.ROLES.EXHIBICION]),
@@ -80,13 +88,26 @@ router.post('/:accion/:id', (req,res)=>{
     .then(()=> res.redirect('/pedidos'))
     .catch(()=> {res.redirect('/404')})
 })
-router.put('/:id',async (req,res)=>{
-    const {id} = req.params;
-    console.log(req.params);
-    console.log(req.body);
-    let pedido = await pedidosService.getPedido(id);
-    
-    res.redirect('/pedidos');
+router.put('/',async (req,res)=>{
+    const {idPedido,empleado} = req.body;
+    let pedido = await pedidosService.getPedido({id:idPedido})
+    let empleados=[];
+    const getEmpleados = async () => {
+        return Promise.all(
+            empleado.map(async empl => {
+                const empleado = await empleadoService.getEmpleado(empl)
+                return empleado;
+            })
+        )        
+    }
+
+    if(Array.isArray(empleado))
+        empleados = await getEmpleados();
+    else
+        empleados = await empleadoService.getEmpleado(empleado);
+
+    await pedido.setEmpleados(empleados);
+    res.redirect('/pedidos'); 
 });
 
 router.post('/', (req,res)=>{
