@@ -85,6 +85,7 @@ router.get('/eliminar/:id', (req,res,next)=>{
         "id":idCliente,
         "tipo":tipoCliente
     }
+    console.log(clienteBody);
     return clienteService.getCliente(idCliente)
     .then(()=>{
         clienteService.updateCliente(clienteBody)
