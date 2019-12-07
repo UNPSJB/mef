@@ -29,17 +29,12 @@ module.exports = (sequelize, DataTypes) =>{
                         return empleado.asignarAPedido(PedidoId,empleado.id);
                     })
                 });
-                return pedido.update({estadoInstance:'Fabricando'});
             });
         }
         cancelar(pedido,args){
             const PedidoId = pedido.id;
             return sequelize.models.Cancelado.create({
                 PedidoId
-            }).then(()=>{
-                return pedido.update({
-                    estadoInstance:'Cancelado'
-                })
             })
         }
     }

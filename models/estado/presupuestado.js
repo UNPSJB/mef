@@ -7,10 +7,6 @@ module.exports = (sequelize, DataTypes) =>{
             const PedidoId = pedido.id;
             return sequelize.models.Cancelado.create({
                 PedidoId
-            }).then(()=>{
-                return pedido.update({
-                    estadoInstance:'Cancelado'
-                })                
             })
         }
         facturar(pedido, args){
@@ -26,7 +22,6 @@ module.exports = (sequelize, DataTypes) =>{
             }).then(() =>{
                 return pedido.update({
                     autorizacion:true,
-                    estadoInstance: 'Confirmado'
                 })  
             }).then(()=>{
                 return sequelize.models.Confirmado.create({
