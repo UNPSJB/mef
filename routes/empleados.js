@@ -61,7 +61,7 @@ router.get('/eliminar/:id', (req,res,next)=>{
   
 
   router.put('/', (req,res,next)=>{
-    empleadoService.updateEmpleado(req.body)
+    personaService.updatePersona(req.body)
     .then(() => res.redirect('/empleados'));
   });
   

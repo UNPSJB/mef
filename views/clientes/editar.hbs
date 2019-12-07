@@ -41,6 +41,7 @@
               </label>
               <input type="email" class="form-empleado form-control" name="email" id="InputEmail"
                 placeholder="Ingrese Email" required {{#if cliente}}value="{{cliente.Persona.email}}" {{/if}}>
+              
               <label class="font-weight-bold" for="fechaNacimiento">
                 Fecha Nacimiento
               </label>
@@ -48,6 +49,7 @@
               <input type="date" class="form-empleado form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
                 required {{#if cliente}}value="{{cliente.Persona.fecha_nacimiento}}" {{/if}}>
               <br>
+              
               <label class="font-weight-bold" for="InputTelefono">
                 Telefono
               </label>

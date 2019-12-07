@@ -4,39 +4,47 @@
             Documento
         </label>
         <input type="text" class="empleado form-empleado form-control" name="identificacion" id="InputIdentificacion"
-            placeholder="Ingrese su documento"  required {{#if this}} value="{{this.tipo }}" {{/if}}>
+            placeholder="Ingrese su documento" required {{#if this}} value="{{this.tipo }}" {{/if}}>
         <label class="font-weight-bold" for="nombre">
             Nombre
         </label>
         <input type="text" class="empleado form-empleado form-control" name="nombre" id="InputNombre"
-            placeholder="Ingrese Nombre"  required {{#if this}}value="{{this.nombre}}" {{/if}}>
+            placeholder="Ingrese Nombre" required {{#if this}}value="{{this.nombre}}" {{/if}}>
         <label class="font-weight-bold" for="apellido">
             Apellido
         </label>
         <input type="text" class="empleado form-empleado form-control" name="apellido" id="InputApellido"
-            placeholder="Ingrese Apellido"  required {{#if this}}value="{{this.apellido}}" {{/if}}>
+            placeholder="Ingrese Apellido" required {{#if this}}value="{{this.apellido}}" {{/if}}>
         <label class="font-weight-bold" for="direccion">
             Direccion
         </label>
         <input type="text" class="empleado form-empleado form-control" name="direccion" id="InputDireccion"
-            placeholder="Ingrese Direccion"  required {{#if this}}value="{{this.direccion}}" {{/if}}>
+            placeholder="Ingrese Direccion" required {{#if this}}value="{{this.direccion}}" {{/if}}>
     </div>
     <div class="col-6">
         <label class="font-weight-bold" for="localidad">
             Localidad
         </label>
         <input type="text" class="form-empleado empleado form-control" name="localidad" id="InputLocalidad"
-            placeholder="Ingrese Localidad"  required {{#if this}}value="{{this.localidad}}" {{/if}}>
+            placeholder="Ingrese Localidad" required {{#if this}}value="{{this.localidad}}" {{/if}}>
         <label class="font-weight-bold" for="email">
             Email
         </label>
-        <input type="email" class="form-empleado empleado form-control" name="email" id="InputEmail" placeholder="Ingrese Email"
-             required {{#if this}}value="{{this.email}}" {{/if}}>
+        <input type="email" class="form-empleado empleado form-control" name="email" id="InputEmail"
+            placeholder="Ingrese Email" required {{#if this}}value="{{this.email}}" {{/if}}>
+
+
+
+
         <label class="font-weight-bold" for="fechaNacimiento">
             Fecha Nacimiento
         </label>
-        <input type="date" class="form-empleado empleado form-control" name="fecha_nacimiento" id="InputFechaNacimiento" 
-            required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
+        <input type="date" class="form-empleado empleado form-control" name="fecha_nacimiento" min="2001-01-01" max= "2019-12-09" id="InputFechaNacimiento" 
+            required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}><br>
+            
+        
+
+
         <label class="font-weight-bold" for="InputTelefono">
             Telefono
         </label>
@@ -44,7 +52,7 @@
             xxx - xx - xxx
         </small>
         <input type="tel" class="form-empleado empleado form-control" name="telefono" id="InputTelefono"
-            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Ingrese Telefono"  required>
+            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Ingrese Telefono" required>
         </label>
     </div>
 </div>

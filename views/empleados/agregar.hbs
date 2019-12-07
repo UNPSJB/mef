@@ -65,12 +65,14 @@
                     </label>
                     <input type="email" class="form-empleado form-control" name="email" id="InputEmail"
                       placeholder="Ingrese Email" required {{#if this}}value="{{this.email}}" {{/if}}>
+
                     <label class="font-weight-bold" for="fechaNacimiento">
                       Fecha Nacimiento
                     </label>
                     <br>
-                    <input type="date" class="form-empleado form-control" name="fecha_nacimiento"
+                    <input type="date" class="form-empleado form-control" name="fecha_nacimiento" min = "1900-01-01" max = "2002-01-01"
                       id="InputFechaNacimiento" required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
+                   
                     <br>
                     <label class="font-weight-bold" for="InputTelefono">
                       Telefono
