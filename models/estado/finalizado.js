@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) =>{
                     fecha_envio,
                     fecha_entrega,
                     PedidoId:pedido.id
-                }).then(()=>{
-                    return pedido.update({
-                        estadoInstance:'Entregado'
-                    })
                 })
             }else{
                 return new Error("No se puede realizar esa accion, el pedido es interno")
