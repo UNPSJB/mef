@@ -16,26 +16,20 @@ module.exports = (sequelize, DataTypes) =>{
                 PedidoId,
                 retraso_estimado,
                 fecha:new Date()
-            }).then(()=>{
-                return pedido.update({
-                    estadoInstance:'Demorado'
-                })
             })
         }
         finalizar(pedido,args){
             const PedidoId = pedido.id;
-            const fechaInicio = pedido.createdAt;
+            const fecha_inicio = pedido.createdAt;
             const fecha_fin = args.fecha_fin;
-            const tipoPedido = pedido.tipo;
             
             return sequelize.models.Finalizado.create({
-                PedidoId
+                PedidoId,
+                fecha:new Date()
             }).then(async ()=>{
-                
-                if(tipoPedido == 'Interno'){
+                if(pedido.tipo == 'Interno'){
                     const detalles = await pedido.getDetalles([sequelize.models.Hueso]);
                     const hueso = await sequelize.models.Hueso.findByPk(detalles[0].HuesoId);
-                    console.log(hueso);
                     const DinosaurioId = hueso.DinosaurioId;
                     detalles.forEach(item=>{
                         sequelize.models.Replica.create({
@@ -43,7 +37,7 @@ module.exports = (sequelize, DataTypes) =>{
                         PedidoId,
                         DinosaurioId,
                         HuesoId:item.HuesoId,
-                        fecha_inicio: fechaInicio,
+                        fecha_inicio,
                         fecha_fin
                         })
                     })
@@ -51,7 +45,6 @@ module.exports = (sequelize, DataTypes) =>{
                 else{
                     const detalles = await pedido.getDetalles([sequelize.models.Hueso]);
                     const hueso = await sequelize.models.Hueso.findByPk(detalles[0].HuesoId);
-                    console.log(hueso);
                     const DinosaurioId = hueso.DinosaurioId;  
                     detalles.forEach(item=>{
                         sequelize.models.Replica.create({
@@ -59,16 +52,11 @@ module.exports = (sequelize, DataTypes) =>{
                         PedidoId,
                         HuesoId:item.HuesoId,
                         DinosaurioId,
-                        fecha_inicio: fechaInicio,
+                        fecha_inicio,
                         fecha_fin,
-                        fecha_baja: fechaFin
                         })
                     })
                 } 
-                
-                return pedido.update({
-                    estadoInstance:'Finalizado'
-                })
             })
         }
     }

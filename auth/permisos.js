@@ -18,7 +18,7 @@ const REANUDAR = 'reanudar'
 const FINALIZAR = 'finalizar'
 const ENTREGAR = 'entregar'
 const QUITAR = 'quitar'
-const ASIGNAR = 'asignar'
+const EMPLEADOS = 'empleados'
 
 const PRESUPUESTAR = 'presupuestar'
 const CANCELAR = 'cancelar'
@@ -39,7 +39,7 @@ const TALLER_ESTADOS = {
     FINALIZAR,
     ENTREGAR,
     QUITAR,
-    ASIGNAR
+    EMPLEADOS
 }
 
 module.exports = {
@@ -69,7 +69,7 @@ module.exports = {
                 case FINALIZAR:
                 case ENTREGAR:
                 case QUITAR:
-                case ASIGNAR:
+                case EMPLEADOS:
                     if(req.session.rol === ROLES.TALLER){
                         return next();
                     }else{

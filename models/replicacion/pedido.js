@@ -75,10 +75,6 @@ module.exports = (sequelize,DataTypes) => {
             defaultValue: false,
             allowNull:false,
         },
-        estadoInstance: {
-            type:DataTypes.STRING,
-            allowNull:false,
-        },
         motivo : DataTypes.STRING,
         tipo: {
             type: DataTypes.ENUM,
@@ -95,12 +91,12 @@ module.exports = (sequelize,DataTypes) => {
         hooks:{
             afterCreate(pedido){
                 const PedidoId = pedido.id;
-                if(pedido.estadoInstance === 'Presupuestado'){
+                if(pedido.tipo === 'Externo'){//externo
                     Presupuestado.create({
                         PedidoId,
                     })
                 }
-                if(pedido.estadoInstance === 'Confirmado'){
+                if(pedido.tipo === 'Interno'){//interno
                     Confirmado.create({
                         PedidoId,
                     })

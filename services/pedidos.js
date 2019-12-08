@@ -31,7 +31,6 @@ module.exports = {
     return models.Pedido.create({
       autorizacion:true,
       tipo:INTERNO,
-      estadoInstance:CONFIRMADO
     }).then(pedido=>{
       pedido.crearDetalles(huesos)
     })
@@ -46,7 +45,6 @@ module.exports = {
     //crea el pedido y sus detalles
     return models.Pedido.create({
         tipo:EXTERNO,
-        estadoInstance:PRESUPUESTADO, 
         PersonaId:cliente, //@TODO aca va cliente
         motivo:descripcion
       })
@@ -55,7 +53,7 @@ module.exports = {
         //agregarle todos sus ddetalles
         pedido.crearDetalles(huesos);
         const estado = await pedido.estado;
-        await estado.update({
+        await pedido.update({
           cantidad_huesos:huesos.length,
           monto,
           fecha_fin_oferta

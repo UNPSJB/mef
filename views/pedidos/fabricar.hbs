@@ -55,7 +55,8 @@
                     arr.push(generateCheckbox(json[key].id, json[key].Persona.nombre, json[key].Persona.apellido))
                     arr.push("<br>")
                 }
-                contenedor.innerHTML = arr;
+                console.log(arr.toString().replace(/[,]/gm,''));
+                contenedor.innerHTML = arr.toString().replace(/[,]/gm,'');
             })
             
     });

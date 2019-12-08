@@ -6,7 +6,7 @@ const subclaseService = require('../services/subclase.js')
 router.get('/', (req, res, next) => {
     subclaseService.getSubclases().then((result) => {
         res.render('subclases/subclase', {
-            result
+            result,req
         });
     });
 });
@@ -19,22 +19,22 @@ router.get('/api', (req, res, next) => {
 });
 
 router.get('/agregar', (req, res, next) => { // esto llama solo a la vista
-    res.render('subclases/agregar');
+    res.render('subclases/agregar',{req});
 });
 
-router.get('/editar', (req, res, next) => {
-    const { id } = req.query;
+router.get('/editar/:id', (req, res, next) => {
+    const { id } = req.params;
     subclaseService.getSubclase(id)
         .then((subclase) => {
-            res.render('subclases/editar', { subclase });
+            res.render('subclases/editar', { subclase,req });
         })
 });
 
-router.get('/eliminar', (req, res, next) => {
-    const { id } = req.query;
+router.get('/eliminar/:id', (req, res, next) => {
+    const { id } = req.params;
     subclaseService.getSubclase(id)
         .then((subclase) => {
-            res.render('subclases/eliminar', { subclase });
+            res.render('subclases/eliminar', { subclase,req });
         });
 });
 
@@ -46,7 +46,7 @@ router.post('/', (req, res, next) => {
         })
         .catch((errores) => {
             const subclase = req.body;
-            res.render("subclases/agregar", { errores, subclase })
+            res.render("subclases/agregar", { errores, subclase,req })
         });
 });
 
@@ -56,7 +56,7 @@ router.put('/', (req, res, next) => {
         .then(() => res.redirect('/subclases'))
         .catch((errores) => {
             const subclase = req.body;
-            res.render("subclases/editar", { errores, subclase })
+            res.render("subclases/editar", { errores, subclase,req })
         });
 });
 
@@ -69,7 +69,7 @@ router.delete('/', (req, res, next) => {
         .catch(errores => {
             subclaseService.getSubclase(id)
                 .then(subclase => {
-                    res.render("subclases/eliminar", { errores, subclase })
+                    res.render("subclases/eliminar", { errores, subclase,req })
                 })
         })
 });

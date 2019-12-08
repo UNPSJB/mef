@@ -7,7 +7,7 @@ const personaService = require('../services/persona.js');
 router.get('/',(req, res, next) => {
         empleadoService.getEmpleados().then((results)=>{
             res.render('empleados/empleado',{
-                results
+                results,req
 
         });
     })
@@ -18,25 +18,26 @@ router.get('/agregar', (req,res,next) => {
     .then((personas)=>{
         empleadoService.getEmpleados()
         .then((empleados) => {
-            res.render('empleados/agregar',{empleados});
+            res.render('empleados/agregar',{empleados,req});
         })
     });
     
 });
 
-router.get('/editar',(req,res,next) => {
+router.get('/editar/:id',(req,res,next) => {
+    const { id } = req.params;
 //ver cuando id no existe
-empleadoService.getEmpleado(req.query.id)
+empleadoService.getEmpleado(id)
     .then((empleado) =>{
-        res.render('empleados/editar', { empleado });
+        res.render('empleados/editar', { empleado,req });
     })
 })
 
-router.get('/eliminar', (req,res,next)=>{
-    const {id} = req.query;
+router.get('/eliminar/:id', (req,res,next)=>{
+    const {id} = req.params;
     empleadoService.getEmpleado(id)
     .then((empleado)=> { 
-        res.render('empleados/eliminar', {empleado});
+        res.render('empleados/eliminar', { empleado,req });
     })
   });
   
