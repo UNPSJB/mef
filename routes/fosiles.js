@@ -49,7 +49,8 @@ router.get("/editar/:id",
   async (req, res, next) => {
     const { id } = req.params;
     const fosil = await fosilService.getFosil(id);
-    const dinosaurio = fosil.Dinosaurio
+    const dinosaurio = fosil.Dinosaurio;
+    console.log(fosil);
     res.render("fosiles/editar", { dinosaurio, bones, fosil });
   });
 
@@ -73,6 +74,7 @@ router.delete("/",
 router.put("/",
   permisos.permisoPara([permisos.ROLES.COLECCION]),
   (req, res, next) => {
+    console.log(req.body);
     fosilService.updateFosil(req.body).then(() => res.redirect("/fosiles"));
   });
 
