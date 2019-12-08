@@ -7,7 +7,7 @@ const personaService = require('../services/persona.js');
 router.get('/',(req, res, next) => {
     clienteService.getClientes().then((results)=>{
         res.render('clientes/cliente',{
-            results
+            results,req
         });
     });
 });
@@ -25,7 +25,7 @@ router.get('/agregar', (req,res,next) => {
                 return noCliente;
             });
 
-            res.render('clientes/agregar',{ noClientes });
+            res.render('clientes/agregar',{ noClientes,req });
         }); 
     });
 });
@@ -34,7 +34,7 @@ router.get('/editar/:id',(req,res,next) => {
 const { id } = req.params;
 clienteService.getCliente(id)
     .then((cliente) =>{
-        res.render('clientes/editar', { cliente });
+        res.render('clientes/editar', { cliente,req });
     })
 })
 
@@ -42,7 +42,7 @@ router.get('/eliminar/:id', (req,res,next)=>{
     const { id } = req.params;
     clienteService.getCliente(id)
     .then((cliente)=> { 
-        res.render('clientes/eliminar', {cliente});
+        res.render('clientes/eliminar', {cliente,req});
     })
   });
   
@@ -52,15 +52,14 @@ router.get('/eliminar/:id', (req,res,next)=>{
         return clienteService.createCliente(tipoCliente,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
         .then(()=>{ res.redirect('/clientes')})
         .catch(errores =>{
-            res.render('clientes/agregar',{ errores });
+            res.render('clientes/agregar',{ errores,req });
         });      
     }   
     if(tipo === 'existe'){
-        console.log("existe:::::::::")
         return clienteService.createClienteExiste(tipoCliente, PersonaId)
         .then(()=>{ res.redirect('/clientes')})
         .catch(errores =>{
-            res.render('clientes/agregar',{ errores });
+            res.render('clientes/agregar',{ errores,req });
         });
     }
 
@@ -85,7 +84,6 @@ router.get('/eliminar/:id', (req,res,next)=>{
         "id":idCliente,
         "tipo":tipoCliente
     }
-    console.log(clienteBody);
     return clienteService.getCliente(idCliente)
     .then(()=>{
         clienteService.updateCliente(clienteBody)

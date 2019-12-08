@@ -71,10 +71,8 @@ module.exports = {
                 case QUITAR:
                 case EMPLEADOS:
                     if(req.session.rol === ROLES.TALLER){
-                        console.log("ACCEDIO");
                         return next();
                     }else{
-                        console.log("NOACCEDIO");
                         return res.redirect('/403');
                     }
                 case PRESUPUESTAR:

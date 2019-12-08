@@ -31,7 +31,7 @@ router.get("/",
   (req, res, next) => {
     fosilService.getFosiles().then(results => {
       res.render("fosiles/fosil", {
-        results
+        results,req
       });
     });
   });
@@ -40,7 +40,7 @@ router.get("/agregar",
   permisos.permisoPara([permisos.ROLES.COLECCION]),
   (req, res, next) => {
     dinoService.getDinosaurios().then(results => {
-      res.render("fosiles/agregar", { results, bones });
+      res.render("fosiles/agregar", { results, bones,req });
     });
   });
 
@@ -50,8 +50,7 @@ router.get("/editar/:id",
     const { id } = req.params;
     const fosil = await fosilService.getFosil(id);
     const dinosaurio = fosil.Dinosaurio;
-    console.log(fosil);
-    res.render("fosiles/editar", { dinosaurio, bones, fosil });
+    res.render("fosiles/editar", { dinosaurio, bones, fosil,req });
   });
 
 router.get("/eliminar/:id",
@@ -60,7 +59,7 @@ router.get("/eliminar/:id",
     const { id } = req.params;
     fosilService
       .getFosil(id)
-      .then(fosil => res.render("fosiles/eliminar", { fosil }))
+      .then(fosil => res.render("fosiles/eliminar", { fosil,req }))
       .catch(err => {
       });
   });
@@ -74,7 +73,6 @@ router.delete("/",
 router.put("/",
   permisos.permisoPara([permisos.ROLES.COLECCION]),
   (req, res, next) => {
-    console.log(req.body);
     fosilService.updateFosil(req.body).then(() => res.redirect("/fosiles"));
   });
 
