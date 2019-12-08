@@ -34,37 +34,28 @@ router.get("/eliminar/:id", (req, res, next) => {
   empleadoService.getEmpleado(id).then(empleado => {
     res.render("empleados/eliminar", { empleado, req });
   });
-});
-
-router.post("/", (req, res, next) => {
-  const {
-    identificacion,
-    nombre,
-    apellido,
-    direccion,
-    localidad,
-    email,
-    fecha_nacimiento,
-    telefono,
-    tipo
-  } = req.body;
-
-  if (tipo == "nuevo") {
-    return empleadoService
-      .createEmpleados(
-        identificacion,
-        nombre,
-        apellido,
-        direccion,
-        localidad,
-        email,
-        fecha_nacimiento,
-        telefono
-      )
-      .then(() => {
-        res.redirect("/empleados");
-      });
-  }
+  
+  router.post('/', async (req,res,next) =>{
+    const {identificacion, nombre, apellido,  direccion,  localidad, email,  fecha_nacimiento, telefono, tipo} = req.body;
+    let errores;
+    try {
+                                        //   createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono){
+        const persona = await personaService.createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)        
+        const empleado = await empleadoService.createEmpleado(persona.id);
+    } catch (error) {
+        try {
+            const persona = await personaService.getPersonaArgs({identificacion});
+            await empleadoService.createEmpleado(persona.id)
+        } catch (error) {
+            errores = error;
+        }
+    }
+    if(errores){
+        res.render('empleados/agregar',{errores})   
+    }else{
+        res.redirect('/empleados');
+    }
+  });
 
   if (tipo == "existe") {
     empleados;
