@@ -8,38 +8,14 @@
                 {{!-- BARRA DE NAVEGACION --}}
                 <div class="container">
                     <div class="row">
-                        <div class="col pb-2">
-                            {{!-- Hola tabs --}}
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="interno-tab" data-toggle="tab" href="#interno"
-                                        role="tab" aria-controls="interno" aria-selected="true">
-                                        Interno
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="externo-tab" data-toggle="tab" href="#externo" role="tab"
-                                        aria-controls="externo" aria-selected="false">
-                                        Externo
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col">
-                            {{!-- Hola Empty --}}
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col" class="tab-content" id="myTabContent">
                             {{!-- Hola tab contenido --}}
-                            <div class="tab-pane fade show active" id="interno" role="tabpanel"
-                                aria-labelledby="interno-tab">
-                            </div>
-                            <div class="tab-pane fade" id="externo" role="tabpanel" aria-labelledby="externo-tab">
+                            <div class="" id="externo" >
                                 <label class="col form-group" id="Example">
                                     <label class="font-weight-bold" for="cliente">Cliente:</label>
 
-                                    <select name="cliente" class="cliente form-control" disabled>
+                                    <select name="cliente" id="listadoClientes" class="cliente form-control">
+                                        <option value="Interno"><i>Interno</i></option>
                                         {{#each clientes}}
                                         <option value="{{this.Persona.id}}"> {{ this.Persona.nombre }}
                                             {{this.Persona.apellido}} {{this.Persona.identificacion}} </option>
@@ -47,12 +23,12 @@
                                     </select>
 
                                     <label class="font-weight-bold" for="descripcion">Descripcion:</label>
-                                    <input class="cliente form-control" type="text" name="descripcion" id="" required disabled />
+                                    <input class="cliente form-control" type="text" name="descripcion" id="" required />
                                     <label for="monto">Monto:</label>
                                     <input class="cliente form-control" type="number" name="monto" min="0" id=""
-                                        required disabled />
+                                        required />
                                     <label for="fin-oferta">Fin de Oferta:</label>
-                                    <input class="cliente form-control" type="date" name="finoferta" id="" required disabled />
+                                    <input class="cliente form-control" type="date" name="finoferta" id="" required />
                                 </label>
                             </div>
                         </div>
@@ -95,7 +71,6 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" name="tipo" id="tipo" value="Interno" hidden>
                 <button class="btn btn-success form-control" type="submit">Enviar</button>
             </div>
         </div>
@@ -109,22 +84,9 @@
 
 <script>
     $(document).ready(() => {
-        $("#interno-tab").click(function () {
-            $("#collapseExample").collapse("show");
-            $("#tipo").val("Interno");
-            $(".cliente").each(function () {
-                this.required = false;
-                this.disabled = true;
-            });
-        });
-        $("#externo-tab").click(function () {
-            $("#collapseExample").collapse("hide");
-            $("#tipo").val("Externo")
-            $(".cliente").each(function () {
-                this.disabled = false;
-                this.required = true;
-            });
-        });
+       $('#listadoClientes').input(function(){
+           console.log('ah re loco');
+       })
     });
 </script>
 
