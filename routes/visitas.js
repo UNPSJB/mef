@@ -6,7 +6,7 @@ const visitaService = require('../services/visita');
 router.get('/', (req, res, next) => {
     visitaService.getVisitas().then((results) => {
         res.render('visitas/visita', {
-            results
+            results,req
         });
     });
 });
@@ -15,13 +15,13 @@ router.get('/', (req, res, next) => {
 router.get('/', (req, res, next) => {
     visitaService.getVisitas().then((results) => {
         res.render('visitas/visita', {
-            results
+            results,req
         });
     });
 });
 
 router.get('/agregar', (req, res, next) => {
-    res.render('visitas/agregar');
+    res.render('visitas/agregar',{req});
     /* Falta esto */
     /* Falta esto */
     /* Falta esto */
@@ -38,7 +38,7 @@ router.get('/agregar', (req, res, next) => {
 router.get('/editar', (req, res, next) => {
     visitaService.getvisita(req.query.id)
         .then((visita) => {
-            res.render('visitas/editar', { visita });
+            res.render('visitas/editar', { visita,req });
         })
 })
 
@@ -46,7 +46,7 @@ router.get('/eliminar', (req, res, next) => {
     const { id } = req.query;
     visitaService.getVisita(id)
         .then((visita) => {
-            res.render('visitas/eliminar', { visita });
+            res.render('visitas/eliminar', { visita,req });
         })
 });
 
@@ -56,7 +56,7 @@ router.post('/', (req, res, next) => {
         return clienteService.createCliente(tipoCliente, identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
             .then(() => { res.redirect('/visitas') })
             .catch(errores => {
-                res.render('visitas/agregar', { errores });
+                res.render('visitas/agregar', { errores,req });
             });
     }
 });

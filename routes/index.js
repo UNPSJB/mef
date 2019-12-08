@@ -5,7 +5,7 @@ var userService = require("../services/user");
 var permisos = require('../auth/permisos');
 
 router.get('/', permisos.estaLogueado, function(req, res, next) {
-  res.render('home',{layout:'second'});
+  res.render('home',{layout:'second',req});
 });
 
 router.get('/login', permisos.redirectHome,(req, res) => {

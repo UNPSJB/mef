@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   //tipos
-  const axial = ['Torax','Vertebral','Craneo'];
+  const axial = ['Torax','Vertebral','Cráneo'];
   const apendicular = ['Pelvis','Brazo','Manos','Piernas','Pies'];
   //subtipos
   const craneo = ['Paladar','Mandíbula','Cráneo'];
@@ -44,8 +44,7 @@ module.exports = (sequelize, DataTypes) => {
           case 'Paladar':
           case 'Mandíbula':
           case 'Cráneo':
-          case 'Craneo':
-            hueso.subtipohueso = 'Craneo';
+            hueso.subtipohueso = 'Cráneo';
             hueso.tipohueso = 'Axial';
             break;
           case 'Coracoide':

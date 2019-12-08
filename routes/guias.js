@@ -14,7 +14,7 @@ router.get(
   (req, res, next) => {
     guiaService.getGuias().then(results => {
       res.render("guias/guia", {
-        results
+        results,req
       });
     });
   }
@@ -37,7 +37,7 @@ router.get(
           return noGuiaAux;
         });
 
-        res.render("guias/agregar", { noGuias });
+        res.render("guias/agregar", { noGuias,req });
       });
     });
   }
@@ -48,7 +48,7 @@ router.get(
   permisos.permisoPara([permisos.ROLES.RRHH]),
   async (req, res, next) => {
     const guia = await guiaService.getGuia(req.params.id);
-    res.render("guias/editar", { guia });
+    res.render("guias/editar", { guia,req });
   }
 );
 
@@ -59,11 +59,9 @@ router.get(
     guiaService
       .getGuia(req.params.id)
       .then(guia => {
-        res.render("guias/eliminar", { guia });
+        res.render("guias/eliminar", { guia ,req});
       })
-      .catch(err => {
-        console.log(err);
-      });
+      
   }
 );
 
@@ -114,7 +112,7 @@ router.post(
         res.redirect("/guias");
       })
       .catch(errores => {
-        res.render("guias/agregar", { errores });
+        res.render("guias/agregar", { errores,req });
       });
   }
 );
@@ -126,7 +124,7 @@ router.put("/", permisos.permisoPara([permisos.ROLES.RRHH]), (req, res) => {
     .then(() => res.redirect("/guias"))
     .catch(errores => {
       const guia = req.body;
-      res.render("guias/editar", { errores, guia });
+      res.render("guias/editar", { errores, guia,req });
     });
 });
 
@@ -183,7 +181,7 @@ router.delete(
       return res.redirect("/guias");
     } catch (error) {
       guiaService.getGuia(id).then(guia => {
-        res.render("guias/eliminar", { error, guia });
+        res.render("guias/eliminar", { error, guia,req });
       });
     }
   }

@@ -21,14 +21,14 @@ router.get('/',
             }))
         }
         const pedidos = await pedidosFunc();
-        res.render('pedidos/lista', {pedidos});
+        res.render('pedidos/lista', {pedidos,req});
 });
 router.get('/agregar', 
 permisos.permisoPara([permisos.ROLES.EXHIBICION]),
 (req,res)=>{
     dinoService.getDinosaurios().then((dinosaurios)=>{
         clienteService.getClientes().then(clientes=>{
-            res.render('pedidos/agregar',{dinosaurios,clientes}) 
+            res.render('pedidos/agregar',{dinosaurios,clientes,req}) 
         })
     })
 });
@@ -44,7 +44,7 @@ router.get('/detalle/:id', (req,res)=>{
     const { id } = req.params;
     pedidosService.getPedido().then(async pedido=>{
         const estados = await pedido.estados;
-        res.render("pedidos/detalle", {id, estados});
+        res.render("pedidos/detalle", {id, estados,req});
     })
 })
 router.get('/:accion/:id', 
@@ -55,7 +55,7 @@ router.get('/:accion/:id',
         pedidosService.getPedido({id}).then(async pedido =>{
             const detalles = await pedido.getDetalles({include:[models.Pedido, models.Hueso]});
             const estado = await pedido.estado;
-            res.render(`pedidos/${accion}`,{ accion, id, detalles, pedido, estado  });
+            res.render(`pedidos/${accion}`,{ accion, id, detalles, pedido, estado,req  });
         })
     }catch(e){//@TODO que hacer
         res.redirect('/404')
