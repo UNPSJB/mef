@@ -12,12 +12,6 @@ module.exports = {
     getEmpleado( id ){
         return empleado.findByPk(id, {include:[persona]});
     },
-   createEmpleado(PersonaId){
-        return empleado.create({
-            tipo,
-            PersonaId
-        });
-    },
     asignarAPedido(pedidoId,empleadoId){
         
         return pedido.findByPk(pedidoId)
@@ -32,27 +26,15 @@ module.exports = {
             })
         });
     },
+    createEmpleado(PersonaId){
+        return empleado.create({PersonaId}) 
+    },
     getPedidosTrabajando(empleadoID){
         return empleado.getPedidos();
-    }
-    ,
-    createEmpleados(documento, nombre, apellido,  direccion,  localidad, email,  fecha_nacimiento, telefono){
-        
-        
-            
-            return personaService.createPersona(documento, nombre, apellido,  direccion,  localidad, email,  fecha_nacimiento, telefono)
-            .then((persona)=>{
-                return empleado.create({
-                    PersonaId:persona.id
-                })
-
-            })
-        
     },
-
-//    updateEmpleado(empleadoReq){ //@TODO mostrar dino sin editar o algo
-//         return empleado.upsert(empleadoReq)
-//     },
+   updateEmpleado(empleadoReq){ //@TODO mostrar dino sin editar o algo
+        return empleado.upsert(empleadoReq)
+    },
     deleteEmpleado(id){
         return empleado.findByPk(id)
             .then( (empleadoEncontrado) => {
