@@ -7,7 +7,6 @@
     <table class="table" id="datatable">
         <thead>
             <th>#</th>
-            <th>Autorizado</th>
             <th>Estado</th>
             <th>Cliente</th>
             <th>Motivo</th>
@@ -18,7 +17,6 @@
             {{#each pedidos}}
             <tr class="{{this.estadoInstance}}">
                 <td class="id">{{this.id}}</td>
-                <td>{{this.autorizacion}}</td> 
                 <td>{{this.estadoInstance}}</td>
                 <td class="cliente">
                     {{#with this.Persona as |Cliente|}}
@@ -82,6 +80,6 @@ $(".Cancelado").each(function(){
 
 function fabricar(accion, id) {
     let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
-    return `<a class='btn btn-primary' href='/pedidos/${accion}/${id}'>${capitlizado}</a>`;
+    return `<a class='btn btn-primary' id="${accion}" href='/pedidos/${accion}/${id}'>${capitlizado}</a>`;
 }
 </script>
