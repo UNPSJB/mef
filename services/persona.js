@@ -9,6 +9,13 @@ module.exports = {
             }
         });
     },
+    getPersonaArgs(args){
+        return persona.findOne({
+            where:{
+                ...args
+            }
+        })
+    },
     getPersona( id ){
         return persona.findByPk(id);
     },

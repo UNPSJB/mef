@@ -8,7 +8,6 @@ router.get('/',(req, res, next) => {
         empleadoService.getEmpleados().then((results)=>{
             res.render('empleados/empleado',{
                 results,req
-
         });
     })
 });
@@ -20,8 +19,7 @@ router.get('/agregar', (req,res,next) => {
         .then((empleados) => {
             res.render('empleados/agregar',{empleados,req});
         })
-    });
-    
+    });    
 });
 
 router.get('/editar/:id',(req,res,next) => {
@@ -41,24 +39,27 @@ router.get('/eliminar/:id', (req,res,next)=>{
     })
   });
   
-  router.post('/', (req,res,next) =>{
+  router.post('/', async (req,res,next) =>{
     const {identificacion, nombre, apellido,  direccion,  localidad, email,  fecha_nacimiento, telefono, tipo} = req.body;
-    
-    
-   
-    if(tipo == 'nuevo'){
-        return empleadoService.createEmpleados(identificacion, nombre, apellido,  direccion,  localidad, email,  fecha_nacimiento, telefono)
-        .then(()=>{ res.redirect('/empleados')});
+    let errores;
+    try {
+                                        //   createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono){
+        const persona = await personaService.createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)        
+        const empleado = await empleadoService.createEmpleado(persona.id);
+    } catch (error) {
+        try {
+            const persona = await personaService.getPersonaArgs({identificacion});
+            await empleadoService.createEmpleado(persona.id)
+        } catch (error) {
+            errores = error;
+        }
     }
-    
-    if(tipo == 'existe'){empleados
-        return empleadoService.createEmpleado(tipoempleado, personaid)
-        .then(()=>{ res.redirect('/empleados')});
+    if(errores){
+        res.render('empleados/agregar',{errores})   
+    }else{
+        res.redirect('/empleados');
     }
-
-
   });
-  
 
   router.put('/', (req,res,next)=>{
     empleadoService.updateEmpleado(req.body)
