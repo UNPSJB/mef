@@ -70,7 +70,7 @@
                       Fecha Nacimiento
                     </label>
                     <br>
-                    <input type="date" class="form-empleado form-control" name="fecha_nacimiento" min = "1900-01-01" max = "2002-01-01"
+                    <input type="date" class="form-empleado form-control" name="fecha_nacimiento" min = "1900-01-01"
                       id="InputFechaNacimiento" required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
                    
                     <br>
@@ -110,6 +110,32 @@
 
 
 <script>
+
+// setea la fecha actual
+
+
+    $(document).ready(function () {
+        var hoy = formatDate(new Date());
+        document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
+        $("#InputFechaNacimiento").attr("max", hoy);
+    })
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear()-18;// Los empleados deben tener 18 años o más
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+
+
   $(document).ready(() => {
     $("#existente-tab").click(function () {
       $("#collapseExample").collapse("show");
@@ -128,9 +154,8 @@
       });
     });
   });
-</script>
 
-<script>
+  
   $("#existe").click(function () {
     $(".form-empleado").each(function () {
       this.disabled = true;

@@ -53,7 +53,7 @@
                             <div class="form-group">
                                 <label for="fecha_encontrado" class="col-form font-weight-bold">Fecha Encontrado</label>
                                 <div>
-                                    <input class="form-control" type="date" id="example-date-input" min = "1800-01-01" max = "2019-12-09">
+                                    <input class="form-control" type="date" id="InputFechaDescubrimiento" min = "1800-01-01">
                                 </div>
                                 <label class="pt-3 text-center font-weight-bold">Disponible:</label>
                                 <div class="btn-group btn-block btn-group-toggle pt-2" data-toggle="buttons">
@@ -89,3 +89,28 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    // setea la fecha actual
+    $(document).ready(function () {
+        var hoy = formatDate(new Date());
+        document.getElementById("InputFechaDescubrimiento").setAttribute("max", hoy);
+        $("#InputFechaDescubrimiento").attr("max", hoy);
+    })
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+</script>

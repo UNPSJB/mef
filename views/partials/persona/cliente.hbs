@@ -39,10 +39,10 @@
         <label class="font-weight-bold" for="fechaNacimiento">
             Fecha Nacimiento
         </label>
-        <input type="date" class="form-empleado empleado form-control" name="fecha_nacimiento" min="2001-01-01" max= "2019-12-09" id="InputFechaNacimiento" 
-            required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}><br>
-            
-        
+        <input type="date" class="form-empleado empleado form-control" name="fecha_nacimiento" min="1900-01-01"
+            id="InputFechaNacimiento" required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}><br>
+
+
 
 
         <label class="font-weight-bold" for="InputTelefono">
@@ -56,3 +56,30 @@
         </label>
     </div>
 </div>
+
+
+
+{{!-- setea la fecha actual --}}
+<script>
+
+    $(document).ready(function () {
+        var hoy = formatDate(new Date());
+        document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
+        $("#InputFechaNacimiento").attr("max", hoy);
+    })
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear()-18;// Los clientes deben tener 18 años o más
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+</script>

@@ -52,7 +52,7 @@
                                     <input class="cliente form-control" type="number" name="monto" min="0" id=""
                                         required disabled />
                                     <label for="fin-oferta">Fin de Oferta:</label>
-                                    <input class="cliente form-control" type="date" name="finoferta" id="" required disabled />
+                                    <input class="cliente form-control" type="date" name="finoferta" id="InputFinOferta" required disabled />
                                 </label>
                             </div>
                         </div>
@@ -174,4 +174,27 @@
             this.checked = false
         })
     })
+</script>
+
+<script>
+    // setea la fecha actual
+    $(document).ready(function () {
+        var hoy = formatDate(new Date());
+        document.getElementById("InputFinOferta").setAttribute("min", hoy);
+        $("#InputFinOferta").attr("min", hoy);
+    })
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
 </script>

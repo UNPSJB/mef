@@ -21,7 +21,6 @@ router.get('/agregar', (req,res,next) => {
             res.render('empleados/agregar',{empleados});
         })
     });
-    
 });
 
 router.get('/editar/:id',(req,res,next) => {
