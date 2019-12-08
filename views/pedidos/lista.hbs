@@ -28,7 +28,6 @@
                     {{/with}}
                 </td>
                 <td>{{this.motivo}}</td>
-                <td><div class="mr-3"><a class="btn btn-primary" href="/pedidos/detalle/{{this.id}}">detalle</a></div></td>
             </tr>
             {{else}}
             <div class="container pt-4 text-center">
@@ -44,19 +43,23 @@
 <script>
     $(".Presupuestado").each(function () {
         $(this).append("<td> " +
+            fabricar("detalle", $(this).find('.id')[0].innerText) +
             fabricar("facturar", $(this).find('.id')[0].innerText) +
             fabricar("cancelar", $(this).find('.id')[0].innerText) + " </td>");
     })
     $(".Facturado").each(function () {
         $(this).append("<td>" +
+            fabricar("detalle", $(this).find('.id')[0].innerText) +
             fabricar("confirmar", $(this).find('.id')[0].innerText) + "</td>")
     })
     $(".Confirmado").each(function () {
         $(this).append("<td>" +
+            fabricar("detalle", $(this).find('.id')[0].innerText) +
             fabricar("fabricar", $(this).find('.id')[0].innerText) + "</td>")
     })
     $(".Fabricando").each(function () {
         $(this).append("<td>" +
+            fabricar("detalle", $(this).find('.id')[0].innerText) +
             fabricar("finalizar", $(this).find('.id')[0].innerText) +
             fabricar("demorar", $(this).find('.id')[0].innerText) +
             fabricar("editar", $(this).find('.id')[0].innerText) +
@@ -64,6 +67,7 @@
     })
     $(".Demorado").each(function () {
         $(this).append("<td>" +
+            fabricar("detalle", $(this).find('.id')[0].innerText) +
             fabricar("reanudar", $(this).find('.id')[0].innerText) + "</td>")
     })
     $(".Finalizado").each(function () {
@@ -71,7 +75,9 @@
         if (cliente === 'Interno') {
             $(this).append("<td>No hay mas acciones.</td>")
         } else {
-            $(this).append("<td>" + fabricar("entregar", $(this).find('.id')[0].innerText) + "</td>")
+            $(this).append("<td>" + 
+                fabricar("detalle", $(this).find('.id')[0].innerText) +
+                fabricar("entregar", $(this).find('.id')[0].innerText) + "</td>")
         }
     })
     $(".Entregado").each(function () {

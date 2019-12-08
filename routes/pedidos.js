@@ -43,13 +43,15 @@ router.get('/:id/empleados/', async (req, res) => {
 router.get('/detalle/:id', (req, res) => {
     const { id } = req.params;
     pedidosService.getPedido({ id }).then(async pedido => {
+        const estado = await pedido.estado;
         const estados = await pedido.estados;
         const detalles = await pedido.getDetalles({ include: [models.Hueso] });
-
+        
+        const estadoInstance = estado.constructor.name;
         const hueso = await huesoService.getHueso(detalles[0].HuesoId);
         const dinosaurio = hueso.Dinosaurio;
         console.log(dinosaurio);
-        res.render("pedidos/detalle", { id, estados, pedido, dinosaurio, hueso, detalles, req });
+        res.render("pedidos/detalle", { id, estadoInstance ,estados, pedido, dinosaurio, hueso, detalles, req });
     });
 
 })
