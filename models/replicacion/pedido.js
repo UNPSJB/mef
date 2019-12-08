@@ -58,12 +58,21 @@ module.exports = (sequelize,DataTypes) => {
             });
         }
         crearDetalles(huesos){
-            for (let index = 0; index < huesos.length; index++) {                
+            if(Array.isArray(huesos)){
+                for (let index = 0; index < huesos.length; index++) {                
+                    Detalle.create({
+                    PedidoId:this.id,
+                    cantidad:1,
+                    HuesoId: huesos[index],
+                    renglon: index,
+                    })
+                }
+            }else{
                 Detalle.create({
-                PedidoId:this.id,
-                cantidad:1,
-                HuesoId: huesos[index],
-                renglon: index,
+                    PedidoId:this.id,
+                    cantidad:1,
+                    HuesoId: huesos,
+                    renglon: 1,
                 })
             }
         }
