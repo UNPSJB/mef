@@ -50,9 +50,9 @@ module.exports = {
         
     },
 
-   updateEmpleado(empleadoReq){ //@TODO mostrar dino sin editar o algo
-        return empleado.upsert(empleadoReq)
-    },
+//    updateEmpleado(empleadoReq){ //@TODO mostrar dino sin editar o algo
+//         return empleado.upsert(empleadoReq)
+//     },
     deleteEmpleado(id){
         return empleado.findByPk(id)
             .then( (empleadoEncontrado) => {
