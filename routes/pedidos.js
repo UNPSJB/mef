@@ -112,10 +112,9 @@ router.put('/',async (req,res)=>{
 
 router.post('/', (req,res)=>{
     const {tipo, dinosaurio, hueso, cliente, descripcion, monto,finoferta} = req.body;
-    if(tipo === "Interno"){
+    if(cliente === "Interno"){
         pedidosService.solicitar(hueso).then(e=>res.redirect('/pedidos'));
-    }
-    if(tipo === "Externo"){
+    }else{
         pedidosService.presupuestar(hueso, cliente, descripcion, monto,finoferta).then(e=>res.redirect('/pedidos'));
     }
 });
