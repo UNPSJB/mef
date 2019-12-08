@@ -32,9 +32,15 @@
                 <div class="col border">
                     {{#with pedido}}
                     <b>Cliente:
-                        {{ Persona.nombre }}
+                        {{!-- {{ Persona.nombre }} --}}
+                        {{#with this.Persona as |Cliente|}}
+                        {{Cliente.nombre}} {{Cliente.apellido}}
+                        {{else}}
+                        <i>Interno</i>
+                        {{/with}}
                     </b>
                     {{/with}}
+
                 </div>
                 <div class="col border">
                     <b>Monto: </b>
@@ -63,10 +69,10 @@
                             <th>Hueso</th>
                         </thead>
                         <tbody>
-                            {{#each hueso}}
+                            {{#each detalles}}
                             <tr>
-                                <td>{{ numero }}</td>
-                                <td>{{ nombre }}</td>
+                                <td>{{ Hueso.numero }}</td>
+                                <td>{{ Hueso.nombre }}</td>
                             </tr>
                             {{/each}}
                         </tbody>
@@ -83,11 +89,15 @@
                             <th>Acciones</th>
                         </thead>
                         <tbody>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button class="btn btn-primary" id="button-info">info</button>
-                            </td>
+                            {{#each estados}}
+                            <tr>
+                                <td>{{ pedido }}</td>
+                                <td></td>
+                                <td>
+                                    <button class="btn btn-primary" id="button-info">info</button>
+                                </td>
+                            </tr>
+                            {{/each}}
                         </tbody>
                     </table>
                 </div>
