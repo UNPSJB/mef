@@ -88,10 +88,12 @@
            if(this.value === "Interno"){
                $(".cliente").each(function(){
                    this.disabled = true;
+                   this.required = false;
                })
            }else{
                $(".cliente").each(function(){
                    this.disabled = false;
+                   this.required = true;
                })
            }
 
