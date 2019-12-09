@@ -13,11 +13,9 @@ router.get("/", (req, res, next) => {
   });
 });
 
-router.get("/agregar", (req, res, next) => {
-  personaService.getPersonas().then(personas => {
-    empleadoService.getEmpleados().then(empleados => {
-      res.render("empleados/agregar", { empleados, req });
-    });
+router.get("/agregar", (req, res) => {
+  empleadoService.getEmpleados().then(empleados => {
+    res.render("empleados/agregar", { empleados, req });
   });
 });
 
@@ -34,12 +32,12 @@ router.get("/eliminar/:id", (req, res, next) => {
   empleadoService.getEmpleado(id).then(empleado => {
     res.render("empleados/eliminar", { empleado, req });
   });
+});
   
-  router.post('/', async (req,res,next) =>{
-    const {identificacion, nombre, apellido,  direccion,  localidad, email,  fecha_nacimiento, telefono, tipo} = req.body;
-    let errores;
+router.post('/', async (req,res) =>{
+    const {identificacion, nombre, apellido,  direccion,  localidad, email,  fecha_nacimiento, telefono} = req.body;
+    let errores = null;
     try {
-                                        //   createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono){
         const persona = await personaService.createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)        
         const empleado = await empleadoService.createEmpleado(persona.id);
     } catch (error) {
@@ -51,19 +49,11 @@ router.get("/eliminar/:id", (req, res, next) => {
         }
     }
     if(errores){
-        res.render('empleados/agregar',{errores})   
+      res.render('empleados/agregar',{errores})   
     }else{
-        res.redirect('/empleados');
+      res.redirect('/empleados');
     }
-  });
-
-  if (tipo == "existe") {
-    empleados;
-    return empleadoService.createEmpleado(tipoempleado, personaid).then(() => {
-      res.redirect("/empleados");
-    });
-  }
-});
+})
 
 router.put("/", (req, res, next) => {
   personaService.updatePersona(req.body)
