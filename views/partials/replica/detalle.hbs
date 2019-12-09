@@ -4,19 +4,18 @@
     </h4>
     <table class="table">
         <thead>
-            <th>Cantidad ASDASDAD</th>
+            <th>Cantidad</th>
             <th>Hueso</th>
             <th>Pedido</th>
+            <th>Descripción</th>
         </thead>
         <tbody>
             {{#each this}}
             <tr>
                 <td>{{this.cantidad}}</td>
                 <td>{{this.Hueso.nombre}}</td>
-                <td>{{this.Pedido.estadoInstance}}
-                    {{this.Pedido.tipo}}
-                    {{this.Pedido.motivo}}
-                    {{this.PedidoId}}</td>
+                <td>{{this.Pedido.tipo}}</td>
+                <td>{{this.Pedido.motivo}}</td>
             </tr>
             {{/each}}
         </tbody>
