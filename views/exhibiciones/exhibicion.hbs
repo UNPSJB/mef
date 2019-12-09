@@ -1,5 +1,5 @@
 <div style="padding-top: 10px">
-    <h1>Exhibiciones <a href="/exhibiciones/agregar" class="btn btn-primary">+</a></h1>
+    <h1>Exhibiciones <a href="/exhibiciones/agregar" class="btn btn-success btn-primary">+</a></h1>
     <table class="table table-striped table-bordered" id="datatable">
         <thead>
             <th scope="col">Nombre</th>
@@ -24,7 +24,7 @@
                 <td>
                     <a href="/exhibiciones/editar?id={{this.id}}"><i class="far fa-edit"></i></a>
                     <!--editar-->
-                    <a href="/exhibiciones/eliminar?id={{this.id}}"><i class="fas fa-minus-circle"></i></a>
+                    <a href="/exhibiciones/eliminar?id={{this.id}}"><i class="fas fa-minus-circle" style="color: red;"></i></a>
                 </td>
             </tr>
                 {{/each}}

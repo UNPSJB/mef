@@ -12,7 +12,7 @@
                 Documento
               </label>
               <input type="text" class="form-empleado form-control" name="identificacion" id="InputIdentificacion"
-                placeholder="Ingrese su documento" required {{#if empleado}} value="{{empleado.Persona.identificacion}}"
+                placeholder="Ingrese su documento" disabled required {{#if empleado}} value="{{empleado.Persona.identificacion}}"
                 {{/if}}>
               <label class="font-weight-bold" for="nombre">
                 Nombre
@@ -48,7 +48,7 @@
               <br>
               <input type="date" class="form-empleado form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
                 required {{#if empleado}} value="{{empleado.Persona.fecha_nacimiento}}" {{/if}}>
-              <br>
+              
               <label class="font-weight-bold" for="InputTelefono">
                 Telefono
               </label>
@@ -65,7 +65,7 @@
             </div>
           </div>
           <div class="row">
-            <button type="submit" class="btn btn-primary form-control">Editar Empleado</button>
+            <button type="submit" class="btn btn-primary form-control">Guardar cambios</button>
           </div>
         </div>
       </div>

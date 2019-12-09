@@ -1,21 +1,18 @@
-<div class="container">
+<div class="container mt-4">
     <form class="pt-3" action="/fosiles" method="POST">
         <div class="card mx-auto mt-4 text-center">
             <div class="card-header bg-dark text-white text-center">
                 <h3>Agregar Fosil</h3>
             </div>
             <div class="card-body">
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="font-weight-bold" for="dinosaurio">Seleccionar Dinosaurio</label>
                             <select class="form-control" name="DinosaurioId" id="dinosaurioId">
-
                                 {{#each results}}
                                 <option value="{{this.id}}">{{this.nombre}}</option>
                                 {{/each}}
-
                             </select>
                         </div>
                     </div>
@@ -55,8 +52,7 @@
                             <div>
                                 <input class="form-control" type="date" name="fecha_encontrado" id = "fechaEncontrado" min="1800-01-01">
                             </div>
-
-                            <label class="pt-3 text-center font-weight-bold">Disponible:</label>
+                            <label class="pt-3 text-center font-weight-bold">Disponible para exhibicion:</label>
                             <div class="btn-group btn-block btn-group-toggle pt-2" data-toggle="buttons">
                                 <label class="btn btn-secondary form-check-label">
                                     <input type="radio" name="disponible" id="option1" value="true" autocomplete="off"
@@ -64,7 +60,7 @@
                                     Si
                                 </label>
                                 <label class="btn btn-secondary form-check-label">
-                                    <input type="radio" name="disponible" id="option2" value="false" autocomplete="off">
+                                    <input type="radio" name="disponible" id="option2" value="false" autocomplete="off" checked>
                                     No
                                 </label>
                             </div>
