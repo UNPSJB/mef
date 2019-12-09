@@ -11,7 +11,7 @@
                         required {{#if dino}} value="{{dino.nombre}}" {{/if}}>
                 </div>
                 {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
-
+                <label class="font-weight-bold pt-1 btn-block">Alimentacion</label>
                 <div class="btn-group btn-group-toggle mx-auto" data-toggle="buttons">
                     <label class="btn btn-secondary form-check-label">
                         <input type="radio" name="alimentacion" id="option1" value="Carnivoro" autocomplete="off"
@@ -28,6 +28,7 @@
                     </label>
                 </div>
                 <br>
+                <label class="font-weight-bold pt-1 btn-block">Periodo</label>
                 <div class="btn-group btn-group-toggle pt-3" data-toggle="buttons">
                     <label class="btn btn-secondary">
                         <input class="form-check-input" type="radio" name="periodo" value="Cretacico" id="option1"
@@ -49,15 +50,17 @@
                 </div>
                 <div class="form-group-vertical">
                     <label for="exampleFormControlSelect1">Subclase</label>
-                    <select multiple class="form-control" name="SubClaseId" id="exampleFormControlSelect1" autocomplete="off"
+                    <select class="form-control" name="SubClaseId" id="exampleFormControlSelect1" autocomplete="off"
                         required>
+                        
                         {{#each subclases}}
                         <option value="{{this.id}}">{{this.descripcion}}</option>
                         {{/each}}
+                        
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-block">Editar Dinosaurio</button>
+                    <button type="submit" class="btn btn-success btn-block">Guardar cambios</button>
                 </div>
             </div>
         </div>

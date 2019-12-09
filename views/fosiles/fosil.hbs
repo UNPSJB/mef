@@ -1,16 +1,17 @@
 <div style="padding-top: 10px">
     <h1>Fosiles
-        <a href="/fosiles/agregar" class="btn btn-primary" rel="noopener noreferrer">+</a>
+        <a href="/fosiles/agregar" class="btn btn-success btn-primary" rel="noopener noreferrer">+</a>
     </h1>
     <table class="table table-hover table-striped table-bordered" id="datatable">
         <thead>
             <th scope="col">#</th>
-            <th scope="col">Disponible</th>
+            <th scope="col">Disponible para exhibicion</th>
             <th scope="col">Numero de Coleccion</th>
             <th scope="col">Peso (Kg)</th>
             <th scope="col">Fecha Encontrado</th>
             <th scope="col">Hueso Referencia</th>
             <th scope="col">Dinosaurio</th>
+            <th scope="col">Observaciones</th>
             <th scope="col">Acciones</th>
         </thead>
         <tbody>
@@ -28,6 +29,7 @@
                 <td>{{this.fecha_encontrado}}</td>
                 <td>{{this.huesos}}</td>
                 <td>{{this.Dinosaurio.nombre}}</td>
+                <td>{{this.observacion}}</td>
                 {{!-- Acciones --}}
                 <td>
                     <a href="/fosiles/editar/{{this.id}}"><i class="far fa-edit"></i></a>
