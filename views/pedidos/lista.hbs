@@ -14,74 +14,92 @@
             <th>Acciones</th>
         </thead>
         <tbody>
-    {{/if}}            
+            {{/if}}
             {{#each pedidos}}
             <tr class="{{this.estadoInstance}}">
                 <td class="id">{{this.id}}</td>
-                <td>{{this.autorizacion}}</td> 
+                <td>{{#if this.autorizacion}}
+                    Si
+                    {{else}}
+                    No
+                    {{/if}}
+                </td>
                 <td>{{this.estadoInstance}}</td>
                 <td class="cliente">
                     {{#with this.Persona as |Cliente|}}
-                        {{Cliente.nombre}} {{Cliente.apellido}}
+                    {{Cliente.nombre}} {{Cliente.apellido}}
                     {{else}}
-                        <i>Interno</i>
+                    <i>Interno</i>
+                    {{/with}}
+                </td>
+                <td>
+                    {{#with this.motivo}}
+                        {{this}}
+                    {{else}}
+                    <i>No hay descripcion</i>
                     {{/with}}
                     </td>
-                <td>{{this.motivo}}</td>
             </tr>
             {{else}}
             <div class="container pt-4 text-center">
                 <h3>No hay pedidos agregados.</h3>
             </div>
             {{/each}}
-    {{#if pedidos}}
+            {{#if pedidos}}
         </tbody>
     </table>
     {{/if}}
 </div>
 
 <script>
-$(".Presupuestado").each(function(){
-    $(this).append("<td> "+ 
-        fabricar("facturar", $(this).find('.id')[0].innerText) + 
-        fabricar("cancelar", $(this).find('.id')[0].innerText) +  " </td>");
-})
-$(".Facturado").each(function(){
-    $(this).append("<td>"+ 
-        fabricar("confirmar",$(this).find('.id')[0].innerText)  + "</td>")
-})
-$(".Confirmado").each(function(){
-    $(this).append("<td>"+ 
-        fabricar("fabricar", $(this).find('.id')[0].innerText)+"</td>")
-})
-$(".Fabricando").each(function(){
-    $(this).append("<td>"+ 
-        fabricar("finalizar",$(this).find('.id')[0].innerText) + 
-        fabricar("demorar",$(this).find('.id')[0].innerText) + 
-        fabricar("empleados",$(this).find('.id')[0].innerText) + 
-         "</td>")
-})
-$(".Demorado").each(function(){
-    $(this).append("<td>"+ 
-        fabricar("reanudar",$(this).find('.id')[0].innerText) +  "</td>")
-})
-$(".Finalizado").each(function(){
-    let cliente = $(this).find('.cliente')[0].innerText;
-    if(cliente === 'Interno'){
+    $(".Presupuestado").each(function () {
+        $(this).append("<td> " +
+            fabricar("detalle", $(this).find('.id')[0].innerText) +
+            fabricar("facturar", $(this).find('.id')[0].innerText) +
+            fabricar("cancelar", $(this).find('.id')[0].innerText) + " </td>");
+    })
+    $(".Facturado").each(function () {
+        $(this).append("<td>" +
+            fabricar("detalle", $(this).find('.id')[0].innerText) +
+            fabricar("confirmar", $(this).find('.id')[0].innerText) + "</td>")
+    })
+    $(".Confirmado").each(function () {
+        $(this).append("<td>" +
+            fabricar("detalle", $(this).find('.id')[0].innerText) +
+            fabricar("fabricar", $(this).find('.id')[0].innerText) + "</td>")
+    })
+    $(".Fabricando").each(function () {
+        $(this).append("<td>" +
+            fabricar("detalle", $(this).find('.id')[0].innerText) +
+            fabricar("finalizar", $(this).find('.id')[0].innerText) +
+            fabricar("demorar", $(this).find('.id')[0].innerText) +
+            fabricar("editar", $(this).find('.id')[0].innerText) +
+            "</td>")
+    })
+    $(".Demorado").each(function () {
+        $(this).append("<td>" +
+            fabricar("detalle", $(this).find('.id')[0].innerText) +
+            fabricar("reanudar", $(this).find('.id')[0].innerText) + "</td>")
+    })
+    $(".Finalizado").each(function () {
+        let cliente = $(this).find('.cliente')[0].innerText;
+        if (cliente === 'Interno') {
+            $(this).append("<td>No hay mas acciones.</td>")
+        } else {
+            $(this).append("<td>" + 
+                fabricar("detalle", $(this).find('.id')[0].innerText) +
+                fabricar("entregar", $(this).find('.id')[0].innerText) + "</td>")
+        }
+    })
+    $(".Entregado").each(function () {
         $(this).append("<td>No hay mas acciones.</td>")
-    }else{
-       $(this).append("<td>"+ fabricar("entregar",$(this).find('.id')[0].innerText)+"</td>")
-    }
-})
-$(".Entregado").each(function(){
-    $(this).append("<td>No hay mas acciones.</td>")
-})
-$(".Cancelado").each(function(){
-    $(this).append("<td>No hay mas acciones.</td>")
-})
+    })
+    $(".Cancelado").each(function () {
+        $(this).append("<td>No hay mas acciones.</td>")
+    })
 
-function fabricar(accion, id) {
-    let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
-    return `<a class='btn btn-primary' href='/pedidos/${accion}/${id}'>${capitlizado}</a>`;
-}
+    function fabricar(accion, id) {
+        let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
+        return `<a class='btn btn-primary' href='/pedidos/${accion}/${id}'>${capitlizado}</a>`;
+    }
 </script>
