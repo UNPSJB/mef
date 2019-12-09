@@ -18,7 +18,12 @@
             {{#each pedidos}}
             <tr class="{{this.estadoInstance}}">
                 <td class="id">{{this.id}}</td>
-                <td>{{this.autorizacion}}</td>
+                <td>{{#if this.autorizacion}}
+                    Si
+                    {{else}}
+                    No
+                    {{/if}}
+                </td>
                 <td>{{this.estadoInstance}}</td>
                 <td class="cliente">
                     {{#with this.Persona as |Cliente|}}

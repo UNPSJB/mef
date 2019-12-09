@@ -1,94 +1,84 @@
-<h1>Detalle de Pedido#{{id}}</h1>
+<h1>Detalle de Pedido#{{id}} : {{dinosaurio.nombre}}</h1>
 
 <div class="container">
-    <div class="row justify-content-md-center border">
-        <div class="col-lg border">
-            <div class="row border">
-                <b>Estado Actual: {{estadoInstance}}</b>
-            </div>
-            <div class="row border">
-                <div class="col border">
-                    {{#with pedido}}
-                    <b>Cliente:
-                        {{!-- {{ Persona.nombre }} --}}
-                        {{#with this.Persona as |Cliente|}}
-                        {{Cliente.nombre}} {{Cliente.apellido}}
-                        {{else}}
-                        <i>Interno</i>
-                        {{/with}}
-                    </b>
-                    {{/with}}
-
-                </div>
-                <div class="col border">
-                    <b>Monto: </b>
-                </div>
-                <div class="col border">
-                    <b>Dinosaurio:
-                        {{#with dinosaurio}}
-                        {{ nombre }}
-                        {{/with}}
-                    </b>
-                </div>
-            </div>
-            <div class="row border">
-                <div class="col border">
-                    {{#with pedido}}
-                    <b>Motivo: {{ motivo }}</b>
-                    {{/with}}
-                </div>
-            </div>
-            <div class="row border">
-                <div class="col border">
-                    <b>Huesos del pedido</b><br>
-                    <table class="table">
-                        <thead>
-                            <th>N°</th>
-                            <th>Hueso</th>
-                        </thead>
-                        <tbody>
-                            {{#each detalles}}
-                            <tr>
-                                <td>{{ Hueso.numero }}</td>
-                                <td>{{ Hueso.nombre }}</td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row border">
-                <div class="col border">
-                    <b>Registro de cambios</b>
-                    <table class="table">
-                        <thead>
-                            <th>Estado</th>
-                            <th>Fecha de cambio</th>
-                            <th>Acciones</th>
-                        </thead>
-                        <tbody>
-                            {{#each estados}}
-                            <tr>
-                                <td>{{ pedido }}</td>
-                                <td></td>
-                                <td>
-                                    <button class="btn btn-primary" id="button-info">info</button>
-                                </td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+  <div class="row border" style="min-height: 2rem;">
+    <div class="col">
+      <b>Estado Actual:</b> {{estadoInstance}}
     </div>
+  </div>
+  <div class="row border" style="min-height: 2rem;">
+    <div class="col">
+      <b>Cliente:</b>
+      {{#with pedido.Persona}}
+        {{nombre}} {{apellido}}
+      {{else}}
+        <i>Interno</i>
+      {{/with}}
+    </div>
+    {{#with presupuestado}}
+        <div class="col ">
+          <b>Monto:</b> {{monto}}
+        </div>    
+        <div class="col ">
+          <b>Fin de oferta:</b> {{ fecha_fin_oferta }}
+        </div>    
+      {{/with}}
+      {{#with dinosaurio}}
+        <div class="col "><b>Dinosaurio:</b>{{ nombre }}</div>
+      {{/with}}
+  </div>
+
+  <div class="row border" >
+    <div class="col border">
+      <b>Huesos del pedido</b>
+      <div style="max-height: 50vh; overflow:auto;">
+      <table class="table" id="">
+        <thead>
+          <th>N°</th>
+          <th>Hueso</th>
+        </thead>
+        <tbody>
+          {{#each detalles}}
+          <tr>
+            <td>{{ Hueso.numero }}</td>
+            <td>{{ Hueso.nombre }}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+  <div class="row border">
+    <div class="col border">
+      <b>Registro de cambios</b>
+      <table class="table">
+        <thead>
+          <th>Estado</th>
+          <th>Fecha de cambio</th>
+          <th>Acciones</th>
+        </thead>
+        <tbody>
+          {{#each estados}}
+          <tr>
+            <td>{{ estadoInstance }}</td>
+            <td>{{ fecha}}</td>
+            <td>
+              <button class="btn btn-primary" id="button-info">info</button>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#button-info').click(function () {
-            $('#content').text();
-        });
+  $(document).ready(function () {
+    $('#button-info').click(function () {
+      $('#content').text();
     });
+  });
 </script>
