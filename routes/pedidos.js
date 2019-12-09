@@ -125,11 +125,11 @@ router.put('/', async (req, res) => {
 });
 
 router.post('/', (req,res)=>{
-    const { hueso, cliente, descripcion, monto,finoferta} = req.body;
+    const { hueso, cliente, descripcion, monto,finoferta, moneda} = req.body;
     if(cliente === "Interno"){
         pedidosService.solicitar(hueso).then(e=>res.redirect('/pedidos'));
     }else{
-        pedidosService.presupuestar(hueso, cliente, descripcion, monto,finoferta).then(e=>res.redirect('/pedidos'));
+        pedidosService.presupuestar(hueso, cliente, descripcion, monto,finoferta,moneda).then(e=>res.redirect('/pedidos'));
     }
 });
 module.exports = router;
