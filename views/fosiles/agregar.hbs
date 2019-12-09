@@ -40,8 +40,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="InputPeso">Peso (Kg)</label>
-                            <input type="number" class="form-control" name="peso" id="InputPeso" placeholder="Ingrese Peso de Fosil"
-                                required>
+                            <input type="number" class="form-control" name="peso" id="InputPeso"
+                                placeholder="Ingrese Peso de Fosil" required>
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label for="fecha_encontrado" class="col-form font-weight-bold">Fecha Encontrado</label>
                             <div>
-                                <input class="form-control" type="date" name="fecha_encontrado">
+                                <input class="form-control" type="date" name="fecha_encontrado" id = "fechaEncontrado" min="1800-01-01">
                             </div>
                             <label class="pt-3 text-center font-weight-bold">Disponible para exhibicion:</label>
                             <div class="btn-group btn-block btn-group-toggle pt-2" data-toggle="buttons">
@@ -69,7 +69,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="observacion">observaciones</label><br>
-                            <textarea class="form-control" name="observacion" id="" cols="number" rows="5" placeholder="Ingrese observaciones"></textarea>
+                            <textarea class="form-control" name="observacion" id="" cols="number" rows="5"
+                                placeholder="Ingrese observaciones"></textarea>
                         </div>
                     </div>
                 </div>
@@ -82,3 +83,31 @@
         </div>
     </form>
 </div>
+
+
+
+<script>
+    // setea la fecha actual como la fecha máxima de "encontrado".
+
+
+    $(document).ready(function () {
+        var hoy = formatDate(new Date());
+        document.getElementById("fechaEncontrado").setAttribute("max", hoy);
+        $("#fechaEncontrado").attr("max", hoy);
+    })
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+</script>
