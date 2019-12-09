@@ -72,6 +72,11 @@
         var hoy = formatDate(new Date());
         document.getElementById("InputFechaInicio").setAttribute("min", hoy);
         $("#InputFechaInicio").attr("min", hoy);
+
+    })
+
+        $("#InputFechaInicio").change(function () {
+            document.getElementById("InputFechaFin").setAttribute("min", this.value);
     })
 
     function formatDate(date) {
@@ -89,25 +94,3 @@
     }
 </script>
 
-<script>
-    // setea la "Fecha Inicio" como mínima de "Fecha Fin" (falta hacerlo)
-    $(document).ready(function () {
-        var hoy = formatDate(new Date());
-        document.getElementById("InputFechaFin").setAttribute("min", InputFechaInicio);
-        $("#InputFechaFin").attr("min", InputFechaInicio);
-    })
-
-    function formatDate(date) {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
-
-        if (month.length < 2)
-            month = '0' + month;
-        if (day.length < 2)
-            day = '0' + day;
-
-        return [year, month, day].join('-');
-    }
-</script>
