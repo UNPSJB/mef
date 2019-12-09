@@ -13,7 +13,7 @@ router.get('/',
   dinoService.getDinosaurios()
     .then((results) => {
       res.render('dinosaurios/dinosaurio', {
-        results
+        results,req
       })
     })
 });
@@ -24,7 +24,7 @@ permisos.permisoPara([permisos.ROLES.COLECCION]),
   subclaseService.getSubclases()
   .then((subclases)=>{
     res.render('dinosaurios/agregar',{
-      subclases
+      subclases,req
     })
   });
 });
@@ -36,7 +36,7 @@ async (req,res,next) => {
   const dino = await dinoService.getDinosaurio(req.params.id);
   subclaseService.getSubclases()
   .then((subclases)=>{
-    res.render('dinosaurios/editar', { dino, subclases });    
+    res.render('dinosaurios/editar', { dino, subclases,req });    
   }); //@TODO mostrar dino sin editar o algo
 });
 
@@ -45,7 +45,7 @@ permisos.permisoPara([permisos.ROLES.COLECCION]),
 (req,res,next)=>{
   dinoService.getDinosaurio(req.params.id)
   .then((dino)=> {
-    res.render('dinosaurios/eliminar', { dino })
+    res.render('dinosaurios/eliminar', { dino,req })
   })
 });
 
@@ -58,9 +58,9 @@ permisos.permisoPara([permisos.ROLES.TALLER, permisos.ROLES.COLECCION]),
     .then((huesos)=>{
       if(req.session.rol === permisos.ROLES.TALLER){
         const taller = true;
-        res.render("huesos/hueso",{huesos, taller});
+        res.render("huesos/hueso",{huesos, taller,req});
       }else{
-        res.render("huesos/hueso",{huesos});
+        res.render("huesos/hueso",{huesos,req});
       }
     });
 });
@@ -98,7 +98,7 @@ permisos.permisoPara([permisos.ROLES.COLECCION]),
     const dino = req.body;
     subclaseService.getSubclases()
     .then((subclases)=>{
-        res.render("dinosaurios/agregar",{errores,dino,subclases})
+        res.render("dinosaurios/agregar",{errores,dino,subclases,req})
     })
   });
 });
@@ -112,7 +112,7 @@ permisos.permisoPara([permisos.ROLES.COLECCION]),
       const dino = req.body;
       subclaseService.getSubclases()
       .then((subclases)=>{
-        res.render("dinosaurios/editar",{errores,dino,subclases})
+        res.render("dinosaurios/editar",{errores,dino,subclases,req})
       })
     });
 });
@@ -126,7 +126,7 @@ async (req,res) =>{
     return res.redirect('/dinosaurios')
   } catch (errores) {
     dinoService.getDinosaurio(id).then(dino =>{
-      res.render('dinosaurios/eliminar', {errores, dino})
+      res.render('dinosaurios/eliminar', {errores, dino,req})
     })    
   }
 });

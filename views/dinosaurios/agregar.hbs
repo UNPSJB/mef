@@ -16,10 +16,13 @@
               <small id="nombreCientificohelp" class="form-text-muted text-muted">Podes cambiarlo despues</small>
             </div>
             {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
-
-            <div class="btn-group btn-group-toggle btn-block pt-4" data-toggle="buttons">
+            <label class="font-weight-bold pt-1 btn-block">
+              Alimentacion
+            </label>
+            <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
               <label class="btn btn-secondary form-check-label active">
-                <input type="radio" name="alimentacion" id="option1" value="Carnivoro" autocomplete="off" checked required>
+                <input type="radio" name="alimentacion" id="option1" value="Carnivoro" autocomplete="off" checked
+                  required>
                 CARNÍVORO
               </label>
               <label class="btn btn-secondary form-check-label">
@@ -29,8 +32,10 @@
                 <input type="radio" name="alimentacion" id="option3" value="Omnivoro" autocomplete="off"> OMNÍVORO
               </label>
             </div>
-            <br>
-            <div class="btn-group btn-group-toggle btn-block pt-4" data-toggle="buttons">
+            <label class="font-weight-bold pt-1 btn-block">
+              Periodo
+            </label>
+            <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
               <label class="btn btn-secondary  active">
                 <input class="form-check-input" type="radio" name="periodo" value="Cretacico" id="option1"
                   autocomplete="off" checked required> CRETÁCICO
@@ -53,18 +58,20 @@
             </div>
             <div class="form-group-vertical">
               <label class="font-weight-bold pt-4" for="exampleFormControlSelect1">Subclase</label>
-              <select multiple class="form-control" style="height: 155px;" name="idsubclase"
-                id="exampleFormControlSelect1" autocomplete="off" required>
+              <select class="form-control" style="height: 50px;" name="idsubclase" id="exampleFormControlSelect1"
+                autocomplete="off" required>
                 {{#each subclases}}
                 <option value="{{this.id}}">{{this.descripcion}}</option>
                 {{/each}}
               </select>
             </div>
-
           </div>
 
           <table class="table table-striped col-6 border-bottom">
             <thead>
+              <tr class="row">
+                <th class="col-md-20"><h2>Listado de huesos</h2></th>
+              </tr>
               <tr>
                 <th scope="col">Nombre de Hueso</th>
                 <th scope="col">Cantidad</th>
@@ -124,6 +131,16 @@
               </tr>
             </tbody>
           </table>
+          <div class="container">
+            <div class="row">
+              <div class="col-6"></div>
+              <div class="col-6">
+                <i>*Existen huesos que se cargaran por defecto ya que no estan sujetos a que cambie su cantidad.</i>
+              </div>
+            </div>
+            
+          </div>
+          
         </div>
         <div class="row">
           <div class="form-group btn btn-block">

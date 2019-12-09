@@ -14,18 +14,18 @@ router.get("/", (req, res) => {
 router.get("/agregar", async (req, res) => {
   const replicas = await pedidoService.getReplicas({ disponible: true });
   const fosiles = await fosilService.getFosiles({ disponible: true });
-  res.render("exhibiciones/agregar", { replicas, fosiles });
+  res.render("exhibiciones/agregar", { replicas, fosiles,req });
 });
 router.get("/editar/:id", (req, res) => {
   const { id } = req.params;
   exhibicionService.getExhibicion(id).then(exh => {
-    res.render("exhibiciones/editar", { exh });
+    res.render("exhibiciones/editar", { exh,req });
   });
 });
 router.get("/eliminar/:id", (req, res) => {
   const { id } = req.params;
   exhibicionService.getExhibicion(id).then(exh => {
-    res.render("exhibiciones/eliminar", { exh });
+    res.render("exhibiciones/eliminar", { exh,req });
   });
 });
 
@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
     res.redirect('/exhibiciones')
   })
   .catch(exhibicion=>{
-    res.render('exhibiciones/agregar', {nombre, tematica, duracion})
+    res.render('exhibiciones/agregar', {nombre, tematica, duracion,req})
   })
 });
 

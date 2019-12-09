@@ -31,7 +31,6 @@ module.exports = {
     return models.Pedido.create({
       autorizacion:true,
       tipo:INTERNO,
-      estadoInstance:CONFIRMADO
     }).then(pedido=>{
       pedido.crearDetalles(huesos)
     })
@@ -46,7 +45,6 @@ module.exports = {
     //crea el pedido y sus detalles
     return models.Pedido.create({
         tipo:EXTERNO,
-        estadoInstance:PRESUPUESTADO, 
         PersonaId:cliente, //@TODO aca va cliente
         motivo:descripcion
       })

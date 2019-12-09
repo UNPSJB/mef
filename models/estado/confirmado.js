@@ -13,12 +13,13 @@ module.exports = (sequelize, DataTypes) =>{
             const descripcion = 'Fabricando';
             const inicio_estimada = fechainicio;
             const fin_estimada = fechafin;
-            // const cantidad_empleados = empleado.length;
+            const cantidad_empleados = empleados.length;
             const PedidoId = pedido.id;
             return sequelize.models.Fabricando.create({
                 PedidoId,
+                fecha: new Date(),
                 descripcion,
-                // cantidad_empleados,
+                cantidad_empleados,
                 inicio_estimada,
                 fin_estimada,
             })
@@ -29,17 +30,12 @@ module.exports = (sequelize, DataTypes) =>{
                         return empleado.asignarAPedido(PedidoId,empleado.id);
                     })
                 });
-                return pedido.update({estadoInstance:'Fabricando'});
             });
         }
         cancelar(pedido,args){
             const PedidoId = pedido.id;
             return sequelize.models.Cancelado.create({
                 PedidoId
-            }).then(()=>{
-                return pedido.update({
-                    estadoInstance:'Cancelado'
-                })
             })
         }
     }
