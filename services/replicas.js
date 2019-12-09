@@ -4,6 +4,7 @@ let replica = models.Replica;
 module.exports ={
     getReplicas(args){
         return replica.findAll({
+            include:[models.Pedido, models.Hueso],
             where:{
                 ...args
             },
