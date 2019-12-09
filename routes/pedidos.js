@@ -3,7 +3,9 @@ const router = express.Router();
 const permisos = require('../auth/permisos');
 const dinoService = require('../services/dinosaurio');
 const pedidosService = require('../services/pedidos');
+const replicaService = require('../services/replicas');
 const huesoService = require('../services/hueso');
+const personaService = require('../services/persona');
 const empleadoService = require('../services/empleado');
 const clienteService = require('../services/cliente');
 const models = require('../models');
@@ -39,6 +41,11 @@ router.get('/:id/empleados/', async (req, res) => {
     const trabajando = await pedido.getEmpleados({ include: [models.Persona] });
     res.send(JSON.stringify(trabajando, null, 4))
 });
+router.get('/replicas', async (req,res)=>{
+    const replicas = await replicaService.getReplicas();
+    // FALTA MOSTRAR EL CLIENTE Y EL DINOSAURIO DE CADA REPLICA
+    res.render("replicas/replica", {replicas, req});
+})
 
 router.get('/detalle/:id', (req, res) => {
     const { id } = req.params;
