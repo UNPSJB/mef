@@ -42,7 +42,7 @@
 
 <script>
     $(document).ready(() => {
-        fetch(`https://mef2019.herokuapp.com//pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
+        fetch(`http://localhost:3000/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
             .then((res) => {
                 return res.json();
             })

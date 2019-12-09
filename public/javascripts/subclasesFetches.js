@@ -10,7 +10,7 @@ const input = document.getElementById('buscaSubclases');
 input.addEventListener('input', buscarSubclases);
 
 function buscarSubclases() {
-  fetch('https://mef2019.herokuapp.com//subclases/api', { credentials: 'same-origin' })
+  fetch('http://localhost:3000/subclases/api', { credentials: 'same-origin' })
     .then((res) => {
       return (res.json());
     })

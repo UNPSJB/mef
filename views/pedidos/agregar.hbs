@@ -113,7 +113,7 @@
 
     function buscarHuesos() {
         let dinoId = e.options[e.selectedIndex].value;
-        fetch(`https://mef2019.herokuapp.com//dinosaurios/huesos/${dinoId}`, { mode: "cors" })
+        fetch(`http://localhost:3000/dinosaurios/huesos/${dinoId}`, { mode: "cors" })
             .then((res) => {
                 return res.json()
             })

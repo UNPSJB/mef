@@ -2,7 +2,7 @@
   "name": "mef",
   "version": "0.0.0",
   "private": true,
-  "proxy": "https://mef2019.herokuapp.com/",
+  "proxy": "http://localhost:3000",
   "scripts": {
     "dev": "nodemon ./bin/www",
     "dev:inspect": "nodemon --inspect index",

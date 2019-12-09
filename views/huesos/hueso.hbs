@@ -47,7 +47,7 @@
 </div>
 <script>
 function toggleMolde(id){
-    fetch(`https://mef2019.herokuapp.com//dinosaurios/moldes/toggle?id=${id}`,{
+    fetch(`http://localhost:3000/dinosaurios/moldes/toggle?id=${id}`,{
         method:"PATCH",
         credentials:"same-origin",
     })
