@@ -7,6 +7,18 @@
         </div>
         <div class="card-body">
           {{!-- @TODO @ALEX cambiar a botones --}}
+          <div class="btn-toolbar-vertical justify-content-between" role="toolbar"
+              aria-label="Toolbar with button groups">
+              <div class="btn-group" role="group">
+                <input type="radio" name="retraso_estimado" value="2 a 4 meses">2 de 4 meses
+              </div>
+            </div>
+            <div class="btn-toolbar-vertical justify-content-between" role="toolbar"
+              aria-label="Toolbar with button groups">
+              <div class="btn-group" role="group">
+                <input type="radio" name="retraso_estimado" value="4 a 6 meses">4 de 6 meses
+              </div>
+            </div>
             <div class="btn-toolbar-vertical justify-content-between" role="toolbar"
               aria-label="Toolbar with button groups">
               <div class="btn-group" role="group">
@@ -45,10 +57,7 @@
       <div class="modal-body">
         {{> replica/detalle detalles}}
       </div>
-      <div class="card-footer bg-dark text-muted">
-        <button type="submit" class="btn btn-success">Confirmar</button>
-        <a href="/pedidos" class="btn btn-danger">Rechazar</a>
-      </div>
+    
     </div>
   </div>
 </div>

@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) =>{
             type:DataTypes.ENUM,
             values: ['Efectivo', 'Cheque']
         },
+        moneda: {
+            type: DataTypes.ENUM,
+            values: ['Pesos Argentinos', 'Dolares','Euros'] 
+        },
         monto : DataTypes.FLOAT,
         fecha:{
             type: DataTypes.DATE,

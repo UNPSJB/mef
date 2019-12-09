@@ -40,7 +40,8 @@ module.exports = {
     cliente,
     descripcion,
     monto,
-    fecha_fin_oferta
+    fecha_fin_oferta,
+    moneda
   ) {
     //crea el pedido y sus detalles
     return models.Pedido.create({
@@ -56,7 +57,8 @@ module.exports = {
         await estado.update({
           cantidad_huesos:huesos.length,
           monto,
-          fecha_fin_oferta
+          fecha_fin_oferta,
+          moneda
         })
       });
   },

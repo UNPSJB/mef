@@ -7,10 +7,9 @@
   <table class="table" id="datatable">
     <thead>
       <th>#</th>
-      <th>Autorizado</th>
       <th>Estado</th>
       <th>Cliente</th>
-      <th>Motivo</th>
+      <th>Descripcion</th>
       <th>Acciones</th>
     </thead>
     <tbody>
@@ -18,12 +17,6 @@
       {{#each pedidos}}
       <tr class="{{this.estadoInstance}}">
         <td class="id">{{this.id}}</td>
-        <td>{{#if this.autorizacion}}
-          Si
-          {{else}}
-          No
-          {{/if}}
-        </td>
         <td>{{this.estadoInstance}}</td>
         <td class="cliente">
           {{#with this.Persona as |Cliente|}}
