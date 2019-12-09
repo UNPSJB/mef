@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) =>{
         cancelar(pedido, args){
             const PedidoId = pedido.id;
             return sequelize.models.Cancelado.create({
-                PedidoId
+                PedidoId,
+                fecha: new Date()
             })
         }
         facturar(pedido, args){

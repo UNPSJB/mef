@@ -5,42 +5,20 @@
         <h1>Agregar cliente</h1>
       </div>
       <div class="card-body">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="nuevo-tab" data-toggle="tab" href="#nuevo" role="tab" aria-controls="nuevo" aria-selected="true">Nuevo</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="existente-tab" data-toggle="tab" href="#existente" role="tab" aria-controls="existente" aria-selected="false">Existente</a>
-          </li>
-        </ul>
-        <div class="tab-content">
-          {{!--PESTAÑA NUEVO --}}
           <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
             {{>persona/cliente}}
           </div>
-          {{!-- PESTAÑA EXISTENTE --}}
-          <div class="tab-pane fade" id="existente" role="tabpanel" aria-labelledby="existente-tab">
-            Seleccione Persona:
-            <select name="PersonaId" class="persona form-control">
-              {{#each noClientes}}
-              <option value="{{this.id}}"> {{this.identificacion}} | {{this.nombre }} {{this.apellido}} </option>
-              {{/each}}
-            </select>
-          </div>
-        </div>
         <div class="row">
           <label class="btn btn-secondary form-check-label">
             <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required>
             Particular
           </label>
           <label class="btn btn-secondary form-check-label">
-            <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off">
+            <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off" required>
             Institucional
           </label>
         </div>
         <div class="row">
-          {{!-- esto de abajo te dice si es nuevo o existente --}}
-          <input type="hidden" name="tipo" id="tipo" value="nuevo" autocomplete="off" required hidden>
           <button type="submit" class="btn btn-success form-control">Agregar Cliente</button>
         </div>
       </div>
@@ -50,20 +28,5 @@
 
 
 <script>
-  $(document).ready(() => {
-    $("#existente-tab").click(function () {
-      $("#tipo").val("existe");
-      $(".empleado").each(function () {
-        this.required = false;
-        this.disabled = true;
-      });
-    });
-    $("#nuevo-tab").click(function () {
-      $("#tipo").val("nuevo")
-      $(".empleado").each(function () {
-        this.disabled = false;
-        this.required = true;
-      });
-    });
-  });
+
 </script>

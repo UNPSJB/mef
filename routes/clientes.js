@@ -13,21 +13,7 @@ router.get('/',(req, res, next) => {
 });
 
 router.get('/agregar', (req,res,next) => {
-    personaService.getPersonas().then((personas)=>{
-        clienteService.getClientes().then((clientes)=>{
-            let noClientes = personas.filter(person=>{
-                let noCliente = true; 
-                clientes.forEach(client=>{
-                    if(person.id == client.Persona.id){
-                        noCliente = false;
-                    } 
-                });
-                return noCliente;
-            });
-
-            res.render('clientes/agregar',{ noClientes,req });
-        }); 
-    });
+    res.render('clientes/agregar',{ req });
 });
 
 router.get('/editar/:id',(req,res,next) => {
@@ -46,25 +32,28 @@ router.get('/eliminar/:id', (req,res,next)=>{
     })
   });
   
-  router.post('/', (req,res,next) =>{
+router.post('/', async (req,res,next) =>{
     const {identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, PersonaId, tipo } = req.body;
-    if(tipo === 'nuevo'){
-        return clienteService.createCliente(tipoCliente,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
-        .then(()=>{ res.redirect('/clientes')})
-        .catch(errores =>{
-            res.render('clientes/agregar',{ errores,req });
-        });      
-    }   
-    if(tipo === 'existe'){
-        return clienteService.createClienteExiste(tipoCliente, PersonaId)
-        .then(()=>{ res.redirect('/clientes')})
-        .catch(errores =>{
-            res.render('clientes/agregar',{ errores,req });
-        });
+    let errores = null;
+
+    try {
+        const persona = await personaService.createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)        
+        const cliente = await clienteService.createClienteExiste(tipoCliente, persona.id)
+    } catch (error) {
+        try {
+            const persona = await personaService.getPersonaArgs({identificacion});
+            await clienteService.createClienteExiste(tipoCliente, persona.id)
+        } catch (error) {
+            errores = error;
+        }
     }
 
-    
-  });
+    if(errores){
+        res.render("clientes/agregar", {errores,req})
+    }else{
+        res.redirect('/clientes'); 
+    }
+});
 
   router.put('/', (req,res,next)=>{
     const {idPersona,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono} = req.body;
