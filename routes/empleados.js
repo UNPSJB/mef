@@ -49,7 +49,7 @@ router.post('/', async (req,res) =>{
         }
     }
     if(errores){
-      res.render('empleados/agregar',{errores})   
+      res.render('empleados/agregar',{errores,req})   
     }else{
       res.redirect('/empleados');
     }
