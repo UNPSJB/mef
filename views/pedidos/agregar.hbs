@@ -28,7 +28,7 @@
                                     <input disabled class="cliente form-control" type="number" name="monto" placeholder="Solo necesario para pedidos con clientes" min="0" id=""
                                          />
                                     <label for="fin-oferta">Fin de Oferta: <i>solo requerido para pedidos con cliente</i></label>
-                                    <input disabled class="cliente form-control" type="date" name="finoferta" id=""  />
+                                    <input disabled class="cliente form-control" type="date" name="finoferta" id="InpuFinOferta"  />
                                 </label>
                             </div>
                         </div>
@@ -152,8 +152,8 @@
     // setea la fecha actual como fecha mínima de "fin de oferta" 
     $(document).ready(function () {
         var hoy = formatDate(new Date());
-        document.getElementById("InputFinOferta").setAttribute("min", hoy);
-        $("#InputFinOferta").attr("min", hoy);
+        document.getElementById("InpuFinOferta").setAttribute("min", hoy);
+        $("#InpuFinOferta").attr("min", hoy);
     })
 
     function formatDate(date) {
