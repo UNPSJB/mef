@@ -27,7 +27,13 @@
                     <i>Interno</i>
                     {{/with}}
                 </td>
-                <td>{{this.motivo}}</td>
+                <td>
+                    {{#with this.motivo}}
+                        {{this}}
+                    {{else}}
+                    <i>No hay descripcion</i>
+                    {{/with}}
+                    </td>
             </tr>
             {{else}}
             <div class="container pt-4 text-center">

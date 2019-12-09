@@ -50,7 +50,6 @@ router.get('/detalle/:id', (req, res) => {
         const estadoInstance = estado.constructor.name;
         const hueso = await huesoService.getHueso(detalles[0].HuesoId);
         const dinosaurio = hueso.Dinosaurio;
-        console.log(dinosaurio);
         res.render("pedidos/detalle", { id, estadoInstance ,estados, pedido, dinosaurio, hueso, detalles, req });
     });
 
@@ -121,7 +120,7 @@ router.put('/', async (req, res) => {
 });
 
 router.post('/', (req,res)=>{
-    const {tipo, dinosaurio, hueso, cliente, descripcion, monto,finoferta} = req.body;
+    const { hueso, cliente, descripcion, monto,finoferta} = req.body;
     if(cliente === "Interno"){
         pedidosService.solicitar(hueso).then(e=>res.redirect('/pedidos'));
     }else{
