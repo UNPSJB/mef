@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
             references: {
                 model: 'Personas',
                 key: 'id',
+            },
+            unique:{
+              args:true, 
+              msg:"Ya existe un empleado con ese Documento"
             }
         }
     }, {sequelize});

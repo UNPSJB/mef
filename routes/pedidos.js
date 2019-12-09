@@ -120,13 +120,12 @@ router.put('/', async (req, res) => {
     res.redirect('/pedidos');
 });
 
-router.post('/', (req, res) => {
-    const { tipo, dinosaurio, hueso, cliente, descripcion, monto, finoferta } = req.body;
-    if (tipo === "Interno") {
-        pedidosService.solicitar(hueso).then(e => res.redirect('/pedidos'));
-    }
-    if (tipo === "Externo") {
-        pedidosService.presupuestar(hueso, cliente, descripcion, monto, finoferta).then(e => res.redirect('/pedidos'));
+router.post('/', (req,res)=>{
+    const {tipo, dinosaurio, hueso, cliente, descripcion, monto,finoferta} = req.body;
+    if(cliente === "Interno"){
+        pedidosService.solicitar(hueso).then(e=>res.redirect('/pedidos'));
+    }else{
+        pedidosService.presupuestar(hueso, cliente, descripcion, monto,finoferta).then(e=>res.redirect('/pedidos'));
     }
 });
 module.exports = router;
