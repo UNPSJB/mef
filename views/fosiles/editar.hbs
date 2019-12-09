@@ -43,8 +43,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="font-weight-bold" for="InputPeso">Peso (Kg)</label>
+                                {{#if fosil}}
                                 <input type="number" class="form-control" name="peso" id="InputPeso"
-                                    placeholder="Ingrese Peso de Fosil" required>
+                                    placeholder="Ingrese Peso de Fosil" required value="{{fosil.peso}}">
+                                {{/if}}
                             </div>
                         </div>
                     </div>
@@ -53,28 +55,43 @@
                             <div class="form-group">
                                 <label for="fecha_encontrado" class="col-form font-weight-bold">Fecha Encontrado</label>
                                 <div>
-                                    <input class="form-control" type="date" id="InputFechaDescubrimiento" min = "1800-01-01">
+                                    {{#if fosil}}
+                                    <input class="form-control" type="date" id="example-date-input"
+                                        value="{{fosil.fecha_encontrado}}">
+                                    {{/if}}
                                 </div>
-                                <label class="pt-3 text-center font-weight-bold">Disponible:</label>
-                                <div class="btn-group btn-block btn-group-toggle pt-2" data-toggle="buttons">
-                                    <label class="btn btn-secondary form-check-label">
-                                        <input type="radio" name="disponible" id="option1" value="true"
-                                            autocomplete="off" required>
-                                        Si
-                                    </label>
-                                    <label class="btn btn-secondary form-check-label">
-                                        <input type="radio" name="disponible" id="option2" value="false"
-                                            autocomplete="off">
-                                        No
-                                    </label>
-                                </div>
+                                <label class="pt-3 text-center font-weight-bold">Disponible para exhibicion:</label>
+
+                                <br>
+                                {{#if fosil.disponible}}
+                                <label class="btn btn-secondary form-check-label">
+                                    <input type="radio" name="disponible" id="option1" value="true" autocomplete="off" required checked>
+                                    Si
+                                </label>
+                                <label class="btn btn-secondary form-check-label">
+                                    <input type="radio" name="disponible" id="option2" value="false" autocomplete="off">
+                                    No
+                                </label>
+
+                                {{else}}
+                                <label class="btn btn-secondary form-check-label">
+                                    <input type="radio" name="disponible" id="option1" value="true" autocomplete="off" >
+                                    Si
+                                </label>
+                                <label class="btn btn-secondary form-check-label">
+                                    <input type="radio" name="disponible" id="option2" value="true" autocomplete="off" required checked >
+                                    No
+                                </label>
+                                {{/if}}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="font-weight-bold" for="observacion">observaciones</label><br>
-                                <textarea class="form-control" name="observacion" id="" maxlength="100" cols="number" rows="5"
-                                    placeholder="Ingrese observaciones"></textarea>
+                                {{#if fosil}}
+                                <textarea class="form-control" name="observacion" id="" maxlength="100" cols="number"
+                                    rows="5" placeholder="Ingrese observaciones">{{fosil.observacion}}</textarea>
+                                {{/if}}
                             </div>
                         </div>
                     </div>

@@ -58,12 +58,21 @@ module.exports = (sequelize,DataTypes) => {
             });
         }
         crearDetalles(huesos){
-            for (let index = 0; index < huesos.length; index++) {                
+            if(Array.isArray(huesos)){
+                for (let index = 0; index < huesos.length; index++) {                
+                    Detalle.create({
+                    PedidoId:this.id,
+                    cantidad:1,
+                    HuesoId: huesos[index],
+                    renglon: index,
+                    })
+                }
+            }else{
                 Detalle.create({
-                PedidoId:this.id,
-                cantidad:1,
-                HuesoId: huesos[index],
-                renglon: index,
+                    PedidoId:this.id,
+                    cantidad:1,
+                    HuesoId: huesos,
+                    renglon: 1,
                 })
             }
         }
@@ -73,10 +82,6 @@ module.exports = (sequelize,DataTypes) => {
         autorizacion : {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
-            allowNull:false,
-        },
-        estadoInstance: {
-            type:DataTypes.STRING,
             allowNull:false,
         },
         motivo : DataTypes.STRING,
@@ -95,12 +100,12 @@ module.exports = (sequelize,DataTypes) => {
         hooks:{
             afterCreate(pedido){
                 const PedidoId = pedido.id;
-                if(pedido.estadoInstance === 'Presupuestado'){
+                if(pedido.tipo === 'Externo'){//externo
                     Presupuestado.create({
                         PedidoId,
                     })
                 }
-                if(pedido.estadoInstance === 'Confirmado'){
+                if(pedido.tipo === 'Interno'){//interno
                     Confirmado.create({
                         PedidoId,
                     })

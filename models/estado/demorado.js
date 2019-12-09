@@ -2,14 +2,10 @@
 const Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) =>{
     class Demorado extends Sequelize.Model{
-        reanudar(pedido,args){
-            return pedido.update({
-                estadoInstance:'Fabricando'
-            }).then(async ()=>{                
-                let fabricando = await pedido.getFabricando();
-                return fabricando.update({
-                    fecha: new Date()
-                })
+        async reanudar(pedido,args){                
+            let fabricando = await pedido.getFabricando();
+            return fabricando.update({
+                fecha: new Date()
             })
         }
 

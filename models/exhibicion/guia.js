@@ -28,7 +28,11 @@ module.exports = (sequelize,DataTypes) => {
 			references: {
 				model:'Personas',
 				key:'id',
-			}
+			},
+            unique:{
+              args:true, 
+              msg:"Ya existe un Guia con ese Documento"
+            }
 		}
     })
     return Guia;
