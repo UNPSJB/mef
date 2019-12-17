@@ -9,7 +9,6 @@ var methodOverride = require('method-override');
 var session = require('express-session');
 var database = require('./models');
 var permisos = require('./auth/permisos');
-var schedule = require('node-schedule');
 
 //rutas
 var indexRouter = require('./routes/index');
@@ -67,9 +66,7 @@ app.use('/pedidos', permisos.estaLogueado, pedidosRouter);
 app.use('/visitas', visitasRouter);
 app.use('/exhibiciones', exhibicionesRouter);
 
-var sch = schedule.scheduleJob('*/5 * * * * *', function(){ //cada cinco segundo
-  console.log(new Date());
-})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

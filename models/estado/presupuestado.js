@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) =>{
             return sequelize.models.Cancelado.create({
                 PedidoId,
                 fecha: new Date()
+            }).then(()=>{
+                return pedido.update({
+                    autorizacion:true
+                })
             })
         }
         facturar(pedido, args){

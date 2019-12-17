@@ -25,7 +25,15 @@ module.exports = {
     })
   },
   obtenerPedido(id){
-    return pedido.findByPk(id, {include:[persona]});
+    return models.Pedido.findByPk(id, {include:[persona]});
+  },
+  getPresupuestados(){
+    return models.Pedido.findAll({
+      where:{
+        tipo:'Externo',
+        autorizacion: false
+      }
+    })
   },
   solicitar(huesos){
     return models.Pedido.create({
