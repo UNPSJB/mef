@@ -17,7 +17,7 @@ module.exports = {
     deleteSubclase(id){
         return subclase.findByPk(id)
         .then((subclaseEncontrado)=>{
-            subclaseEncontrado.destroy();
+            return subclaseEncontrado.destroy();
         })
     },
     updateSubclase(subclaseModificado){
