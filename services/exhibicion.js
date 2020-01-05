@@ -15,17 +15,42 @@ module.exports = {
                 fosiles.forEach(fosil=>{
                     models.FosilExhibicion.create({
                         ExhibicionId:exh.id,
-                        FosilId:fosil.id
+                        FosilId:fosil
                     })
                 })
             }else{
                 models.FosilExhibicion.create({
-                    FosilId:fosiles.id,
+                    FosilId:fosiles,
+                    ExhibicionId:exh.id
+                })
+            }
+            if (Array.isArray(replicas)){
+                replicas.forEach(Replica=>{
+                    models.ReplicaExhibicion.create({
+                        ExhibicionId:exh.id,
+                        ReplicaId:Replica
+                    })
+                })
+            }else{
+                models.ReplicaExhibicion.create({
+                    ReplicaId:replicas,
                     ExhibicionId:exh.id
                 })
             }
         }).catch(err =>{
             return err;
         })
+    },
+    updateExhibicion(id,nombre,tematica,duracion){
+        return models.Exhibicion.findByPk(id).then(e=>{
+            return e.update({
+                nombre,
+                tematica,
+                duracion
+            })
+        })
+    },
+    deleteExhibicion(id){
+        models.Exhibicion.findByPk(id).then(e => e.destroy());
     }
 }
