@@ -5,7 +5,7 @@
   "proxy": "http://localhost:3000",
   "scripts": {
     "build": "tsc",
-    "clean":"rm -rf build",
+    "clean": "rm -rf build",
     "dev": "nodemon ./bin/www",
     "dev:inspect": "nodemon --inspect index",
     "dev:debug": "set DEBUG=express:*,app:* npm run dev",
