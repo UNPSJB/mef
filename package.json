@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://localhost:3000",
   "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf build",
     "dev": "nodemon ./bin/www",
     "dev:inspect": "nodemon --inspect index",
     "dev:debug": "set DEBUG=express:*,app:* npm run dev",
@@ -29,10 +31,10 @@
     "node-schedule": "^1.3.2",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^5.19.7",
-    "sequelize-cli": "^5.5.1"
+    "sequelize": "^5.19.7"
   },
   "devDependencies": {
+    "sequelize-cli": "^5.5.1",
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
