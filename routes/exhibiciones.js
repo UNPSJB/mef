@@ -4,12 +4,26 @@ const permisos = require("../auth/permisos");
 const exhibicionService = require("../services/exhibicion");
 const fosilService = require("../services/fosil");
 const pedidoService = require("../services/pedidos");
+/**@TODO cambiar esto moverlo al service */
+const models = require('../models')
 
 router.get("/", (req, res) => {
   exhibicionService.getExhibiciones().then(exhibiciones => {
     res.render("exhibiciones/exhibicion", { exhibiciones });
   });
 });
+router.get("/detalle/:id", async (req,res)=>{
+  const {id} = req.params;
+  try {
+    const exhibicion =  await exhibicionService.getExhibicion(id);
+    const fosiles = await exhibicion.getFosils();
+    const replicas = await exhibicion.getReplicas({include:[models.Hueso, models.Pedido]});
+    /**@TODO esto tambien moverlo al service, aplica para otras cosas donde sea similar, usar mas objetos */
+    res.render("exhibiciones/detalle", {exhibicion, fosiles, replicas})
+  } catch (error) {
+    console.log(error)   
+  }
+})
 
 router.get("/agregar", async (req, res) => {
   const replicas = await pedidoService.getReplicas({ disponible: true });

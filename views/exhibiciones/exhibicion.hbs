@@ -5,8 +5,8 @@
             <th scope="col">Nombre</th>
             <th scope="col">Tematica</th>
             <th scope="col">Duracion</th>
-            <th scope="col">Lista de fosiles</th>
-            <th scope="col">Lista de replicas</th>
+            {{!-- <th scope="col">Lista de fosiles</th> --}}
+            <th scope="col">Detalle</th>
             <th scope="col">Acciones</th>
         </thead>
         <tbody>
@@ -15,11 +15,11 @@
                 <td>{{this.nombre}}</td>
                 <td>{{this.tematica}}</td>
                 <td>{{this.duracion}} meses</td>
-                <td>
+                {{!-- <td>
                     <a href="={{this.id}}" class="btn btn-primary">fosiles</a>
-                </td>
+                </td> --}}
                 <td>
-                    <a href="={{this.id}}" class="btn btn-primary">replicas</a>
+                    <a href="/exhibiciones/detalle/{{this.id}}" class="btn btn-primary">Ver detalle</a>
                 </td>
                 <td>
                     <a href="/exhibiciones/editar/{{this.id}}"><i class="far fa-edit"></i></a>
