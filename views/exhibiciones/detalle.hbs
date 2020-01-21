@@ -1,0 +1,23 @@
+<h1>Detalle de la Exhibicion#{{exhibicion.id}} {{exhibicion.nombre}}:{{exhibicion.tematica}}</h1>
+<h2>Listado de Fosiles</h2>
+<hr>
+{{#each fosiles}}
+    {{this}}
+    <br>
+{{else}}
+<h3>No hay fosiles para esta exhibiciones</h3>
+<br>
+<br>
+{{/each}}
+<h2>
+Listado de Replicas
+</h2>
+<hr>
+{{#each replicas}}
+
+   {{this.Hueso.nombre}}
+   {{this.Pedido.id}}
+    <br>
+{{else}}
+<h3>No hay replicas para esta exhibicion</h3>
+{{/each}}
