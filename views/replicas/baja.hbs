@@ -1,0 +1,33 @@
+<div class="card mt-4">
+    <div class="card-header text-center bg-dark text-white">
+        <h1>Eliminar Replica</h1>
+        <div class="alert alert-danger mt-4">¿Seguro que quiere borrar esto?</div>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <th scope="col">Hueso</th>
+                <th scope="col">Disponible</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Fecha de inicio</th>
+                <th scope="col">Fecha de finalizacion</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>{{Replica.Hueso}}</th>
+                    <th>{{Replica.Disponible}}</th>
+                    <th>{{Replica.Tipo}}</th>
+                    <th>{{Replica.Fecha}}</th>
+                    <th>{{Replica.finalizacion}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card_footer">
+        <form action="/replicas?_method=DELETE" method="POST">
+            <input type="number" name="serial" value="{{replica.codigo}}" hidden required>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <a href="/replicas" class="btn btn-primary">Volver</a>
+        </form>
+    </div>
+</div>
