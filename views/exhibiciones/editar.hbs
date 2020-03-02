@@ -19,11 +19,13 @@
               <label for="fosiles">Listado de fosiles disponibles:</label>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar fosiles --}}
+                {{#each fosiles_propios}}
+                 <input type="checkbox" name="fosiles" id="" value="{{this.id}}" checked> {{this.huesos}} | {{this.Dinosaurio.nombre}}
+                <br>
+                {{/each}}
                 {{#each fosiles}}
                 <input type="checkbox" name="fosiles" id="" value="{{this.id}}">{{this.huesos}} | {{this.Dinosaurio.nombre}}
                 <br>
-                {{else}}
-                <i>No hay fosiles para agregar</i>
                 {{/each}}
               </div>
             </div>
@@ -31,11 +33,13 @@
               <label for="replicas">Listado de replicas disponibles:</label>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar replicas --}}
+                {{#each replicas_propias}}
+                 <input type="checkbox" name="replicas" id="" value="{{this.value}}" checked>{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
+                <br>
+                {{/each}}
                 {{#each replicas}}
                 <input type="checkbox" name="replicas" id="" value="{{this.value}}">{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
                 <br>
-                {{else}}
-                <i>No hay replicas para agregar</i>
                 {{/each}}
               </div>
             </div>
