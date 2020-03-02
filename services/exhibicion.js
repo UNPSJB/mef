@@ -11,11 +11,25 @@ module.exports = {
     return models.Exhibicion.create({
       nombre, tematica, duracion
     }).then(exhibicion => {
-      if (fosiles) {
-        exhibicion.setFosils([...fosiles])
+      if (fosiles) {//si hay fósiles, ponerlos como no disponibles
+       const listaDeFosiles = [...fosiles]
+       listaDeFosiles.every(async fosil_id=>{
+         let fosil = await models.Fosil.findByPk(fosil_id)
+         fosil.update({
+           disponible:false
+         })
+       })
+        exhibicion.setFosils(listaDeFosiles)
       }
       if(replicas){ 
-        exhibicion.setReplicas([...replicas])
+          const listaDeReplicas = [...replicas]
+          listaDeReplicas.every(async replica_id=>{
+            let replica = await models.Replica.findByPk(replica_id)
+            replica.update({
+              disponible:false
+            })
+          })
+        exhibicion.setReplicas(listaDeReplicas)
       }
     })
   },
