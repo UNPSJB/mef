@@ -41,7 +41,7 @@ router.get("/editar/:id", async (req, res) => {
 });
 router.get("/eliminar/:id", (req, res) => {
   const { id } = req.params;
-  exhibicionService.getExhibicion(id).then(exh => {
+  exhibicionService.getExhibicion(id).then(exh => { console.log (exh)
     res.render("exhibiciones/eliminar", { exh, id,req });
   });
 });
