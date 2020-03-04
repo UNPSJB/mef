@@ -1,43 +1,41 @@
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
     <div class="container pt-4">
         <div class="row">
-            <div class="card mx-auto mt-4 text-center">
-                <div class="card-header bg-dark text-white">
-                    <h2>Reanudar Replicacion</h2>
-                </div>
-                <div class="card-body">
-                    <span class="bg-success form-control text-center text-white">Esta a punto de {{accion}} el siguiente
-                        pedido</span>
-                    <h5 class="card-title pt-2">Pedido de Replicacion Nº {{id}}</h5>
-                    <div class="row pb-4">
-                        <div class="container col-8">
-                            {{!-- @TODO CAMBIAR @ALEX --}}
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse aliquam quo repellendus veritatis consequatur dolor expedita amet repellat. Necessitatibus ut repellendus libero magni assumenda asperiores iure placeat quae perferendis distinctio.</p>
-                        </div>
+            <div class="col-8 mx-auto">
+                <div class="card mx-auto mt-4 text-center">
+                    <div class="card-header bg-dark text-white">
+                        <h2>Reanudar Replicacion</h2>
                     </div>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
-                        Ver Detalle
-                    </button>
-                    <div class="modal fade" id="myModal">
-                        <div class="modal-dialog modal-xl">
-                            <div class="modal-content modal-xl">
+                    <div class="card-body">
+                        <span class="bg-success form-control text-center text-white">Esta a punto de {{accion}} el
+                            siguiente
+                            pedido</span>
+                        <h5 class="card-title pt-2">Pedido de Replicacion Nº {{id}}</h5>
 
-                                <!-- Modal body -->
-                                <div class="modal-body">
-                                    {{> replica/detalle detalles}}
-                                </div>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+                            Ver Detalle
+                        </button>
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content modal-xl">
 
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        {{> replica/detalle detalles}}
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer bg-dark text-muted">
-                    <button type="submit" class="btn btn-success">Confirmar</button>
-                    <a href="/pedidos" class="btn btn-danger">Rechazar</a>
+                    <div class="card-footer bg-dark text-muted">
+                        <button type="submit" class="btn btn-success">Confirmar</button>
+                        <a href="/pedidos" class="btn btn-danger">Rechazar</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -25,7 +25,15 @@ module.exports = {
     })
   },
   obtenerPedido(id){
-    return pedido.findByPk(id, {include:[persona]});
+    return models.Pedido.findByPk(id, {include:[persona]});
+  },
+  getPresupuestados(){
+    return models.Pedido.findAll({
+      where:{
+        tipo:'Externo',
+        autorizacion: false
+      }
+    })
   },
   solicitar(huesos){
     return models.Pedido.create({
@@ -40,7 +48,8 @@ module.exports = {
     cliente,
     descripcion,
     monto,
-    fecha_fin_oferta
+    fecha_fin_oferta,
+    moneda
   ) {
     //crea el pedido y sus detalles
     return models.Pedido.create({
@@ -56,7 +65,8 @@ module.exports = {
         await estado.update({
           cantidad_huesos:huesos.length,
           monto,
-          fecha_fin_oferta
+          fecha_fin_oferta,
+          moneda
         })
       });
   },

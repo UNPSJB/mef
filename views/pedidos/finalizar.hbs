@@ -13,15 +13,12 @@
                     <div class="row pb-4">
                         {{!-- @TODO CAMBIAR @ALEX --}}
                         <div class="container col-8">
-                            <p class="card-text pb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse aliquam
-                                quo repellendus veritatis consequatur dolor expedita amet repellat. Necessitatibus ut
-                                repellendus libero magni assumenda asperiores iure placeat quae perferendis distinctio.</p>
                             <label for="fechafin">
                                 <h6 class="pb-2">Fecha Finalizacion de Replica</h6>
-                                <input class="form-control" type="date" name="fecha_fin" id="">
+                                <input class="form-control" type="date" name="fecha_fin" id="InputFechaFinalizacion">
                             </label>
                         </div>
-                        
+
                     </div>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
                         Ver Detalle
@@ -45,9 +42,35 @@
                 </div>
                 <div class="card-footer bg-dark text-muted">
                     <button type="submit" class="btn btn-success">Confirmar</button>
-                    <a href="/pedidos" class="btn btn-danger">Rechazar</a>
+                    <a href="/pedidos" class="btn btn-danger">Volver</a>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
+<script>
+
+    // setea la fecha actual como fecha máxima de "finalización"
+
+
+    $(document).ready(function () {
+        var hoy = formatDate(new Date());
+        document.getElementById("InputFechaFinalizacion").setAttribute("max", hoy);
+        $("#InputFechaFinalizacion").attr("max", hoy);
+    })
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear()
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+</script>

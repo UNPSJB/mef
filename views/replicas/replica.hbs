@@ -7,22 +7,30 @@
             <th scope="col">Tipo</th>
             <th scope="col">Fecha de inicio</th>
             <th scope="col">Fecha de finalizacion</th>
-            <th scope="col">Acciones</th>
+            {{!-- <th scope="col">Acciones</th> --}}
         </thead>
         <tbody>
-        {{#each results}}
+        {{#each replicas}}
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <!-- acciones aca -->
+                    <td>{{this.Hueso.nombre}}</td>
                     <td>
-                        <a href="/replicas/editar/{{this.id}}"><i class="far fa-edit"></i></a> <!--editar-->
-                        <a href="/replicas/eliminar/{{this.id}}"><i class="fas fa-minus-circle" style="color: red;"></i></a>
+                      
+                      {{#with this.disponible}}
+                      Si
+                      {{else}}
+                      No 
+                      {{/with}}
+
+                      </td>
+                    <td>{{this.Pedido.tipo}}</td>
+                    <td>{{this.fecha_inicio}}</td>
+                    <td>{{this.fecha_fin}}</td>
+                    <!-- acciones aca -->
+                    {{!-- <td> --}}
+                        {{!-- <a href="/replicas/editar/{{this.id}}"><i class="far fa-edit"></i></a> <!--editar--> --}}
+                        {{!-- <a href="/replicas/eliminar/{{this.id}}"><i class="fas fa-minus-circle" style="color: red;"></i></a> --}}
                         {{!-- otras acciones mas --}}
-                    </td>
+                    {{!-- </td> --}}
                 </tr>
         {{/each}}
         </tbody>    

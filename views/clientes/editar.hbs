@@ -12,7 +12,7 @@
                 Documento
               </label>
               <input type="text" class="form-empleado form-control" name="identificacion" id="InputIdentificacion"
-                placeholder="Ingrese su documento" disabled required {{#if cliente}} value="{{cliente.Persona.identificacion}}" {{/if}}>
+                placeholder="Ingrese su documento" required {{#if cliente}} value="{{cliente.Persona.identificacion}}" {{/if}}>
               <label class="font-weight-bold" for="nombre">
                 Nombre
               </label>
@@ -41,6 +41,7 @@
               </label>
               <input type="email" class="form-empleado form-control" name="email" id="InputEmail"
                 placeholder="Ingrese Email" required {{#if cliente}}value="{{cliente.Persona.email}}" {{/if}}>
+              
               <label class="font-weight-bold" for="fechaNacimiento">
                 Fecha Nacimiento
               </label>
@@ -79,3 +80,27 @@
       </div>
   </form>
 </div>
+
+
+<script>
+    // setea la fecha actual
+    $(document).ready(function () {
+        var hoy = formatDate(new Date());
+        document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
+        $("#InputFechaNacimiento").attr("max", hoy);
+    })
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear()-18; //Los clientes deben tener 18 años o más
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+</script>

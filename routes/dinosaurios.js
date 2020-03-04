@@ -122,13 +122,12 @@ permisos.permisoPara([permisos.ROLES.COLECCION]),
 async (req,res) =>{
   const { id } = req.body;
   try {
-    await dinoService.deleteDinosaurio(id)
+      await dinoService.deleteDinosaurio(id)           
+    } catch (errores) {
+      const dino = await dinoService.getDinosaurio(id);
+      return res.render('dinosaurios/eliminar', {errores, dino, req})          
+    } 
     return res.redirect('/dinosaurios')
-  } catch (errores) {
-    dinoService.getDinosaurio(id).then(dino =>{
-      res.render('dinosaurios/eliminar', {errores, dino,req})
-    })    
-  }
 });
 
 module.exports = router;

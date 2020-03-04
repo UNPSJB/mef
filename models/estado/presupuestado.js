@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) =>{
             return sequelize.models.Cancelado.create({
                 PedidoId,
                 fecha: new Date()
+            }).then(()=>{
+                return pedido.update({
+                    autorizacion:true
+                })
             })
         }
         facturar(pedido, args){
@@ -18,7 +22,8 @@ module.exports = (sequelize, DataTypes) =>{
                 //actualiza el estado
                 return sequelize.models.Pago.create({
                     tipo:args.tipopago,
-                    monto: args.presupuesto
+                    monto: args.presupuesto,
+                    moneda: this.moneda
                 })
             }).then(() =>{
                 return pedido.update({
@@ -44,6 +49,10 @@ module.exports = (sequelize, DataTypes) =>{
     },
     cantidad_huesos: DataTypes.INTEGER,
     monto: DataTypes.FLOAT,
+    moneda: {
+        type: DataTypes.ENUM,
+        values: ['Pesos Argentinos', 'Dolares','Euros'] 
+    }, 
     fecha_fin_oferta: DataTypes.DATEONLY,
     PedidoId: {
         type:DataTypes.INTEGER,

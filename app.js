@@ -66,6 +66,7 @@ app.use('/pedidos', permisos.estaLogueado, pedidosRouter);
 app.use('/visitas', visitasRouter);
 app.use('/exhibiciones', exhibicionesRouter);
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

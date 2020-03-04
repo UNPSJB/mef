@@ -3,10 +3,14 @@ const router = express.Router();
 const permisos = require('../auth/permisos');
 const dinoService = require('../services/dinosaurio');
 const pedidosService = require('../services/pedidos');
+const replicaService = require('../services/replicas');
 const huesoService = require('../services/hueso');
+const personaService = require('../services/persona');
 const empleadoService = require('../services/empleado');
 const clienteService = require('../services/cliente');
 const models = require('../models');
+const schedule = require('node-schedule');
+
 
 router.get('/',
     permisos.permisoPara([permisos.ROLES.TALLER, permisos.ROLES.EXHIBICION]),
@@ -39,6 +43,11 @@ router.get('/:id/empleados/', async (req, res) => {
     const trabajando = await pedido.getEmpleados({ include: [models.Persona] });
     res.send(JSON.stringify(trabajando, null, 4))
 });
+router.get('/replicas', async (req,res)=>{
+    const replicas = await replicaService.getReplicas();
+    // FALTA MOSTRAR EL CLIENTE Y EL DINOSAURIO DE CADA REPLICA
+    res.render("replicas/replica", {replicas, req});
+})
 
 router.get('/detalle/:id', (req, res) => {
     const { id } = req.params;
@@ -125,11 +134,33 @@ router.put('/', async (req, res) => {
 });
 
 router.post('/', (req,res)=>{
-    const { hueso, cliente, descripcion, monto,finoferta} = req.body;
+    const { hueso, cliente, descripcion, monto,finoferta, moneda} = req.body;
     if(cliente === "Interno"){
         pedidosService.solicitar(hueso).then(e=>res.redirect('/pedidos'));
     }else{
-        pedidosService.presupuestar(hueso, cliente, descripcion, monto,finoferta).then(e=>res.redirect('/pedidos'));
+        pedidosService.presupuestar(hueso, cliente, descripcion, monto,finoferta,moneda).then(e=>res.redirect('/pedidos'));
     }
 });
+/**
+ * @TODO revisar esto
+*/
+schedule.scheduleJob('*/3 * * * *', async function(){ //cada cinco segundo
+    let d = new Date();
+    let n = d.getFullYear().toString() + '-' + d.getMonth().toString() +'-'+ d.getDate().toString();
+    let nuevo = new Date(n)
+    pedidosService.getPresupuestados().then(pedidos =>{
+        pedidos.forEach(async pedido => {
+            const presupuestado = await pedido.getPresupuestado();
+            if( ( new Date(presupuestado.fecha_fin_oferta) - nuevo )< 0 ){ // si la fecha de hoy es mas grande que la fecha de fin de oferta, cancelar
+                presupuestado.cancelar(pedido,{})
+            }else{
+                console.log('pedido por vencer:')
+                console.log(pedido.dataValues)
+                console.log( presupuestado.dataValues)
+            }
+        });
+    })
+    // console.log(await pedidosService.getPresupuestados())
+})
+
 module.exports = router;
