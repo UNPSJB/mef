@@ -1,6 +1,7 @@
 const express = require("express");
 const permisos = require('../auth/permisos');
 const router = express.Router();
+const replicaService = require('../services/replicas');
 
 router.get("/",
     permisos.permisoPara([permisos.ROLES.EXHIBICION, permisos.ROLES.TALLER]),
@@ -25,18 +26,22 @@ router.get("/eliminar/:id",
     permisos.permisoPara([permisos.ROLES.EXHIBICION]),
     (req, res, next) => {
         const { id } = req.params;
+        
         replicaService
             .getReplica(id)
-            .then(replica => res.render("replicas/eliminar", { replica }))
+            .then(replica => {
+                console.log(replica);
+                res.render("replicas/baja", { replica })
+            })
             .catch(err => {
-
+                console.log("error de baja");
             });
     });
 
 router.delete("/",
     permisos.permisoPara([permisos.ROLES.EXHIBICION]),
     (req, res, next) => {
-        replicaService.deleteReplica(req.body.id).then(() => res.redirect("/replicas"));
+        replicaService.deleteReplica(req.body.id).then(() => res.redirect("/pedidos/replicas"));
     });
 
 router.post("/",
@@ -55,3 +60,5 @@ router.post("/",
         } = req.body;
         
     })
+
+    module.exports = router;

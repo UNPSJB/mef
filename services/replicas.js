@@ -16,6 +16,7 @@ module.exports ={
             where: {
                 id
             },
+            include:[models.Pedido, models.Hueso, models.Dinosaurio]
             // PUEDE QUE VAYA UN INCLUDE, SINO, BORRAR ESTE COMENTARIO
         });
     },
@@ -35,10 +36,21 @@ module.exports ={
     updateReplica(replicaReq){
         return replica.upsert(replicaReq)
     },
-    deleteReplica(id){
-        return replica.findByPk(id)
+    toggleDisponible(id){
+        return models.Replica.findByPk(id)
         .then((replicaEncontrada) => {
-            replicaEncontrada.destroy(replicaEncontrada);
+            return replicaEncontrada.update({
+                disponible: !disponible
+            });
+        })
+    },
+    deleteReplica(id){
+        return models.Replica.findByPk(id)
+        .then((replicaEncontrada) => {
+            return replicaEncontrada.update({
+                fecha_baja:new Date(),
+                disponible:false
+            });
         })
     }
 }
