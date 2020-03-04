@@ -37,7 +37,14 @@ router.get("/eliminar/:id",
                 console.log("error de baja");
             });
     });
-
+router.patch("/disponibilidad/:id",
+    permisos.permisoPara([permisos.ROLES.EXHIBICION]),
+    (req, res, next) => {
+        const {id}= req.params;
+        replicaService.toggleDisponible(id);
+        res.send(200);
+    }
+),
 router.delete("/",
     permisos.permisoPara([permisos.ROLES.EXHIBICION]),
     (req, res, next) => {
