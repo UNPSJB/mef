@@ -18,6 +18,7 @@ var subclaseRouter = require('./routes/subclases');
 var pedidosRouter = require('./routes/pedidos');
 var clientesRouter = require('./routes/clientes');
 var empleadosRouter = require('./routes/empleados');
+var guiasRouter = require('./routes/guias');
 var visitasRouter = require('./routes/visitas');
 var exhibicionesRouter = require('./routes/exhibiciones');
 
@@ -62,6 +63,7 @@ app.use('/subclases',
   subclaseRouter); /// solo coleccion
 app.use('/clientes', permisos.estaLogueado, clientesRouter);
 app.use('/empleados', permisos.estaLogueado, empleadosRouter);
+app.use('/guias', permisos.estaLogueado, guiasRouter);
 app.use('/pedidos', permisos.estaLogueado, pedidosRouter);
 app.use('/visitas', visitasRouter);
 app.use('/exhibiciones', exhibicionesRouter);

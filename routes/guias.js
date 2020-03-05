@@ -14,7 +14,8 @@ router.get(
   (req, res, next) => {
     guiaService.getGuias().then(results => {
       res.render("guias/guia", {
-        results,req
+        results,
+        req
       });
     });
   }
@@ -37,7 +38,7 @@ router.get(
           return noGuiaAux;
         });
 
-        res.render("guias/agregar", { noGuias,req });
+        res.render("guias/agregar", { noGuias, req });
       });
     });
   }
@@ -48,7 +49,7 @@ router.get(
   permisos.permisoPara([permisos.ROLES.RRHH]),
   async (req, res, next) => {
     const guia = await guiaService.getGuia(req.params.id);
-    res.render("guias/editar", { guia,req });
+    res.render("guias/editar", { guia, req });
   }
 );
 
@@ -56,15 +57,11 @@ router.get(
   "/eliminar/:id",
   permisos.permisoPara([permisos.ROLES.RRHH]),
   (req, res, next) => {
-    guiaService
-      .getGuia(req.params.id)
-      .then(guia => {
-        res.render("guias/eliminar", { guia ,req});
-      })
-      
+    guiaService.getGuia(req.params.id).then(guia => {
+      res.render("guias/eliminar", { guia, req });
+    });
   }
 );
-
 
 /*
   Script en CLIENTE
@@ -91,7 +88,7 @@ router.post(
       fecha_nacimiento,
       telefono
     } = req.body;
-// IF NUEVO O EXITESTE
+    // IF NUEVO O EXITESTE
     guiaService
       .createGuia(
         dias_trabaja,
@@ -112,7 +109,7 @@ router.post(
         res.redirect("/guias");
       })
       .catch(errores => {
-        res.render("guias/agregar", { errores,req });
+        res.render("guias/agregar", { errores, req });
       });
   }
 );
@@ -124,7 +121,7 @@ router.put("/", permisos.permisoPara([permisos.ROLES.RRHH]), (req, res) => {
     .then(() => res.redirect("/guias"))
     .catch(errores => {
       const guia = req.body;
-      res.render("guias/editar", { errores, guia,req });
+      res.render("guias/editar", { errores, guia, req });
     });
 });
 
@@ -181,7 +178,7 @@ router.delete(
       return res.redirect("/guias");
     } catch (error) {
       guiaService.getGuia(id).then(guia => {
-        res.render("guias/eliminar", { error, guia,req });
+        res.render("guias/eliminar", { error, guia, req });
       });
     }
   }
