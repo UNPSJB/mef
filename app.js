@@ -21,6 +21,7 @@ var empleadosRouter = require('./routes/empleados');
 var guiasRouter = require('./routes/guias');
 var visitasRouter = require('./routes/visitas');
 var exhibicionesRouter = require('./routes/exhibiciones');
+var replicasRouter = require('./routes/replicas');
 
 var app = express();
 
@@ -67,6 +68,8 @@ app.use('/guias', permisos.estaLogueado, guiasRouter);
 app.use('/pedidos', permisos.estaLogueado, pedidosRouter);
 app.use('/visitas', visitasRouter);
 app.use('/exhibiciones', exhibicionesRouter);
+app.use('/replicas', replicasRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

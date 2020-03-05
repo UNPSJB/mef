@@ -25,7 +25,7 @@ module.exports = {
         return dino.findByPk(id)
             .then( (dinoEncontrado)=>{
                 //existe ? lo modifico
-                dinoEncontrado.destroy(dinoEncontrado);
+                return dinoEncontrado.destroy(dinoEncontrado);
             })//dino no existe
     }
 }

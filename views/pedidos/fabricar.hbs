@@ -4,7 +4,7 @@
     {{> replica/detalle detalles}}
     <label class="form-group" for="inicio">
         Fecha Inicio
-        <input class="form-control" type="date" name="fechainicio" id="InputFechaInicio" >
+        <input class="form-control" type="date" name="fechainicio" id="InputFechaInicio">
     </label>
     <label class="form-group" for="fin">
         Fecha Fin
@@ -55,10 +55,10 @@
                     arr.push(generateCheckbox(json[key].id, json[key].Persona.nombre, json[key].Persona.apellido))
                     arr.push("<br>")
                 }
-                console.log(arr.toString().replace(/[,]/gm,''));
-                contenedor.innerHTML = arr.toString().replace(/[,]/gm,'');
+                console.log(arr.toString().replace(/[,]/gm, ''));
+                contenedor.innerHTML = arr.toString().replace(/[,]/gm, '');
             })
-            
+
     });
 
     function generateCheckbox(id, nombre, apellido) {
@@ -74,9 +74,9 @@
         $("#InputFechaInicio").attr("min", hoy);
 
     })
-
-        $("#InputFechaInicio").change(function () {
-            document.getElementById("InputFechaFin").setAttribute("min", this.value);
+    //setea la fecha de inicio como mínima de la "Fecha Fin" 
+    $("#InputFechaInicio").change(function () {
+        document.getElementById("InputFechaFin").setAttribute("min", this.value);
     })
 
     function formatDate(date) {
@@ -93,4 +93,3 @@
         return [year, month, day].join('-');
     }
 </script>
-

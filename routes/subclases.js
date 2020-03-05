@@ -60,18 +60,15 @@ router.put('/', (req, res, next) => {
         });
 });
 
-router.delete('/', (req, res, next) => {
+router.delete('/', async (req, res) => {
     const { id } = req.body;
-    subclaseService.deleteSubclase(id)
-        .then(() => {
-            res.redirect('/subclases');
-        })
-        .catch(errores => {
-            subclaseService.getSubclase(id)
-                .then(subclase => {
-                    res.render("subclases/eliminar", { errores, subclase,req })
-                })
-        })
+    try {
+        await subclaseService.deleteSubclase(id)
+    } catch (errores ) {
+        const subclase = await subclaseService.getSubclase(id)
+        return res.render("subclases/eliminar", { errores, subclase,req })
+    }
+    return res.redirect('/subclases');
 });
 
 
