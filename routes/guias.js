@@ -13,6 +13,7 @@ router.get(
   permisos.permisoPara([permisos.ROLES.RRHH, permisos.ROLES.SECRETARIA]),
   (req, res, next) => {
     guiaService.getGuias().then(results => {
+      console.table(results);
       res.render("guias/guia", {
         results,
         req
@@ -24,23 +25,9 @@ router.get(
 router.get(
   "/agregar",
   permisos.permisoPara([permisos.ROLES.RRHH]),
-  (req, res, next) => {
-    // Busca las personas que no son guias
-    personaService.getPersonas().then(personas => {
-      guiaService.getGuias().then(guias => {
-        let noGuias = personas.filter(personaAux => {
-          let noGuiaAux = true;
-          guias.forEach(guiaAux => {
-            if (personaAux.id == guiaAux.Persona.id) {
-              noGuiaAux = false;
-            }
-          });
-          return noGuiaAux;
-        });
-
-        res.render("guias/agregar", { noGuias, req });
-      });
-    });
+  async (req, res, next) => {
+    var idiomas = await guiaService.getIdiomas();
+    res.render("guias/agregar", { req, idiomas });
   }
 );
 
@@ -71,14 +58,12 @@ router.get(
 router.post(
   "/",
   permisos.permisoPara([permisos.ROLES.RRHH]),
-  (req, res, next) => {
+  async (req, res, next) => {
     const {
       // tipo: exitente o nuevo
       dias_trabaja,
-      fecha_alta,
       horario_trabaja,
-      idiomaId,
-      personaid,
+      idiomas,
       identificacion,
       nombre,
       apellido,
@@ -89,13 +74,15 @@ router.post(
       telefono
     } = req.body;
     // IF NUEVO O EXITESTE
-    guiaService
-      .createGuia(
-        dias_trabaja,
-        fecha_alta,
-        horario_trabaja,
-        idiomaId,
-        personaid,
+    console.log(dias_trabaja);
+    var persona = null;
+    try {
+      persona = await personaService.getPersonaArgs({
+        where: { identificacion }
+      });
+    } catch (error) {
+      console.log("ERROR PERSONA GUIA"); // Crear Persona
+      persona = await personaService.createPersona(
         identificacion,
         nombre,
         apellido,
@@ -104,13 +91,16 @@ router.post(
         email,
         fecha_nacimiento,
         telefono
-      )
-      .then(() => {
-        res.redirect("/guias");
-      })
-      .catch(errores => {
-        res.render("guias/agregar", { errores, req });
-      });
+      );
+    }
+    await guiaService.createGuia(
+      dias_trabaja,
+      new Date(),
+      horario_trabaja,
+      idiomas,
+      persona.id
+    );
+    res.redirect("/guias");
   }
 );
 
@@ -124,49 +114,6 @@ router.put("/", permisos.permisoPara([permisos.ROLES.RRHH]), (req, res) => {
       res.render("guias/editar", { errores, guia, req });
     });
 });
-
-/*
-<<<<<<LUCAS>>>>>>> 
-
-router.put("/", (req, res, next) => {
-  const {
-    idPersona,
-    identificacion,
-    nombre,
-    apellido,
-    direccion,
-    localidad,
-    email,
-    fecha_nacimiento,
-    telefono
-  } = req.body;
-  const { idGuia } = req.body;
-  var personaBody = {
-    id: idPersona,
-    identificacion: identificacion,
-    nombre: nombre,
-    apellido: apellido,
-    direccion: direccion,
-    localidad: localidad,
-    email: email,
-    fecha_nacimiento: fecha_nacimiento,
-    telefono: telefono
-  };
-  var guiaBody = {
-    id: idguia
-  };
-
-  return guiaService.getGuia(idGuia).then(() => {
-    guiaService.updateGuia(guiaBody).then(() => {
-      personaService.getPersona(idPersona).then(() => {
-        personaService.updatePersona(personaBody).then(() => {
-          res.redirect("/guias");
-        });
-      });
-    });
-  });
-});
-*/
 
 router.delete(
   "/",

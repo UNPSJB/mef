@@ -7,13 +7,22 @@ let personaService = require("./persona");
 module.exports = {
   getGuias() {
     //{ tags }//aca se pide datos a la BD
-    return guia.findAll({ include: [persona] });
+    return guia.findAll({ include: [persona] }).then( guias => {
+      return Promise.all(
+        guias.map(async guia => {
+          var idiomas = await guia.getIdiomas();
+          guia.idiomas = idiomas;
+          return guia;
+        })
+      );
+    });
   },
   getGuia(id) {
     return guia.findByPk(id, { include: [persona] });
   },
   // CREATE para Existentes
-  createGuia(dias_trabaja, fecha_alta, horario_trabaja, idiomasId, PersonaId) {
+  createGuia(dias_trabaja, fecha_alta, horario_trabaja, idiomas, PersonaId) {
+    var idiomas = [...idiomas];
     return guia
       .create({
         dias_trabaja,
@@ -22,29 +31,9 @@ module.exports = {
         PersonaId
       })
       .then(guia => {
-        idiomasId.array.forEach(IdiomaId => {
-          models.IdiomaGuia.create({
-            IdiomaId,
-            GuiaId: guia.id
-          });
+        guia.setIdiomas(idiomas);
         });
-      });
   },
-  // PUEDE QUE NO VAYA
-
-  //   asignarAExhibicion(exhibicionId, guiaId) {
-  //     return exhibicion.findByPk(pedidoId).then(exhibicionNueva => {
-  //       return guia.findByPk(guiaId).then(guia => {
-  //         return guia.getExhibiciones().then(exhibicioesActivas => {
-  //           exhibicioesActivas.push(exhibicionNueva);
-  //           return empleado.setExhibiciones(exhibicioesActivas);
-  //         });
-  //       });
-  //     });
-  //   },
-  //   getExhibicionesActivas(guiaId) {
-  //     return guia.getPedidos();
-  //   },
 
   // CREATE para Nuevos
   createGuias(
@@ -82,6 +71,10 @@ module.exports = {
         );
       });
   },
+  getIdiomas() {
+    return models.Idioma.findAll();
+  }
+  ,
   /* 
     guia.Set.Idiomas( array_of_idiomas )
     .then(

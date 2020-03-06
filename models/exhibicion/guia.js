@@ -9,14 +9,16 @@ module.exports = (sequelize, DataTypes) => {
   const Guia = sequelize.define("Guia", {
     dias_trabaja: {
       type: DataTypes.ENUM,
-      values: ["Normal", "Franquero"]
+      values: ["Normal", "Franquero"],
+      defaultValue: "Normal"
     },
     fecha_alta: {
       type: DataTypes.DATEONLY
     },
     horario_trabaja: {
         type: DataTypes.ENUM,
-        values: ["Diurno", "Nocturno"]
+        values: ["Diurno", "Nocturno"],
+        defaultValue: "Diurno"
     },
     PersonaId: {
       type: DataTypes.INTEGER,
