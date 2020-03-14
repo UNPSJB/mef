@@ -3,6 +3,8 @@ const router = express.Router();
 const permisos = require("../auth/permisos");
 const guiaService = require("../services/guia.js");
 const personaService = require("../services/persona.js");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 //lista todos los Guias
 /*
@@ -36,7 +38,16 @@ router.get(
   permisos.permisoPara([permisos.ROLES.RRHH]),
   async (req, res, next) => {
     const guia = await guiaService.getGuia(req.params.id);
-    res.render("guias/editar", { guia, req });
+    const idiomasGuia = await guia.getIdiomas();
+    const IDidiomasGuia = idiomasGuia.map(item => {
+      return item.dataValues.id;
+    });
+    const idioma = await guiaService.getIdiomas({
+      id: { [Op.notIn]: [...IDidiomasGuia] }
+    });
+    console.table(idiomasGuia);
+    console.log(IDidiomasGuia);
+    res.render("guias/editar", { guia, req, idioma, idiomasGuia });
   }
 );
 
@@ -105,15 +116,50 @@ router.post(
 );
 
 //actualizar la lista de idiomas por separado
-router.put("/", permisos.permisoPara([permisos.ROLES.RRHH]), (req, res) => {
-  guiaService
-    .updateGuia(req.body)
-    .then(() => res.redirect("/guias"))
-    .catch(errores => {
-      const guia = req.body;
-      res.render("guias/editar", { errores, guia, req });
+router.put(
+  "/",
+  permisos.permisoPara([permisos.ROLES.RRHH]),
+  async (req, res, next) => {
+    const {
+      // tipo: exitente o nuevo
+      idGuia,
+      idPersona,
+      dias_trabaja,
+      horario_trabaja,
+      idiomas,
+      identificacion,
+      nombre,
+      apellido,
+      direccion,
+      localidad,
+      email,
+      fecha_nacimiento,
+      telefono
+    } = req.body;
+
+    await guiaService.updateGuia({
+      id: idGuia,
+      dias_trabaja,
+      horario_trabaja
     });
-});
+
+    const guia = await guiaService.getGuia(idGuia);
+
+    await guia.setIdiomas([  ...idiomas]);
+    await personaService.updatePersona({
+      id: idPersona,
+      identificacion,
+      nombre,
+      apellido,
+      direccion,
+      localidad,
+      email,
+      fecha_nacimiento,
+      telefono
+    });
+    res.redirect("/guias");
+  }
+);
 
 router.delete(
   "/",

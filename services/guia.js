@@ -7,7 +7,7 @@ let personaService = require("./persona");
 module.exports = {
   getGuias() {
     //{ tags }//aca se pide datos a la BD
-    return guia.findAll({ include: [persona] }).then( guias => {
+    return guia.findAll({ include: [persona] }).then(guias => {
       return Promise.all(
         guias.map(async guia => {
           var idiomas = await guia.getIdiomas();
@@ -32,7 +32,7 @@ module.exports = {
       })
       .then(guia => {
         guia.setIdiomas(idiomas);
-        });
+      });
   },
 
   // CREATE para Nuevos
@@ -71,16 +71,13 @@ module.exports = {
         );
       });
   },
-  getIdiomas() {
-    return models.Idioma.findAll();
-  }
-  ,
-  /* 
-    guia.Set.Idiomas( array_of_idiomas )
-    .then(
-      IdiomasGuia.setIdiomas( array_of_idiomas ) 
-    )
-  */
+  getIdiomas(args) {
+    return models.Idioma.findAll({
+      where: {
+        ...args
+      }
+    });
+  },
   updateGuia(guiaReq) {
     return guia.upsert(guiaReq);
   },
