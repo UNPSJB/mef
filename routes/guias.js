@@ -3,6 +3,8 @@ const router = express.Router();
 const permisos = require("../auth/permisos");
 const guiaService = require("../services/guia.js");
 const personaService = require("../services/persona.js");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 //lista todos los Guias
 /*
@@ -13,8 +15,10 @@ router.get(
   permisos.permisoPara([permisos.ROLES.RRHH, permisos.ROLES.SECRETARIA]),
   (req, res, next) => {
     guiaService.getGuias().then(results => {
+      console.table(results);
       res.render("guias/guia", {
-        results,req
+        results,
+        req
       });
     });
   }
@@ -23,23 +27,9 @@ router.get(
 router.get(
   "/agregar",
   permisos.permisoPara([permisos.ROLES.RRHH]),
-  (req, res, next) => {
-    // Busca las personas que no son guias
-    personaService.getPersonas().then(personas => {
-      guiaService.getGuias().then(guias => {
-        let noGuias = personas.filter(personaAux => {
-          let noGuiaAux = true;
-          guias.forEach(guiaAux => {
-            if (personaAux.id == guiaAux.Persona.id) {
-              noGuiaAux = false;
-            }
-          });
-          return noGuiaAux;
-        });
-
-        res.render("guias/agregar", { noGuias,req });
-      });
-    });
+  async (req, res, next) => {
+    var idiomas = await guiaService.getIdiomas();
+    res.render("guias/agregar", { req, idiomas });
   }
 );
 
@@ -48,7 +38,16 @@ router.get(
   permisos.permisoPara([permisos.ROLES.RRHH]),
   async (req, res, next) => {
     const guia = await guiaService.getGuia(req.params.id);
-    res.render("guias/editar", { guia,req });
+    const idiomasGuia = await guia.getIdiomas();
+    const IDidiomasGuia = idiomasGuia.map(item => {
+      return item.dataValues.id;
+    });
+    const idioma = await guiaService.getIdiomas({
+      id: { [Op.notIn]: [...IDidiomasGuia] }
+    });
+    console.table(idiomasGuia);
+    console.log(IDidiomasGuia);
+    res.render("guias/editar", { guia, req, idioma, idiomasGuia });
   }
 );
 
@@ -56,15 +55,11 @@ router.get(
   "/eliminar/:id",
   permisos.permisoPara([permisos.ROLES.RRHH]),
   (req, res, next) => {
-    guiaService
-      .getGuia(req.params.id)
-      .then(guia => {
-        res.render("guias/eliminar", { guia ,req});
-      })
-      
+    guiaService.getGuia(req.params.id).then(guia => {
+      res.render("guias/eliminar", { guia, req });
+    });
   }
 );
-
 
 /*
   Script en CLIENTE
@@ -74,14 +69,12 @@ router.get(
 router.post(
   "/",
   permisos.permisoPara([permisos.ROLES.RRHH]),
-  (req, res, next) => {
+  async (req, res, next) => {
     const {
       // tipo: exitente o nuevo
       dias_trabaja,
-      fecha_alta,
       horario_trabaja,
-      idiomaId,
-      personaid,
+      idiomas,
       identificacion,
       nombre,
       apellido,
@@ -91,14 +84,16 @@ router.post(
       fecha_nacimiento,
       telefono
     } = req.body;
-// IF NUEVO O EXITESTE
-    guiaService
-      .createGuia(
-        dias_trabaja,
-        fecha_alta,
-        horario_trabaja,
-        idiomaId,
-        personaid,
+    // IF NUEVO O EXITESTE
+    console.log(dias_trabaja);
+    var persona = null;
+    try {
+      persona = await personaService.getPersonaArgs({
+        where: { identificacion }
+      });
+    } catch (error) {
+      console.log("ERROR PERSONA GUIA"); // Crear Persona
+      persona = await personaService.createPersona(
         identificacion,
         nombre,
         apellido,
@@ -107,69 +102,64 @@ router.post(
         email,
         fecha_nacimiento,
         telefono
-      )
-      .then(() => {
-        res.redirect("/guias");
-      })
-      .catch(errores => {
-        res.render("guias/agregar", { errores,req });
-      });
+      );
+    }
+    await guiaService.createGuia(
+      dias_trabaja,
+      new Date(),
+      horario_trabaja,
+      idiomas,
+      persona.id
+    );
+    res.redirect("/guias");
   }
 );
 
 //actualizar la lista de idiomas por separado
-router.put("/", permisos.permisoPara([permisos.ROLES.RRHH]), (req, res) => {
-  guiaService
-    .updateGuia(req.body)
-    .then(() => res.redirect("/guias"))
-    .catch(errores => {
-      const guia = req.body;
-      res.render("guias/editar", { errores, guia,req });
+router.put(
+  "/",
+  permisos.permisoPara([permisos.ROLES.RRHH]),
+  async (req, res, next) => {
+    const {
+      // tipo: exitente o nuevo
+      idGuia,
+      idPersona,
+      dias_trabaja,
+      horario_trabaja,
+      idiomas,
+      identificacion,
+      nombre,
+      apellido,
+      direccion,
+      localidad,
+      email,
+      fecha_nacimiento,
+      telefono
+    } = req.body;
+
+    await guiaService.updateGuia({
+      id: idGuia,
+      dias_trabaja,
+      horario_trabaja
     });
-});
 
-/*
-<<<<<<LUCAS>>>>>>> 
+    const guia = await guiaService.getGuia(idGuia);
 
-router.put("/", (req, res, next) => {
-  const {
-    idPersona,
-    identificacion,
-    nombre,
-    apellido,
-    direccion,
-    localidad,
-    email,
-    fecha_nacimiento,
-    telefono
-  } = req.body;
-  const { idGuia } = req.body;
-  var personaBody = {
-    id: idPersona,
-    identificacion: identificacion,
-    nombre: nombre,
-    apellido: apellido,
-    direccion: direccion,
-    localidad: localidad,
-    email: email,
-    fecha_nacimiento: fecha_nacimiento,
-    telefono: telefono
-  };
-  var guiaBody = {
-    id: idguia
-  };
-
-  return guiaService.getGuia(idGuia).then(() => {
-    guiaService.updateGuia(guiaBody).then(() => {
-      personaService.getPersona(idPersona).then(() => {
-        personaService.updatePersona(personaBody).then(() => {
-          res.redirect("/guias");
-        });
-      });
+    await guia.setIdiomas([  ...idiomas]);
+    await personaService.updatePersona({
+      id: idPersona,
+      identificacion,
+      nombre,
+      apellido,
+      direccion,
+      localidad,
+      email,
+      fecha_nacimiento,
+      telefono
     });
-  });
-});
-*/
+    res.redirect("/guias");
+  }
+);
 
 router.delete(
   "/",
@@ -181,7 +171,7 @@ router.delete(
       return res.redirect("/guias");
     } catch (error) {
       guiaService.getGuia(id).then(guia => {
-        res.render("guias/eliminar", { error, guia,req });
+        res.render("guias/eliminar", { error, guia, req });
       });
     }
   }
