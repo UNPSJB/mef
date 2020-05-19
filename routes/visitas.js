@@ -1,87 +1,58 @@
 const express = require('express');
 const router = express.Router();
 const visitaService = require('../services/visita');
-
-//lista todas las visitas
-router.get('/', (req, res, next) => {
-    visitaService.getVisitas().then((results) => {
-        res.render('visitas/visita', {
-            results,req
-        });
-    });
-});
+const exhibicionService = require('../services/exhibicion')
+const clienteService = require('../services/cliente')
+const guiaService = require('../services/guia')
 
 //lista todos las visitas
-router.get('/', (req, res, next) => {
-    visitaService.getVisitas().then((results) => {
-        res.render('visitas/visita', {
-            results,req
-        });
-    });
+router.get('/', async (req, res) => {
+    const visitas = await visitaService.getVisitas()
+    console.log(visitas)
+    res.render('visitas/visita', { results:visitas , req });
 });
 
-router.get('/agregar', (req, res, next) => {
-    res.render('visitas/agregar',{req});
-    /* Falta esto */
-    /* Falta esto */
-    /* Falta esto */
-    /* Falta esto */
-    /* Falta esto */
-    /* Falta esto */
-    /* Falta esto */
-    /* Falta esto */
-    /* Falta esto */
-    /* Falta esto */
-    /* Falta esto */
+router.get('/agregar', async (req, res) => {
+    const exhibiciones = await exhibicionService.getExhibiciones()
+    const clientes = await clienteService.getClientes()
+    const guias = await guiaService.getGuias()
+    res.render('visitas/agregar',{exhibiciones, clientes, guias, req});
 });
 
-router.get('/editar', (req, res, next) => {
-    visitaService.getvisita(req.query.id)
-        .then((visita) => {
-            res.render('visitas/editar', { visita,req });
+router.get('/editar/:id', async (req, res) => {
+    const { id } = req.params
+    const exhibiciones = await exhibicionService.getExhibiciones()
+    const clientes = await clienteService.getClientes()
+    const guias = await guiaService.getGuias()
+    const visita = await visitaService.getVisita(id)
+    res.render('visitas/editar', { visita, exhibiciones, clientes, guias, req });
+})
+
+router.get('/eliminar/:id', async (req, res) => {
+    const { id } = req.params;
+    const visita = await visitaService.getVisita(id)
+    res.render('visitas/eliminar', { visita, req });
+});
+
+router.post('/', async (req, res) => {
+    const {exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio} = req.body
+    const visita = await visitaService.createVisita(exhibicionId,clienteId, guiaId, cantidadPersonas, fecha, horario, precio)
+    res.redirect('/visitas')
+});
+
+router.put('/', async (req, res) => {
+    const {id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio} = req.body
+
+    return visitaService.updateVisita(id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio)
+        .then(visita => {
+            console.log('actualizado', visita)
+            res.redirect('/visitas');
         })
 })
 
-router.get('/eliminar', (req, res, next) => {
-    const { id } = req.query;
-    visitaService.getVisita(id)
-        .then((visita) => {
-            res.render('visitas/eliminar', { visita,req });
-        })
-});
-
-router.post('/', (req, res, next) => {
-    const { identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, personaid, tipo } = req.body;
-    if (tipo == 'nuevo') {
-        return clienteService.createCliente(tipoCliente, identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
-            .then(() => { res.redirect('/visitas') })
-            .catch(errores => {
-                res.render('visitas/agregar', { errores,req });
-            });
-    }
-});
-
-router.put('/', (req, res, next) => {
-    const { idVisita, identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono } = req.body;
-    var personaBody = {
-        "id": idVisita,
-    }
-    var visitaBody = {
-        "id": idVisita,
-    }
-
-    return visitaService.getVisita(idVisita)
-        .then(() => {
-            visitaService.updateVisita(visitaBody)
-                .then(() => {
-                    res.redirect('/visitas');
-                })
-        })
-})
-
-router.delete('/', (req, res, next) => {
+router.delete('/', (req, res) => {
     const { id } = req.body;
-    visitaService.deletevisita(id)
+    visitaService.deleteVisita(id)
         .then(() => {
             res.redirect('/visitas')
         });

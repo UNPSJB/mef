@@ -1,5 +1,5 @@
 <h1>Eliminar Cliente</h1>
-<div class="alert alert-danger mt-4">Segure que queres borrar esto ?</div>
+<div class="alert alert-danger mt-4">Seguro que queres borrar esto ?</div>
  <table class="table">
      <thead>
         <th scope="col">Exhibición</th>    
@@ -12,13 +12,13 @@
         </thead>
     <tbody>
         <tr>
-            <th>{{Exhibicion.identificacion}}</th>    
-            <th>{{Cliente.identificacion}}</th>
-            <th>{{Guia.identificacion}}</th>
-            <th>{{Visita.cantidad_personas}}</th>
-            <th>{{Visita.Fecha}}</th>
-            <th>{{Visita.Horario}}</th>
-            <th>{{Visita.Precio}}</th>
+            <td>{{visita.Exhibicion.tematica}} | {{visita.Exhibicion.nombre}}</td>    
+            <td>{{visita.Cliente.Persona.identificacion}} | {{visita.Cliente.Persona.nombre}} {{visita.Cliente.Persona.apellido}}</td>
+            <td>{{visita.Guium.Persona.identificacion}} | {{visita.Guium.Persona.nombre}} {{visita.Guium.Persona.apellido}}</td>
+            <td>{{visita.cantidadDePersonas}}</td>
+            <td>{{visita.fechaVisita}}</td>
+            <td>{{visita.horario}}</td>
+            <td>{{visita.precio}}</td>
         </tr>
     </tbody>
  </table>

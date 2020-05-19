@@ -8,44 +8,39 @@
         <div class="container">
           <div class="row">
             <div class="col-6 pb-2">
-              <label class="font-weight-bold" for="ExhibicionId">
-                Exhibición
-              </label>
-              <select class="empleado form-empleado form-control" name="identificacion"
-                id="InputIdentificacion" placeholder="Ingrese Exhibición" required {{#if this}} value="{{this.tipo }}"
-                {{/if}}>
+              <label class="font-weight-bold" for="exhibicionId">Exhibición</label>
+              <select class="form-control" name="exhibicionId" placeholder="Ingrese Exhibición" required>
+                {{#each exhibiciones}}
+                <option value="{{this.id}}">{{this.tematica}} | {{this.nombre}}</option>
+                {{else}}
+                <option value="">No hay exhibiciones disponibles</option>
+                {{/each}}
               </select>
-              <label class="font-weight-bold" for="nombre">
-                Cliente
-              </label>
-              <select class="empleado form-empleado form-control" name="nombre" id="InputNombre"
-                placeholder="Ingrese Cliente" required {{#if this}}value="{{this.nombre}}" {{/if}}>
+              <label class="font-weight-bold" for="clienteId">Cliente</label>
+              <select class="form-control" name="clienteId" placeholder="Ingrese Cliente" required>
+                {{#each clientes}}
+                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}} {{this.Persona.apellido}}</option>
+                {{else}}
+                <option value="">No hay clientes disponibles</option>
+                {{/each}}
               </select>
-              <label class="font-weight-bold" for="apellido">
-                Guia
-              </label>
-              <select class="empleado form-empleado form-control" name="apellido" id="InputApellido"
-                placeholder="Ingrese Guia" required {{#if this}}value="{{this.apellido}}" {{/if}}>
+              <label class="font-weight-bold" for="guiaId">Guia</label>
+              <select class="form-control" name="guiaId" placeholder="Ingrese Guia" required>
+                {{#each guias}}
+                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}} {{this.Persona.apellido}}</option>
+                {{else}}
+                <option value="">No hay guias disponibles</option>               
+                {{/each}}
               </select>
-              <label class="font-weight-bold" for="direccion">
-                Cantidad de Personas
-              </label>
-              <input type="text" class="empleado form-empleado form-control" name="direccion" id="InputDireccion"
-                placeholder="Ingrese Cantidad de Personas" required {{#if this}}value="{{this.direccion}}" {{/if}}>
-
+              <label class="font-weight-bold" for="cantidadPersonas">Cantidad de Personas</label>
+              <input type="text" class=" form-control" name="cantidadPersonas" placeholder="Ingrese Cantidad de Personas" required>
             </div>
             <div class="col-6">
-              
-              <label class="font-weight-bold" for="localidad">
-                Fecha
-              </label>
-              <input type="date" class="form-empleado form-control" name="localidad" id="InputLocalidad"
-                placeholder="Ingrese Fecha" required {{#if this}}value="{{this.localidad}}" {{/if}}>
-             
-              <label class="font-weight-bold" for="email">
-                Horario
-              </label>
-              <select class= "form-control" name="Horario" id="">
+              <label class="font-weight-bold" for="fecha">Fecha</label>
+              <input type="date" class="form-control" name="fecha" placeholder="Ingrese Fecha" required>
+            
+              <label class="font-weight-bold" for="email">Horario</label>
+              <select class= "form-control" name="horario" required>
                 <option value="9">
                   09:00hs
                 </option>
@@ -79,15 +74,14 @@
 
               </select>
               
-              <label class="font-weight-bold" for="fechaNacimiento">
-                Precio
-              </label>
-              <input class="form-control" type="number" name="precio" placeholder="Ingrese el Precio de la Visita Guiada">
-
+              <label class="font-weight-bold" for="precio">Precio</label>
+              <input class="form-control" type="number" name="precio" placeholder="Ingrese el Precio de la Visita Guiada" required>
             </div>
           </div>
           <div class="row">
-            <button type="submit" class="btn btn-primary">Agregar Visita!</button>
+            <div class="col">
+              <button type="submit" class="btn btn-primary">Agregar Visita!</button>
+            </div>
           </div>
         </div>
       </div>

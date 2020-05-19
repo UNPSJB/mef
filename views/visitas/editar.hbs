@@ -1,76 +1,92 @@
 <div class="container">
-  <form class="pt-3" action="/visitas?_method=PUT" method="POST">
+  <form action="/visitas?_method=PUT" method="POST">
     <div class="card mt-4">
       <div class="card-header text-center bg-dark text-white" id="agregarVisitaModalLabel">
         <h1>Editar Visita</h1>
       </div>
-      <div class="card-body"> cliente
+      <div class="card-body">
         <div class="container">
           <div class="row">
             <div class="col-6 pb-2">
-              <label class="font-weight-bold" for="ExhibicionId">
-                Exhibición
-              </label>
-              <label class="font-weight-bold" for="ClienteId">
-                Nombre
-              </label>
-              <input type="text" class="form-empleado form-control" name="nombre" id="InputNombre"
-                placeholder="Ingrese Nombre" required {{#if cliente}}value="{{cliente.Persona.nombre}}" {{/if}}>
-              <label class="font-weight-bold" for="apellido">
-                Apellido
-              </label>
-              <input type="text" class="form-empleado form-control" name="apellido" id="InputApellido"
-                placeholder="Ingrese Apellido" required {{#if cliente}}value="{{cliente.Persona.apellido}}" {{/if}}>
-              <label class="font-weight-bold" for="direccion">
-                Direccion
-              </label>
-              <input type="text" class="form-empleado form-control" name="direccion" id="InputDireccion"
-                placeholder="Ingrese Direccion" required {{#if cliente}}value="{{cliente.Persona.direccion}}" {{/if}}>
-
+              <label class="font-weight-bold" for="exhibicionId">Exhibición</label>
+              <select class="form-control" name="exhibicionId" placeholder="Ingrese Exhibición" required>
+                <option value="{{visita.ExhibicionId}}" selected> {{visita.Exhibicion.tematica}} | {{visita.Exhibicion.nombre}}</option>
+                {{#each exhibiciones}}
+                <option value="{{this.id}}">{{this.tematica}} | {{this.nombre}}</option>
+                {{else}}
+                <option value="">No hay exhibiciones disponibles</option>
+                {{/each}}
+              </select>
+              <label class="font-weight-bold" for="clienteId">Cliente</label>
+              <select class="form-control" name="clienteId" placeholder="Ingrese Cliente" required>
+                <option value="{{visita.ClienteId}}">{{visita.Cliente.Persona.identificacion}} | {{visita.Cliente.Persona.nombre}} {{visita.Cliente.Persona.apellido}}</option>
+                {{#each clientes}}
+                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}} {{this.Persona.apellido}}</option>
+                {{else}}
+                <option value="">No hay clientes disponibles</option>
+                {{/each}}
+              </select>
+              <label class="font-weight-bold" for="guiaId">Guia</label>
+              <select class="form-control" name="guiaId" placeholder="Ingrese Guia" required>
+                <option value="{{visita.GuiumId}}" selected>{{visita.Guium.Persona.identificacion}} | {{visita.Guium.Persona.nombre}} {{visita.Guium.Persona.apellido}}</option>
+                {{#each guias}}
+                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}} {{this.Persona.apellido}}</option>
+                {{else}}
+                <option value="">No hay guias disponibles</option>               
+                {{/each}}
+              </select>
+              <label class="font-weight-bold" for="cantidadPersonas">Cantidad de Personas</label>
+              <input type="text" class=" form-control" name="cantidadPersonas" placeholder="Ingrese Cantidad de Personas" value="{{visita.cantidadDePersonas}}" required>
             </div>
             <div class="col-6">
-              <label class="font-weight-bold" for="localidad">
-                Localidad
-              </label>
-              <input type="text" class="form-empleado form-control" name="localidad" id="InputLocalidad"
-                placeholder="Ingrese Localidad" required {{#if cliente}}value="{{cliente.Persona.localidad}}" {{/if}}>
-              <label class="font-weight-bold" for="email">
-                Email
-              </label>
-              <input type="email" class="form-empleado form-control" name="email" id="InputEmail"
-                placeholder="Ingrese Email" required {{#if cliente}}value="{{cliente.Persona.email}}" {{/if}}>
-              <label class="font-weight-bold" for="fechaNacimiento">
-                Fecha Nacimiento
-              </label>
-              <br>
-              <input type="date" class="form-empleado form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
-                required {{#if cliente}}value="{{cliente.Persona.fecha_nacimiento}}" {{/if}}>
-              <br>
-              <label class="font-weight-bold" for="InputTelefono">
-                Telefono
-              </label>
-              <small>
-                xxx - xx - xxx
-              </small>
-              <input type="tel" class="form-empleado form-control" name="telefono" id="InputTelefono"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Ingrese Telefono" required
-                {{#if cliente}}value="{{cliente.Persona.telefono}}" {{/if}}>
+              <label class="font-weight-bold" for="fecha">Fecha</label>
+              <input type="date" class="form-control" name="fecha" placeholder="Ingrese Fecha" value="{{visita.fechaVisita}}" required>
+            
+              <label class="font-weight-bold" for="email">Horario</label>
+              <select class= "form-control" name="horario" >
+                <option value="{{visita.horario}}" selected>{{visita.horario}}:00 hs</option>
+                <option value="9">
+                  09:00hs
+                </option>
+                <option  value="10">
+                  10:00hs
+                </option>
+                <option  value="11">
+                  11:00hs
+                </option>
+                <option  value="12">
+                  12:00hs
+                </option>
+                <option  value="13">
+                  13:00hs
+                </option>
+                <option  value="14">
+                  14:00hs
+                </option>
+                <option  value="15">
+                  15:00hs
+                </option>
+                <option  value="16">
+                  16:00hs
+                </option>
+                <option  value="17">
+                  17:00hs
+                </option>
+                <option  value="18">
+                  18:00hs
+                </option>
 
-              <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="tipoCliente" id="option1" value="Particular" autocomplete="off" required>
-                Particular
-              </label>
-              <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="tipoCliente" id="option2" value="Institucional" autocomplete="off">
-                Institucional
-              </label>
-              {{#if cliente}}<input name="idCliente" type="number" value="{{cliente.id}}" hidden> {{/if}}
-              {{#if cliente}}<input name="idPersona" type="number" value="{{cliente.Persona.id}}" hidden> {{/if}}
-              </label>
+              </select>
+              
+              <label class="font-weight-bold" for="precio">Precio</label>
+              <input class="form-control" type="number" name="precio" value="{{visita.precio}}" placeholder="Ingrese el Precio de la Visita Guiada" required>
             </div>
           </div>
           <div class="row">
-            <button type="submit" class="btn btn-primary">Editar Cliente!</button>
+            <div class="col">
+              <input type="hidden" name="id" value="{{visita.id}}">
+              <button type="submit" class="btn btn-primary">Agregar Visita!</button>
+            </div>
           </div>
         </div>
       </div>

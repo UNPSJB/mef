@@ -1,38 +1,53 @@
 const models = require('../models');
-let visita = models.Visita;
 
 module.exports = {
     getVisitas(args){
-        return visita.findAll({
+        return models.Visita.findAll({
             where:{
                 ...args
-            }
+            },
+            include: [{model: models.Cliente, include: models.Persona}, {model: models.Guia, include: models.Persona}, {model: models.Exhibicion}]
         });
     },
     getVisita( id ){
-        return visita.findByPk(id);
+        return models.Visita.findOne({
+            where:{
+                id
+            },
+            include: [{model: models.Cliente, include: models.Persona}, {model: models.Guia, include: models.Persona}, {model: models.Exhibicion}]
+        });
     },
-    
-    
-    
-   createVisita(ExhibicionId, ClienteId, GuiaId, cantidad_personas, fecha, horario, precio){
-        return visita.create({
+    createVisita(ExhibicionId, ClienteId, GuiumId, cantidadDePersonas, fechaVisita, horario, precio){
+        return models.Visita.create({
             ExhibicionId,
             ClienteId,
-            GuiaId,
-            cantidad_personas,
-            fecha,
+            GuiumId,
+            cantidadDePersonas,
+            fechaVisita,
             horario,
-            precio, 
+            precio,
+            cancelada:false
         })
     },
-    updateVisita(visitaReq){
-        return visita.upsert(visitaReq);
+    updateVisita(id, ExhibicionId, ClienteId, GuiumId, cantidadDePersonas, fechaVisita, horario, precio, cancelada = false){
+        return models.Visita.findByPk(id)
+            .then(visit => {
+                return visit.update({
+                    ExhibicionId,
+                    ClienteId,
+                    GuiumId,
+                    cantidadDePersonas,
+                    fechaVisita,
+                    horario,
+                    precio,
+                    cancelada                    
+                })
+            });
     },
     deleteVisita(id){
-        return visita.findByPk(id)
-            .then( (visitaEncontrado) => {
-                visitaEncontrado.destroy(visitaEncontrado);
+        return models.Visita.findByPk(id)
+            .then( (visita) => {
+                visita.destroy();
             })
             
     }
