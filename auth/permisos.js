@@ -95,7 +95,7 @@ module.exports = {
             if(args.includes(req.session.rol)){
                 return next(); //tiene session y permiso
             }else{
-                console.log('no estas logueado');
+                console.log('No estas logueado');
                 return res.redirect('/403');
             }
         }

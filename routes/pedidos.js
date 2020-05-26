@@ -160,7 +160,6 @@ schedule.scheduleJob('*/3 * * * *', async function(){ //cada cinco segundo
             }
         });
     })
-    // console.log(await pedidosService.getPresupuestados())
 })
 
 module.exports = router;

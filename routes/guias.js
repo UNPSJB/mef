@@ -45,8 +45,6 @@ router.get(
     const idioma = await guiaService.getIdiomas({
       id: { [Op.notIn]: [...IDidiomasGuia] }
     });
-    console.table(idiomasGuia);
-    console.log(IDidiomasGuia);
     res.render("guias/editar", { guia, req, idioma, idiomasGuia });
   }
 );
@@ -85,14 +83,12 @@ router.post(
       telefono
     } = req.body;
     // IF NUEVO O EXITESTE
-    console.log(dias_trabaja);
     var persona = null;
     try {
       persona = await personaService.getPersonaArgs({
         where: { identificacion }
       });
     } catch (error) {
-      console.log("ERROR PERSONA GUIA"); // Crear Persona
       persona = await personaService.createPersona(
         identificacion,
         nombre,

@@ -19,7 +19,6 @@ module.exports = (sequelize,DataTypes) => {
     class Pedido extends Sequelize.Model {
         async hacer(func, args){
             const estado = await this.estado;
-            console.log('estado:',estado.dataValues, 'funcion', func, '@',this.id);
             const res = await estado[func](this,args);//this es el pedido, args es el formulario [si lo hay] de el req.body
             return res;
         }
