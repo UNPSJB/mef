@@ -13,14 +13,14 @@ const Op = Sequelize.Op;
 router.get(
   "/",
   permisos.permisoPara([permisos.ROLES.RRHH, permisos.ROLES.SECRETARIA]),
-  (req, res, next) => {
-    guiaService.getGuias().then(results => {
-      console.table(results);
-      res.render("guias/guia", {
-        results,
-        req
-      });
-    });
+  async (req, res, ) => {
+    let { page, size } = req.query
+    if(!page || !size){
+      page = 1
+      size = 10
+    }
+    const results = await guiaService.getGuias(page, size)
+    res.render("guias/guia", {results,req});
   }
 );
 

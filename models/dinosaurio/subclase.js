@@ -14,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       values: ["Saurisquio", "Ornitisquio"]
     },
-  }, {});
+  }, {
+    paranoid:true
+  });
   SubClase.associate = function(models) {
   };
   return SubClase;

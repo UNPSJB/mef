@@ -31,7 +31,10 @@ module.exports = (sequelize, DataTypes) =>{
             defaultValue: new Date(),
             allowNull:false
         }
-    },{sequelize});
+    },{
+        paranoid:true,
+        sequelize
+    });
     Finalizado.associate = function (models){
         models.Finalizado.belongsTo(models.Pedido);
     }

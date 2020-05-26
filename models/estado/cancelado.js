@@ -26,7 +26,10 @@ module.exports = (sequelize, DataTypes) => {
                 key:'id'
             }
         } 
-    },{sequelize});
+    },{
+        paranoid:true,
+        sequelize
+    });
 
     return Cancelado;
 }

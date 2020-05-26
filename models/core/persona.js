@@ -17,6 +17,8 @@ module.exports = (sequelize,DataTypes) =>{
         email:DataTypes.STRING,
         fecha_nacimiento: DataTypes.DATEONLY,
         telefono: DataTypes.STRING
+    }, {
+        paranoid:true
     })
 
     Persona.associate = function(models){
@@ -28,8 +30,6 @@ module.exports = (sequelize,DataTypes) =>{
         models.User.belongsTo(models.Persona);
         models.Guia.belongsTo(models.Persona);
         models.Persona.hasMany(models.Guia);
-        models.Idioma.belongsToMany(models.Guia, { through: "IdiomaGuia" });
-        models.Guia.belongsToMany(models.Idioma, { through: "IdiomaGuia" });
         models.Visita.belongsTo(models.Cliente)
         models.Guia.hasMany(models.Visita)
         models.Visita.belongsTo(models.Guia)

@@ -6,8 +6,9 @@ const personaService = require('../services/persona.js');
 //lista todos los clientes
 router.get('/',(req, res, next) => {
     clienteService.getClientes().then((results)=>{
+        console.log(results)
         res.render('clientes/cliente',{
-            results,req
+            results: results.rows,req
         });
     });
 });

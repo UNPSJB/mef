@@ -6,7 +6,7 @@ let personaService = require("./persona");
 module.exports = {
   getClientes() {
     //{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
-    return cliente.findAll({ include: [persona] });
+    return cliente.findAndCountAll({ include: [persona], limit:12, offset:0 });
   },
   getCliente(id) {
     return cliente.findByPk(id, { include: [persona] });

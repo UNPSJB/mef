@@ -24,7 +24,10 @@ module.exports = (sequelize, DataTypes) =>{
             defaultValue: new Date(),
             allowNull:false
         }
-    },{sequelize});
+    },{
+        paranoid:true,
+        sequelize
+    });
     Facturado.associate = function(models){
         Facturado.belongsTo(models.Pedido);
     }

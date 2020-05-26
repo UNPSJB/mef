@@ -1,11 +1,6 @@
-// Persona (#54 )
-// Fecha de alta
-// Días en que trabaja
-// Horario de trabajo
-// Idiomas [1..n]
-
-"use strict";
+'use strict'
 module.exports = (sequelize, DataTypes) => {
+  const IdiomaGuia = sequelize.define('IdiomaGuia',{},{ paranoid:true })
   const Guia = sequelize.define("Guia", {
     dias_trabaja: {
       type: DataTypes.ENUM,
@@ -31,9 +26,18 @@ module.exports = (sequelize, DataTypes) => {
         msg: "Ya existe un Guia con ese Documento"
       }
     }
+  },{
+    paranoid:true
   });
+  Guia.associate = function(models) {
+    models.Idioma.belongsToMany(models.Guia, { 
+      through:IdiomaGuia 
+    });
+    models.Guia.belongsToMany(models.Idioma, { 
+        through:IdiomaGuia 
+    });
+  }
   return Guia;
 };
-
 // Un GUIA puede estar en muchas VISITAS GUIADAS
 // y muchas VISITAS GUIADAS tiene muchos GUIAS

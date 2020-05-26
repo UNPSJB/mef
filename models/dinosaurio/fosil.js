@@ -47,6 +47,8 @@ module.exports = (sequelize, DataTypes) => {
         key: "id" // id de la tabla PgSubClases
       }
     }
+  },{
+    paranoid:true
   });
   return Fosil;
 };

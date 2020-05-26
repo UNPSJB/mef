@@ -22,6 +22,8 @@ module.exports = (sequelize,DataTypes) => {
               msg:"Ya existe un Cliente con ese Documento"
             }
 		}
+    },{
+        paranoid:true
     })
     return Cliente;
 }

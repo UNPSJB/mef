@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: false,
         },
+    },{
+        paranoid:true
     })
     return Visita;
 }

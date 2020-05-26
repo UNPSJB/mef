@@ -61,7 +61,10 @@ module.exports = (sequelize, DataTypes) =>{
             key:'id'
         }
     }
-   }, {sequelize});
+   }, {
+       paranoid:true,
+       sequelize
+    });
    Presupuestado.associate = function (models){
         Presupuestado.belongsTo(models.Pedido);
    }

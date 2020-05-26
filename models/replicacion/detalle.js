@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) =>{
                 key:'id'
             }
         }
+    },{
+        paranoid:true
     });
     
     return Detalle;

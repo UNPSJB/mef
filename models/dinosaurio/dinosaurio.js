@@ -30,7 +30,9 @@ module.exports = (sequelize, DataTypes) => {
         key:'id',        // id de la tabla SubClases
       }
     }
-  },{ });
+  },{
+    paranoid:true
+  });
 
   Dinosaurio.associate = function(models) {
     models.Dinosaurio.belongsTo(models.SubClase);

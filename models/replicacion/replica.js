@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) =>{
                 key:'id'
             }
         }
-    },{sequelize});
+    },{
+        paranoid:true,
+        sequelize
+    });
     Replica.associate = function (models){
         models.Replica.belongsTo(models.Pedido);
         models.Replica.belongsTo(models.Hueso);
@@ -28,6 +31,3 @@ module.exports = (sequelize, DataTypes) =>{
     }
     return Replica;
 }
-
-//
-//

@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) =>{
             defaultValue: new Date(),
             allowNull:false
         }
-    }, {sequelize});
+    }, {
+        paranoid:true,
+        sequelize
+    });
     Pago.associate = function (models){
         models.Pago.belongsTo(models.Pedido);
     }

@@ -37,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
+    paranoid:true,
     hooks:{
       afterValidate: (hueso) =>{ //@TODO refactorizar
         //defino SubTipo

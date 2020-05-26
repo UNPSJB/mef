@@ -34,6 +34,9 @@ module.exports = (sequelize, DataTypes) => {
               msg:"Ya existe un empleado con ese Documento"
             }
         }
-    }, {sequelize});
+    }, {
+      sequelize,
+      paranoid:true
+    });
     return Empleado;
 }

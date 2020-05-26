@@ -57,7 +57,10 @@ module.exports = (sequelize, DataTypes) =>{
                 key:'id'
             }
         }
-    }, {sequelize});
+    }, {
+        paranoid:true,
+        sequelize
+    });
     Confirmado.associate = function (models){
         models.Confirmado.belongsTo(models.Pedido);
     }

@@ -2,6 +2,8 @@
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize,DataTypes) => {
+    const PedidoEmpleado = sequelize.define('PedidoEmpleado',{},{ paranoid:true })
+ 
     const Persona = require('../core/persona')(sequelize,DataTypes);
     const Detalle = require('./detalle')(sequelize,DataTypes);
     const Cancelado = require('../estado/cancelado')(sequelize,DataTypes);
@@ -97,6 +99,8 @@ module.exports = (sequelize,DataTypes) => {
             }
         }
     }, {
+        paranoid:true,
+        sequelize,
         hooks:{
             afterCreate(pedido){
                 const PedidoId = pedido.id;
@@ -111,8 +115,8 @@ module.exports = (sequelize,DataTypes) => {
                     })
                 }
             }
-        },        
-    sequelize});
+        }
+    });
     Pedido.hasMany(Detalle)
     Detalle.belongsTo(Pedido);
     Detalle.belongsTo(sequelize.models.Hueso);
@@ -128,11 +132,11 @@ module.exports = (sequelize,DataTypes) => {
     Pedido.belongsTo(Persona);
     sequelize.models.Demorado.belongsTo(Pedido);
     Pedido.belongsToMany(sequelize.models.Empleado,{
-        through:'PedidoEmpleado'
+        through:PedidoEmpleado
     });
     
     sequelize.models.Empleado.belongsToMany(Pedido,{
-        through:'PedidoEmpleado'
+        through:PedidoEmpleado
     });
 
     return Pedido;

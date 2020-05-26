@@ -1,5 +1,7 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
+  const FosilExhibicion = sequelize.define('FosilExhibicion',{},{ paranoid:true })
+  const ReplicaExhibicion = sequelize.define('ReplicaExhibicion',{},{ paranoid:true })
   const Exhibicion = sequelize.define("Exhibicion", {
     nombre: {
       type: DataTypes.STRING,
@@ -17,19 +19,21 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING, 
       allowNull: false
     }
+  }, {
+    paranoid:true
   });
   Exhibicion.associate = function(models){
     models.Exhibicion.belongsToMany(models.Replica,{
-        through:'ReplicaExhibicion'
+        through:ReplicaExhibicion
     });
     models.Exhibicion.belongsToMany(models.Fosil,{
-        through:'FosilExhibicion'
+        through:FosilExhibicion
     });
     models.Replica.belongsToMany(models.Exhibicion,{
-        through:'ReplicaExhibicion'
+        through:ReplicaExhibicion
     });
     models.Fosil.belongsToMany(models.Exhibicion,{
-        through:'FosilExhibicion'
+        through:FosilExhibicion
     });
   }
   return Exhibicion;

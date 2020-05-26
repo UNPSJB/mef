@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) =>{
                 key:'id'
             }
         }
-    },{sequelize});
+    },{
+        paranoid:true,
+        sequelize
+    });
     Entregado.associate = function (models){
         models.Entregado.belongsTo(models.Pedido);
     }

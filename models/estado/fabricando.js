@@ -81,7 +81,10 @@ module.exports = (sequelize, DataTypes) =>{
             }
         }
 
-    },{sequelize});
+    },{
+        paranoid:true,
+        sequelize
+    });
     Fabricando.associate = function (models){
         models.Fabricando.belongsTo(models.Pedido);
     }
