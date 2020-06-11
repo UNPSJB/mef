@@ -1,6 +1,4 @@
 const models = require('../models');
-const dino = models.Dinosaurio;
-const hueso = models.Hueso;
 
 const craneo = ['Paladar','Mandíbula','Cráneo'];
 
@@ -22,25 +20,25 @@ const apendiculares = pelvis.concat(brazo).concat(piernas);
 
 module.exports = {
     getHuesos(){
-        return hueso.findAll({include:[dino]})
+        return models.Hueso.findAll({include:[models.Dinosaurio]})
     },
     getHueso(id){
-        return hueso.findOne({
-            include:[dino],
+        return models.Hueso.findOne({
+            include:[models.Dinosaurio],
             where:{
                 id
             }
         })
     },
     getHuesosDino(DinosaurioId){
-        return hueso.findAll({
+        return models.Hueso.findAll({
             where:{
                 DinosaurioId
             }
         })
     },
     getHuesoDino(DinosaurioId, subtipohueso ){
-        return hueso.findOne({
+        return models.Hueso.findOne({
             where:{
                 DinosaurioId , subtipohueso 
             }
@@ -48,7 +46,7 @@ module.exports = {
     }
     ,
     createHueso(nombre, numero, DinosaurioId){
-        return hueso.create({
+        return models.Hueso.create({
             nombre,
             numero,
             DinosaurioId
@@ -56,14 +54,14 @@ module.exports = {
     },
     createHuesos(DinosaurioId, args){
         base.forEach(nombre=>{
-            hueso.create({nombre,numero:1,DinosaurioId});
+            models.Hueso.create({nombre,numero:1,DinosaurioId});
         })
         craneo.forEach((nombre)=>{
-            hueso.create({nombre,numero:1,DinosaurioId});            
+            models.Hueso.create({nombre,numero:1,DinosaurioId});            
         });
         for(var i=1;i<=2;i++){ //los que tienen solo dos    
             apendiculares.forEach((nombre)=>{
-                hueso.create({
+                models.Hueso.create({
                     nombre, 
                     numero:i, 
                     DinosaurioId
@@ -72,7 +70,7 @@ module.exports = {
         }
         for (const key in args) {//agrega por cada elemento de la lista huesos personalizados, la cantidad que llega para cada indice
             for (var index = 1; index <= args[key]; index++) {
-                hueso.create({
+                models.Hueso.create({
                     nombre:huesosPersonalizados[key],
                     numero:index,
                     DinosaurioId
@@ -82,12 +80,12 @@ module.exports = {
 
     },
     toggleDisponibilidadHueso(id){
-        hueso.findOne({
+        models.Hueso.findOne({
             where:{
                 id
             }
         }).then((found)=>{
-            hueso.update({
+            models.Hueso.update({
                 disponible : !found.disponible
             },{
                 where:{

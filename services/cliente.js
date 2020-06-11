@@ -1,18 +1,16 @@
 const models = require("../models");
-let cliente = models.Cliente;
-let persona = models.Persona;
 let personaService = require("./persona");
 
 module.exports = {
-  getClientes() {
+  getClientes(offset = 0, limit = 10) {
     //{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
-    return cliente.findAndCountAll({ include: [persona], limit:12, offset:0 });
+    return models.Cliente.findAll({ include: [models.Persona], limit, offset });
   },
   getCliente(id) {
-    return cliente.findByPk(id, { include: [persona] });
+    return models.Cliente.findByPk(id, { include: [models.Persona] });
   },
   createClienteExiste(tipo, PersonaId) {
-    return cliente.create({
+    return models.Cliente.create({
       tipo,
       PersonaId
     });
@@ -40,17 +38,17 @@ module.exports = {
         telefono
       )
       .then(persona => {
-        return cliente.create({
+        return models.Cliente.create({
           tipo,
           PersonaId: persona.id
         });
       });
   },
   updateCliente(clienteReq) {
-    return cliente.upsert(clienteReq);
+    return models.Cliente.upsert(clienteReq);
   },
   deleteCliente(id) {
-    return cliente.findByPk(id).then(clienteEncontrado => {
+    return models.Cliente.findByPk(id).then(clienteEncontrado => {
       return clienteEncontrado.destroy(clienteEncontrado);
     });
   }

@@ -1,9 +1,8 @@
 const models = require('../models');
-let fosil = models.Fosil;
 
 module.exports ={
     getFosiles(args){
-        return fosil.findAll({
+        return models.Fosil.findAll({
             where:{
                 ...args
             },
@@ -11,7 +10,7 @@ module.exports ={
         });
     },
     getFosil(id) {
-        return fosil.findOne({
+        return models.Fosil.findOne({
             where: {
                 id
             },
@@ -19,7 +18,7 @@ module.exports ={
         });
     },
     createFosil(numero_coleccion, peso, disponible, fecha_encontrado, observacion, DinosaurioId, huesos) {
-        return fosil.create({
+        return models.Fosil.create({
             numero_coleccion,
             peso,
             disponible,
@@ -30,11 +29,11 @@ module.exports ={
         });
     },
     updateFosil(fosilReq) {
-        return fosil.upsert(fosilReq) //update or insert = upsert XD
+        return models.Fosil.upsert(fosilReq) //update or insert = upsert XD
 
     },
     deleteFosil(id) {
-        return fosil.findByPk(id)
+        return models.Fosil.findByPk(id)
             .then((fosilEncontrado) => {
                 // existe ? lo modifico
                 fosilEncontrado.destroy(fosilEncontrado);

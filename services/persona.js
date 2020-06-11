@@ -1,26 +1,25 @@
 const models = require('../models');
-let persona = models.Persona;
 
 module.exports = {
     getPersonas(args){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
-        return persona.findAll({
+        return models.Persona.findAll({
             where:{
                 ...args
             }
         });
     },
     getPersonaArgs(args){
-        return persona.findOne({
+        return models.Persona.findOne({
             where:{
                 ...args
             }
         })
     },
     getPersona( id ){
-        return persona.findByPk(id);
+        return models.Persona.findByPk(id);
     },
    createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono){
-        return persona.create({
+        return models.Persona.create({
             identificacion,
             nombre,
             apellido, 
@@ -32,10 +31,10 @@ module.exports = {
         })
     },
     updatePersona(personaReq){
-        return persona.upsert(personaReq);
+        return models.Persona.upsert(personaReq);
     },
     deletePersona(id){
-        return persona.findByPk(id)
+        return models.Persona.findByPk(id)
             .then( (personaEncontrado) => {
                 personaEncontrado.destroy(personaEncontrado);
             })

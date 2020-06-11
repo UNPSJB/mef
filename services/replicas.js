@@ -1,9 +1,8 @@
 const models = require('../models');
-let replica = models.Replica;
 
 module.exports ={
     getReplicas(args){
-        return replica.findAll({
+        return models.Replica.findAll({
             include:[models.Pedido, models.Hueso, models.Dinosaurio],
             where:{
                 ...args
@@ -12,7 +11,7 @@ module.exports ={
         });
     },
     getReplica(id) {
-        return replica.findOne({
+        return models.Replica.findOne({
             where: {
                 id
             },
@@ -21,7 +20,7 @@ module.exports ={
         });
     },
     createReplica(codigo, disponible, fecha_inicio, fecha_fin, fecha_baja, obs, PedidoId, HuesoId, DinosaurioId) {
-        return replica.create({
+        return models.Replica.create({
             codigo,
             disponible,
             fecha_inicio,
@@ -34,7 +33,7 @@ module.exports ={
         });
     },
     updateReplica(replicaReq){
-        return replica.upsert(replicaReq)
+        return models.Replica.upsert(replicaReq)
     },
     toggleDisponible(id){
         return models.Replica.findByPk(id)

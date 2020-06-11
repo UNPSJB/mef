@@ -1,11 +1,10 @@
 const models = require('../models')
-const User = models.User;
 
 module.exports = {
   getUsers() {
   },
   findUser(email) { 
-    return User.findOne({
+    return models.User.findOne({
       where: {
         email
       },
@@ -13,7 +12,7 @@ module.exports = {
     });
   },
   createUser(email, password) {
-    return User.create({
+    return models.User.create({
         email,
         password
     });

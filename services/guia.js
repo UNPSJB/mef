@@ -1,7 +1,4 @@
 const models = require("../models");
-let guia = models.Guia;
-let persona = models.Persona;
-// let exhibicion = models.Exhibicion;
 let personaService = require("./persona");
 
 const paginate = ({ page, pageSize }) => {
@@ -18,26 +15,21 @@ module.exports = {
   getGuias(page = 1, pageSize = 10) {
     //{ tags }//aca se pide datos a la BD
     return models.Guia.findAll({ 
-      include: [persona],
+      include: [{
+        model:models.Persona,
+      }, {
+        model:models.Idioma
+      }],
       ...paginate({page, pageSize})
-    }).then(guias => {
-      return Promise.all(
-        guias.map(async guia => {
-          const idiomas = await guia.getIdiomas();
-          guia.idiomas = idiomas;
-          return guia;
-        })
-      );
-    });
+    })
   },
   getGuia(id) {
-    return models.Guia.findByPk(id, { include: [persona] });
+    return models.Guia.findByPk(id, { include: [models.Persona] });
   },
   // CREATE para Existentes
   createGuia(dias_trabaja, fecha_alta, horario_trabaja, idiomas, PersonaId) {
     var idiomas = [...idiomas];
-    return guia
-      .create({
+    return models.Guia.create({
         dias_trabaja,
         fecha_alta,
         horario_trabaja,

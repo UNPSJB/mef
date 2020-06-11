@@ -1,16 +1,14 @@
 const models = require('../models')
-const dino = models.Dinosaurio;
-const subclase = models.SubClase;
-//aca va la logica del negocio
+
 module.exports = {
     getDinosaurios(){//{ tags }//aca se pide datos a la BD        
-        return dino.findAll({include:[subclase]});        
+        return models.Dinosaurio.findAll({include:[models.SubClase]});        
     },
     getDinosaurio( id ){
-        return dino.findByPk(id);
+        return models.Dinosaurio.findByPk(id);
     },
     createDinosaurio(nombre, alimentacion, periodo, descubrimiento, SubClaseId){
-        return dino.create({
+        return models.Dinosaurio.create({
                 nombre,
                 alimentacion,
                 periodo,
@@ -19,10 +17,10 @@ module.exports = {
             });
     },
     updateDinosaurio(dinoReq){
-        return dino.upsert(dinoReq) //update or insert = upsert XD    
+        return models.Dinosaurio.upsert(dinoReq) //update or insert = upsert XD    
     },
     deleteDinosaurio(id){
-        return dino.findByPk(id)
+        return models.Dinosaurio.findByPk(id)
             .then( (dinoEncontrado)=>{
                 //existe ? lo modifico
                 return dinoEncontrado.destroy(dinoEncontrado);
