@@ -8,7 +8,6 @@ const subclaseService = require('../services/subclase');
 const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
-
 router.get('/', 
   permisos.permisoPara([
     permisos.ROLES.TALLER, 
@@ -16,12 +15,15 @@ router.get('/',
     permisos.ROLES.EXHIBICION]), 
   paginate,
   async (req, res) => {
+    const { page, limit } = req.query
     try {
-      const { page, limit } = req.query
       const dinosaurio = await dinoService.getDinosaurios(page, limit)
-      res.render('dinosaurios/dinosaurio', { dinosaurio: dinosaurio.rows, ...generatePagination(dinosaurio.count, page, limit), req })
+      const paginationObj = {
+        ...generatePagination('dinosaurios', dinosaurio.count, page, limit)
+      }
+      res.render('dinosaurios/dinosaurio', { dinosaurio: dinosaurio.rows, paginationObj, req })
     } catch (error) {
-      console.log(error)
+      res.redirect('/404')
     }
   })
   
