@@ -1,5 +1,5 @@
 'use strict'
-const permisos = require('../auth/permisos');
+const permisos = require('../middlewares/permisos');
 const bcrypt = require('bcrypt');
 
 module.exports = {
