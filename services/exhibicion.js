@@ -1,11 +1,18 @@
-const models = require('../models');
+const models = require('../models')
+const { paginateModel } = require('./utils')
+
 
 module.exports = {
-  getExhibiciones() {
-    return models.Exhibicion.findAll();
+  getExhibiciones(page = 0, pageSize = 10, args) {
+    return models.Exhibicion.findAndCountAll({
+      where: {
+        ...args
+      },
+      ...paginateModel({ page, pageSize })      
+    })
   },
   getExhibicion(id) {
-    return models.Exhibicion.findByPk(id);
+    return models.Exhibicion.findByPk(id)
   },
   createExhibicion(nombre, tematica, duracion, fosiles, replicas) {
     return models.Exhibicion.create({
@@ -80,6 +87,6 @@ module.exports = {
   },
 
   deleteExhibicion(id) {
-    models.Exhibicion.findByPk(id).then(e => e.destroy());
+    models.Exhibicion.findByPk(id).then(e => e.destroy())
   }
 }
