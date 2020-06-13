@@ -4,12 +4,22 @@ const { paginateModel } = require('./utils')
 
 
 module.exports = {
+  countGuias() {
+    return models.Guia.count()
+  },
   getGuias(page = 0, pageSize = 10) {
     //{ tags }//aca se pide datos a la BD
     return models.Guia.findAndCountAll({ 
       include: [
-        models.Persona,
-        models.Idioma],
+        {
+          model: models.Persona, 
+          required: false
+        },
+        {
+          model: models.Idioma, 
+          required: false
+        }
+      ],
       ...paginateModel({page, pageSize})
     })
   },

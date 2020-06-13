@@ -14,9 +14,12 @@ router.get('/',
   async (req, res, ) => {
     const { page, limit } = req.query
     try {
+      const countGuias = await guiaService.countGuias()
       const guias = await guiaService.getGuias(page, limit)
-      console.log(guias)
-      res.render("guias/guia", {results:guias.rows, ...generatePagination(guias.count, page, limit), req})
+      const paginationObj = {
+        ...generatePagination('guias', countGuias, page, limit)
+      }
+      res.render("guias/guia", {results:guias.rows, paginationObj, req})
     } catch (error) {
       res.redirect('/404')
     }
