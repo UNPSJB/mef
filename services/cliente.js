@@ -1,10 +1,17 @@
 const models = require("../models");
-let personaService = require("./persona");
+const personaService = require("./persona");
+const { paginateModel } = require('./utils')
 
 module.exports = {
-  getClientes(offset = 0, limit = 10) {
+  getClientes(page = 0, pageSize = 10, args) {
     //{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
-    return models.Cliente.findAll({ include: [models.Persona], limit, offset });
+    return models.Cliente.findAndCountAll({
+      include: [models.Persona],
+      where: {
+        ...args
+      },
+      ...paginateModel({ page, pageSize })
+    });
   },
   getCliente(id) {
     return models.Cliente.findByPk(id, { include: [models.Persona] });

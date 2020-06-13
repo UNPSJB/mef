@@ -1,40 +1,49 @@
-const express = require('express');
-const router = express.Router();
-const clienteService = require('../services/cliente.js');
-const personaService = require('../services/persona.js');
+const express = require('express')
+const router = express.Router()
+const clienteService = require('../services/cliente')
+const personaService = require('../services/persona')
+const utils = require('../services/utils')
+const paginate = require('../middlewares/paginate')
+
 
 //lista todos los clientes
-router.get('/',(req, res, next) => {
-    clienteService.getClientes().then((results)=>{
-        res.render('clientes/cliente',{
-            results: results.rows,req
-        });
-    });
+router.get('/', paginate , async (req, res) => {
+    const { page, limit } = req.query
+    try {
+        const clientes = await clienteService.getClientes(page, limit)
+        
+        res.render('clientes/cliente',{ results: clientes.rows, ...utils.generatePagination(clientes.count, page, limit) , req })
+    } catch (error) {
+        res.redirect('/404')
+    }
 });
 
-router.get('/agregar', (req,res,next) => {
+router.get('/agregar', (req,res) => {
     res.render('clientes/agregar',{ req });
 });
 
-router.get('/editar/:id',(req,res,next) => {
-const { id } = req.params;
-clienteService.getCliente(id)
-    .then((cliente) =>{
-        res.render('clientes/editar', { cliente,req });
-    })
+router.get('/editar/:id', async (req,res) => {
+    const { id } = req.params;
+    try {
+        const cliente = await clienteService.getCliente(id)
+        res.render('clientes/editar', { cliente,req })
+    } catch (error) {
+        res.redirect('/404')
+    }
 })
 
-router.get('/eliminar/:id', (req,res,next)=>{
-    const { id } = req.params;
-    clienteService.getCliente(id)
-    .then((cliente)=> { 
-        res.render('clientes/eliminar', {cliente,req});
-    })
+router.get('/eliminar/:id', async (req,res)=>{
+    const { id } = req.params
+    try {
+        const cliente = await clienteService.getCliente(id)
+        res.render('clientes/eliminar', { cliente, req })
+    } catch (error) {
+        res.redirect('/404')
+    }
   });
   
-router.post('/', async (req,res,next) =>{
+router.post('/', async (req,res) =>{
     const {identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, tipoCliente, PersonaId, tipo } = req.body;
-    let errores = null;
 
     try {
         const persona = await personaService.createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)        
@@ -43,35 +52,31 @@ router.post('/', async (req,res,next) =>{
         try {
             const persona = await personaService.getPersonaArgs({identificacion});
             await clienteService.createClienteExiste(tipoCliente, persona.id)
+            res.redirect('/clientes'); 
         } catch (error) {
             errores = error;
+            res.render("clientes/agregar", { errores:error, req })
         }
-    }
-
-    if(errores){
-        res.render("clientes/agregar", {errores,req})
-    }else{
-        res.redirect('/clientes'); 
     }
 });
 
-  router.put('/', (req,res,next)=>{
+  router.put('/', (req,res)=>{
     const {idPersona,identificacion ,nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono} = req.body;
     const {idCliente,tipoCliente} = req.body;
     var personaBody={
-        "id":idPersona,
-        "identificacion":identificacion,
-        "nombre":nombre,
-        "apellido":apellido,
-        "direccion":direccion,
-        "localidad":localidad,
-        "email":email,
-        "fecha_nacimiento":fecha_nacimiento,
-        "telefono":telefono
+        id:idPersona,
+        identificacion:identificacion,
+        nombre:nombre,
+        apellido:apellido,
+        direccion:direccion,
+        localidad:localidad,
+        email:email,
+        fecha_nacimiento:fecha_nacimiento,
+        telefono:telefono
     }
     var clienteBody={
-        "id":idCliente,
-        "tipo":tipoCliente
+        id:idCliente,
+        tipo:tipoCliente
     }
     return clienteService.getCliente(idCliente)
     .then(()=>{
@@ -88,12 +93,14 @@ router.post('/', async (req,res,next) =>{
     })
   });
   
-  router.delete('/' , (req,res,next) =>{
+  router.delete('/' , async (req,res) =>{
     const {id} = req.body;
-    clienteService.deleteCliente(id)
-    .then(() => {
+    try {
+        await clienteService.deleteCliente(id)
         res.redirect('/clientes')
-    });
+    } catch (error) {
+        res.redirect('/404')
+    }
   });
 
 module.exports = router;
