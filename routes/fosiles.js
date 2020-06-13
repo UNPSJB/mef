@@ -35,8 +35,7 @@ router.get("/",
     try {
       const fosiles = await fosilService.getFosiles(page, limit)
       const paginationObj = {
-        endpoint: 'fosiles',
-        ...generatePagination(fosiles.count, page, limit)
+        ...generatePagination('fosiles', fosiles.count, page, limit)
       }
       res.render("fosiles/fosil", { results:fosiles.rows, paginationObj, req })
     } catch (error) {
