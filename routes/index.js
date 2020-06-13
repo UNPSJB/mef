@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 var accountService = require("../services/account");
 var userService = require("../services/user");
-var permisos = require('../auth/permisos');
+var permisos = require('../middlewares/permisos');
 
-router.get('/', permisos.estaLogueado, function(req, res, next) {
+router.get('/', permisos.estaLogueado, (req, res) => {
   res.render('home',{layout:'second',req});
 });
 
@@ -44,14 +44,14 @@ router.post('/register', permisos.redirectHome, (req, res) => {
   });
 });
 
-router.delete('/logout', permisos.estaLogueado, (req,res)=>{
+router.delete('/logout', permisos.estaLogueado, (req,res) =>{
   req.session.destroy(()=>{
     res.redirect('/login');
   });
 })
 
 
-router.get('/403', permisos.estaLogueado, function(req, res, next) {
+router.get('/403', permisos.estaLogueado, (req, res) => {
   res.render('error_403');
 });
 
