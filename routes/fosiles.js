@@ -1,11 +1,10 @@
-const express = require("express");
-const permisos = require('../auth/permisos');
-const router = express.Router();
+const express = require("express")
+const permisos = require('../middlewares/permisos')
+const router = express.Router()
 
-// Servicios requeridos
-const dinoService = require("../services/dinosaurio");
-const fosilService = require("../services/fosil");
-const huesoService = require("../services/hueso");
+const dinoService = require("../services/dinosaurio")
+const fosilService = require("../services/fosil")
+const huesoService = require("../services/hueso")
 const bones = [
   "Craneo",
   "Mandibula",
@@ -24,61 +23,70 @@ const bones = [
   "Vertebras Sacras",
   "Vertebras Caudales",
   "Hemales"
-];
+]
+const { generatePagination } = require('../services/utils')
+const paginate = require('../middlewares/paginate')
 
 router.get("/",
   permisos.permisoPara([permisos.ROLES.COLECCION, permisos.ROLES.EXHIBICION]),
-  (req, res, next) => {
-    fosilService.getFosiles().then(results => {
-      res.render("fosiles/fosil", {
-        results,req
-      });
-    });
-  });
+  paginate,
+  async (req, res) => {
+    const { page, limit } = req.query
+    try {
+      const fosiles = await fosilService.getFosiles(page, limit)
+      const paginationObj = {
+        endpoint: 'fosiles',
+        ...generatePagination(fosiles.count, page, limit)
+      }
+      res.render("fosiles/fosil", { results:fosiles.rows, paginationObj, req })
+    } catch (error) {
+      res.redirect('/404')      
+    }
+  })
 
 router.get("/agregar",
   permisos.permisoPara([permisos.ROLES.COLECCION]),
-  (req, res, next) => {
+  (req, res) => {
     dinoService.getDinosaurios().then(results => {
-      res.render("fosiles/agregar", { results, bones,req });
-    });
-  });
+      res.render("fosiles/agregar", { results:results.rows, bones ,req })
+    })
+  })
 
 router.get("/editar/:id",
   permisos.permisoPara([permisos.ROLES.COLECCION]),
-  async (req, res, next) => {
-    const { id } = req.params;
-    const fosil = await fosilService.getFosil(id);
-    const dinosaurio = fosil.Dinosaurio;
-    res.render("fosiles/editar", { dinosaurio, bones, fosil,req });
-  });
+  async (req, res) => {
+    const { id } = req.params
+    const fosil = await fosilService.getFosil(id)
+    const dinosaurio = fosil.Dinosaurio
+    res.render("fosiles/editar", { dinosaurio, bones, fosil,req })
+  })
 
 router.get("/eliminar/:id",
   permisos.permisoPara([permisos.ROLES.COLECCION]),
-  (req, res, next) => {
-    const { id } = req.params;
+  (req, res) => {
+    const { id } = req.params
     fosilService
       .getFosil(id)
       .then(fosil => res.render("fosiles/eliminar", { fosil,req }))
       .catch(err => {
-      });
-  });
+      })
+  })
 
 router.delete("/",
   permisos.permisoPara([permisos.ROLES.COLECCION]),
-  (req, res, next) => {
-    fosilService.deleteFosil(req.body.id).then(() => res.redirect("/fosiles"));
-  });
+  (req, res) => {
+    fosilService.deleteFosil(req.body.id).then(() => res.redirect("/fosiles"))
+  })
 
 router.put("/",
   permisos.permisoPara([permisos.ROLES.COLECCION]),
-  (req, res, next) => {
-    fosilService.updateFosil(req.body).then(() => res.redirect("/fosiles"));
-  });
+  (req, res) => {
+    fosilService.updateFosil(req.body).then(() => res.redirect("/fosiles"))
+  })
 
 router.post("/",
   permisos.permisoPara([permisos.ROLES.COLECCION]),
-  (req, res, next) => {
+  (req, res) => {
     const {
       DinosaurioId,
       huesos,
@@ -87,7 +95,7 @@ router.post("/",
       disponible,
       fecha_encontrado,
       observacion
-    } = req.body;
+    } = req.body
     dinoService.getDinosaurio(DinosaurioId).then(dino => {
       fosilService
         .createFosil(
@@ -100,9 +108,9 @@ router.post("/",
           huesos
         )
         .then(() => {
-          res.redirect("/fosiles");
-        });
-    });
-  });
+          res.redirect("/fosiles")
+        })
+    })
+  })
 
-module.exports = router;
+module.exports = router
