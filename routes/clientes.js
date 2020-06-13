@@ -11,8 +11,10 @@ router.get('/', paginate , async (req, res) => {
     const { page, limit } = req.query
     try {
         const clientes = await clienteService.getClientes(page, limit)
-        
-        res.render('clientes/cliente',{ results: clientes.rows, ...generatePagination(clientes.count, page, limit) , req })
+        const paginationObj = {
+            ...generatePagination('clientes', clientes.count, page, limit)
+        }
+        res.render('clientes/cliente',{ results: clientes.rows, paginationObj, req })
     } catch (error) {
         res.redirect('/404')
     }
