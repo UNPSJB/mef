@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const clienteService = require('../services/cliente')
 const personaService = require('../services/persona')
-const utils = require('../services/utils')
+const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
 
@@ -12,7 +12,7 @@ router.get('/', paginate , async (req, res) => {
     try {
         const clientes = await clienteService.getClientes(page, limit)
         
-        res.render('clientes/cliente',{ results: clientes.rows, ...utils.generatePagination(clientes.count, page, limit) , req })
+        res.render('clientes/cliente',{ results: clientes.rows, ...generatePagination(clientes.count, page, limit) , req })
     } catch (error) {
         res.redirect('/404')
     }
