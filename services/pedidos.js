@@ -3,9 +3,13 @@ const INTERNO = 'Interno';
 const EXTERNO = 'Externo';
 const CONFIRMADO = 'Confirmado';
 const PRESUPUESTADO = 'Presupuestado';
+const { paginateModel } = require('./utils')
 
 module.exports = {
-  getPedidos(args) {
+  countPedidos(){
+    return models.Pedido.count()
+  },
+  getPedidos(page = 0, pageSize = 10, args) {
     return models.Pedido.findAll({
       include: [models.Persona],
       where:{
@@ -13,7 +17,8 @@ module.exports = {
       },
       order:[
         ['createdAt', 'DESC']
-      ] 
+      ],
+      ...paginateModel({ page, pageSize })
     })
   },
   getPedido(args) {

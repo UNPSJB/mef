@@ -11,12 +11,17 @@ const clienteService = require('../services/cliente');
 const models = require('../models');
 const schedule = require('node-schedule');
 
+const { generatePagination } = require('../services/utils')
+const paginate = require('../middlewares/paginate')
 
 router.get('/',
+    paginate,
     permisos.permisoPara([permisos.ROLES.TALLER, permisos.ROLES.EXHIBICION]),
     async (req, res) => {
+        const { page, limit } = req.query
         // https://flaviocopes.com/javascript-async-await-array-map/
-        const pedidosPromesa = await pedidosService.getPedidos();
+        const pedidosCount = await pedidosService.countPedidos();
+        const pedidosPromesa = await pedidosService.getPedidos(page, limit);
         const pedidosFunc = async () => {
             return Promise.all(pedidosPromesa.map(async pedido => {
                 pedido.estadoActual = await pedido.estado;
@@ -25,14 +30,18 @@ router.get('/',
             }))
         }
         const pedidos = await pedidosFunc();
-        res.render('pedidos/lista', { pedidos, req });
+        const paginationObj = {
+            ...generatePagination('pedidos', pedidosCount, page, limit)
+        }
+        res.render('pedidos/lista', { pedidos, paginationObj, req });
     });
 router.get('/agregar',
     permisos.permisoPara([permisos.ROLES.EXHIBICION]),
     (req, res) => {
         dinoService.getDinosaurios().then((dinosaurios) => {
             clienteService.getClientes().then(clientes => {
-                res.render('pedidos/agregar', { dinosaurios, clientes, req })
+                // cambiar a todos los clientes y todos los dinosaurios
+                res.render('pedidos/agregar', { dinosaurios:dinosaurios.rows, clientes:clientes.rows, req })
             })
         })
     });
