@@ -34,14 +34,5 @@
       {{/each}}
     </tbody>
   </table>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-6">
-        
-        <a class="btn btn-primary" href="/empleados?page={{ prevPage }}&limit={{limit}}" role="button">Anterior</a>
-        Mostrando de {{ firstIndex }} - {{ lastIndex }}  de {{ total }}, Pagina {{ page }} de {{ totalPages }}
-        <a class="btn btn-primary" href="/empleados?page={{ nextPage }}&limit={{limit}}" role="button">Siguiente</a>
-      </div>
-    </div>
-  </div>
+  {{> pagination/footer paginationObj }}
 </div>

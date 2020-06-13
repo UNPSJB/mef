@@ -10,10 +10,13 @@ const { generatePagination } = require("../services/utils");
 router.get("/", 
   paginate,
   async (req, res) => {  
+    const { page, limit } = req.query
     try {
-      const { page, limit } = req.query
       const empleados = await empleadoService.getEmpleados(page, limit)
-      res.render("empleados/empleado", { results:empleados.rows, ...generatePagination(empleados.count, page, limit), req })
+      const paginationObj = {
+        ...generatePagination('empleados', empleados.count, page, limit)
+      }
+      res.render("empleados/empleado", { results:empleados.rows, paginationObj, req })
     } catch (error) {
       res.redirect('/404')    
     }
