@@ -1,26 +1,25 @@
 const express = require("express");
 const router = express.Router();
-const permisos = require("../auth/permisos");
-const guiaService = require("../services/guia.js");
-const personaService = require("../services/persona.js");
+const permisos = require("../middlewares/permisos");
+const guiaService = require("../services/guia");
+const personaService = require("../services/persona");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const paginate = require('../middlewares/paginate')
+const { generatePagination} = require("../services/utils");
 
-//lista todos los Guias
-/*
-  Ver como trae los idiomas del guia
-*/
-router.get(
-  "/",
+router.get('/',
   permisos.permisoPara([permisos.ROLES.RRHH, permisos.ROLES.SECRETARIA]),
+  paginate,
   async (req, res, ) => {
-    let { page, size } = req.query
-    if(!page || !size){
-      page = 1
-      size = 10
+    const { page, limit } = req.query
+    try {
+      const guias = await guiaService.getGuias(page, limit)
+      console.log(guias)
+      res.render("guias/guia", {results:guias.rows, ...generatePagination(guias.count, page, limit), req})
+    } catch (error) {
+      res.redirect('/404')
     }
-    const results = await guiaService.getGuias(page, size)
-    res.render("guias/guia", {results,req});
   }
 );
 

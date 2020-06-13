@@ -1,26 +1,16 @@
 const models = require("../models");
-let personaService = require("./persona");
+const personaService = require("./persona");
+const { paginateModel } = require('./utils')
 
-const paginate = ({ page, pageSize }) => {
-  const offset = page * pageSize;
-  const limit = pageSize;
-
-  return {
-    offset,
-    limit,
-  };
-};
 
 module.exports = {
-  getGuias(page = 1, pageSize = 10) {
+  getGuias(page = 0, pageSize = 10) {
     //{ tags }//aca se pide datos a la BD
-    return models.Guia.findAll({ 
-      include: [{
-        model:models.Persona,
-      }, {
-        model:models.Idioma
-      }],
-      ...paginate({page, pageSize})
+    return models.Guia.findAndCountAll({ 
+      include: [
+        models.Persona,
+        models.Idioma],
+      ...paginateModel({page, pageSize})
     })
   },
   getGuia(id) {
