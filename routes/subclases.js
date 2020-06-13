@@ -1,75 +1,72 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 const subclaseService = require('../services/subclase.js')
+const { generatePagination } = require('../services/utils')
+const paginate = require('../middlewares/paginate')
 
+router.get('/', paginate, async (req, res) => {
+  const { page, limit } = req.query
+  try {
+    const subclases = await subclaseService.getSubclases(page, limit)
+    res.render('subclases/subclase', { result:subclases.rows, ...generatePagination(subclases.count, page, limit), req })
+  } catch (error) {
+    res.redirect('/404')
+  }
+})
 
-router.get('/', (req, res, next) => {
-    subclaseService.getSubclases().then((result) => {
-        res.render('subclases/subclase', {
-            result,req
-        });
-    });
-});
+router.get('/api', async (req, res) => {
+  const subclases = await subclaseService.getSubclases()
+  const json = JSON.stringify(result = subclases, null, 4)
+  res.send(json)
+})
 
-router.get('/api', (req, res, next) => {
-    subclaseService.getSubclases().then((result) => {
-        const json = JSON.stringify(result, null, 4);
-        res.send(json);
-    });
-});
+router.get('/agregar', async (req, res) => { // esto llama solo a la vista
+  res.render('subclases/agregar', { req })
+})
 
-router.get('/agregar', (req, res, next) => { // esto llama solo a la vista
-    res.render('subclases/agregar',{req});
-});
+router.get('/editar/:id', async (req, res) => {
+  const { id } = req.params
+  const subclase = await subclaseService.getSubclase(id)
+  res.render('subclases/editar', { subclase, req })
+})
 
-router.get('/editar/:id', (req, res, next) => {
-    const { id } = req.params;
-    subclaseService.getSubclase(id)
-        .then((subclase) => {
-            res.render('subclases/editar', { subclase,req });
-        })
-});
+router.get('/eliminar/:id', async (req, res) => {
+  const { id } = req.params
+  const subclase = await subclaseService.getSubclase(id)
+  res.render('subclases/eliminar', { subclase, req })
+})
 
-router.get('/eliminar/:id', (req, res, next) => {
-    const { id } = req.params;
-    subclaseService.getSubclase(id)
-        .then((subclase) => {
-            res.render('subclases/eliminar', { subclase,req });
-        });
-});
+router.post('/', async (req, res) => {
+  try {
+    const { descripcion, clase } = req.body
+    const subclase = await subclaseService.createSubclase(descripcion, clase)
+    res.redirect('/subclases')
+  } catch (error) {
+    const subclase = req.body
+    res.render('subclases/agregar', { errores, subclase, req })  
+  }
+})
 
-router.post('/', (req, res, next) => {
-    const { descripcion, clase } = req.body;
-    subclaseService.createSubclase(descripcion, clase)
-        .then((subclase) => {
-            res.redirect('/subclases')
-        })
-        .catch((errores) => {
-            const subclase = req.body;
-            res.render("subclases/agregar", { errores, subclase,req })
-        });
-});
-
-router.put('/', (req, res, next) => {
-    const subclase = req.body;
-    subclaseService.updateSubclase(subclase)
-        .then(() => res.redirect('/subclases'))
-        .catch((errores) => {
-            const subclase = req.body;
-            res.render("subclases/editar", { errores, subclase,req })
-        });
-});
+router.put('/', async (req, res) => {
+  const subclase = req.body
+  try {
+    await subclaseService.updateSubclase(subclase)
+    res.redirect('/subclases')
+  } catch (error) {
+    res.render('subclases/editar', { errores, subclase, req })
+  }
+})
 
 router.delete('/', async (req, res) => {
-    const { id } = req.body;
-    try {
-        await subclaseService.deleteSubclase(id)
-    } catch (errores ) {
-        const subclase = await subclaseService.getSubclase(id)
-        return res.render("subclases/eliminar", { errores, subclase,req })
-    }
-    return res.redirect('/subclases');
-});
+  const { id } = req.body
+  try {
+    await subclaseService.deleteSubclase(id)
+  } catch (errores) {
+    const subclase = await subclaseService.getSubclase(id)
+    return res.render('subclases/eliminar', { errores, subclase, req })
+  }
+  return res.redirect('/subclases')
+})
 
 
-module.exports = router;
+module.exports = router

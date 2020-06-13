@@ -1,5 +1,5 @@
 <div style="padding-top: 10px"></div>
-<h1>Subclases  <a href="/subclases/agregar" class="btn btn-success btn-primary" >+</a></h1>
+<h1>Subclases <a href="/subclases/agregar" class="btn btn-success btn-primary">+</a></h1>
 <table class="table" id="datatable">
   <thead>
     <th scope="col">Nombre</th>
@@ -16,11 +16,19 @@
         <a href="/subclases/editar/{{this.id}}"><i class="far fa-edit"></i></a>
         <!--editar-->
         <a href="subclases/eliminar/{{this.id}}"><i class="fas fa-minus-circle" style="color: red;"></i></a>
-          {{!-- otras acciones mas --}}
+        {{!-- otras acciones mas --}}
       </td>
     </tr>
     {{/each}}
 
   </tbody>
 </table>
-</div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <a class="btn btn-primary" href="/subclases?page={{ prevPage }}&limit={{limit}}" role="button">Anterior</a>
+        Mostrando de {{ firstIndex }} - {{ lastIndex }}  de {{ total }}, Pagina {{ page }} de {{ totalPages }}
+        <a class="btn btn-primary" href="/subclases?page={{ nextPage }}&limit={{limit}}" role="button">Siguiente</a>
+      </div>
+    </div>
+  </div>
