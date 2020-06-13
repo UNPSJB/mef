@@ -1,5 +1,5 @@
 const express = require("express");
-const permisos = require('../auth/permisos');
+const permisos = require('../middlewares/permisos');
 const router = express.Router();
 const replicaService = require('../services/replicas');
 

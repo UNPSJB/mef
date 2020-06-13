@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const permisos = require('../auth/permisos');
+const permisos = require('../middlewares/permisos');
 const dinoService = require('../services/dinosaurio');
 const pedidosService = require('../services/pedidos');
 const replicaService = require('../services/replicas');
