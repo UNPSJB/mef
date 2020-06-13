@@ -8,7 +8,7 @@ var hbs = require('express-handlebars');
 var methodOverride = require('method-override');
 var session = require('express-session');
 var database = require('./models');
-var permisos = require('./auth/permisos');
+var permisos = require('./middlewares/permisos');
 
 //rutas
 var indexRouter = require('./routes/index');
