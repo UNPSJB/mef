@@ -8,7 +8,10 @@ router.get('/', paginate, async (req, res) => {
   const { page, limit } = req.query
   try {
     const subclases = await subclaseService.getSubclases(page, limit)
-    res.render('subclases/subclase', { result:subclases.rows, ...generatePagination(subclases.count, page, limit), req })
+    const paginationObj = {
+      ...generatePagination('subclases', subclases.count, page, limit)
+    }
+    res.render('subclases/subclase', { result:subclases.rows, paginationObj, req })
   } catch (error) {
     res.redirect('/404')
   }
