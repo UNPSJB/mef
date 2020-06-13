@@ -1,37 +1,47 @@
 <div style="padding-top: 10px">
-    <h1>Empleados <a href="/empleados/agregar" class="btn btn-success btn-primary" rel="noopener noreferrer">+</a></h1>
-    <table class="table table-striped table-bordered">
-        <table class="table table-striped table-bordered" id="datatable">
-            <thead>
-                <th scope="col">Documento</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Direccion</th>
-                <th scope="col">Localidad</th>
-                <th scope="col">Email</th>
-                <th scope="col">Fecha de Nacimiento</th>
-                <th scope="col">Telefono</th>
-                <th scope="col">Acciones</th>
-            </thead>
-
-            {{#each results}}
-            <tr>
-                <td>{{this.Persona.identificacion}}</td>
-                <td>{{this.Persona.nombre}}</td>
-                <td>{{this.Persona.apellido}}</td>
-                <td>{{this.Persona.direccion}}</td>
-                <td>{{this.Persona.localidad}}</td>
-                <td>{{this.Persona.email}}</td>
-                <td>{{this.Persona.fecha_nacimiento}}</td>
-                <td>{{this.Persona.telefono}}</td>
-                <!-- acciones aca -->
-                <td>
-                    <a href="/empleados/editar/{{this.id}}"><i class="far fa-edit"></i></a>
-                    <!--editar-->
-                    <a href="/empleados/eliminar/{{this.id}}"><i class="fas fa-minus-circle" style="color: red;"></i></a>
-                    {{!-- otras acciones mas --}}
-                </td>
-            </tr>
-            {{/each}}
-        </table>
+  <h1>Empleados <a href="/empleados/agregar" class="btn btn-success btn-primary" rel="noopener noreferrer">+</a></h1>
+  <table class="table table-striped table-bordered" id="datatable">
+    <thead>
+      <th scope="col">Documento</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Direccion</th>
+      <th scope="col">Localidad</th>
+      <th scope="col">Email</th>
+      <th scope="col">Fecha de Nacimiento</th>
+      <th scope="col">Telefono</th>
+      <th scope="col">Acciones</th>
+    </thead>
+    <tbody>
+      {{#each results}}
+      <tr>
+        <td>{{this.Persona.identificacion}}</td>
+        <td>{{this.Persona.nombre}}</td>
+        <td>{{this.Persona.apellido}}</td>
+        <td>{{this.Persona.direccion}}</td>
+        <td>{{this.Persona.localidad}}</td>
+        <td>{{this.Persona.email}}</td>
+        <td>{{this.Persona.fecha_nacimiento}}</td>
+        <td>{{this.Persona.telefono}}</td>
+        <!-- acciones aca -->
+        <td>
+          <a href="/empleados/editar/{{this.id}}"><i class="far fa-edit"></i></a>
+          <!--editar-->
+          <a href="/empleados/eliminar/{{this.id}}"><i class="fas fa-minus-circle" style="color: red;"></i></a>
+          {{!-- otras acciones mas --}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-6">
+        
+        <a class="btn btn-primary" href="/empleados?page={{ prevPage }}&limit={{limit}}" role="button">Anterior</a>
+        Mostrando de {{ firstIndex }} - {{ lastIndex }}  de {{ total }}, Pagina {{ page }} de {{ totalPages }}
+        <a class="btn btn-primary" href="/empleados?page={{ nextPage }}&limit={{limit}}" role="button">Siguiente</a>
+      </div>
+    </div>
+  </div>
 </div>

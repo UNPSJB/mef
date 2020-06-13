@@ -1,8 +1,16 @@
 const models = require('../models')
+const { paginateModel } = require('./utils')
+
 
 module.exports = {
-    getEmpleados(){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo empleado
-        return models.Empleado.findAll( {include:[models.Persona]} );
+    getEmpleados(page = 0, pageSize = 10, args){//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo empleado
+        return models.Empleado.findAndCountAll({
+            include:[models.Persona],
+            where: {
+                ...args
+            },
+            ...paginateModel({ page, pageSize })
+        });
     }, //@TODO mostrar dino sin editar o algo
     getEmpleado( id ){
         return models.Empleado.findByPk(id, {include:[models.Persona]});
