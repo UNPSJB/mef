@@ -12,10 +12,6 @@ router.get('/login', permisos.redirectHome,(req, res) => {
   res.render('login', {layout:'login'});
 });
 
-router.get('/register', permisos.redirectHome, (req, res) => {
-  res.render('register',{layout:'second'});
-});
-
 router.post('/login', permisos.redirectHome, (req, res) => {
   const { email, password } = req.body;
   return accountService.auth(email, password)
