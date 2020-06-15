@@ -2,6 +2,14 @@ const models = require('../models')
 const { paginateModel } = require('./utils')
 
 module.exports = {
+  getAllFosiles(args) {
+    return models.Fosil.findAll({
+      include: [models.Dinosaurio],
+      where: {
+        ...args
+      }
+    })
+  },
   getFosiles(page = 0, pageSize = 10, args) {
     return models.Fosil.findAndCountAll({
       include: [models.Dinosaurio],

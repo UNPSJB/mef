@@ -3,6 +3,14 @@ const personaService = require("./persona");
 const { paginateModel } = require('./utils')
 
 module.exports = {
+  getAllClientes(args){
+    return models.Cliente.findAll({
+      include: [models.Persona],
+      where: {
+        ...args
+      }
+    })
+  },
   getClientes(page = 0, pageSize = 10, args) {
     //{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
     return models.Cliente.findAndCountAll({

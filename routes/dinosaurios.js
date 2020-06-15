@@ -31,7 +31,7 @@ router.get('/',
   permisos.permisoPara([permisos.ROLES.COLECCION]),
   async (req, res) => {
     try {
-      const subclases = await subclaseService.getSubclases()
+      const subclases = await subclaseService.getAllSubclases()
       res.render('dinosaurios/agregar',{
         subclases,req
       })
@@ -45,7 +45,7 @@ router.get('/',
     async (req, res) => {
       try {
         const dino = await dinoService.getDinosaurio(req.params.id);
-        const subclases = await subclaseService.getSubclases()
+        const subclases = await subclaseService.getAllSubclases()
         res.render('dinosaurios/editar', { dino, subclases,req });    
       } catch (error) {
         console.log(error)
@@ -118,7 +118,7 @@ router.post('/',
       res.redirect('/dinosaurios')
     } catch (error) {
       const dino = req.body;
-      const subclases = await subclaseService.getSubclases()
+      const subclases = await subclaseService.getAllSubclases()
       res.render("dinosaurios/agregar",{errores:error,dino,subclases,req})
     }
 
@@ -132,7 +132,7 @@ router.put('/',
       res.redirect('/dinosaurios')     
     } catch (error) {
       const dino = req.body;
-      const subclases = await subclaseService.getSubclases()
+      const subclases = await subclaseService.getAllSubclases()
       res.render("dinosaurios/editar",{errores,dino,subclases,req})
     }
 });

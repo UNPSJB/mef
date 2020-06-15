@@ -1,17 +1,17 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const permisos = require("../middlewares/permisos");
-const guiaService = require("../services/guia");
-const personaService = require("../services/persona");
-const Sequelize = require("sequelize");
+const permisos = require('../middlewares/permisos');
+const guiaService = require('../services/guia');
+const personaService = require('../services/persona');
+const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const paginate = require('../middlewares/paginate')
-const { generatePagination} = require("../services/utils");
+const { generatePagination} = require('../services/utils');
 
 router.get('/',
-  permisos.permisoPara([permisos.ROLES.RRHH, permisos.ROLES.SECRETARIA]),
   paginate,
-  async (req, res, ) => {
+  permisos.permisoPara([permisos.ROLES.RRHH, permisos.ROLES.SECRETARIA]),
+  async (req, res) => {
     const { page, limit } = req.query
     try {
       const countGuias = await guiaService.countGuias()
@@ -19,26 +19,24 @@ router.get('/',
       const paginationObj = {
         ...generatePagination('guias', countGuias, page, limit)
       }
-      res.render("guias/guia", {results:guias.rows, paginationObj, req})
+      res.render('guias/guia', {results:guias.rows, paginationObj, req})
     } catch (error) {
       res.redirect('/404')
     }
   }
 );
 
-router.get(
-  "/agregar",
+router.get('/agregar',
   permisos.permisoPara([permisos.ROLES.RRHH]),
-  async (req, res, next) => {
-    var idiomas = await guiaService.getIdiomas();
-    res.render("guias/agregar", { req, idiomas });
+  async (req, res) => {
+    const idiomas = await guiaService.getIdiomas();
+    res.render('guias/agregar', { req, idiomas });
   }
 );
 
-router.get(
-  "/editar/:id",
+router.get('/editar/:id',
   permisos.permisoPara([permisos.ROLES.RRHH]),
-  async (req, res, next) => {
+  async (req, res) => {
     const guia = await guiaService.getGuia(req.params.id);
     const idiomasGuia = await guia.getIdiomas();
     const IDidiomasGuia = idiomasGuia.map(item => {
@@ -47,16 +45,15 @@ router.get(
     const idioma = await guiaService.getIdiomas({
       id: { [Op.notIn]: [...IDidiomasGuia] }
     });
-    res.render("guias/editar", { guia, req, idioma, idiomasGuia });
+    res.render('guias/editar', { guia, req, idioma, idiomasGuia });
   }
 );
 
-router.get(
-  "/eliminar/:id",
+router.get('/eliminar/:id',
   permisos.permisoPara([permisos.ROLES.RRHH]),
-  (req, res, next) => {
+  (req, res) => {
     guiaService.getGuia(req.params.id).then(guia => {
-      res.render("guias/eliminar", { guia, req });
+      res.render('guias/eliminar', { guia, req });
     });
   }
 );
@@ -67,9 +64,9 @@ router.get(
       click en nuevo o existente
 */
 router.post(
-  "/",
+  '/',
   permisos.permisoPara([permisos.ROLES.RRHH]),
-  async (req, res, next) => {
+  async (req, res) => {
     const {
       // tipo: exitente o nuevo
       dias_trabaja,
@@ -109,15 +106,15 @@ router.post(
       idiomas,
       persona.id
     );
-    res.redirect("/guias");
+    res.redirect('/guias');
   }
 );
 
 //actualizar la lista de idiomas por separado
 router.put(
-  "/",
+  '/',
   permisos.permisoPara([permisos.ROLES.RRHH]),
-  async (req, res, next) => {
+  async (req, res) => {
     const {
       // tipo: exitente o nuevo
       idGuia,
@@ -155,21 +152,21 @@ router.put(
       fecha_nacimiento,
       telefono
     });
-    res.redirect("/guias");
+    res.redirect('/guias');
   }
 );
 
 router.delete(
-  "/",
+  '/',
   permisos.permisoPara([permisos.ROLES.RRHH]),
-  async (req, res, next) => {
+  async (req, res) => {
     const { id } = req.body;
     try {
       await guiaService.deleteGuia(id);
-      return res.redirect("/guias");
+      return res.redirect('/guias');
     } catch (error) {
       guiaService.getGuia(id).then(guia => {
-        res.render("guias/eliminar", { error, guia, req });
+        res.render('guias/eliminar', { error, guia, req });
       });
     }
   }

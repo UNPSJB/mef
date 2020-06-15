@@ -2,6 +2,9 @@ const models = require('../models')
 const { paginateModel } = require('./utils')
 
 module.exports = {
+  getAllSubclases(){
+    return models.SubClase.findAll()
+  },
   getSubclases(page = 0, pageSize = 10, args) {
     return models.SubClase.findAndCountAll({
       where: {
