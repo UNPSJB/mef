@@ -49,16 +49,16 @@ module.exports = {
         req.session.userId ? next() : res.redirect('/login');//@TODO cambiar, agregar mas experiencia
     },
     redirectHome(req,res,next){
-        req.session.userId ? res.redirect('/') : next();   //@TODO cambiar, agregar mas experiencia
+        // req.session.userId ? res.redirect('/') : next();   //@TODO cambiar, agregar mas experiencia
     },
     esExhibicion(req,res,next){
-        req.session.rol === ROLES.EXHIBICION ? next() : res.redirect('/error'); //@TODO cambiar, agregar mas experiencia
+        // req.session.roles.includes === ROLES.EXHIBICION ? next() : res.redirect('/error'); //@TODO cambiar, agregar mas experiencia
     },
     esTaller(req,res,next){
-        req.session.rol === ROLES.TALLER ? next() : res.redirect('/error') ////@TODO cambiar, agregar mas experiencia
+        // req.session.rol === ROLES.TALLER ? next() : res.redirect('/error') ////@TODO cambiar, agregar mas experiencia
     }, 
     esColeccion(req,res,next){
-        req.session.rol === ROLES.COLECCION ? next() : res.redirect('/error') //@TODO cambiar, agregar mas experiencia
+        // req.session.rol === ROLES.COLECCION ? next() : res.redirect('/error') //@TODO cambiar, agregar mas experiencia
     },
     permisosParaEstado(){
         return function(req,res,next){
@@ -92,7 +92,7 @@ module.exports = {
     permisoPara(args){ //aca van quienes tienen permiso
         // const rol = req.session.rol;
         return function (req,res,next) {
-            if(args.includes(req.session.rol)){
+            if(args.includes([...req.session.rol])){
                 return next(); //tiene session y permiso
             }else{
                 console.log('No estas logueado');

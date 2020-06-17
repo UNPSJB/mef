@@ -4,7 +4,6 @@ const router = express.Router()
 const replicaService = require('../services/replicas')
 
 router.get('/',
-  permisos.permisoPara([permisos.ROLES.EXHIBICION, permisos.ROLES.TALLER]),
   (req, res) => {
     replicaService.getReplicas().then(results => {
       res.render('replicas/replica', { results, req })
@@ -12,7 +11,6 @@ router.get('/',
   })
 
 router.get('/editar/:id',
-  permisos.permisoPara([permisos.ROLES.EXHIBICION]),
   async (req, res) => {
     const { id } = req.params
     const replica = await replicaService.getReplica(id)
@@ -20,7 +18,6 @@ router.get('/editar/:id',
   })
 
 router.get('/eliminar/:id',
-  permisos.permisoPara([permisos.ROLES.EXHIBICION]),
   (req, res) => {
     const { id } = req.params
 
@@ -36,7 +33,6 @@ router.get('/eliminar/:id',
 })
 
 router.patch('/disponibilidad/:id',
-  permisos.permisoPara([permisos.ROLES.EXHIBICION]),
   (req, res) => {
     const { id } = req.params
     replicaService.toggleDisponible(id)
@@ -44,7 +40,6 @@ router.patch('/disponibilidad/:id',
 })
 
 router.delete('/',
-  permisos.permisoPara([permisos.ROLES.EXHIBICION]),
   (req, res) => {
     replicaService.deleteReplica(req.body.id).then(() => res.redirect('/pedidos/replicas'))
 })

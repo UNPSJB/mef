@@ -1,10 +1,23 @@
 Mapa del sitio
+    Empleados
+        listado
+        agregar
+        editar/id
+        eliminar/id
+
     Clientes
         listado
         agregar
         editar/id
         eliminar/id
-    
+
+    Subclases
+        listado
+        agregar
+        api
+        editar/id
+        eliminar/id
+        
     Dinosaurios
         listado
         agregar
@@ -13,11 +26,6 @@ Mapa del sitio
         moldes/id
         huesos/id
 
-    Empleados
-        listado
-        agregar
-        editar/id
-        eliminar/id
 
     Exhibiciones
         listado
@@ -41,24 +49,17 @@ Mapa del sitio
     Pedidos
         listado
         agregar
-        /id/empleados
-        replicas
         detalle/id
         accion/id (acciones son los estados)
+        replicas (todas las replicas finalizadas)
+        
         empleados
+        /id/empleados
     
     Replicas
-        listado
-        agregar
-        editar/id
         eliminar/id
 
-    Subclases
-        listado
-        agregar
-        api
-        editar/id
-        eliminar/id
+
     
     Visitas
         listado
@@ -70,5 +71,7 @@ Mapa del sitio
         login
         register
         /403
+
+    agregar admin
 
     

@@ -9,10 +9,6 @@ const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
 router.get('/', 
-  permisos.permisoPara([
-    permisos.ROLES.TALLER, 
-    permisos.ROLES.COLECCION,
-    permisos.ROLES.EXHIBICION]), 
   paginate,
   async (req, res) => {
     const { page, limit } = req.query
@@ -28,7 +24,6 @@ router.get('/',
   })
   
   router.get('/agregar',
-  permisos.permisoPara([permisos.ROLES.COLECCION]),
   async (req, res) => {
     try {
       const subclases = await subclaseService.getAllSubclases()
@@ -41,7 +36,6 @@ router.get('/',
   });
   
   router.get('/editar/:id', 
-    permisos.permisoPara([permisos.ROLES.COLECCION]),
     async (req, res) => {
       try {
         const dino = await dinoService.getDinosaurio(req.params.id);
@@ -53,7 +47,6 @@ router.get('/',
 });
 
 router.get('/eliminar/:id', 
-  permisos.permisoPara([permisos.ROLES.COLECCION]),
   async (req, res)=>{
     try {
       const dino = await dinoService.getDinosaurio(req.params.id)
@@ -66,7 +59,6 @@ router.get('/eliminar/:id',
 /** HUESOS  */
 
 router.get('/moldes/:id', 
-  permisos.permisoPara([permisos.ROLES.TALLER, permisos.ROLES.COLECCION]),
   async (req, res) => { 
     try {
       const { id } = req.params;
@@ -83,7 +75,6 @@ router.get('/moldes/:id',
 });
 
 router.get('/huesos/:id', 
-  permisos.permisoPara([permisos.ROLES.TALLER,permisos.ROLES.COLECCION, permisos.ROLES.EXHIBICION]),
   async (req, res)=>{
     try {
       const {id} = req.params;
@@ -95,7 +86,6 @@ router.get('/huesos/:id',
 })
 
 router.patch('/moldes/toggle',
-  permisos.permisoPara([permisos.ROLES.TALLER]), 
   async (req, res)=>{ /// esto NO PUEDE SER ACCEDIDO por bones
     try {
       const { id } = req.query
@@ -107,7 +97,6 @@ router.patch('/moldes/toggle',
 });
 
 router.post('/',
-  permisos.permisoPara([permisos.ROLES.COLECCION]), 
   async (req, res) =>{ // esto llama a dino service
     const {nombre, alimentacion, periodo, descubrimiento, idsubclase} = req.body;
     const {cant_cervicales,cant_dorsales,cant_sacras,cant_caudales,cant_cos_cervicales,cant_cos_dorsales,cant_hemales,cant_metacarpianos,cant_metatarsos,cant_dedos_mano,cant_dedos_pata} = req.body;
@@ -125,7 +114,6 @@ router.post('/',
 });
 
 router.put('/',
-  permisos.permisoPara([permisos.ROLES.COLECCION]), 
   async (req, res)=>{
     try {
       await dinoService.updateDinosaurio(req.body)
@@ -138,7 +126,6 @@ router.put('/',
 });
 
 router.delete('/',
-  permisos.permisoPara([permisos.ROLES.COLECCION]),
   async (req, res) =>{
     const { id } = req.body;
     try {

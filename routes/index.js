@@ -22,7 +22,7 @@ router.post('/login', permisos.redirectHome, (req, res) => {
       if (user) {
         const session = req.session;
         session.userId = user.id;
-        session.rol = user.Rol.descripcion;
+        session.rol = [...user.Rols];
         req.session.save();
         res.redirect('/');
       }

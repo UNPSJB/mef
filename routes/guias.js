@@ -10,7 +10,6 @@ const { generatePagination} = require('../services/utils');
 
 router.get('/',
   paginate,
-  permisos.permisoPara([permisos.ROLES.RRHH, permisos.ROLES.SECRETARIA]),
   async (req, res) => {
     const { page, limit } = req.query
     try {
@@ -27,7 +26,6 @@ router.get('/',
 );
 
 router.get('/agregar',
-  permisos.permisoPara([permisos.ROLES.RRHH]),
   async (req, res) => {
     const idiomas = await guiaService.getIdiomas();
     res.render('guias/agregar', { req, idiomas });
@@ -35,7 +33,6 @@ router.get('/agregar',
 );
 
 router.get('/editar/:id',
-  permisos.permisoPara([permisos.ROLES.RRHH]),
   async (req, res) => {
     const guia = await guiaService.getGuia(req.params.id);
     const idiomasGuia = await guia.getIdiomas();
@@ -50,7 +47,6 @@ router.get('/editar/:id',
 );
 
 router.get('/eliminar/:id',
-  permisos.permisoPara([permisos.ROLES.RRHH]),
   (req, res) => {
     guiaService.getGuia(req.params.id).then(guia => {
       res.render('guias/eliminar', { guia, req });
@@ -65,7 +61,6 @@ router.get('/eliminar/:id',
 */
 router.post(
   '/',
-  permisos.permisoPara([permisos.ROLES.RRHH]),
   async (req, res) => {
     const {
       // tipo: exitente o nuevo
@@ -113,7 +108,6 @@ router.post(
 //actualizar la lista de idiomas por separado
 router.put(
   '/',
-  permisos.permisoPara([permisos.ROLES.RRHH]),
   async (req, res) => {
     const {
       // tipo: exitente o nuevo
@@ -158,7 +152,6 @@ router.put(
 
 router.delete(
   '/',
-  permisos.permisoPara([permisos.ROLES.RRHH]),
   async (req, res) => {
     const { id } = req.body;
     try {

@@ -5,7 +5,7 @@ const router = express.Router()
 const dinoService = require('../services/dinosaurio')
 const fosilService = require('../services/fosil')
 const huesoService = require('../services/hueso')
-const bones = [
+const bones = [ //cambiar esto por hueso.partes
   'Craneo',
   'Mandibula',
   'Paladar',
@@ -28,7 +28,6 @@ const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
 router.get('/',
-  permisos.permisoPara([permisos.ROLES.COLECCION, permisos.ROLES.EXHIBICION]),
   paginate,
   async (req, res) => {
     const { page, limit } = req.query
@@ -44,7 +43,6 @@ router.get('/',
   })
 
 router.get('/agregar',
-  permisos.permisoPara([permisos.ROLES.COLECCION]),
   (req, res) => {
     dinoService.getAllDinosaurios().then(results => {
       console.log(results)
@@ -53,7 +51,6 @@ router.get('/agregar',
   })
 
 router.get('/editar/:id',
-  permisos.permisoPara([permisos.ROLES.COLECCION]),
   async (req, res) => {
     const { id } = req.params
     const fosil = await fosilService.getFosil(id)
@@ -62,7 +59,6 @@ router.get('/editar/:id',
   })
 
 router.get('/eliminar/:id',
-  permisos.permisoPara([permisos.ROLES.COLECCION]),
   (req, res) => {
     const { id } = req.params
     fosilService
@@ -73,19 +69,16 @@ router.get('/eliminar/:id',
   })
 
 router.delete('/',
-  permisos.permisoPara([permisos.ROLES.COLECCION]),
   (req, res) => {
     fosilService.deleteFosil(req.body.id).then(() => res.redirect('/fosiles'))
   })
 
 router.put('/',
-  permisos.permisoPara([permisos.ROLES.COLECCION]),
   (req, res) => {
     fosilService.updateFosil(req.body).then(() => res.redirect('/fosiles'))
   })
 
 router.post('/',
-  permisos.permisoPara([permisos.ROLES.COLECCION]),
   (req, res) => {
     const {
       DinosaurioId,
