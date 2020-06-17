@@ -4,26 +4,8 @@ const router = express.Router()
 
 const dinoService = require('../services/dinosaurio')
 const fosilService = require('../services/fosil')
-const huesoService = require('../services/hueso')
-const bones = [ //cambiar esto por hueso.partes
-  'Craneo',
-  'Mandibula',
-  'Paladar',
-  'Vertebras Cervicales',
-  'Costillas Cervicales',
-  'Vertebras Dorsales',
-  'Costillas Dorsales',
-  'Escapula',
-  'Humero',
-  'Radio',
-  'Unla',
-  'Manos',
-  'Pies',
-  'Pelvis',
-  'Vertebras Sacras',
-  'Vertebras Caudales',
-  'Hemales'
-]
+
+const bones = ['Cráneo', 'Torax','Vertebral', 'Pelvis','Brazo','Manos','Piernas','Pies']
 const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
@@ -45,7 +27,6 @@ router.get('/',
 router.get('/agregar',
   (req, res) => {
     dinoService.getAllDinosaurios().then(results => {
-      console.log(results)
       res.render('fosiles/agregar', { results, bones ,req })
     })
   })

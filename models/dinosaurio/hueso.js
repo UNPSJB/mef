@@ -29,10 +29,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    partes: {
-      type: DataTypes.ENUM,
-      values: ['Piernas', 'Brazos', 'Torso', 'Cadera', 'Cola', 'Cuello', 'Cráneo']
-    },
     DinosaurioId: {
       type: DataTypes.INTEGER,
       references: {

@@ -60,15 +60,22 @@ router.get('/eliminar/:id',
 
 router.get('/moldes/:id', 
   async (req, res) => { 
+    const { id } = req.params;
+    const bones = ['Cráneo', 'Torax','Vertebral', 'Pelvis','Brazo','Manos','Piernas','Pies']
+    // 'Cráneo'
     try {
-      const { id } = req.params;
+      const dino = await dinoService.getDinosaurio(id)
       const huesos = await huesoService.getHuesosDino(id)
-      
-      if(req.session.rol === permisos.ROLES.TALLER){
-        res.render("huesos/hueso", {huesos, taller:true, req});
-      }else{
-        res.render("huesos/hueso", {huesos, req});
-      }
+      const huesosAgrupados = await Promise.all(
+        bones.map((bone) => {
+          return huesoService.getHuesosDinoArgs( id, { subtipohueso:bone} ).then(huesos =>{
+            const hueso =  { agrupado: bone, huesos }
+            return hueso
+          })
+        })
+      )
+      res.render("huesos/hueso", {huesos, dino, huesosAgrupados, taller:true, req});
+
     } catch (error) {
       console.log(error)
     }
