@@ -56,7 +56,7 @@ router.post('/', async (req, res) => {
       await clienteService.createClienteExiste(tipoCliente, persona.id)
       res.redirect('/clientes')
     } catch (error) {
-      errores = error
+      console.log(error.errors)
       res.render("clientes/agregar", { errores: error, req })
     }
   }

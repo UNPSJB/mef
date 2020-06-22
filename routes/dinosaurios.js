@@ -27,11 +27,10 @@ router.get('/',
   async (req, res) => {
     try {
       const subclases = await subclaseService.getAllSubclases()
-      res.render('dinosaurios/agregar',{
-        subclases,req
-      })
+      res.render('dinosaurios/agregar',{ subclases,req })
     } catch (error) {
       console.log(error)
+      res.render('dinosaurios/agregar', { subclases, req, errores:error })
     }
   });
   
@@ -114,8 +113,9 @@ router.post('/',
       res.redirect('/dinosaurios')
     } catch (error) {
       const dino = req.body;
+      const { message } = error.errors[0]
       const subclases = await subclaseService.getAllSubclases()
-      res.render("dinosaurios/agregar",{errores:error,dino,subclases,req})
+      res.render("dinosaurios/agregar",{errores:message,dino,subclases,req})
     }
 
 });

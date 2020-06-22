@@ -1,29 +1,38 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
   const IdiomaGuia = sequelize.define('IdiomaGuia',{},{ paranoid:true })
-  const Guia = sequelize.define("Guia", {
+  const Guia = sequelize.define('Guia', {
     dias_trabaja: {
       type: DataTypes.ENUM,
-      values: ["Normal", "Franquero"],
-      defaultValue: "Normal"
-    },
-    fecha_alta: {
-      type: DataTypes.DATEONLY
+      values: ['Normal', 'Franquero'],
+      allowNull: {
+        args:false,
+        msg:'El guia debe especificar si es normal o franquero.'
+      },
+      defaultValue: 'Normal'
     },
     horario_trabaja: {
-        type: DataTypes.ENUM,
-        values: ["Diurno", "Nocturno"],
-        defaultValue: "Diurno"
+      type: DataTypes.ENUM,
+      values: ['Diurno', 'Nocturno'],
+      allowNull: {
+        args:false,
+        msg:'El guia debe especificar si trabaja en horario diurno o nocturno.'
+      },
+      defaultValue: 'Diurno'
     },
     PersonaId: {
       type: DataTypes.INTEGER,
       references: {
-        model: "Personas",
-        key: "id"
+        model: 'Personas',
+        key: 'id'
       },
       unique: {
         args: true,
-        msg: "Ya existe un Guia con ese Documento"
+        msg: 'Ya existe un Guia con ese Documento'
+      },
+      allowNull: {
+        args:false,
+        msg:'El guia debe estar asociado a una Persona.'
       }
     }
   },{

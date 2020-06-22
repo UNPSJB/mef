@@ -2,32 +2,55 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Dinosaurio = sequelize.define('Dinosaurio', {
-    activo: {
-      type:DataTypes.BOOLEAN,
-      allowNull:false,
-      defaultValue:true
-    },
     nombre: {
       type:DataTypes.STRING,
       unique:{
         args:true,
-        msg:"El nombre de dinosaurio ya esta en uso"
+        msg:'El nombre de Dinosaurio ya esta en uso'
+      },
+      validate:{
+        len: {
+          args: [1,30],
+          msg:'El nombre del Dinosaurio tiene un maximo de 30 caracteres'
+        }
+      },
+      allowNull: {
+        args:false,
+        msg:'El Dinosaurio debe tener nombre.'
       }
     },
     alimentacion : {
       type: DataTypes.ENUM,
-      values: ['Herbivoro','Carnivoro','Omnivoro']
+      values: ['Herbivoro','Carnivoro','Omnivoro'],
+      allowNull: {
+        args:false,
+        msg:'El Dinosaurio debe tener tipo de alimentacion.'
+      }
     },
     periodo : {
       type: DataTypes.ENUM,
-      values: ['Cretacico','Jurasico','Triasico']
+      values: ['Cretacico','Jurasico','Triasico'],
+      allowNull: {
+        args:false,
+        msg:'El Dinosaurio debe tener un periodo de existencia.'
+      }
     },
-    descubrimiento : DataTypes.DATEONLY,
+    descubrimiento : {
+      type: DataTypes.DATEONLY,
+      allowNull: {
+        args: false,
+        msg:'El Dinosaurio debe tener una fecha de descubrimiento.'
+      }
+    },
     SubClaseId:{
       type: DataTypes.INTEGER,
       references: {
         model: 'SubClases',//nombre en la tabla
         key:'id',        // id de la tabla SubClases
+      },
+      allowNull: {
+        args:false,
+        msg:'El Dinosaurio debe pertenecer a una subclase.'
       }
     }
   },{
@@ -35,7 +58,6 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Dinosaurio.associate = function(models) {
-    models.Dinosaurio.belongsTo(models.SubClase);
     models.Fosil.belongsTo(models.Dinosaurio);
     models.Dinosaurio.hasMany(models.Hueso); 
     models.Dinosaurio.hasMany(models.Fosil);

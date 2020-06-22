@@ -2,41 +2,39 @@
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Empleado extends Sequelize.Model {
-      asignarAPedido(pedidoId, empleadoId) {
-        return sequelize.models.Pedido.findByPk(pedidoId).then(pedidoNuevo => {
-          return sequelize.models.Empleado.findByPk(empleadoId).then(
-            empleado => {
-              return empleado.getPedidos().then(pedidosTrabajando => {
-                pedidosTrabajando.push(pedidoNuevo);
-                return empleado.setPedidos(pedidosTrabajando);
-              });
-            }
-          );
-        });
+  class Empleado extends Sequelize.Model {
+    asignarAPedido(pedidoId, empleadoId) {
+      return sequelize.models.Pedido.findByPk(pedidoId).then(pedidoNuevo => {
+        return sequelize.models.Empleado.findByPk(empleadoId).then(
+          empleado => {
+            return empleado.getPedidos().then(pedidosTrabajando => {
+              pedidosTrabajando.push(pedidoNuevo);
+              return empleado.setPedidos(pedidosTrabajando);
+            });
+          }
+        );
+      });
+    }
+  }
+  Empleado.init({
+    PersonaId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Personas',
+        key: 'id',
+      },
+      unique: {
+        args: true,
+        msg: "Ya existe un Empleado con ese Documento"
+      },
+      allowNull: {
+        args:false,
+        msg:'El Empleado debe estar asociado a una Persona.'
       }
     }
-    Empleado.init({
-        descripcion: {
-            type: DataTypes.STRING,
-            defaultValue: "Empleado"
-        },  //Variable que proviene de la clase rol
-
-        fecha_fin: DataTypes.DATEONLY,
-        PersonaId: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'Personas',
-                key: 'id',
-            },
-            unique:{
-              args:true, 
-              msg:"Ya existe un empleado con ese Documento"
-            }
-        }
-    }, {
-      sequelize,
-      paranoid:true
-    });
-    return Empleado;
+  }, {
+    sequelize,
+    paranoid: true
+  });
+  return Empleado;
 }

@@ -1,23 +1,33 @@
-"use strict";
+'use strict';
 module.exports = (sequelize, DataTypes) => {
   const FosilExhibicion = sequelize.define('FosilExhibicion',{},{ paranoid:true })
   const ReplicaExhibicion = sequelize.define('ReplicaExhibicion',{},{ paranoid:true })
-  const Exhibicion = sequelize.define("Exhibicion", {
+  const Exhibicion = sequelize.define('Exhibicion', {
+    /** @TODO AGREGAR VALIDACION DE LARGO */
     nombre: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: {
+        args:false,
+        msg:'La exhibición debe tener nombre.'
+      },
       unique: {
         args: true,
-        msg: "Ese nombre de exhibicion ya existe!"
+        msg: 'Ese nombre de exhibición ya existe!'
       }
     },
     duracion:{
       type:DataTypes.STRING,
-      allowNull: false
+      allowNull: {
+        args:false,
+        msg:'La exhibición debe tener duración.'
+      }
     },
     tematica:{
       type:DataTypes.STRING, 
-      allowNull: false
+      allowNull: {
+        args:false,
+        msg:'La exhibición debe tener tematica.'
+      }
     }
   }, {
     paranoid:true

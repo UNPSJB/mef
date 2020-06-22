@@ -1,23 +1,31 @@
-'use strict';
+'use strict'
 module.exports = (sequelize, DataTypes) => {
   const SubClase = sequelize.define('SubClase', {
     descripcion: {
       type:DataTypes.STRING,
-      allowNull:false,
+      allowNull:{
+        args:false,
+        msg:'La subclase debe tener nombre'
+      },
       unique:{
         args:true,
-        msg:"La subclase ya existe!"
+        msg:'El nombre de subclase ya existe.'
       }
     },
     clase : {
       type: DataTypes.ENUM,
-      allowNull:false,
+      allowNull:{
+        args:false,
+        msg:'La subclase debe tener asignada una clase.'
+      },
       values: ["Saurisquio", "Ornitisquio"]
     },
   }, {
     paranoid:true
-  });
+  })
   SubClase.associate = function(models) {
-  };
-  return SubClase;
-};
+    models.SubClase.hasMany(models.Dinosaurio)
+    models.Dinosaurio.belongsTo(models.SubClase)
+  }
+  return SubClase
+}

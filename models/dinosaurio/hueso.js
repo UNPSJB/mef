@@ -15,8 +15,30 @@ module.exports = (sequelize, DataTypes) => {
   const torso = ['Costillas Cervicales','Costillas Dorsales'];
 
   const Hueso = sequelize.define('Hueso', {
-    nombre: DataTypes.STRING,
-    numero: DataTypes.INTEGER,
+    nombre: {
+      type:DataTypes.STRING,
+      allowNull: { 
+        args:false,
+        msg:'El Hueso debe tener nombre.'
+      } 
+    },
+    numero: {
+      type: DataTypes.INTEGER,
+      allowNull: { 
+        args:false,
+        msg:'El Hueso debe tener nombre.'
+      },
+      validate: {
+        max: {
+          args:2000,
+          msg:'El número máximo del hueso es 2000'
+        },
+        min: {
+          args:1,
+          msg:'El número mínimo del hueso es 1.'
+        }
+      }
+    },
     subtipohueso: {
       type: DataTypes.ENUM,
       values: axial.concat(apendicular)
