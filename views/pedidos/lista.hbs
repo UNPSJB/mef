@@ -1,4 +1,4 @@
-<h1>Lista de pedidos
+<h1>Pedidos
     <a class="btn btn-success" href="/pedidos/agregar" role="button">+</a><a class="btn btn-primary" href="pedidos/replicas" role="button">Replicas Terminadas</a>
 </h1>
 
@@ -47,84 +47,44 @@
 
 
 <script>
-  const rol = "{{req.session.rol}}";
   $(".Presupuestado").each(function () {
-    if (rol === 'exhibicion') {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +
-        fabricar("facturar", $(this).find('.id')[0].innerText) +
-        fabricar("cancelar", $(this).find('.id')[0].innerText) + "</td>");
-    }
-    if (rol === 'taller') {
-      $(this).append("<td> " +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +"</td>");
-    }
+    $(this).append("<td>" +
+      fabricar("detalle", $(this).find('.id')[0].innerText) +
+      fabricar("facturar", $(this).find('.id')[0].innerText) +
+      fabricar("cancelar", $(this).find('.id')[0].innerText) + "</td>");
   })
   $(".Facturado").each(function () {
-    if (rol === 'exhibicion') {
     $(this).append("<td>" +
       fabricar("detalle", $(this).find('.id')[0].innerText) +
       fabricar("confirmar", $(this).find('.id')[0].innerText) + "</td>")
-    }
-    if (rol === 'taller') {
-      $(this).append("<td> " +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +"</td>");
-    }
-
   })
   $(".Confirmado").each(function () {
-    if (rol === 'exhibicion') {
-      $(this).append("<td> " +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +"</td>");
-    }
-    if (rol === 'taller') {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +
-        fabricar("fabricar", $(this).find('.id')[0].innerText) + "</td>")
-    }
+    $(this).append("<td>" +
+      fabricar("detalle", $(this).find('.id')[0].innerText) +
+      fabricar("fabricar", $(this).find('.id')[0].innerText) + "</td>")
   })
   $(".Fabricando").each(function () {
-    if (rol === 'exhibicion') {
-      $(this).append("<td> " +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +"</td>");
-    }
-    if (rol === 'taller') {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +
-        fabricar("finalizar", $(this).find('.id')[0].innerText) +
-        fabricar("demorar", $(this).find('.id')[0].innerText) +
-        fabricar("empleados", $(this).find('.id')[0].innerText) +"</td>")
-    }
-
+    $(this).append("<td>" +
+      fabricar("detalle", $(this).find('.id')[0].innerText) +
+      fabricar("finalizar", $(this).find('.id')[0].innerText) +
+      fabricar("demorar", $(this).find('.id')[0].innerText) +
+      fabricar("empleados", $(this).find('.id')[0].innerText) +"</td>")
   })
   $(".Demorado").each(function () {
-    if (rol === 'exhibicion') {
-      $(this).append("<td> " +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +"</td>");
-    }
-    if (rol === 'taller') {
     $(this).append("<td>" +
       fabricar("detalle", $(this).find('.id')[0].innerText) +
       fabricar("reanudar", $(this).find('.id')[0].innerText) + "</td>")
-    }
   })
   $(".Finalizado").each(function () {
-    if (rol === 'exhibicion') {
-      $(this).append("<td> " +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +"</td>");
+    let cliente = $(this).find('.cliente')[0].innerText;
+    if (cliente === 'Interno') {
+      $(this).append("<td>" +
+        fabricar("detalle", $(this).find('.id')[0].innerText) +"</td>")
+    } else {
+      $(this).append("<td>" +
+        fabricar("detalle", $(this).find('.id')[0].innerText) +
+        fabricar("entregar", $(this).find('.id')[0].innerText) + "</td>")
     }
-    if (rol === 'taller') {
-      let cliente = $(this).find('.cliente')[0].innerText;
-      if (cliente === 'Interno') {
-        $(this).append("<td>" +
-          fabricar("detalle", $(this).find('.id')[0].innerText) +"</td>")
-      } else {
-        $(this).append("<td>" +
-          fabricar("detalle", $(this).find('.id')[0].innerText) +
-          fabricar("entregar", $(this).find('.id')[0].innerText) + "</td>")
-      }
-    }
-
   })
   $(".Entregado").each(function () {
     $(this).append("<td>" +

@@ -5,7 +5,12 @@ var userService = require("../services/user");
 var permisos = require('../middlewares/permisos');
 
 router.get('/', permisos.estaLogueado, (req, res) => {
-  res.render('home',{layout:'second',req});
+  try {
+    res.render('home',{layout:'second',req});
+    
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 router.get('/login', permisos.redirectHome,(req, res) => {

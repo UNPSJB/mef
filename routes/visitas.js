@@ -26,17 +26,17 @@ router.get('/', paginate, async (req, res) => {
 })
 
 router.get('/agregar', async (req, res) => {
-  const exhibiciones = await exhibicionService.getExhibiciones()
-  const clientes = await clienteService.getClientes()
-  const guias = await guiaService.getGuias()
+  const exhibiciones = await exhibicionService.getAllExhibiciones()
+  const clientes = await clienteService.getAllClientes()
+  const guias = await guiaService.getAllGuias()
   res.render('visitas/agregar', { exhibiciones, clientes, guias, req })
 })
 
 router.get('/editar/:id', async (req, res) => {
   const { id } = req.params
-  const exhibiciones = await exhibicionService.getExhibiciones()
-  const clientes = await clienteService.getClientes()
-  const guias = await guiaService.getGuias()
+  const exhibiciones = await exhibicionService.getAllExhibiciones()
+  const clientes = await clienteService.getAllClientes()
+  const guias = await guiaService.getAllGuias()
   const visita = await visitaService.getVisita(id)
   res.render('visitas/editar', { visita, exhibiciones, clientes, guias, req })
 })

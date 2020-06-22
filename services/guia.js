@@ -4,6 +4,20 @@ const { paginateModel } = require('./utils')
 
 
 module.exports = {
+  getAllGuias(){
+    return models.Guia.findAll({
+      include: [
+        {
+          model: models.Persona, 
+          required: false
+        },
+        {
+          model: models.Idioma, 
+          required: false
+        }
+      ]
+    })
+  },
   countGuias() {
     return models.Guia.count()
   },

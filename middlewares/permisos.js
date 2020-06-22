@@ -45,11 +45,12 @@ const TALLER_ESTADOS = {
 module.exports = {
     ROLES,
     estaLogueado(req,res,next){
+        // next()
         //tiene cookie userId, continua sino al login
         req.session.userId ? next() : res.redirect('/login');//@TODO cambiar, agregar mas experiencia
     },
     redirectHome(req,res,next){
-        // req.session.userId ? res.redirect('/') : next();   //@TODO cambiar, agregar mas experiencia
+        req.session.userId ? res.redirect('/') : next();   //@TODO cambiar, agregar mas experiencia
     },
     esExhibicion(req,res,next){
         // req.session.roles.includes === ROLES.EXHIBICION ? next() : res.redirect('/error'); //@TODO cambiar, agregar mas experiencia
@@ -70,20 +71,11 @@ module.exports = {
                 case ENTREGAR:
                 case QUITAR:
                 case EMPLEADOS:
-                    if(req.session.rol === ROLES.TALLER){
-                        return next();
-                    }else{
-                        return res.redirect('/403');
-                    }
                 case PRESUPUESTAR:
                 case CANCELAR:
                 case FACTURAR:
                 case CONFIRMAR:
-                    if(req.session.rol === ROLES.EXHIBICION){
-                        return next()
-                    }else{
-                        return res.redirect('/403');
-                    }
+                    return next()
                 default:
                     return res.redirect('404');             
             }
