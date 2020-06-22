@@ -1,14 +1,16 @@
 <div class="container">
     <form class="pt-3" action="/dinosaurios?_method=PUT" method="POST">
-        <div class="card mx-auto mt-4 text-center">
+        <div class="card mt-4 justify-content-center">
             <div class="card-header text-center bg-dark text-white" id="editarDinoModalLabel">
                 <h3>Editar Dinosaurio</h3>
             </div>
-            <div class="card-body text-center">
+            <div class="card-body">
                 <div class="form-group">
                     <label class="font-weight-bold" for="InputNombreCientifico">Nombre cientifico</label>
-                    <input type="text" class="form-control" name="nombre" id="InputNombreCientifico" placeholder="Ingrese Nombre Cientifico"
+                    <input type="text" class="form-control" name="nombre" id="InputNombreCientifico" maxlength="30" placeholder="Ingrese Nombre Cientifico"
                         required {{#if dino}} value="{{dino.nombre}}" {{/if}}>
+              <small id="nombreCientificohelp" class="form-text-muted text-muted">Maximo 30 caracteres</small>
+
                 </div>
                 {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
                 <label class="font-weight-bold pt-1 btn-block">Alimentacion</label>
