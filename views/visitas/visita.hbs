@@ -22,8 +22,8 @@
       <td>{{this.horario}} hs</td>
       <td>${{this.precio}}</td>
       <td>
-        <a href="/visitas/editar/{{this.id}}"><i class="far fa-edit"></i></a>
-        <a href="/visitas/eliminar/{{this.id}}"><i class="fas fa-minus-circle"></i></a>
+        <a href="/visitas/editar/{{this.id}}"><span class="material-icons">edit</span></a>
+        <a href="/visitas/eliminar/{{this.id}}"><span style="color:red" class="material-icons">delete</span></a>
       </td>
     </tr>
     {{/each}}

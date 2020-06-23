@@ -7,11 +7,16 @@
       <div class="card-body">
         <div class="form-group">
           <label for="nombre">Nombre:</label>
-          <input type="text" name="nombre" id="" class="form-control" placeholder="Nombre de la exhibicion" {{#with exh }} value="{{nombre}}" {{/with}}>
+          <input type="text" name="nombre"  minlength="4" maxlength="50" class="form-control" placeholder="Nombre de la exhibicion" {{#with exh }} value="{{nombre}}" {{/with}}>
+          <small class="form-text-muted text-muted">Minimo 4 caracteres. Maximo 50 caracteres</small><br>
+
           <label for="tematica">Tematica:</label>
-          <input type="text" name="tematica" id="" class="form-control" placeholder="Tematica de la tematica"{{#with exh }} value="{{tematica}}" {{/with}} >
+          <input type="text" name="tematica" minlength="4" maxlength="50" class="form-control" placeholder="Tematica de la tematica"{{#with exh }} value="{{tematica}}" {{/with}} >
+          <small class="form-text-muted text-muted">Minimo 4 caracteres. Maximo 50 caracteres</small><br>        
+
           <label for="duracion">Duracion:</label>
-          <input type="text" name="duracion" id="" class="form-control" placeholder="Duracion de la exhibicion" {{#with exh }} value="{{duracion}}" {{/with}}>
+          <input type="text" name="duracion" min="1" max="40" class="form-control" placeholder="Duracion de la exhibicion" {{#with exh }} value="{{duracion}}" {{/with}}>
+          <small class="form-text-muted text-muted">Minimo 1. Maximo 40. Solo números</small><br>        
         </div>
         <div class="form-group container">
           <div class="row">
@@ -20,28 +25,30 @@
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar fosiles --}}
                 {{#each fosiles_propios}}
-                 <input type="checkbox" name="fosiles" id="" value="{{this.id}}" checked> {{this.huesos}} | {{this.Dinosaurio.nombre}}
+                 <input type="checkbox" name="fosiles"  value="{{this.id}}" checked> {{this.huesos}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
                 {{#each fosiles}}
-                <input type="checkbox" name="fosiles" id="" value="{{this.id}}">{{this.huesos}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" name="fosiles"  value="{{this.id}}">{{this.huesos}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
               </div>
+              <small class="form-text-muted text-muted">Se puede agregar fósiles luego de crear la exhibicion.</small>
             </div>
             <div class="col-6">
               <label for="replicas">Listado de replicas disponibles:</label>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar replicas --}}
                 {{#each replicas_propias}}
-                 <input type="checkbox" name="replicas" id="" value="{{this.value}}" checked>{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
+                 <input type="checkbox" name="replicas"  value="{{this.value}}" checked>{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
                 {{#each replicas}}
-                <input type="checkbox" name="replicas" id="" value="{{this.value}}">{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" name="replicas"  value="{{this.value}}">{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
               </div>
+              <small class="form-text-muted text-muted">Se puede agregar replicas luego de crear la exhibicion.</small>
             </div>
           </div>
         </div>
