@@ -25,9 +25,17 @@
         <td>{{this.Persona.telefono}}</td>
         <!-- acciones aca -->
         <td>
-          <a href="/empleados/editar/{{this.id}}"><i class="far fa-edit"></i></a>
+          <a href="/empleados/editar/{{this.id}}">
+            <span class="material-icons">
+            edit
+            </span>
+          </a>
           <!--editar-->
-          <a href="/empleados/eliminar/{{this.id}}"><i class="fas fa-minus-circle" style="color: red;"></i></a>
+          <a href="/empleados/eliminar/{{this.id}}">
+            <span style="color:red" class="material-icons">
+            delete
+            </span>
+          </a>
           {{!-- otras acciones mas --}}
         </td>
       </tr>

@@ -1,11 +1,10 @@
 <h1>Eliminar Empleado</h1>
-<div class="alert alert-danger mt-4">Seguro que queres borrar esto ?</div>
+<div class="alert alert-danger">Seguro que queres borrar esto ?</div>
  <table class="table">
      <thead>
         <th scope="col">Documento</th>    
         <th scope="col">Nombre</th>
         <th scope="col">Apellido</th>
-        <th scope="col">Tipo</th>
         <th scope="col">Direccion</th>
         <th scope="col">Localidad</th>
         <th scope="col">Email</th>
@@ -14,15 +13,14 @@
      </thead>
     <tbody>
         <tr>
-            <th>{{empleado.Persona.identificacion}}</th>    
-            <th>{{empleado.Persona.nombre}}</th>
-            <th>{{empleado.Persona.apellido}}</th>
-            <th>{{empleado.tipo}}</th>
-            <th>{{empleado.Persona.direccion}}</th>
-            <th>{{empleado.Persona.localidad}}</th>
-            <th>{{empleado.Persona.email}}</th>
-            <th>{{empleado.Persona.fecha_nacimiento}}</th>
-            <th>{{empleado.Persona.telefono}}</th>
+            <td>{{empleado.Persona.identificacion}}</td>    
+            <td>{{empleado.Persona.nombre}}</td>
+            <td>{{empleado.Persona.apellido}}</td>
+            <td>{{empleado.Persona.direccion}}</td>
+            <td>{{empleado.Persona.localidad}}</td>
+            <td>{{empleado.Persona.email}}</td>
+            <td>{{empleado.Persona.fecha_nacimiento}}</td>
+            <td>{{empleado.Persona.telefono}}</td>
         </tr>
     </tbody>
  </table>
