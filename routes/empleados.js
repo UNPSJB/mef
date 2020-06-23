@@ -23,7 +23,7 @@ router.get('/',
 })
 
 router.get('/agregar', (req, res) => {
-    res.render('empleados/agregar', { empleados, req })
+    res.render('empleados/agregar', { req })
 })
 
 router.get('/editar/:id', (req, res) => {
@@ -46,6 +46,7 @@ router.post('/', async (req, res) =>{
     try {
         const persona = await personaService.createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)        
         const empleado = await empleadoService.createEmpleado(persona.id)
+        res.redirect('/empleados')
     } catch (error) {
         try {
             const persona = await personaService.getPersonaArgs({identificacion})

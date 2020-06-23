@@ -1,6 +1,6 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const IdiomaGuia = sequelize.define('IdiomaGuia',{},{ paranoid:true })
+  const IdiomaGuia = sequelize.define('IdiomaGuia',{},{})
   const Guia = sequelize.define('Guia', {
     dias_trabaja: {
       type: DataTypes.ENUM,

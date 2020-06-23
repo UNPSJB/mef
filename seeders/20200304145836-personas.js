@@ -16,7 +16,6 @@ module.exports = {
 
       let peopleObj = {
         identificacion: fakeId,
-        activo: true,
         nombre: faker.name.firstName(),
         apellido: faker.name.lastName(),
         direccion: faker.address.streetAddress(),
@@ -33,7 +32,6 @@ module.exports = {
     //generar guias
     for (let index = 1; index < 100; index++) {
       let guiaObj = {
-        fecha_alta: new Date(),
         PersonaId: index,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -57,7 +55,6 @@ module.exports = {
       let tipoCliente = random ? "Particular" : "Institucional";
       let clienteObj = {
         tipo: tipoCliente,
-        fecha_fin: new Date(),
         PersonaId: index,
         createdAt: new Date(),
         updatedAt: new Date()

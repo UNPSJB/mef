@@ -126,27 +126,31 @@ router.put(
       telefono
     } = req.body;
 
-    await guiaService.updateGuia({
-      id: idGuia,
-      dias_trabaja,
-      horario_trabaja
-    });
-
-    const guia = await guiaService.getGuia(idGuia);
-
-    await guia.setIdiomas([  ...idiomas]);
-    await personaService.updatePersona({
-      id: idPersona,
-      identificacion,
-      nombre,
-      apellido,
-      direccion,
-      localidad,
-      email,
-      fecha_nacimiento,
-      telefono
-    });
-    res.redirect('/guias');
+    try {
+      await guiaService.updateGuia({
+        id: idGuia,
+        dias_trabaja,
+        horario_trabaja
+      });
+  
+      const guia = await guiaService.getGuia(idGuia);
+  
+      await guia.setIdiomas([...idiomas]);
+      await personaService.updatePersona({
+        id: idPersona,
+        identificacion,
+        nombre,
+        apellido,
+        direccion,
+        localidad,
+        email,
+        fecha_nacimiento,
+        telefono
+      });
+      res.redirect('/guias');
+    } catch (error) {
+      console.log(error)      
+    }
   }
 );
 

@@ -34,7 +34,10 @@ module.exports = {
           required: false
         }
       ],
-      ...paginateModel({page, pageSize})
+      ...paginateModel({page, pageSize}),
+      order: [
+        ['updatedAt','DESC']
+      ]
     })
   },
   getGuia(id) {

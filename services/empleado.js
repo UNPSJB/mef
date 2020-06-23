@@ -17,7 +17,10 @@ module.exports = {
       where: {
         ...args
       },
-      ...paginateModel({ page, pageSize })
+      ...paginateModel({ page, pageSize }),
+      order: [
+        ['updatedAt','DESC']
+      ]
     })
   }, //@TODO mostrar dino sin editar o algo
   getEmpleado(id) {

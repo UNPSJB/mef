@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize,DataTypes) => {
-    const PedidoEmpleado = sequelize.define('PedidoEmpleado',{},{ paranoid:true })
+    const PedidoEmpleado = sequelize.define('PedidoEmpleado',{},{})
  
     const Persona = require('../core/persona')(sequelize,DataTypes);
     const Detalle = require('./detalle')(sequelize,DataTypes);

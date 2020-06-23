@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const FosilExhibicion = sequelize.define('FosilExhibicion',{},{ paranoid:true })
-  const ReplicaExhibicion = sequelize.define('ReplicaExhibicion',{},{ paranoid:true })
+  const FosilExhibicion = sequelize.define('FosilExhibicion',{},{})
+  const ReplicaExhibicion = sequelize.define('ReplicaExhibicion',{},{})
   const Exhibicion = sequelize.define('Exhibicion', {
     /** @TODO AGREGAR VALIDACION DE LARGO */
     nombre: {
