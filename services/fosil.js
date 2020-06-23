@@ -28,9 +28,10 @@ module.exports = {
     })
   },
   createFosil(numero_coleccion, peso, disponible, fecha_encontrado, observacion, DinosaurioId, huesos) {
+    const pesoParseado = parseFloat(peso)
     return models.Fosil.create({
       numero_coleccion,
-      peso,
+      peso:pesoParseado,
       disponible,
       fecha_encontrado,
       observacion,

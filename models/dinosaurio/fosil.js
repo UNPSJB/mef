@@ -22,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate: {
         max: {
-          args:2000,
+          args:[2000],
           msg:'El peso máximo del Fósil es 2000 kg.'
         },
         min: {
-          args:0,
+          args:[0],
           msg:'El Peso mínimo del Fósil es 0 kg.'
         }
       }

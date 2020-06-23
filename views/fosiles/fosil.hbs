@@ -2,11 +2,11 @@
 <h1>Fosiles
   <a href="/fosiles/agregar" class="btn btn-success btn-primary" rel="noopener noreferrer">+</a>
 </h1>
-<table class="table table-hover table-striped table-bordered" >
+<table style="table-layout: fixed;" class="table table-hover table-striped table-bordered" >
   <thead>
+    <th scope="col">Codigo de Coleccion</th>
     <th scope="col">Disponible para exhibicion</th>
-    <th scope="col">Numero de Coleccion</th>
-    <th scope="col">Peso (Kg)</th>
+    <th scope="col">Peso</th>
     <th scope="col">Fecha Encontrado</th>
     <th scope="col">Hueso Referencia</th>
     <th scope="col">Dinosaurio</th>
@@ -16,24 +16,30 @@
   <tbody>
     {{#each results}}
     <tr>
+      <td style="word-wrap: break-word;">{{this.numero_coleccion}}</td>
       <td>{{#if this.disponible}}
         Si
         {{else}}
         No
         {{/if}}
       </td>
-      <td>{{this.numero_coleccion}}</td>
-      <td>{{this.peso}}</td>
+      <td>{{this.peso}} Kg.</td>
       <td>{{this.fecha_encontrado}}</td>
       <td>{{this.huesos}}</td>
       <td>{{this.Dinosaurio.nombre}}</td>
-      <td>{{this.observacion}}</td>
-      {{!-- Acciones --}}
+      <td style="word-wrap: break-word;">{{this.observacion}}</td>
       <td>
-        <a href="/fosiles/editar/{{this.id}}"><i class="far fa-edit"></i></a>
-        <!--editar-->
-        <a href="/fosiles/eliminar/{{this.id}}"><i class="fas fa-minus-circle" style="color:red"></i></a>
-        {{!-- otras acciones mas --}}
+        {{!-- Acciones --}}
+        <a href="/fosiles/editar/{{this.id}}">
+          <span class="material-icons">
+          edit
+          </span>
+        </a>
+        <a href="/fosiles/eliminar/{{this.id}}">
+          <span class="material-icons" style="color:red">
+          delete
+          </span>
+        </a>
       </td>
     </tr>
     {{/each}}

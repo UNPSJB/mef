@@ -60,31 +60,17 @@ router.put('/',
   })
 
 router.post('/',
-  (req, res) => {
-    const {
-      DinosaurioId,
-      huesos,
-      numero_coleccion,
-      peso,
-      disponible,
-      fecha_encontrado,
-      observacion
-    } = req.body
-    dinoService.getDinosaurio(DinosaurioId).then(dino => {
-      fosilService
-        .createFosil(
-          numero_coleccion,
-          peso,
-          disponible,
-          fecha_encontrado,
-          observacion,
-          DinosaurioId,
-          huesos
-        )
-        .then(() => {
-          res.redirect('/fosiles')
-        })
-    })
-  })
+  async (req, res) => {
+    const { DinosaurioId, huesos, numero_coleccion, peso, disponible, fecha_encontrado, observacion } = req.body
+    try {
+        // createFosil(numero_coleccion, peso, disponible, fecha_encontrado, observacion, DinosaurioId, huesos) {
+      const fosil = await fosilService.createFosil(numero_coleccion, peso, disponible, fecha_encontrado, observacion, DinosaurioId, huesos )
+      res.redirect('/fosiles')
+    } catch (error) {
+      const { message } = error.errors[0]
+      const results =  await dinoService.getAllDinosaurios()
+      res.render('fosiles/agregar', { results, dino: req.body, bones ,req, errores: message })
+    }       
+})
 
 module.exports = router

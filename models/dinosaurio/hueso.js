@@ -30,11 +30,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate: {
         max: {
-          args:2000,
+          args:[2000],
           msg:'El número máximo del hueso es 2000'
         },
         min: {
-          args:1,
+          args:[1],
           msg:'El número mínimo del hueso es 1.'
         }
       }
