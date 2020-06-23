@@ -8,15 +8,10 @@ const { generatePagination } = require('../services/utils');
 
 //lista todos los empleados
 router.get('/', 
-  paginate,
   async (req, res) => {  
-    const { page, limit } = req.query
     try {
-      const empleados = await empleadoService.getEmpleados(page, limit)
-      const paginationObj = {
-        ...generatePagination('empleados', empleados.count, page, limit)
-      }
-      res.render('empleados/empleado', { results:empleados.rows, paginationObj, req })
+      const empleados = await empleadoService.getAllEmpleados()
+      res.render('empleados/empleado', { results:empleados, req })
     } catch (error) {
       res.redirect('/404')    
     }

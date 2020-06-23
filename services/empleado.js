@@ -4,7 +4,7 @@ const { paginateModel } = require('./utils')
 
 module.exports = {
   getAllEmpleados(args) {
-    return models.Empleado.findAndCountAll({
+    return models.Empleado.findAll({
       include: [models.Persona],
       where: {
         ...args

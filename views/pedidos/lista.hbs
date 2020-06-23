@@ -3,8 +3,7 @@
 </h1>
 
 <div class="container">
-  {{#if pedidos}}
-  <table class="table" >
+  <table class="table" id="pedidos" >
     <thead>
       <th>#</th>
       <th>Estado</th>
@@ -13,7 +12,6 @@
       <th>Acciones</th>
     </thead>
     <tbody>
-      {{/if}}
       {{#each pedidos}}
       <tr class="{{this.estadoInstance}}">
         <td class="id">{{this.id}}</td>
@@ -33,17 +31,41 @@
           {{/with}}
         </td>
       </tr>
-      {{else}}
-      <div class="container pt-4 text-center">
-        <h3>No hay pedidos agregados.</h3>
-      </div>
       {{/each}}
-      {{#if pedidos}}
     </tbody>
   </table>
-  {{/if}}
 </div>
-{{> pagination/footer paginationObj }}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+<script>
+$(document).ready( function () {
+  $('#pedidos').DataTable({
+    searching: true,
+    ordering:  true,
+    language: {
+        processing:"Buscando...",
+        search:"Buscar:",
+        lengthMenu:"Mostrando _MENU_",
+        info:"Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+        infoEmpty:"Mostrando 0 de 0 de un total de 0 ",
+        infoFiltered: "(de un total de _MAX_)",
+        infoPostFix: "",
+        loadingRecords:"Cargando...",
+        zeroRecords:"No hay elementos agregados",
+        emptyTable:"No hay elementos :(",
+        paginate:{
+            first:"Primero",
+            previous:"Anterior",
+            next:"Siguiente",
+            last:"Último"
+        },
+        aria: {
+            sortAscending:  ": Ordenar ascendente",
+            sortDescending: ": Ordenar descendente"
+        }
+    }
+  });
+});
+</script>
 
 
 <script>

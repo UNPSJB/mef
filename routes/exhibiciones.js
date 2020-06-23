@@ -9,14 +9,10 @@ const models = require('../models')
 const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
-router.get('/', paginate, async (req, res) => {
-  const { page, limit } = req.query
+router.get('/', async (req, res) => {
   try {
-    const exhibiciones = await exhibicionService.getExhibiciones(page, limit)
-    const paginationObj = {
-      ...generatePagination('exhibiciones', exhibiciones.count, page, limit)
-  }
-    res.render('exhibiciones/exhibicion', { exhibiciones:exhibiciones.rows, paginationObj, req })
+    const exhibiciones = await exhibicionService.getAllExhibiciones()
+    res.render('exhibiciones/exhibicion', { exhibiciones, req })
   } catch (error) {
     res.redirect('/404')
   }

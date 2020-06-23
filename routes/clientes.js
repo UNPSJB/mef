@@ -7,14 +7,10 @@ const paginate = require('../middlewares/paginate')
 
 
 //lista todos los clientes
-router.get('/', paginate, async (req, res) => {
-  const { page, limit } = req.query
+router.get('/', async (req, res) => {
   try {
-    const clientes = await clienteService.getClientes(page, limit)
-    const paginationObj = {
-      ...generatePagination('clientes', clientes.count, page, limit)
-    }
-    res.render('clientes/cliente', { results: clientes.rows, paginationObj, req })
+    const clientes = await clienteService.getAllClientes()
+    res.render('clientes/cliente', { results: clientes, req })
   } catch (error) {
     res.redirect('/404')
   }

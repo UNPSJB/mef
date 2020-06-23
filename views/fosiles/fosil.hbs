@@ -2,7 +2,7 @@
 <h1>Fosiles
   <a href="/fosiles/agregar" class="btn btn-success btn-primary" rel="noopener noreferrer">+</a>
 </h1>
-<table style="table-layout: fixed;" class="table table-hover table-striped table-bordered" >
+<table style="table-layout: fixed;" class="table table-hover table-striped table-bordered" id="fosiles" >
   <thead>
     <th scope="col">Codigo de Coleccion</th>
     <th scope="col">Disponible para exhibicion</th>
@@ -46,4 +46,34 @@
   </tbody>
 </table>
 
-{{> pagination/footer paginationObj }}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+<script>
+$(document).ready( function () {
+  $('#fosiles').DataTable({
+    searching: true,
+    ordering:  true,
+    language: {
+        processing:"Buscando...",
+        search:"Buscar:",
+        lengthMenu:"Mostrando _MENU_",
+        info:"Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+        infoEmpty:"Mostrando 0 de 0 de un total de 0 ",
+        infoFiltered: "(de un total de _MAX_)",
+        infoPostFix: "",
+        loadingRecords:"Cargando...",
+        zeroRecords:"No hay elementos agregados",
+        emptyTable:"No hay elementos :(",
+        paginate:{
+            first:"Primero",
+            previous:"Anterior",
+            next:"Siguiente",
+            last:"Último"
+        },
+        aria: {
+            sortAscending:  ": Ordenar ascendente",
+            sortDescending: ": Ordenar descendente"
+        }
+    }
+  });
+});
+</script>

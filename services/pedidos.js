@@ -6,6 +6,17 @@ const PRESUPUESTADO = 'Presupuestado';
 const { paginateModel } = require('./utils')
 
 module.exports = {
+  getAllPedidos(args){
+    return models.Pedido.findAll({
+      include: [models.Persona],
+      where:{
+        ...args
+      },
+      order:[
+        ['createdAt', 'DESC']
+      ]
+    })    
+  },
   countPedidos(){
     return models.Pedido.count()
   },

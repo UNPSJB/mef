@@ -4,14 +4,10 @@ const subclaseService = require('../services/subclase.js')
 const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
-router.get('/', paginate, async (req, res) => {
-  const { page, limit } = req.query
+router.get('/', async (req, res) => {
   try {
-    const subclases = await subclaseService.getSubclases(page, limit)
-    const paginationObj = {
-      ...generatePagination('subclases', subclases.count, page, limit)
-    }
-    res.render('subclases/subclase', { result:subclases.rows, paginationObj, req })
+    const subclase = await subclaseService.getAllSubclases()
+    res.render('subclases/subclase', { subclase, req })
   } catch (error) {
     res.redirect('/404')
   }

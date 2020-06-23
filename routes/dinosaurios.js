@@ -9,15 +9,10 @@ const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
 router.get('/', 
-  paginate,
   async (req, res) => {
-    const { page, limit } = req.query
     try {
-      const dinosaurio = await dinoService.getDinosaurios(page, limit)
-      const paginationObj = {
-        ...generatePagination('dinosaurios', dinosaurio.count, page, limit)
-      }
-      res.render('dinosaurios/dinosaurio', { dinosaurio: dinosaurio.rows, paginationObj, req })
+      const dinosaurio = await dinoService.getAllDinosaurios()
+      res.render('dinosaurios/dinosaurio', { dinosaurio, req })
     } catch (error) {
       res.redirect('/404')
     }

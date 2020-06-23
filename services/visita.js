@@ -2,6 +2,14 @@ const models = require('../models');
 const { paginateModel } = require('./utils')
 
 module.exports = {
+  getAllVisitas(args){
+    return models.Visita.findAll({
+      where: {
+        ...args
+      },
+      include: [{ model: models.Cliente, include: models.Persona }, { model: models.Guia, include: models.Persona }, { model: models.Exhibicion }],
+    });
+  },
   countVisitas() {
     return models.Visita.count()
   },

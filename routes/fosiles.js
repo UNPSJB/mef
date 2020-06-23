@@ -10,15 +10,10 @@ const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
 router.get('/',
-  paginate,
   async (req, res) => {
-    const { page, limit } = req.query
     try {
-      const fosiles = await fosilService.getFosiles(page, limit)
-      const paginationObj = {
-        ...generatePagination('fosiles', fosiles.count, page, limit)
-      }
-      res.render('fosiles/fosil', { results:fosiles.rows, paginationObj, req })
+      const fosiles = await fosilService.getAllFosiles()
+      res.render('fosiles/fosil', { results:fosiles, req })
     } catch (error) {
       res.redirect('/404')      
     }

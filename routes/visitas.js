@@ -9,17 +9,10 @@ const paginate = require('../middlewares/paginate')
 const { generatePagination } = require("../services/utils")
 
 //lista todos las visitas
-router.get('/', paginate, async (req, res) => {
-  const { page, limit } = req.query
-
+router.get('/', async (req, res) => {
   try {
-    const countVisitas = await visitaService.countVisitas()
-    const visitas = await visitaService.getVisitas()
-    const paginationObj = {
-      ...generatePagination('visitas', countVisitas, page, limit)
-    }
-    res.render('visitas/visita', { visitas: visitas.rows, paginationObj, req })
-
+    const visitas = await visitaService.getAllVisitas()
+    res.render('visitas/visita', { visitas, req })
   } catch (error) {
     console.log(error)
   }

@@ -15,12 +15,9 @@ const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
 router.get('/',
-  paginate,
   async (req, res) => {
-    const { page, limit } = req.query
     // https://flaviocopes.com/javascript-async-await-array-map/
-    const pedidosCount = await pedidosService.countPedidos()
-    const pedidosPromesa = await pedidosService.getPedidos(page, limit)
+    const pedidosPromesa = await pedidosService.getAllPedidos()
     const pedidosFunc = async () => {
       return Promise.all(pedidosPromesa.map(async pedido => {
         pedido.estadoActual = await pedido.estado
@@ -29,10 +26,7 @@ router.get('/',
       }))
     }
     const pedidos = await pedidosFunc()
-    const paginationObj = {
-      ...generatePagination('pedidos', pedidosCount, page, limit)
-    }
-    res.render('pedidos/lista', { pedidos, paginationObj, req })
+    res.render('pedidos/lista', { pedidos, req })
   })
 router.get('/agregar',
   (req, res) => {
