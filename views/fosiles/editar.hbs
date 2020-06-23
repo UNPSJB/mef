@@ -11,7 +11,7 @@
               <label class="font-weight-bold" for="dinosaurio">Seleccionar Dinosaurio</label>
               <input class="form-control" name="" id="dinosaurioId" disabled value="{{dinosaurio.nombre}}">
               <input type="hidden" name="DinosaurioId" value="{{dinosaurio.id}}">
-              <small id="nombreCientificohelp" class="form-text-muted text-muted">Dinosaurio de referencia</small>
+              <small class="form-text-muted text-muted">Dinosaurio de referencia</small>
             </div>
           </div>
           <div class="col-md-6">
@@ -22,7 +22,7 @@
                 <option value="{{this}}">{{this}}</option>
                 {{/each}}
               </select>
-              <small id="nombreCientificohelp" class="form-text-muted text-muted">Hueso de referencia</small>
+              <small class="form-text-muted text-muted">Hueso de referencia</small>
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@
               <input type="text" class="form-control" maxlength="30" name="numero_coleccion" id="InputNumeroColeccion"
                 placeholder="Ingrese Numero de Coleccion" required value="{{fosil.numero_coleccion}}">
               {{/if}}
-              <small id="nombreCientificohelp" class="form-text-muted text-muted">Maximo 30 caracteres</small>
+              <small class="form-text-muted text-muted">Maximo 30 caracteres</small>
             </div>
           </div>
           <div class="col-md-6">
@@ -44,7 +44,7 @@
               <input type="number" class="form-control" min="0" max="2000" name="peso" id="InputPeso" placeholder="Ingrese Peso de Fosil"
                 required value="{{fosil.peso}}">
               {{/if}}
-              <small id="nombreCientificohelp" class="form-text-muted text-muted">Minimo 1 kg y Maximo 2000 kg</small>
+              <small class="form-text-muted text-muted">Minimo 1 kg y Maximo 2000 kg</small>
             </div>
           </div>
         </div>
@@ -90,7 +90,7 @@
               <textarea class="form-control" maxlength="140" name="observacion" id="" maxlength="100" cols="number" rows="5"
                 placeholder="Ingrese observaciones">{{fosil.observacion}}</textarea>
               {{/if}}
-              <small id="nombreCientificohelp" class="form-text-muted text-muted">Maximo 140 caracteres</small>
+              <small class="form-text-muted text-muted">Maximo 140 caracteres</small>
             </div>
           </div>
         </div>

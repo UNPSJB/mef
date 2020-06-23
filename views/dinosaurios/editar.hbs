@@ -9,7 +9,7 @@
                     <label class="font-weight-bold" for="InputNombreCientifico">Nombre cientifico</label>
                     <input type="text" class="form-control" name="nombre" id="InputNombreCientifico" maxlength="30" placeholder="Ingrese Nombre Cientifico"
                         required {{#if dino}} value="{{dino.nombre}}" {{/if}}>
-              <small id="nombreCientificohelp" class="form-text-muted text-muted">Maximo 30 caracteres</small>
+              <small class="form-text-muted text-muted">Maximo 30 caracteres</small>
 
                 </div>
                 {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
