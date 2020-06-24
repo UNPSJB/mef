@@ -1,9 +1,15 @@
-<h1>Pedidos
-    <a class="btn btn-success" href="/pedidos/agregar" role="button">+</a><a class="btn btn-primary" href="pedidos/replicas" role="button">Replicas Terminadas</a>
+<h1 class="bg-secondary text-center text-white rounded p-2 mt-2">
+  Pedidos
+  <a class="btn btn-success btn-primary border border-light" href="/pedidos/agregar" role="button">
+    +
+  </a>
+  <a class="btn btn-success btn-info border border-light" href="pedidos/replicas" role="button">
+    Replicas Terminadas
+  </a>
 </h1>
 
 <div class="container">
-  <table class="table" id="pedidos" >
+  <table class="table" id="pedidos">
     <thead>
       <th>#</th>
       <th>Estado</th>
@@ -37,34 +43,34 @@
 </div>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
 <script>
-$(document).ready( function () {
-  $('#pedidos').DataTable({
-    searching: true,
-    ordering:  true,
-    language: {
-        processing:"Buscando...",
-        search:"Buscar:",
-        lengthMenu:"Mostrando _MENU_",
-        info:"Mostrando _START_ de _END_ de un total de _TOTAL_ ",
-        infoEmpty:"Mostrando 0 de 0 de un total de 0 ",
+  $(document).ready(function () {
+    $('#pedidos').DataTable({
+      searching: true,
+      ordering: true,
+      language: {
+        processing: "Buscando...",
+        search: "Buscar:",
+        lengthMenu: "Mostrando _MENU_",
+        info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+        infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
         infoFiltered: "(de un total de _MAX_)",
         infoPostFix: "",
-        loadingRecords:"Cargando...",
-        zeroRecords:"No hay elementos agregados",
-        emptyTable:"No hay elementos :(",
-        paginate:{
-            first:"Primero",
-            previous:"Anterior",
-            next:"Siguiente",
-            last:"Último"
+        loadingRecords: "Cargando...",
+        zeroRecords: "No hay elementos agregados",
+        emptyTable: "No hay elementos :(",
+        paginate: {
+          first: "Primero",
+          previous: "Anterior",
+          next: "Siguiente",
+          last: "Último"
         },
         aria: {
-            sortAscending:  ": Ordenar ascendente",
-            sortDescending: ": Ordenar descendente"
+          sortAscending: ": Ordenar ascendente",
+          sortDescending: ": Ordenar descendente"
         }
-    }
+      }
+    });
   });
-});
 </script>
 
 
@@ -90,7 +96,7 @@ $(document).ready( function () {
       fabricar("detalle", $(this).find('.id')[0].innerText) +
       fabricar("finalizar", $(this).find('.id')[0].innerText) +
       fabricar("demorar", $(this).find('.id')[0].innerText) +
-      fabricar("empleados", $(this).find('.id')[0].innerText) +"</td>")
+      fabricar("empleados", $(this).find('.id')[0].innerText) + "</td>")
   })
   $(".Demorado").each(function () {
     $(this).append("<td>" +
@@ -101,7 +107,7 @@ $(document).ready( function () {
     let cliente = $(this).find('.cliente')[0].innerText;
     if (cliente === 'Interno') {
       $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +"</td>")
+        fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
     } else {
       $(this).append("<td>" +
         fabricar("detalle", $(this).find('.id')[0].innerText) +
@@ -110,11 +116,11 @@ $(document).ready( function () {
   })
   $(".Entregado").each(function () {
     $(this).append("<td>" +
-      fabricar("detalle", $(this).find('.id')[0].innerText) +"</td>")
+      fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
   })
   $(".Cancelado").each(function () {
     $(this).append("<td>" +
-      fabricar("detalle", $(this).find('.id')[0].innerText) +"</td>")
+      fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
   })
 
   function fabricar(accion, id) {

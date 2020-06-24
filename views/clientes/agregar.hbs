@@ -1,24 +1,24 @@
 <div class="container">
   <form action="/clientes" method="POST">
     <div class="card mt-4">
-      <div class="card-header text-center bg-dark text-white">
+      <div class="card-header text-center bg-secondary text-white">
         <h1>Agregar cliente</h1>
       </div>
       <div class="card-body">
           <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
             {{>persona/cliente cliente}}
           </div>
-        <div class="row">
-          <label class="btn btn-secondary form-check-label">
+        <div class="row justify-content-center p-3x">
+          <label class="btn btn-secondary form-check-label mr-3">
             <input type="radio" name="tipoCliente" value="Particular"  autocomplete="off" required>
             Particular
           </label>
-          <label class="btn btn-secondary form-check-label">
+          <label class="btn btn-secondary form-check-label ">
             <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off" required>
             Institucional
           </label>
         </div>
-        <div class="row">
+        <div class="pt-4">
           <button type="submit" class="btn btn-success form-control">Agregar Cliente</button>
         </div>
       </div>
