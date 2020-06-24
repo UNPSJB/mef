@@ -7,7 +7,9 @@ module.exports = (sequelize, DataTypes) =>{
             const PedidoId = pedido.id;
             return sequelize.models.Cancelado.create({
                 PedidoId,
-                fecha: new Date()
+                obs:args.observacion,
+                fecha:this.fecha_fin_oferta,
+                fecha_baja: new Date()
             }).then(()=>{
                 return pedido.update({
                     autorizacion:true
