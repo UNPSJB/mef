@@ -1,64 +1,50 @@
 <div class="row">
-    <div class="col-6 pb-2">
-        <label class="font-weight-bold" for="identificacion">
-            Documento
-        </label>
-        <input type="text" class="empleado form-empleado form-control" name="identificacion" id="InputIdentificacion"
-            placeholder="Ingrese su documento" required {{#if this}} value="{{this.tipo }}" {{/if}}>
-        <label class="font-weight-bold" for="nombre">
-            Nombre
-        </label>
-        <input type="text" class="empleado form-empleado form-control" name="nombre" id="InputNombre"
-            placeholder="Ingrese Nombre" required {{#if this}}value="{{this.nombre}}" {{/if}}>
-        <label class="font-weight-bold" for="apellido">
-            Apellido
-        </label>
-        <input type="text" class="empleado form-empleado form-control" name="apellido" id="InputApellido"
-            placeholder="Ingrese Apellido" required {{#if this}}value="{{this.apellido}}" {{/if}}>
-        <label class="font-weight-bold" for="direccion">
-            Direccion
-        </label>
-        <input type="text" class="empleado form-empleado form-control" name="direccion" id="InputDireccion"
-            placeholder="Ingrese Direccion" required {{#if this}}value="{{this.direccion}}" {{/if}}>
-    </div>
-    <div class="col-6">
-        <label class="font-weight-bold" for="localidad">
-            Localidad
-        </label>
-        <input type="text" class="form-empleado empleado form-control" name="localidad" id="InputLocalidad"
-            placeholder="Ingrese Localidad" required {{#if this}}value="{{this.localidad}}" {{/if}}>
-        <label class="font-weight-bold" for="email">
-            Email
-        </label>
-        <input type="email" class="form-empleado empleado form-control" name="email" id="InputEmail"
-            placeholder="Ingrese Email" required {{#if this}}value="{{this.email}}" {{/if}}>
+            <div class="col-6 pb-2">
+              <label class="font-weight-bold" for="identificacion">Documento</label>
+              <input type="text" class="form-empleado form-control" minlength="6" maxlength="50" name="identificacion" id="InputIdentificacion"
+                placeholder="Ingrese su documento" required {{#if this}} value="{{this.identificacion }}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
 
+              <label class="font-weight-bold" for="nombre">Nombre</label>
+              <input type="text" class="form-this form-control" minlength="1" maxlength="50" name="nombre" id="InputNombre"
+                placeholder="Ingrese Nombre" required {{#if this}}value="{{this.nombre}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 1 caracter. Maximo 50 caracteres</small><br>
 
+              <label class="font-weight-bold" for="apellido">Apellido</label>
+              <input type="text" class="form-this form-control" minlength="1" maxlength="50" name="apellido" id="InputApellido"
+                placeholder="Ingrese Apellido" required {{#if this}}value="{{this.apellido}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 1 caracter. Maximo 50 caracteres</small><br>
 
+              <label class="font-weight-bold" for="direccion">Direccion</label>
+              <input type="text" class="form-this form-control" minlength="5" maxlength="140" name="direccion" id="InputDireccion"
+                placeholder="Ingrese Direccion" required {{#if this}}value="{{this.direccion}}" {{/if}}>
+              <small class="form-text-muted text-muted">Direccion completa. Minimo 5 caracteres. Maximo 140 caracteres</small><br>
 
-        <label class="font-weight-bold" for="fechaNacimiento">
-            Fecha Nacimiento
-        </label>
-        <input type="date" class="form-empleado empleado form-control" name="fecha_nacimiento" min="1900-01-01"
-            id="InputFechaNacimiento" required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}><br>
+            </div>
+            <div class="col-6">
+              <label class="font-weight-bold" for="localidad">Localidad</label>
+              <input type="text" class="form-this form-control" minlength="4" maxlength="50" name="localidad" id="InputLocalidad"
+                placeholder="Ingrese Localidad" required {{#if this}}value="{{this.localidad}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 4 caracteres. Maximo 50 caracteres</small><br>
+              
+              <label class="font-weight-bold" for="email">Email</label>
+              <input type="email" class="form-this form-control" minlength="6" maxlength="50" name="email" id="InputEmail"
+                placeholder="Ingrese Email" required {{#if this}}value="{{this.email}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
 
+              <label class="font-weight-bold" for="fechaNacimiento">Fecha Nacimiento</label>
+              <input type="date" class="form-this form-control" name="fecha_nacimiento" min="1900-01-01"
+                id="InputFechaNacimiento" required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
+              <small class="form-text-muted text-muted">Fecha de nacimiento de this</small><br>
 
+              <label class="font-weight-bold" for="InputTelefono">Telefono</label>
+              <input type="tel" class="form-this form-control" minlength="6" maxlength="50" name="telefono" id="InputTelefono" placeholder="Ingrese Telefono" required
+                {{#if this}}value="{{this.telefono}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
 
-
-        <label class="font-weight-bold" for="InputTelefono">
-            Telefono
-        </label>
-        <small>
-            xxx - xx - xxx
-        </small>
-        <input type="tel" class="form-empleado empleado form-control" name="telefono" id="InputTelefono"
-            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Ingrese Telefono" required>
-        </label>
-    </div>
-</div>
-
-
-
+              {{#if this}}<input name="id" type="number" value="{{this.id}}" hidden> {{/if}}
+            </div>
+          </div>
 
 <script>
 // setea la fecha actual 

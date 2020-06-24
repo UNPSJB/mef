@@ -48,8 +48,8 @@
             </div>
             <div class="col-6">
               <label class="font-weight-bold" for="fecha">Fecha</label>
-              <input type="date" class="form-control" name="fecha" placeholder="Ingrese Fecha" value="{{visita.fechaVisita}}" required>
-              <small class="form-text-muted text-muted">Fecha de la visita guiada.</small><br>
+              <input type="date" class="form-control" id="fechaVisita" name="fecha" placeholder="Ingrese Fecha" value="{{visita.fechaVisita}}" required>
+              <small class="form-text-muted text-muted">Fecha de la visita guiada. La visita debe ser igual o posterior a hoy</small><br>
             
               <label class="font-weight-bold" for="email">Horario</label>
               <select class= "form-control" name="horario" >
@@ -90,17 +90,40 @@
               
               <label class="font-weight-bold" for="precio">Precio</label>
               <input class="form-control" type="number" name="precio" min="1" max="3000000" value="{{visita.precio}}" placeholder="Ingrese el Precio de la Visita Guiada" required>
-              <small class="form-text-muted text-muted">Minimo $1. Maximo $3.000.000</small>
+              <small class="form-text-muted text-muted">Minimo $1. Maximo $3.000.000 (Pesos Argentinos)</small>
 
             </div>
           </div>
           <div class="row">
             <div class="col">
               <input type="hidden" name="id" value="{{visita.id}}">
-              <button type="submit" class="btn btn-primary">Agregar Visita!</button>
+              <button type="submit" class="btn btn-primary btn-block">Agregar Visita</button>
             </div>
           </div>
         </div>
       </div>
   </form>
 </div>
+
+<script>
+  // setea la fecha actual como la fecha minima de "encontrado".
+  $(document).ready(function () {
+    var hoy = formatDate(new Date());
+    document.getElementById("fechaVisita").setAttribute("min", hoy);
+  })
+
+  function formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
+</script>

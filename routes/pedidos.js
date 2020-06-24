@@ -129,13 +129,14 @@ router.put('/', async (req, res) => {
     empleados = await getEmpleados()
   else
     empleados = await empleadoService.getEmpleado(empleado)
-
+  /** @todo agregar try catch, render con pedidos, elecciones, request */
   await pedido.setEmpleados(empleados)
   res.redirect('/pedidos')
 })
 
 router.post('/', (req, res) => {
   const { hueso, cliente, descripcion, monto, finoferta, moneda } = req.body
+  /** @TODO agregar async await, y la vista de error */
   if (cliente === "Interno") {
     pedidosService.solicitar(hueso).then(e => res.redirect('/pedidos'))
   } else {

@@ -34,8 +34,8 @@ router.get('/detalle/:id', async (req,res)=>{
 router.get('/agregar', async (req, res) => {
   try {
     const replicas = await pedidoService.getReplicas({ disponible: true })
-    const fosiles = await fosilService.getAllFosiles(null,null,{ disponible: true })
-    res.render('exhibiciones/agregar', { replicas, fosiles:fosiles.rows,req })
+    const fosiles = await fosilService.getAllFosiles({ disponible: true })
+    res.render('exhibiciones/agregar', { replicas, fosiles,req })
   } catch (error) {
     res.redirect('/404')
   }
@@ -61,24 +61,44 @@ router.get('/eliminar/:id', (req, res) => {
   })
 })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const {nombre, tematica, duracion, fosiles, replicas} = req.body
-  exhibicionService.createExhibicion(nombre,tematica,duracion,fosiles,replicas)
-  .then(exhibicion=>{
+
+  try {
+    const exhibicion = await exhibicionService.createExhibicion(nombre,tematica,duracion,fosiles,replicas)
     res.redirect('/exhibiciones')
-  })
-  .catch(errores =>{
-    res.render('exhibiciones/agregar', {errores , nombre, tematica, duracion,req})
-  })
+  } catch (error) {
+    const { message } = error.errors[0]
+    const replicas = await pedidoService.getReplicas({ disponible: true })
+    const fosiles = await fosilService.getAllFosiles({ disponible: true })
+    res.render('exhibiciones/agregar', {errores:message , nombre, tematica, replicas, fosiles, fosiles_propios, replicas_propias, duracion,req})
+  
+  }
 })
 
 router.put('/', async (req,res)=>{
-  const {id, nombre, tematica, duracion, fosiles, replicas} = req.body
+  const { id, nombre, tematica, duracion } = req.body
   try {
-    await exhibicionService.updateExhibicion(id, nombre, tematica, duracion, fosiles, replicas)    
+    const exhibicion = await exhibicionService.getExhibicion(id)
+    await exhibicion.update({
+      ...req.body
+    })
+    // .updateExhibicion(id, nombre, tematica, duracion, fosiles, replicas)    
     res.redirect('/exhibiciones')
   } catch (error) {
-    res.render('exhibiciones/editar')
+    const { message } = error.errors[0]
+    /** @todo agregar objetos de exhibicion, request y error */
+    const exhibicion = await exhibicionService.getExhibicion(id)
+
+    const replicas = await pedidoService.getReplicas({ disponible: true })
+    const fosiles = await fosilService.getAllFosiles({ disponible: true })
+
+    const replicas_propias = await exhibicionService.getReplicas(id)
+    const fosiles_propios = await exhibicionService.getFosiles(id)
+
+    res.render('exhibiciones/editar', { errores:message, exh:exhibicion ,req, fosiles, replicas, fosiles_propios, replicas_propias })
+
+    // res.render('exhibiciones/editar', {errores:message , nombre, tematica, replicas, fosiles, duracion, req})
   }
 })
 

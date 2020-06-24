@@ -46,39 +46,38 @@ router.post('/', async (req, res) => {
   try {
     const persona = await personaService.createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
     const cliente = await clienteService.createClienteExiste(tipoCliente, persona.id)
+    res.redirect('/clientes')
   } catch (error) {
     try {
       const persona = await personaService.getPersonaArgs({ identificacion })
       await clienteService.createClienteExiste(tipoCliente, persona.id)
       res.redirect('/clientes')
     } catch (error) {
-      console.log(error.errors)
-      res.render("clientes/agregar", { errores: error, req })
+      /** @TODO agregar objeto persona y cliente */
+      const { message } = error.errors[0]
+      res.render("clientes/agregar", { errores: message, cliente:req.body ,req })
     }
   }
 })
 
-router.put('/', (req, res) => {
-  const { idPersona, identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, idCliente, tipoCliente } = req.body
-  const persona = {
-    id: idPersona,
-    identificacion: identificacion,
-    nombre: nombre,
-    apellido: apellido,
-    direccion: direccion,
-    localidad: localidad,
-    email: email,
-    fecha_nacimiento: fecha_nacimiento,
-    telefono: telefono
-  }
-  const cliente = { id: idCliente, tipo: tipoCliente }
-  return clienteService.updateCliente(cliente)
-    .then(() => {
-      personaService.updatePersona(persona)
-        .then(() => {
-          res.redirect('/clientes')
-        })
+router.put('/', async (req, res) => {
+  const { idPersona, idCliente, tipoCliente } = req.body
+  //** @TODO agregar try catch y render de la vista de error */
+  try {
+    const clienteDB = await clienteService.getCliente(idCliente)
+    await clienteDB.update({
+      tipo:tipoCliente
     })
+    const personaDB = await personaService.getPersona(idPersona)
+    await personaDB.update({
+      ...req.body
+    })
+    res.redirect('/clientes')
+  } catch (error) {
+    const { message } = error.errors[0]
+    const cliente = await clienteService.getCliente(idCliente)
+    res.render("clientes/editar", { errores: message, cliente ,req })
+  }
 })
 
 router.delete('/', async (req, res) => {

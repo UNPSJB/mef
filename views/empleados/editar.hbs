@@ -50,7 +50,7 @@
               <input type="tel" class="form-empleado form-control" minlength="6" maxlength="50" name="telefono" placeholder="Ingrese Telefono" required {{#if empleado}} value="{{empleado.Persona.telefono}}" {{/if}}>
               <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
 
-              {{#if empleado}}<input name="idEmpleado" type="number" value="{{Empleado.id}}" hidden> {{/if}}
+              {{#if empleado}}<input name="idEmpleado" type="number" value="{{empleado.id}}" hidden> {{/if}}
               {{#if empleado}}<input name="idPersona" type="number" value="{{empleado.Persona.id}}" hidden> {{/if}}
               </label>
             </div>

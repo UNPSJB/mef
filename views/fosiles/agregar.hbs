@@ -19,7 +19,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="hueso">Seleccionar Hueso</label>
+              <label class="font-weight-bold"  for="hueso">Seleccionar Hueso</label>
               <select class="form-control" name="huesos" id="huesoId">
                 {{#each bones}}
                 <option value="{{this}}">{{this}}</option>
@@ -35,13 +35,13 @@
               <label class="font-weight-bold" for="InputNumeroColeccion">Codigo de Coleccion</label>
               <input type="text" class="form-control" maxlength="30" name="numero_coleccion" id="InputNumeroColeccion"
                 placeholder="Ingrese Numero de Coleccion" required>
-              <small class="form-text-muted text-muted">Maximo 30 caracteres</small>
+              <small class="form-text-muted text-muted">Maximo 30 caracteres. Se puede repetir el codigo.</small>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="InputPeso">Peso (en Kilogramos)</label>
-              <input type="number" min="0" max="2000" class="form-control" name="peso" id="InputPeso" placeholder="Ingrese Peso de Fosil"
+              <label class="font-weight-bold"  for="InputPeso">Peso (en Kilogramos)</label>
+              <input type="number" min="1" max="2000" class="form-control" name="peso" id="InputPeso" placeholder="Ingrese Peso de Fosil"
                 required>
               <small class="form-text-muted text-muted">Minimo 1 kg y Maximo 2000 kg</small>
             </div>
@@ -69,10 +69,10 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="observacion">Observaciones</label><br>
+              <label class="font-weight-bold" for="observacion">Observaciones</label><br>
               <textarea class="form-control" name="observacion" maxlength="140" cols="number" rows="5"
                 placeholder="Ingrese observaciones"></textarea>
-              <small class="form-text-muted text-muted">Maximo 140 caracteres</small>
+              <small class="form-text-muted text-muted">Opcional, Maximo 140 caracteres</small>
 
             </div>
           </div>

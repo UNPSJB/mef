@@ -34,17 +34,6 @@ router.post('/login', permisos.redirectHome, (req, res) => {
     });
 });
 
-router.post('/register', permisos.redirectHome, (req, res) => {
-  const { email, password } = req.body;
-  userService.createUser(email, password )
-  .then(() => {
-    res.render("info", {layout:'second',exito:true, mensaje:"Usuario creado exitosamente!"});
-  })
-  .catch( (e) => {
-    res.render("info", {layout:'second',exito:false, mensaje: `Usuario no pudo ser creado: ${e}`})
-  });
-});
-
 router.delete('/logout', permisos.estaLogueado, (req,res) =>{
   req.session.destroy(()=>{
     res.redirect('/login');

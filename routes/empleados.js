@@ -48,16 +48,25 @@ router.post('/', async (req, res) =>{
             await empleadoService.createEmpleado(persona.id)
             res.redirect('/empleados')
         } catch (error) {
-            res.render('empleados/agregar',{errores: error,req})   
+          /** @TODO agregar objeto persona y empleado */
+            const { message } = error.errors[0]
+            res.render('empleados/agregar',{errores: message, empleado: req.body ,req})   
         }
     }
 })
 
-router.put('/', (req, res) => {
-  personaService.updatePersona(req.body)
-    .then(() => {
-        res.redirect('/empleados')
+router.put('/', async (req, res) => {
+  let empleado = req.body
+  try {
+    const persona = await personaService.getPersona(empleado.idPersona)
+    await persona.update({
+      ...empleado
     })
+  } catch (error) {
+    const { message } = error.errors[0]
+    const empleadoDB = await empleadoService.getEmpleado(empleado.idEmpleado)
+    res.render('empleados/editar',{errores: message, empleado:empleadoDB ,req})    
+  }
 })
 
 router.delete('/', (req, res) => {

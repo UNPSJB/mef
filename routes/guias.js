@@ -78,6 +78,7 @@ router.post(
         where: { identificacion }
       });
     } catch (error) {
+      /** @TODO agregar render de agregar guia */
       persona = await personaService.createPersona(
         identificacion,
         nombre,
@@ -144,6 +145,7 @@ router.put(
       });
       res.redirect('/guias');
     } catch (error) {
+      /** @todo agregar render con objeto guias, elecciones, request, error */
       console.log(error)      
     }
   }

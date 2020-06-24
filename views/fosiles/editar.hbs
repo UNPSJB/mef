@@ -9,8 +9,12 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold" for="dinosaurio">Seleccionar Dinosaurio</label>
-              <input class="form-control" name="" id="dinosaurioId" disabled value="{{dinosaurio.nombre}}">
-              <input type="hidden" name="DinosaurioId" value="{{dinosaurio.id}}">
+              <select class="form-control" name="DinosaurioId" id="dinosaurioId">
+                <option value="{{dinosaurio.id}}" selected>{{dinosaurio.nombre}}</option>
+                {{#each dinosaurios}}
+                <option value="{{this.id}}">{{this.nombre}}</option>
+                {{/each}}
+              </select>
               <small class="form-text-muted text-muted">Dinosaurio de referencia</small>
             </div>
           </div>
@@ -29,19 +33,19 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label class="font-weight-bold" for="InputNumeroColeccion">Numero de Coleccion</label>
+              <label class="font-weight-bold" for="InputNumeroColeccion">Codigo de Coleccion</label>
               {{#if fosil}}
               <input type="text" class="form-control" maxlength="30" name="numero_coleccion" id="InputNumeroColeccion"
                 placeholder="Ingrese Numero de Coleccion" required value="{{fosil.numero_coleccion}}">
               {{/if}}
-              <small class="form-text-muted text-muted">Maximo 30 caracteres</small>
+              <small class="form-text-muted text-muted">Maximo 30 caracteres. Se puede repetir el codigo.</small>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold"  for="InputPeso">Peso (Kg)</label>
               {{#if fosil}}
-              <input type="number" class="form-control" min="0" max="2000" name="peso" id="InputPeso" placeholder="Ingrese Peso de Fosil"
+              <input type="number" class="form-control" min="1" max="2000" name="peso" id="InputPeso" placeholder="Ingrese Peso de Fosil"
                 required value="{{fosil.peso}}">
               {{/if}}
               <small class="form-text-muted text-muted">Minimo 1 kg y Maximo 2000 kg</small>
@@ -85,12 +89,12 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label class="font-weight-bold" for="observacion">observaciones</label><br>
+              <label class="font-weight-bold" for="observacion">Observaciones</label><br>
               {{#if fosil}}
               <textarea class="form-control" maxlength="140" name="observacion"  maxlength="100" cols="number" rows="5"
                 placeholder="Ingrese observaciones">{{fosil.observacion}}</textarea>
               {{/if}}
-              <small class="form-text-muted text-muted">Maximo 140 caracteres</small>
+              <small class="form-text-muted text-muted">Opcional, Maximo 140 caracteres</small>
             </div>
           </div>
         </div>

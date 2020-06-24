@@ -36,23 +36,29 @@ router.get('/eliminar/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+  const { descripcion, clase } = req.body
   try {
-    const { descripcion, clase } = req.body
     const subclase = await subclaseService.createSubclase(descripcion, clase)
     res.redirect('/subclases')
   } catch (error) {
+    const { message } = error.errors[0]
     const subclase = req.body
-    res.render('subclases/agregar', { errores, subclase, req })  
+    /** @TODO revisar */
+    res.render('subclases/agregar', { errores:message, subclase, req })  
   }
 })
 
 router.put('/', async (req, res) => {
   const subclase = req.body
   try {
-    await subclaseService.updateSubclase(subclase)
+    const subclaseDB = await subclaseService.getSubclase(subclase.id)
+    await subclaseDB.update({
+      ...subclase
+    })
     res.redirect('/subclases')
   } catch (error) {
-    res.render('subclases/editar', { errores, subclase, req })
+    const { message } = error.errors[0]
+    res.render('subclases/editar', { errores: message, subclase, req })
   }
 })
 

@@ -10,51 +10,51 @@
             <div class="col-6 pb-2">
               <label class="font-weight-bold" for="identificacion">Documento</label>
               <input type="text" class="form-empleado form-control" minlength="6" maxlength="50" name="identificacion" id="InputIdentificacion"
-                placeholder="Ingrese su documento" required {{#if this}} value="{{this.tipo }}" {{/if}}>
+                placeholder="Ingrese su documento" required {{#if empleado}} value="{{empleado.identificacion }}" {{/if}}>
               <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="nombre">Nombre</label>
               <input type="text" class="form-empleado form-control" minlength="1" maxlength="50" name="nombre" id="InputNombre"
-                placeholder="Ingrese Nombre" required {{#if this}}value="{{this.nombre}}" {{/if}}>
+                placeholder="Ingrese Nombre" required {{#if empleado}}value="{{empleado.nombre}}" {{/if}}>
               <small class="form-text-muted text-muted">Minimo 1 caracter. Maximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="apellido">Apellido</label>
               <input type="text" class="form-empleado form-control" minlength="1" maxlength="50" name="apellido" id="InputApellido"
-                placeholder="Ingrese Apellido" required {{#if this}}value="{{this.apellido}}" {{/if}}>
+                placeholder="Ingrese Apellido" required {{#if empleado}}value="{{empleado.apellido}}" {{/if}}>
               <small class="form-text-muted text-muted">Minimo 1 caracter. Maximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="direccion">Direccion</label>
               <input type="text" class="form-empleado form-control" minlength="5" maxlength="140" name="direccion" id="InputDireccion"
-                placeholder="Ingrese Direccion" required {{#if this}}value="{{this.direccion}}" {{/if}}>
+                placeholder="Ingrese Direccion" required {{#if empleado}}value="{{empleado.direccion}}" {{/if}}>
               <small class="form-text-muted text-muted">Direccion completa. Minimo 5 caracteres. Maximo 140 caracteres</small><br>
 
             </div>
             <div class="col-6">
               <label class="font-weight-bold" for="localidad">Localidad</label>
               <input type="text" class="form-empleado form-control" minlength="4" maxlength="50" name="localidad" id="InputLocalidad"
-                placeholder="Ingrese Localidad" required {{#if this}}value="{{this.localidad}}" {{/if}}>
+                placeholder="Ingrese Localidad" required {{#if empleado}}value="{{empleado.localidad}}" {{/if}}>
               <small class="form-text-muted text-muted">Minimo 4 caracteres. Maximo 50 caracteres</small><br>
               
               <label class="font-weight-bold" for="email">Email</label>
               <input type="email" class="form-empleado form-control" minlength="6" maxlength="50" name="email" id="InputEmail"
-                placeholder="Ingrese Email" required {{#if this}}value="{{this.email}}" {{/if}}>
+                placeholder="Ingrese Email" required {{#if empleado}}value="{{empleado.email}}" {{/if}}>
               <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="fechaNacimiento">Fecha Nacimiento</label>
               <input type="date" class="form-empleado form-control" name="fecha_nacimiento" min="1900-01-01"
-                id="InputFechaNacimiento" required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
+                id="InputFechaNacimiento" required {{#if empleado}}value="{{empleado.fecha_nacimiento}}" {{/if}}>
               <small class="form-text-muted text-muted">Fecha de nacimiento de empleado</small><br>
 
               <label class="font-weight-bold" for="InputTelefono">Telefono</label>
               <input type="tel" class="form-empleado form-control" minlength="6" maxlength="50" name="telefono" id="InputTelefono" placeholder="Ingrese Telefono" required
-                {{#if this}}value="{{this.telefono}}" {{/if}}>
+                {{#if empleado}}value="{{empleado.telefono}}" {{/if}}>
               <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
 
-              {{#if this}}<input name="id" type="number" value="{{this.id}}" hidden> {{/if}}
+              {{#if empleado}}<input name="id" type="number" value="{{empleado.id}}" hidden> {{/if}}
             </div>
           </div>
           <div class="row">
-            <button type="submit" class="btn btn-primary form-control">Agregar Empleado</button>
+            <button type="submit" class="btn btn-success form-control">Agregar Empleado</button>
           </div>
         </div>
       </div>
