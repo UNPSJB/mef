@@ -14,13 +14,13 @@
           <div class="form-group">
             <label for="example-date-input" class="col-form-label">Fecha de Envio</label>
             <div class="col">
-              <input class="form-control" type="date" name="fecha_envio" id="InputFechaEnvio">
+              <input class="form-control" type="date" name="fecha_envio" id="InputFechaEnvio" required>
             </div>
           </div>
           <div class="form-group">
             <label for="example-date-input" class="col-form-label">Fecha de Entrega</label>
             <div class="col">
-              <input class="form-control" type="date" name="fecha_entrega" id="InputFechaEntrega">
+              <input class="form-control" type="date" name="fecha_entrega" id="InputFechaEntrega" required>
             </div>
           </div>
         </div>
@@ -44,8 +44,8 @@
       </div>
     </div>
     <div class="card-footer bg-dark text-muted">
-        <button type="submit" class="btn btn-success">Confirmar</button>
-        <a href="/pedidos" class="btn btn-danger">Rechazar</a>
+        <button type="submit" class="btn btn-success btn-block">Confirmar</button>
+        <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
     </div>
   </div>
 

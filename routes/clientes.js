@@ -24,7 +24,10 @@ router.get('/editar/:id', async (req, res) => {
   const { id } = req.params
   try {
     const cliente = await clienteService.getCliente(id)
-    res.render('clientes/editar', { cliente, req })
+    const { tipo } = cliente
+    const [ particular, institucional ] = [tipo == 'Particular', tipo == 'Institucional' ]
+
+    res.render('clientes/editar', { particular, institucional, cliente, req })
   } catch (error) {
     res.redirect('/404')
   }

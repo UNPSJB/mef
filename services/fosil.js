@@ -39,6 +39,14 @@ module.exports = {
       huesos
     })
   },
+  toggleDisponible(id){
+    return models.Fosil.findByPk(id)
+    .then((fosilEncontrado) => {
+        return fosilEncontrado.update({
+            disponible: !disponible
+        });
+    })
+  },
   updateFosil(fosilReq) {
     return models.Fosil.upsert(fosilReq) //update or insert = upsert XD
   },

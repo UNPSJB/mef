@@ -28,21 +28,6 @@
                 placeholder="Ingrese Direccion" required {{#if guia}} value="{{guia.Persona.direccion}}" {{/if}}>
               <small class="form-text-muted text-muted">Direccion completa. Minimo 5 caracteres. Maximo 140 caracteres</small><br>
 
-              <div class="row py-4 text-center mx-auto">
-                <span class="font-weight-bold pt-1">
-                  Horario Laboral:
-                </span>
-                <div class="pl-2" data-toggle="buttons">
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="horario_trabaja"  value="Diurno" autocomplete="off" required>
-                    Diurno
-                  </label>
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="horario_trabaja"  value="Nocturno" autocomplete="off">
-                    Nocturno
-                  </label>
-                </div>
-              </div>
             </div>
             <div class="col-6">
               <label class="font-weight-bold" for="localidad">Localidad</label>
@@ -63,45 +48,71 @@
               <label class="font-weight-bold" for="InputTelefono">Telefono</label>
               <input type="tel" class="form-guia form-control" name="telefono" id="InputTelefono" placeholder="Ingrese Telefono" required
               {{#if guia}} value="{{guia.Persona.telefono}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
 
-              <div class="row py-4 text-center mx-auto">
-                <span class="font-weight-bold pt-1">
-                  Dias Laborales:
-                </span>
-                <div class="pl-2" data-toggle="buttons">
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="dias_trabaja"  value="Normal" autocomplete="off" required>
-                    Normal (Lun-Vie)
-                  </label>
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="dias_trabaja"  value="Franquero" autocomplete="off">
-                    Franquero
-                  </label>
-                </div>
-              </div>
+
               {{#if guia}} <input name="idGuia" type="number" value="{{guia.id}}" hidden> {{/if}}
               {{#if guia}}<input name="idPersona" type="number" value="{{guia.Persona.id}}" hidden> {{/if}}
               </label>
             </div>
           </div>
-
-            <div class="row text-center pb-4">
-              <label class="font-weight-bold pt-1 btn-block" for="idiomas">
-                Idiomas:
-              </label>
-              <select class="form-control" name="idiomas" multiple required>
-                {{#each idiomasGuia }}
-                <option value="{{ this.id }}" selected>
-                  {{this.nombre}}
-                </option>
-                {{/each}}
-               {{#each idioma }}
-                <option value="{{ this.id }}">
-                  {{this.nombre}}
-                </option>
-                {{/each}}
-              </select>
+          <div class="row">
+            <div class="col">
+              <div class="row py-2 text-center mx-auto">
+                <span class="font-weight-bold pt-1">
+                  Horario Laboral:
+                </span>
+                <div class="pl-2" data-toggle="buttons">
+                  <label class="btn btn-secondary form-check-label">
+                    <input type="radio" name="horario_trabaja"  value="Diurno" autocomplete="off" required
+                    {{#if diurno}} checked {{/if}}>
+                    Diurno
+                  </label>
+                  <label class="btn btn-secondary form-check-label">
+                    <input type="radio" name="horario_trabaja"  value="Nocturno" autocomplete="off"
+                    {{#if nocturno}} checked {{/if}}>
+                    Nocturno
+                  </label>
+                </div>
+              </div>
             </div>
+            <div class="col">
+              <div class="row py-2 text-center mx-auto">
+                <span class="font-weight-bold pt-1">
+                  Dias Laborales:
+                </span>
+                <div class="pl-2" data-toggle="buttons">
+                  <label class="btn btn-secondary form-check-label">
+                    <input type="radio" name="dias_trabaja"  value="Normal" autocomplete="off" required
+                    {{#if normal}} checked {{/if}}>
+                    Normal (Lun-Vie)
+                  </label>
+                  <label class="btn btn-secondary form-check-label">
+                    <input type="radio" name="dias_trabaja"  value="Franquero" autocomplete="off"
+                    {{#if franquero}} checked {{/if}}>
+                    Franquero
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row text-center pb-4">
+            <label class="font-weight-bold pt-1 btn-block" for="idiomas">
+              Idiomas:
+            </label>
+            <select class="form-control" name="idiomas" multiple required>
+              {{#each idiomasGuia }}
+              <option value="{{ this.id }}" selected>
+                {{this.nombre}}
+              </option>
+              {{/each}}
+              {{#each idioma }}
+              <option value="{{ this.id }}">
+                {{this.nombre}}
+              </option>
+              {{/each}}
+            </select>
+          </div>
           <div class="row">
             <button type="submit" class="btn btn-success form-control">Guardar cambios</button>
           </div>

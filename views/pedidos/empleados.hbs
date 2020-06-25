@@ -1,26 +1,26 @@
-<form class="pt-3" action="/pedidos?_method=PUT" method="POST">
-    <span class="bg-warning form-control">Esta a punto de poner en fabricacion el siguiente pedido</span>
 
+<div class="alert alert-warning">Esta a punto de poner en fabricacion el siguiente pedido</div>
+<form action="/pedidos?_method=PUT" method="POST">
     <div style="padding-top: 10px">
         <div class="row">
             <h1>Edicion de empleados al pedido</h1>
         </div>
-        <div class="row">
-            <table class="table table-striped">
+        <div class="row" style="max-height: 60vh; overflow:scroll" >
+            <table class="table table-striped" >
                 <thead>
                     <th>Asignado</th>
                     <th>Identificacion</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                 </thead>
-                <tbody id="listaEmpleados">
+                <tbody id="listaEmpleados" >
                 </tbody>
             </table>
         </div>
     </div>
     {{#if id}}<input name="idPedido" type="number" value="{{id}}" hidden> {{/if}}
-    <button type="submit" class="btn btn-success">Confirmar</button>
-    <a href="/pedidos" class="btn btn-secondary">Volver</a>
+    <button type="submit" class="btn btn-success btn-block">Confirmar</button>
+    <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
 </form>
 <script>
     $(document).ready(() => {

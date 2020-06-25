@@ -1,22 +1,16 @@
 <h1>Facturar Pedido de replicacion</h1>
-
 {{> replica/detalle detalles}}
-
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
-    <h2>Detalles del Pago</h2>
-    <label for="tipopago">Tipo de Pago: <br>
-        <input class="form" type="radio" name="tipopago"  value="Efectivo" checked required> Efectivo
-        <input class="form" type="radio" name="tipopago"  value="Cheque" required> Cheque
-    </label>
+  <h2>Detalles del Pago</h2>
+  <label for="tipopago">Tipo de Pago: <br>
+    <input class="form" type="radio" name="tipopago" value="Efectivo" checked required> Efectivo
+    <input class="form" type="radio" name="tipopago" value="Cheque" required> Cheque
+  </label>
   <br>
-    <label for="presupuesto">Valor Presupuestado</label>
-    <input class="form-control" type="number" name="presupuesto" value="{{estado.monto}}" readonly>
-    <label for="Moneda"><b>Moneda:</b></label>{{estado.moneda}}
-    {{!-- <label for="monto">Valor Pagado</label>
-    <input class="form-control" type="number" name="monto" min="0"  placeholder="Ingrese monto">
-    <label for="mismo">
-        <input class="mismo" type="checkbox" name="mismo" >El mismo
-    </label> --}}
+  <label for="presupuesto">Valor Presupuestado</label>
+  <input class="form-control" type="number" name="presupuesto" value="{{estado.monto}}" readonly>
+  <label for="Moneda"><b>Moneda:</b></label>{{estado.moneda}}
+  <button type="submit" class="btn btn-success btn-block">Facturar</button>
+  <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
 
-    <button type="submit" class="btn btn-success form-control">Facturar</button>
 </form>

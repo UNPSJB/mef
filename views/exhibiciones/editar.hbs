@@ -38,13 +38,12 @@
             <div class="col-6">
               <label for="replicas">Listado de replicas disponibles:</label>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
-                {{!-- @TODO agregar replicas --}}
                 {{#each replicas_propias}}
-                 <input type="checkbox" name="replicas"  value="{{this.value}}" checked>{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
+                 <input type="checkbox" name="replicas"  value="{{this.id}}" checked>{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
                 {{#each replicas}}
-                <input type="checkbox" name="replicas"  value="{{this.value}}">{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" name="replicas"  value="{{this.id}}">{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
               </div>
@@ -61,3 +60,4 @@
 </div>
 </form>
 </div>
+

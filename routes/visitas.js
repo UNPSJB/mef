@@ -43,8 +43,12 @@ router.get('/eliminar/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const { exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio } = req.body
   /** @TODO agregar try catch y la vista de agregar visita */
-  await visitaService.createVisita(exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio)
-  res.redirect('/visitas')
+  try {
+    await visitaService.createVisita(exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio)
+    res.redirect('/visitas')
+  } catch (error) {
+    res.render('visitas/agregar', { req })    
+  }
 })
 
 router.put('/', async (req, res) => {
