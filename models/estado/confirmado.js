@@ -34,8 +34,10 @@ module.exports = (sequelize, DataTypes) =>{
         }
         cancelar(pedido,args){
             const PedidoId = pedido.id;
+            console.log('pedido', pedido, 'args', args)
             return sequelize.models.Cancelado.create({
-                PedidoId
+                PedidoId,
+                obs:args.observacion
             })
         }
     }
