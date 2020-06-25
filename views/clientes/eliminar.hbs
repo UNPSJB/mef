@@ -1,10 +1,10 @@
+<div class="alert alert-danger">Seguro que queres borrar esto ?</div>
 <div class="card mt-4">
     <div class="card-header text-center bg-dark text-white">
         <h1>Eliminar Cliente</h1>
-        <div class="alert alert-danger mt-4">Seguro que queres borrar esto ?</div>
     </div>
     <div class="card-body">
-        <table class="table">
+        <table style="table-layout: fixed; word-wrap: break-word;" class="table">
             <thead>
                 <th scope="col">Documento</th>
                 <th scope="col">Nombre</th>
@@ -18,20 +18,20 @@
             </thead>
             <tbody>
                 <tr>
-                    <th>{{cliente.Persona.identificacion}}</th>
-                    <th>{{cliente.Persona.nombre}}</th>
-                    <th>{{cliente.Persona.apellido}}</th>
-                    <th>{{cliente.tipo}}</th>
-                    <th>{{cliente.Persona.direccion}}</th>
-                    <th>{{cliente.Persona.localidad}}</th>
-                    <th>{{cliente.Persona.email}}</th>
-                    <th>{{cliente.Persona.fecha_nacimiento}}</th>
-                    <th>{{cliente.Persona.telefono}}</th>
+                    <td>{{cliente.Persona.identificacion}}</td>
+                    <td>{{cliente.Persona.nombre}}</td>
+                    <td>{{cliente.Persona.apellido}}</td>
+                    <td>{{cliente.tipo}}</td>
+                    <td>{{cliente.Persona.direccion}}</td>
+                    <td>{{cliente.Persona.localidad}}</td>
+                    <td>{{cliente.Persona.email}}</td>
+                    <td>{{cliente.Persona.fecha_nacimiento}}</td>
+                    <td>{{cliente.Persona.telefono}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="card_fotter">
+    <div class="card-footer">
         <form action="/clientes?_method=DELETE" method="POST">
             <input name="id" type="number" value="{{cliente.id}}" hidden required>
             <button type="submit" class="btn btn-danger">Eliminar</button> 
