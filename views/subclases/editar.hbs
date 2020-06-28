@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-8 mx-auto">
         <div class="card mx-auto">
-          <div class="card-header bg-dark text-white text-center">
+          <div class="card-header bg-secondary text-white text-center">
             <h3>Editar Subclase</h3>
           </div>
           <div class="card-body">
@@ -20,10 +20,12 @@
                 <span class="font-weight-bold pb-2">Clase:</span>
                 <div class="pl-2" data-toggle="buttons">
                   <div class="btn btn-secondary form-check-label">
-                    <input type="radio" name="clase"  value="Saurisquio" autocomplete="off" required> Saurisquio
+                    <input type="radio" name="clase"  value="Saurisquio" autocomplete="off" required
+                    {{#if saurisquio}} checked {{/if}}> Saurisquio
                   </div>
                   <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="clase"  value="Ornitisquio" autocomplete="off"> Ornitisquio
+                    <input type="radio" name="clase"  value="Ornitisquio" autocomplete="off"
+                    {{#if ornitisquio}} checked {{/if}}> Ornitisquio
                   </label>
                 </div>
             </div>

@@ -26,7 +26,9 @@ router.get('/agregar', async (req, res) => { // esto llama solo a la vista
 router.get('/editar/:id', async (req, res) => {
   const { id } = req.params
   const subclase = await subclaseService.getSubclase(id)
-  res.render('subclases/editar', { subclase, req })
+  const { clase } = subclase
+  const [ ornitisquio, saurisquio ] = [ clase === 'Ornitisquio', clase === 'Saurisquio']
+  res.render('subclases/editar', { ornitisquio, saurisquio, subclase, req })
 })
 
 router.get('/eliminar/:id', async (req, res) => {

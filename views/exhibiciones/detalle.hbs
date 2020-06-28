@@ -17,7 +17,7 @@
         <tbody>
           {{#each fosiles}}
           <tr>
-            <td>{{this.huesos}}</td>
+            <td>{{this.huesos}} | {{ this.Dinosaurio.nombre }}</td>
           </tr>
           {{else}}
           <tr>
@@ -35,7 +35,7 @@
         <tbody>
           {{#each replicas}}
           <tr>
-            <td>{{this.Hueso.nombre}}</td>
+            <td> {{this.Hueso.nombre}} | {{ this.Dinosaurio.nombre }} </td>
           </tr>
           {{else}}
           <tr>

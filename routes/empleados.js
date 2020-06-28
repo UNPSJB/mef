@@ -62,6 +62,7 @@ router.put('/', async (req, res) => {
     await persona.update({
       ...empleado
     })
+    res.redirect('/empleados')
   } catch (error) {
     const { message } = error.errors[0]
     const empleadoDB = await empleadoService.getEmpleado(empleado.idEmpleado)

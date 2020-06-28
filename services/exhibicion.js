@@ -50,7 +50,7 @@ module.exports = {
         nombre,
         tematica,
         duracion
-      }).then(exh => {
+      }).then(exhibicion => {
         if (replicas) {
           const listaDeReplicas = [...replicas]
           listaDeReplicas.every(async replica_id => {
@@ -90,6 +90,10 @@ module.exports = {
   },
 
   deleteExhibicion(id) {
-    models.Exhibicion.findByPk(id).then(e => e.destroy())
+    models.Exhibicion.findByPk(id).then(async e => {
+      await e.setFosils([])
+      await e.setReplicas([])
+      return e.destroy()
+    })
   }
 }

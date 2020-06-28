@@ -1,7 +1,7 @@
 <div class="container">
   <form class="pt-3" action="/guias?_method=PUT" method="POST">
     <div class="card mt-4">
-      <div class="card-header text-center bg-dark text-white" id="agregarGuiaModalLabel">
+      <div class="card-header text-center bg-secondary text-white" id="agregarGuiaModalLabel">
         <h1>Editar Guia</h1>
       </div>
       <div class="card-body">
@@ -9,94 +9,112 @@
           <div class="row">
             <div class="col-6 pb-2">
               <label class="font-weight-bold" for="identificacion">Documento</label>
-              <input type="text" class="form-guia form-control" name="identificacion" id="InputIdentificacion"
+              <input type="number" class="form-guia form-control" name="identificacion" id="InputIdentificacion"
                 placeholder="Ingrese su documento" required {{#if guia}} value="{{guia.Persona.identificacion}}"{{/if}}>
+              <small class="form-text-muted text-muted">Solo números</small><br>
 
               <label class="font-weight-bold" for="nombre">Nombre</label>
               <input type="text" class="form-guia form-control" name="nombre" id="InputNombre"
                 placeholder="Ingrese Nombre" required {{#if guia}} value="{{guia.Persona.nombre}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 1 caracter. Maximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="apellido">Apellido</label>
               <input type="text" class="form-guia form-control" name="apellido" id="InputApellido"
                 placeholder="Ingrese Apellido" required {{#if guia}} value="{{guia.Persona.apellido}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 1 caracter. Maximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="direccion">Direccion</label>
               <input type="text" class="form-guia form-control" name="direccion" id="InputDireccion"
                 placeholder="Ingrese Direccion" required {{#if guia}} value="{{guia.Persona.direccion}}" {{/if}}>
+              <small class="form-text-muted text-muted">Direccion completa. Minimo 5 caracteres. Maximo 140 caracteres</small><br>
 
-              <div class="row py-4 text-center mx-auto">
-                <span class="font-weight-bold pt-1">
-                  Horario Laboral:
-                </span>
-                <div class="pl-2" data-toggle="buttons">
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="horario_trabaja"  value="Diurno" autocomplete="off" required>
-                    Diurno
-                  </label>
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="horario_trabaja"  value="Nocturno" autocomplete="off">
-                    Nocturno
-                  </label>
-                </div>
-              </div>
             </div>
             <div class="col-6">
               <label class="font-weight-bold" for="localidad">Localidad</label>
               <input type="text" class="form-guia form-control" name="localidad" id="InputLocalidad"
                 placeholder="Ingrese Localidad" required {{#if guia}} value="{{guia.Persona.localidad}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 4 caracteres. Maximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="email">Email</label>
               <input type="email" class="form-guia form-control" name="email" id="InputEmail"
                 placeholder="Ingrese Email" required {{#if guia}} value="{{guia.Persona.email}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="fechaNacimiento">Fecha Nacimiento</label>
               <input type="date" class="form-guia form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
                 required {{#if guia}} value="{{guia.Persona.fecha_nacimiento}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="InputTelefono">Telefono</label>
               <input type="tel" class="form-guia form-control" name="telefono" id="InputTelefono" placeholder="Ingrese Telefono" required
               {{#if guia}} value="{{guia.Persona.telefono}}" {{/if}}>
+              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
 
-              <div class="row py-4 text-center mx-auto">
-                <span class="font-weight-bold pt-1">
-                  Dias Laborales:
-                </span>
-                <div class="pl-2" data-toggle="buttons">
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="dias_trabaja"  value="Normal" autocomplete="off" required>
-                    Normal (Lun-Vie)
-                  </label>
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="dias_trabaja"  value="Franquero" autocomplete="off">
-                    Franquero
-                  </label>
-                </div>
-              </div>
+
               {{#if guia}} <input name="idGuia" type="number" value="{{guia.id}}" hidden> {{/if}}
               {{#if guia}}<input name="idPersona" type="number" value="{{guia.Persona.id}}" hidden> {{/if}}
               </label>
             </div>
           </div>
-
-            <div class="row text-center pb-4">
-              <label class="font-weight-bold pt-1 btn-block" for="idiomas">
-                Idiomas:
-              </label>
-              <select class="form-control" name="idiomas" multiple>
-                {{#each idiomasGuia }}
-                <option value="{{ this.id }}" selected>
-                  {{this.nombre}}
-                </option>
-                {{/each}}
-               {{#each idioma }}
-                <option value="{{ this.id }}">
-                  {{this.nombre}}
-                </option>
-                {{/each}}
-              </select>
-            </div>
           <div class="row">
-            <button type="submit" class="btn btn-primary form-control">Guardar cambios</button>
+            <div class="col">
+              <div class="row py-2 text-center mx-auto">
+                <span class="font-weight-bold pt-1">
+                  Horario Laboral:
+                </span>
+                <div class="pl-2" data-toggle="buttons">
+                  <label class="btn btn-secondary form-check-label">
+                    <input type="radio" name="horario_trabaja"  value="Diurno" autocomplete="off" required
+                    {{#if diurno}} checked {{/if}}>
+                    Diurno
+                  </label>
+                  <label class="btn btn-secondary form-check-label">
+                    <input type="radio" name="horario_trabaja"  value="Nocturno" autocomplete="off"
+                    {{#if nocturno}} checked {{/if}}>
+                    Nocturno
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row py-2 text-center mx-auto">
+                <span class="font-weight-bold pt-1">
+                  Dias Laborales:
+                </span>
+                <div class="pl-2" data-toggle="buttons">
+                  <label class="btn btn-secondary form-check-label">
+                    <input type="radio" name="dias_trabaja"  value="Normal" autocomplete="off" required
+                    {{#if normal}} checked {{/if}}>
+                    Normal (Lun-Vie)
+                  </label>
+                  <label class="btn btn-secondary form-check-label">
+                    <input type="radio" name="dias_trabaja"  value="Franquero" autocomplete="off"
+                    {{#if franquero}} checked {{/if}}>
+                    Franquero
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row text-center pb-4">
+            <label class="font-weight-bold pt-1 btn-block" for="idiomas">
+              Idiomas:
+            </label>
+            <select class="form-control" name="idiomas" multiple required>
+              {{#each idiomasGuia }}
+              <option value="{{ this.id }}" selected>
+                {{this.nombre}}
+              </option>
+              {{/each}}
+              {{#each idioma }}
+              <option value="{{ this.id }}">
+                {{this.nombre}}
+              </option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="row">
+            <button type="submit" class="btn btn-success form-control">Guardar cambios</button>
           </div>
         </div>
       </div>

@@ -4,11 +4,11 @@
     {{> replica/detalle detalles}}
     <label class="form-group" for="inicio">
         Fecha Inicio
-        <input class="form-control" type="date" name="fechainicio" id="InputFechaInicio">
+        <input class="form-control" type="date" name="fechainicio" id="InputFechaInicio" required>
     </label>
     <label class="form-group" for="fin">
         Fecha Fin
-        <input class="form-control" type="date" name="fechafin" id="InputFechaFin">
+        <input class="form-control" type="date" name="fechafin" id="InputFechaFin" required>
     </label>
     <br>
     <label for="asignacion">
@@ -33,11 +33,9 @@
             </div>
         </div>
     </div>
-
-
-
-    <button type="submit" class="btn btn-success">Confirmar</button>
-    <a href="/pedidos" class="btn btn-secondary">Rechazar</a>
+    <small>Se puede agregar despues.</small><br>
+    <button type="submit" class="btn btn-success btn-block">Confirmar</button>
+    <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
 </form>
 
 <script>

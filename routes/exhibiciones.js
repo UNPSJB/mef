@@ -22,8 +22,8 @@ router.get('/detalle/:id', async (req,res)=>{
   const {id} = req.params
   try {
     const exhibicion =  await exhibicionService.getExhibicion(id)
-    const fosiles = await exhibicion.getFosils()
-    const replicas = await exhibicion.getReplicas({include:[models.Hueso, models.Pedido]})
+    const fosiles = await exhibicion.getFosils({include:[ models.Dinosaurio ]})
+    const replicas = await exhibicion.getReplicas({include:[models.Hueso, models.Dinosaurio, models.Pedido]})
     /**@TODO esto tambien moverlo al service, aplica para otras cosas donde sea similar, usar mas objetos */
     res.render('exhibiciones/detalle', {exhibicion, fosiles, replicas})
   } catch (error) {
@@ -47,11 +47,8 @@ router.get('/editar/:id', async (req, res) => {
   const replicas_propias = await exhibicionService.getReplicas(id)
   const fosiles= await fosilService.getAllFosiles({ disponible: true })
   const fosiles_propios = await exhibicionService.getFosiles(id)
-  
-  exhibicionService.getExhibicion(id).then(exh => {
-    /** @TODO poner los fosiles/replicas ya usados tildados */
-    res.render('exhibiciones/editar', { exh,req, fosiles, replicas, fosiles_propios, replicas_propias })
-  })
+  const exhibicion = await exhibicionService.getExhibicion(id)
+  res.render('exhibiciones/editar', { exh: exhibicion,req, fosiles, replicas, fosiles_propios, replicas_propias })
 })
 
 router.get('/eliminar/:id', (req, res) => {
@@ -71,34 +68,27 @@ router.post('/', async (req, res) => {
     const { message } = error.errors[0]
     const replicas = await pedidoService.getReplicas({ disponible: true })
     const fosiles = await fosilService.getAllFosiles({ disponible: true })
-    res.render('exhibiciones/agregar', {errores:message , nombre, tematica, replicas, fosiles, fosiles_propios, replicas_propias, duracion,req})
+    res.render('exhibiciones/agregar', {errores:message , nombre, tematica, replicas, fosiles, duracion,req})
   
   }
 })
 
 router.put('/', async (req,res)=>{
-  const { id, nombre, tematica, duracion } = req.body
+  const { id, nombre, tematica, duracion, fosiles, replicas } = req.body
+  console.log('logs', id, nombre, tematica, duracion, fosiles, replicas)
   try {
-    const exhibicion = await exhibicionService.getExhibicion(id)
-    await exhibicion.update({
-      ...req.body
-    })
-    // .updateExhibicion(id, nombre, tematica, duracion, fosiles, replicas)    
+    await exhibicionService.updateExhibicion(id, nombre, tematica, duracion, fosiles, replicas)
     res.redirect('/exhibiciones')
   } catch (error) {
     const { message } = error.errors[0]
-    /** @todo agregar objetos de exhibicion, request y error */
-    const exhibicion = await exhibicionService.getExhibicion(id)
 
+    const exhibicion = await exhibicionService.getExhibicion(id)
     const replicas = await pedidoService.getReplicas({ disponible: true })
     const fosiles = await fosilService.getAllFosiles({ disponible: true })
-
     const replicas_propias = await exhibicionService.getReplicas(id)
     const fosiles_propios = await exhibicionService.getFosiles(id)
 
     res.render('exhibiciones/editar', { errores:message, exh:exhibicion ,req, fosiles, replicas, fosiles_propios, replicas_propias })
-
-    // res.render('exhibiciones/editar', {errores:message , nombre, tematica, replicas, fosiles, duracion, req})
   }
 })
 
@@ -106,7 +96,6 @@ router.delete('/', async (req,res)=>{
   const { id } = req.body 
   try {
     await exhibicionService.deleteExhibicion(id)
-    /* @TODO poner en disponibles todas las exhibiciones */
     res.redirect('/exhibiciones')
   } catch (errores) {
     res.render('exhibiciones/eliminar', errores)

@@ -1,7 +1,7 @@
 <div class="container">
   <form action="/exhibiciones?_method=PUT" method="POST">
     <div class="card mt-4">
-      <div class="card-header text-center bg-dark text-white" id="agregarDinoModalLabel">
+      <div class="card-header text-center bg-secondary text-white" id="agregarDinoModalLabel">
         <h3>Editar Exhibicion</h3>
       </div>
       <div class="card-body">
@@ -38,13 +38,12 @@
             <div class="col-6">
               <label for="replicas">Listado de replicas disponibles:</label>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
-                {{!-- @TODO agregar replicas --}}
                 {{#each replicas_propias}}
-                 <input type="checkbox" name="replicas"  value="{{this.value}}" checked>{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
+                 <input type="checkbox" name="replicas"  value="{{this.id}}" checked>{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
                 {{#each replicas}}
-                <input type="checkbox" name="replicas"  value="{{this.value}}">{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" name="replicas"  value="{{this.id}}">{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
               </div>
@@ -61,3 +60,4 @@
 </div>
 </form>
 </div>
+

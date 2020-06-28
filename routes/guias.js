@@ -30,6 +30,11 @@ router.get('/agregar',
 router.get('/editar/:id',
   async (req, res) => {
     const guia = await guiaService.getGuia(req.params.id);
+
+    const { dias_trabaja, horario_trabaja } = guia
+    const [ normal, franquero ] = [ dias_trabaja === 'Normal', dias_trabaja === 'Franquero' ]
+    const [ diurno, nocturno ] = [ horario_trabaja === 'Diurno', horario_trabaja === 'Nocturno']
+
     const idiomasGuia = await guia.getIdiomas();
     const IDidiomasGuia = idiomasGuia.map(item => {
       return item.dataValues.id;
@@ -37,7 +42,7 @@ router.get('/editar/:id',
     const idioma = await guiaService.getIdiomas({
       id: { [Op.notIn]: [...IDidiomasGuia] }
     });
-    res.render('guias/editar', { guia, req, idioma, idiomasGuia });
+    res.render('guias/editar', { normal, franquero, diurno, nocturno, guia, req, idioma, idiomasGuia });
   }
 );
 

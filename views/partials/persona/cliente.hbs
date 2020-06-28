@@ -1,9 +1,9 @@
 <div class="row">
             <div class="col-6 pb-2">
               <label class="font-weight-bold" for="identificacion">Documento</label>
-              <input type="text" class="form-empleado form-control" minlength="6" maxlength="50" name="identificacion" id="InputIdentificacion"
+              <input type="number" class="form-empleado form-control" min="1000000" max="100000000" minlength="6" maxlength="50" name="identificacion" id="InputIdentificacion"
                 placeholder="Ingrese su documento" required {{#if this}} value="{{this.identificacion }}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
+              <small class="form-text-muted text-muted">Solo números</small><br>
 
               <label class="font-weight-bold" for="nombre">Nombre</label>
               <input type="text" class="form-this form-control" minlength="1" maxlength="50" name="nombre" id="InputNombre"

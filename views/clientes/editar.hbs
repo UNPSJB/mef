@@ -1,56 +1,56 @@
 <div class="container">
   <form class="pt-3" action="/clientes?_method=PUT" method="POST">
     <div class="card mt-4">
-      <div class="card-header text-center bg-dark text-white" id="agregarClienteModalLabel">
+      <div class="card-header text-center bg-secondary text-white" id="agregarClienteModalLabel">
         <h1>Editar cliente</h1>
       </div>
       <div class="card-body">
-          <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
-              {{>persona/cliente cliente.Persona}}
-          </div>
+        <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
+          {{>persona/cliente cliente.Persona}}
+        </div>
 
-          <div class="row">
-              <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="tipoCliente"  value="Particular" autocomplete="off" required>
-                Particular
-              </label>
-              <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="tipoCliente"  value="Institucional" autocomplete="off">
-                Institucional
-              </label>
-              
-              {{#if cliente}}<input name="idCliente" type="number" value="{{cliente.id}}" hidden> {{/if}}
-              {{#if cliente}}<input name="idPersona" type="number" value="{{cliente.Persona.id}}" hidden> {{/if}}
-              </label>
-          </div>
-          <div class="row">
-            <button type="submit" class="btn btn-primary form-control">Guardar cambios</button>
-          </div>
+        <div class="row">
+          <label class="btn btn-secondary form-check-label">
+            <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required {{#if particular}}
+              checked {{/if}}> Particular
+          </label>
+          <label class="btn btn-secondary form-check-label">
+            <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off" {{#if institucional}}
+              checked {{/if}}> Institucional
+          </label>
+
+          {{#if cliente}}<input name="idCliente" type="number" value="{{cliente.id}}" hidden> {{/if}}
+          {{#if cliente}}<input name="idPersona" type="number" value="{{cliente.Persona.id}}" hidden> {{/if}}
+          </label>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn btn-success form-control">Guardar cambios</button>
         </div>
       </div>
+    </div>
   </form>
 </div>
 
 
 <script>
-    // setea la fecha actual
-    $(document).ready(function () {
-        var hoy = formatDate(new Date());
-        document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
-        $("#InputFechaNacimiento").attr("max", hoy);
-    })
+  // setea la fecha actual
+  $(document).ready(function () {
+    var hoy = formatDate(new Date());
+    document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
+    $("#InputFechaNacimiento").attr("max", hoy);
+  })
 
-    function formatDate(date) {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear()-18; //Los clientes deben tener 18 años o más
+  function formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear() - 18; //Los clientes deben tener 18 años o más
 
-        if (month.length < 2)
-            month = '0' + month;
-        if (day.length < 2)
-            day = '0' + day;
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
 
-        return [year, month, day].join('-');
-    }
+    return [year, month, day].join('-');
+  }
 </script>

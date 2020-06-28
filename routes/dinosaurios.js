@@ -24,7 +24,6 @@ router.get('/',
       const subclases = await subclaseService.getAllSubclases()
       res.render('dinosaurios/agregar',{ subclases,req })
     } catch (error) {
-      console.log(error)
       res.render('dinosaurios/agregar', { subclases, req, errores:error })
     }
   });
@@ -34,7 +33,10 @@ router.get('/',
       try {
         const dino = await dinoService.getDinosaurio(req.params.id);
         const subclases = await subclaseService.getAllSubclases()
-        res.render('dinosaurios/editar', { dino, subclases,req });    
+        const { alimentacion, periodo } = dino
+        const [ cretacico, jurasico, triasico ] = [periodo == 'Cretacico' , periodo == 'Jurasico', periodo == 'Triasico']
+        const [ carnivoro, herbivoro, omnivoro ] = [alimentacion == 'Carnivoro', alimentacion == 'Herbivoro' , alimentacion == 'Omnivoro'] 
+        res.render('dinosaurios/editar', { dino, subclases, req, cretacico, jurasico, triasico, carnivoro, herbivoro, omnivoro });    
       } catch (error) {
         console.log(error)
       }
