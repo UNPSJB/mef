@@ -4,13 +4,13 @@ const EXHIBICION = 'exhibicion';
 const RRHH = 'rrhh';
 const SECRETARIA = 'secretaria';
 
-const ROLES = {
+const ROLES = [
     TALLER,
     COLECCION,
     EXHIBICION,
     RRHH,
     SECRETARIA
-}
+]
 
 const FABRICAR = 'fabricar'
 const DEMORAR = 'demorar'
@@ -44,25 +44,48 @@ const TALLER_ESTADOS = {
 
 module.exports = {
     ROLES,
-    estaLogueado(req,res,next){
+    estaLogueado(req, res, next){
         // next()
         //tiene cookie userId, continua sino al login
         req.session.userId ? next() : res.redirect('/login');//@TODO cambiar, agregar mas experiencia
     },
-    redirectHome(req,res,next){
+    redirectHome(req, res, next){
         req.session.userId ? res.redirect('/') : next();   //@TODO cambiar, agregar mas experiencia
     },
-    esExhibicion(req,res,next){
+    asignaPermisos(req, res, next) {
+        const { session : { rol } } = req
+        if ( rol ) {
+            rol.forEach(item => {
+                const nombre = item.descripcion
+                if (ROLES.includes(nombre)) { 
+                    req[nombre] = true
+                } else { 
+                    req[nombre] = false
+                }
+            })
+        }
+        next()
+    },
+    esExhibicion(req, res, next){
+        console.log(req, req.session, req.session.roles, typeof req.session.roles)
+        next()
         // req.session.roles.includes === ROLES.EXHIBICION ? next() : res.redirect('/error'); //@TODO cambiar, agregar mas experiencia
     },
-    esTaller(req,res,next){
+    esTaller(req, res, next){
         // req.session.rol === ROLES.TALLER ? next() : res.redirect('/error') ////@TODO cambiar, agregar mas experiencia
     }, 
-    esColeccion(req,res,next){
+    esColeccion(req, res, next){
+        const { session: { rol } } = req
+        if( rol ) {
+            const coleccion = rol.filter(item => item.descripcion == 'coleccion')
+            req.coleccion = coleccion ? true : false
+            console.log(req.coleccion)
+        }
+        next()
         // req.session.rol === ROLES.COLECCION ? next() : res.redirect('/error') //@TODO cambiar, agregar mas experiencia
     },
     permisosParaEstado(){
-        return function(req,res,next){
+        return function(req, res, next){
             switch(req.params.accion){
                 case FABRICAR:
                 case DEMORAR:
@@ -83,7 +106,7 @@ module.exports = {
     },
     permisoPara(args){ //aca van quienes tienen permiso
         // const rol = req.session.rol;
-        return function (req,res,next) {
+        return function (req, res, next) {
             if(args.includes([...req.session.rol])){
                 return next(); //tiene session y permiso
             }else{
