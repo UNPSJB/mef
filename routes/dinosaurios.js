@@ -8,7 +8,7 @@ const subclaseService = require('../services/subclase');
 const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
-router.get('/', 
+router.get('/',
   async (req, res) => {
     try {
       const dinosaurio = await dinoService.getAllDinosaurios()
