@@ -1,8 +1,10 @@
 <h1 class="bg-secondary text-center text-white rounded p-2 mt-2">
   Pedidos
+  {{#if req.exhibicion}}
   <a class="btn btn-success btn-primary border border-light" href="/pedidos/agregar" role="button">
     +
   </a>
+  {{/if}}
   <a class="btn btn-success btn-info border border-light" href="pedidos/replicas" role="button">
     Replicas Terminadas
   </a>

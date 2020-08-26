@@ -4,7 +4,7 @@ var accountService = require("../services/account");
 var userService = require("../services/user");
 var permisos = require('../middlewares/permisos');
 
-router.get('/', permisos.estaLogueado, (req, res) => {
+router.get('/', permisos.asignaPermisos, permisos.estaLogueado, (req, res) => {
   try {
     res.render('home',{layout:'second',req});
     
