@@ -21,7 +21,7 @@
     </thead>
     <tbody>
       {{#each pedidos}}
-      <tr class="{{this.estadoInstance}}">
+      <tr class="{{this.estadoInstance}} {{req.exhibicion}} {{req.taller}}">
         <td class="id">{{this.id}}</td>
         <td>{{this.estadoInstance}}</td>
         <td class="cliente">
@@ -77,6 +77,8 @@
 
 
 <script>
+  const taller = "{{req.taller}}"
+  const exhibicion = "{{req.exhibicion}}"
   $(".Presupuestado").each(function () {
     $(this).append("<td>" +
       fabricar("detalle", $(this).find('.id')[0].innerText) +
