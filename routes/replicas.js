@@ -6,7 +6,8 @@ const replicaService = require('../services/replicas')
 router.get('/',
   (req, res) => {
     replicaService.getReplicas().then(results => {
-      res.render('replicas/replica', { results, req })
+      // console.log('asd', results)
+      // res.render('replicas/replica', { results, req })
     })
   })
 

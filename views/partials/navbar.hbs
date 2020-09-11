@@ -1,6 +1,21 @@
 <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand" href="/">Mef</a>
   <div class="navbar-brand">
+    {{#if coleccion}}
+      coleccion
+    {{/if}}
+    {{#if exhibicion}}
+      exhibicion
+    {{/if}}
+    {{#if secretaria}}
+      secretaria
+    {{/if}}
+    {{#if taller}}
+      taller
+    {{/if}}
+    {{#if rrhh}}
+      rrhh
+    {{/if}}
   </div>
   
 
@@ -10,3 +25,17 @@
     </button>
   </form>
 </nav>
+
+<style>
+  .sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+</style>

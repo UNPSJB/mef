@@ -32,10 +32,10 @@
         </table>
     </div>
     <div class="card-footer">
-        <form action="/clientes?_method=DELETE" method="POST">
+        <form action="/clientes?_method=DELETE" method="POST" class="row justify-content-evenly">
             <input name="id" type="number" value="{{cliente.id}}" hidden required>
-            <button type="submit" class="btn btn-danger">Eliminar</button> 
-            <a href="/clientes" class="btn btn-secondary btn-block">Volver</a>
+            <button type="submit" class="btn btn-danger col-6">Eliminar</button>
+            <a href="/clientes" class="btn btn-secondary col-6">Cancelar</a>
         </form>
     </div>
 </div>
