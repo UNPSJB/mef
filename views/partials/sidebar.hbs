@@ -1,0 +1,46 @@
+<div class="sidenav">
+    {{#if coleccion}}
+    {{!-- Acá van los permisos de colección LISTO--}}
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/dinosaurios" role="button"><i
+            class="fas fa-dragon align-top"></i>Dinosaurios</a>
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/fosiles" role="button"><i
+            class="fas fa-bone"></i>Fosiles</a>
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/subclases" role="button"><i
+            class="fas fa-chevron-circle-down"></i>Subclases</a>
+    {{/if}}
+
+
+    {{#if exhibicion}}
+    {{!-- Acá van los permisos de exhibición LISTO--}}
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/pedidos" role="button"><i
+            class="fas fa-user"></i>Pedidos</a>
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/exhibiciones" role="button"><i
+            class="fas fa-dragon"></i>Exhibiciones</a>
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/clientes" role="button"><i
+            class="fas fa-highlighter"></i>Clientes</a>
+    {{/if}}
+
+    {{#if secretaria}}
+    {{!-- Acá van los permisos de secretaria LISTO--}}
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/visitas" role="button"><i
+            class="fas fa-user"></i>Visitas Guiadas</a>
+    {{/if}}
+
+    {{#if taller}}
+    {{!-- Acá van los permisos de taller LISTO--}}
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/pedidos/replicas" role="button"><i
+            class="fas fa-user"></i>Réplicas</a>
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/pedidos" role="button"><i
+            class="fas fa-user"></i>Pedidos</a>
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/dinosaurios" role="button"><i
+            class="fas fa-dragon align-top"></i>Dinosaurios</a>
+    {{/if}}
+
+    {{#if rrhh}}
+    {{!-- Acá van los permisos de rrhh LISTO--}}
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/empleados" role="button"><i
+            class="fas fa-user"></i>Empleados</a>
+    <a class="card bg-success btn btn-info btn-lg" style="height: 80px;" href="/guias" role="button"><i
+            class="fas fa-user"></i>Guias</a>
+    {{/if}}
+</div>
