@@ -11,11 +11,12 @@ module.exports = (sequelize, DataTypes) =>{
         }
         demorar(pedido,args){//retraso_estimado
             const PedidoId = pedido.id;
-            const { retraso_estimado } = args;
+            const { retraso_estimado, observacion: descripcion } = args;
             return sequelize.models.Demorado.create({
                 PedidoId,
                 retraso_estimado,
-                fecha:new Date()
+                descripcion,
+                fecha:new Date() // created_at
             })
         }
         finalizar(pedido,args){

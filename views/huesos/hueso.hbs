@@ -16,7 +16,7 @@
             <th>Hueso</th>
             <th>Tipo</th>
             <th>Subtipo</th>
-            {{#if req.taller}}
+            {{#if ../req.taller}}
             <th>Tiene Molde</th>
             {{/if}}
           </thead>
@@ -27,7 +27,7 @@
               <td>{{this.nombre}} {{this.numero}}</td>
               <td>{{this.tipohueso}}</td>
               <td>{{this.subtipohueso}}</td>
-              {{#if req.taller}}
+              {{#if ../../req.taller}}
               <td>
                 <form action="/dinosaurios/moldes?_method=PATCH" method="POST">
                   <label class="switch">
