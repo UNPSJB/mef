@@ -1,3 +1,4 @@
+{{!-- @TODO Refactorizar --}}
 <div class="modal" tabindex="-1" role="dialog" id="{{this.estadoInstance}}" aria-labelledby="mostrar-{{this.estadoInstance}}" aria-hidden="true" >
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -32,6 +33,9 @@
             {{#with this.fecha_envio}}<th>Fecha de Envio</th>{{/with}}
             {{#with this.fecha_entrega}}<th>Fecha de Entrega</th>{{/with}}
             {{!-- ^ campos de entregado --}}
+
+            {{#with this.retraso_estimado}}<th>Retraso Estimado</th>{{/with}}
+            {{!-- ^ campos de demorado --}}
           </thead>
           <tbody>
             {{#with this.descripcion}}<td>{{ this }}</td>{{/with}}
@@ -56,6 +60,9 @@
             {{#with this.fecha_envio}}<td>{{ this }}</td>{{/with}}
             {{#with this.fecha_entrega}}<td>{{ this }}</td>{{/with}}
             {{!-- ^ campos de entregado --}}
+            
+            {{#with this.retraso_estimado}}<td>{{ this }}</td>{{/with}}
+            {{!-- ^ campos de demorado --}}
           </tbody>
         </table>
       </div>
