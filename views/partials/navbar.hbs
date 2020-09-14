@@ -1,23 +1,21 @@
 <nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Mef</a>
-  <div class="navbar-brand">
+  <a class="navbar-brand" href="/">Mef - 
     {{#if coleccion}}
-      coleccion
+      Colección
     {{/if}}
     {{#if exhibicion}}
-      exhibicion
+      Exhibición
     {{/if}}
     {{#if secretaria}}
-      secretaria
+      Secretaría
     {{/if}}
     {{#if taller}}
-      taller
+      Taller
     {{/if}}
     {{#if rrhh}}
-      rrhh
+      Recursos Humanos
     {{/if}}
-  </div>
-  
+  </a>  
 
   <form method="POST" action="/logout?_method=DELETE">
     <button type="submit" class="btn btn-danger">

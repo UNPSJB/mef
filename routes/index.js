@@ -6,7 +6,7 @@ var permisos = require('../middlewares/permisos');
 
 router.get('/', permisos.asignaPermisos, permisos.estaLogueado, (req, res) => {
   try {
-    res.render('home',{layout:'second',req});
+    res.render('home',{req});
     
   } catch (error) {
     console.log(error)

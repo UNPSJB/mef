@@ -28,41 +28,49 @@
   {{!-- BOOTSTRAP --}}
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+
 </head>
 
 <body class="{{template}}">
-  {{!-- ALEX ESTUVO ACA --}}
-  {{#if success }}
-  <div class="container">
+  <div class="container-fluid d-flex flex-column">
     <div class="row">
-      <div class="col-md-4 mx-auto">
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          {{ success }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+      <div class="col-12 px-0">
+        {{> navbar req}}
       </div>
     </div>
-  </div>
-  {{/if}}
 
-  {{> navbar req}}
-  {{> sidebar req}}
-
-  <div class="container">
     {{#if errores}}
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 px-0">
         <div class="alert alert-danger">Error: {{ errores }}</div>
       </div>
     </div>
     {{/if}}
+    {{#if success }}
     <div class="row">
-      <div class="col">
+      <div class="col-12 px-0">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ success }}
+        </div>
+      </div>
+    </div>
+    {{/if}}
+    <div class="row justify-content-center flex-grow-1 pb-auto">
+      <aside class="col-2 px-0">
+        {{> sidebar req}}
+      </aside>
+      <div class="col-10 px-4">
         {{{body}}}
       </div>
     </div>
   </div>
+
+    <style>
+      body, html, .container-fluid {
+        height: 100vh;
+      }
+      
+    </style>
 </body>
+{{!-- https://stackoverflow.com/questions/11677886/twitter-bootstrap-div-in-container-with-100-height --}}
 </html>
