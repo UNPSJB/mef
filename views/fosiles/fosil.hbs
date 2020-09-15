@@ -5,7 +5,8 @@
     +
   </a>
 </h1>
-<table style="table-layout: fixed; word-wrap: break-word;" class="table table-hover table-striped table-bordered" id="fosiles" >
+<table style="table-layout: fixed; word-wrap: break-word;" class="table table-hover table-striped table-bordered"
+  id="fosiles">
   <thead>
     <th scope="col">Codigo de Coleccion</th>
     <th scope="col">Disponible para exhibicion</th>
@@ -35,12 +36,12 @@
         {{!-- Acciones --}}
         <a href="/fosiles/editar/{{this.id}}">
           <span class="material-icons">
-          edit
+            edit
           </span>
         </a>
         <a href="/fosiles/eliminar/{{this.id}}">
           <span class="material-icons" style="color:red">
-          delete
+            delete
           </span>
         </a>
       </td>
@@ -51,32 +52,44 @@
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
 <script>
-$(document).ready( function () {
-  $('#fosiles').DataTable({
-    searching: true,
-    ordering:  true,
-    language: {
-        processing:"Buscando...",
-        search:"Buscar:",
-        lengthMenu:"Mostrando _MENU_",
-        info:"Mostrando _START_ de _END_ de un total de _TOTAL_ ",
-        infoEmpty:"Mostrando 0 de 0 de un total de 0 ",
+  $(document).ready(function () {
+    $('#fosiles').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+        'pdf', 'excel', 'csv'
+      ],
+      searching: true,
+      ordering: true,
+      language: {
+        processing: "Buscando...",
+        search: "Buscar:",
+        lengthMenu: "Mostrando _MENU_",
+        info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+        infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
         infoFiltered: "(de un total de _MAX_)",
         infoPostFix: "",
-        loadingRecords:"Cargando...",
-        zeroRecords:"No hay elementos agregados",
-        emptyTable:"No hay elementos :(",
-        paginate:{
-            first:"Primero",
-            previous:"Anterior",
-            next:"Siguiente",
-            last:"Último"
+        loadingRecords: "Cargando...",
+        zeroRecords: "No hay elementos agregados",
+        emptyTable: "No hay elementos :(",
+        paginate: {
+          first: "Primero",
+          previous: "Anterior",
+          next: "Siguiente",
+          last: "Último"
         },
         aria: {
-            sortAscending:  ": Ordenar ascendente",
-            sortDescending: ": Ordenar descendente"
+          sortAscending: ": Ordenar ascendente",
+          sortDescending: ": Ordenar descendente"
         }
-    }
+      }
+    });
   });
-});
 </script>
+
+<link rel="stylesheet" type="text/css"
+  href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.css" />
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript"
+  src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.js"></script>
