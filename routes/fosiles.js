@@ -32,7 +32,8 @@ router.get('/editar/:id',
     const fosil = await fosilService.getFosil(id)
     const dinosaurios = await dinoService.getAllDinosaurios()
     const dinosaurio = fosil.Dinosaurio
-    res.render('fosiles/editar', { dinosaurio, dinosaurios , bones, fosil,req })
+    const bonesFiltered = bones.filter(bone=> bone!==fosil.huesos)
+    res.render('fosiles/editar', {dinosaurio, dinosaurios, bones:bonesFiltered, fosil, req })
   })
 
 router.get('/eliminar/:id',

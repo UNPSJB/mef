@@ -9,6 +9,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold" for="dinosaurio">Seleccionar Dinosaurio</label>
+              {{!-- Esto es el desplegable de Dinosaurio --}}
               <select class="form-control" name="DinosaurioId" id="dinosaurioId">
                 <option value="{{dinosaurio.id}}" selected>{{dinosaurio.nombre}}</option>
                 {{#each dinosaurios}}
@@ -21,7 +22,9 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold" for="hueso">Seleccionar Hueso</label>
+              {{!-- Este es el desplegable de huesitos --}}
               <select class="form-control" name="huesos" id="huesoId">
+                <option value="{{fosil.huesos}}" selected>{{fosil.huesos}}</option>
                 {{#each bones}}
                 <option value="{{this}}">{{this}}</option>
                 {{/each}}
