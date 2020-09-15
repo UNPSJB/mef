@@ -1,57 +1,53 @@
 <div class="sidenav">
-  <div class="title-mef">Mef</div>
   {{#if coleccion}}
   {{!-- Acá van los permisos de colección LISTO--}}
-  <a class="card bg-success text-white" href="/dinosaurios" >
-  <i class="fas fa-dragon"></i>
-  Dinosaurios  
+  <a class="menu-item text-white" href="/dinosaurios" >
+  <i class="fas fa-dragon"></i>Dinosaurios</a>
 
-  </a>
-
-  <a class="card bg-success text-white" href="/fosiles" role="button">
+  <a class="menu-item text-white" href="/fosiles" role="button">
   <i class="fas fa-bone"></i>Fosiles</a>
   
-  <a class="card bg-success text-white" href="/subclases" role="button">
+  <a class="menu-item text-white" href="/subclases" role="button">
   <i class="fas fa-chevron-circle-down"></i>Subclases</a>
   {{/if}}
 
 
   {{#if exhibicion}}
   {{!-- Acá van los permisos de exhibición LISTO--}}
-  <a class="card bg-success text-white" href="/pedidos" role="button">
+  <a class="menu-item text-white" href="/pedidos" role="button">
   <i class="fas fa-user"></i>Pedidos</a>
   
-  <a class="card bg-success text-white" href="/exhibiciones" role="button">
+  <a class="menu-item text-white" href="/exhibiciones" role="button">
   <i class="fas fa-dragon"></i>Exhibiciones</a>
   
-  <a class="card bg-success text-white" href="/clientes" role="button">
+  <a class="menu-item text-white" href="/clientes" role="button">
   <i class="fas fa-highlighter"></i>Clientes</a>
   {{/if}}
 
   {{#if secretaria}}
   {{!-- Acá van los permisos de secretaria LISTO--}}
-  <a class="card bg-success text-white" href="/visitas" role="button">
+  <a class="menu-item text-white" href="/visitas" role="button">
   <i class="fas fa-user"></i>Visitas Guiadas</a>
   {{/if}}
 
   {{#if taller}}
   {{!-- Acá van los permisos de taller LISTO--}}
-  <a class="card bg-success text-white" href="/pedidos/replicas" role="button">
+  <a class="menu-item text-white" href="/pedidos/replicas" role="button">
   <i class="fas fa-user"></i>Réplicas</a>
   
-  <a class="card bg-success text-white" href="/pedidos" role="button">
+  <a class="menu-item text-white" href="/pedidos" role="button">
   <i class="fas fa-user"></i>Pedidos</a>
   
-  <a class="card bg-success text-white" href="/dinosaurios" role="button">
+  <a class="menu-item text-white" href="/dinosaurios" role="button">
   <i class="fas fa-dragon align-top"></i>Dinosaurios</a>
   {{/if}}
 
   {{#if rrhh}}
   {{!-- Acá van los permisos de rrhh LISTO--}}
-  <a class="card bg-success text-white" style="height: 80px;" href="/empleados" role="button">
+  <a class="menu-item text-white" style="height: 80px;" href="/empleados" role="button">
   <i class="fas fa-user"></i>Empleados</a>
  
-  <a class="card bg-success text-white" style="height: 80px;" href="/guias" role="button">
+  <a class="menu-item text-white" style="height: 80px;" href="/guias" role="button">
   <i class="fas fa-user"></i>Guias</a>
   {{/if}}
 </div>
@@ -60,17 +56,15 @@
 <style>
 .sidenav {
   height: 100%;
-  width: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
   background-color: #343a40;
-  overflow-x: hidden;
-  padding-top: 20px;
-}
-.title-mef {
-  color: white;
 }
 
+.menu-item {
+  display: block;
+  padding: 10px 10px 10px 10px;
+}
+.menu-item > i {
+  padding: 0 10px 0 0;
+  width: 30px;
+}
 </style>
