@@ -37,7 +37,7 @@ module.exports = {
       where : {
         ...args
       },
-      include: [models.Persona]
+      include: [models.Persona,{model: models.Empleado, include: models.Persona}]
     })
   },
   obtenerPedido(id){

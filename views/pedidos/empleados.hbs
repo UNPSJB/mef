@@ -1,19 +1,36 @@
-
 <div class="alert alert-warning">Esta a punto de poner en fabricacion el siguiente pedido</div>
 <form action="/pedidos?_method=PUT" method="POST">
     <div style="padding-top: 10px">
         <div class="row">
             <h1>Edicion de empleados al pedido</h1>
         </div>
-        <div class="row" style="max-height: 60vh; overflow:scroll" >
-            <table class="table table-striped" >
+        <div class="row" style="max-height: 60vh; overflow:scroll">
+            <table class="table table-striped">
                 <thead>
                     <th>Asignado</th>
                     <th>Identificacion</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                 </thead>
-                <tbody id="listaEmpleados" >
+                <tbody>
+                    {{#each pedido.Empleados}}
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="empleado" value="{{this.id}}" id="{{this.id}}" checked/>
+                        </td>
+                        <td>
+                            {{this.Persona.identificacion}}
+                        </td>
+                        <td>
+                            {{this.Persona.nombre}}
+                        </td>
+                        <td>
+                            {{this.Persona.apellido}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                <tbody id="listaEmpleados">
                 </tbody>
             </table>
         </div>
@@ -24,22 +41,7 @@
 </form>
 <script>
     $(document).ready(() => {
-        fetch(`http://localhost:3000/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
-            .then((res) => {
-                return res.json();
-            })
-            .then((json) => {
-                let arr = [];
-                let contenedor = document.getElementById("listaEmpleados");
-                contenedor.innerHTML = "";
-                const entries = Object.entries(json);
-                for (var key in json) {
-                    arr.push(generateCheckbox(json[key].id, json[key].Persona.identificacion, json[key].Persona.nombre, json[key].Persona.apellido))
-                    arr.push("<br>")
-                }
-                contenedor.innerHTML = arr.toString().replace(/[,]/gm, '');
-            })
-        
+
 
     });
 
@@ -50,18 +52,35 @@
 
 <script>
     $(document).ready(() => {
-        
+
         fetch(`http://localhost:3000/pedidos/{{id}}/empleados`, { mode: "cors" })//necesito a todos los empleados
             .then((res) => {
                 return res.json();
             })
             .then((json) => {
                 let arr = [];
-                let contenedor = document.getElementById("listaEmpleados");
+                let contenedor = document.getElementById("listaEmpleadosSeleccionados");
                 const entries = Object.entries(json);
                 for (var key in json) {
-                    $( `#${json[key].id}`).prop( "checked", true );
+                    $(`#${json[key].id}`).prop("checked", true);
                 }
             })
+        fetch(`http://localhost:3000/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
+            .then((res) => {
+                return res.json();
+            })
+            .then((json) => {
+                console.log(json)
+                let arr = [];
+                let contenedor = document.getElementById("listaEmpleados");
+                contenedor.innerHTML = "";
+                const entries = Object.entries(json);
+                for (var key in json) {
+                    arr.push(generateCheckbox(json[key].id, json[key].Persona.identificacion, json[key].Persona.nombre, json[key].Persona.apellido))
+                    arr.push("<br>")
+                }
+                contenedor.innerHTML = arr.toString().replace(/[,]/gm, '');
+            })
+
     });
 </script>
