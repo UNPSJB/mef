@@ -2,12 +2,11 @@ const models = require('../models');
 
 module.exports ={
     getReplicas(args){
-        return models.Replica.findAll({
-            include:[models.Pedido, models.Hueso, models.Dinosaurio],
+        return models.Dinosaurio.findAll({
+            include:[{model: models.Replica, include: [models.Pedido, models.Hueso]}],
             where:{
                 ...args
             },
-            // PUEDE QUE VAYA UN INCLUDE, SINO, BORRAR ESTE COMENTARIO
         });
     },
     getReplica(id) {
@@ -16,7 +15,6 @@ module.exports ={
                 id
             },
             include:[models.Pedido, models.Hueso, models.Dinosaurio]
-            // PUEDE QUE VAYA UN INCLUDE, SINO, BORRAR ESTE COMENTARIO
         });
     },
     createReplica(codigo, disponible, fecha_inicio, fecha_fin, fecha_baja, obs, PedidoId, HuesoId, DinosaurioId) {
