@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) =>{
     Replica.associate = function (models){
         models.Replica.belongsTo(models.Pedido);
         models.Replica.belongsTo(models.Hueso);
+        models.Pedido.hasMany(models.Replica)
         
     }
     return Replica;

@@ -46,10 +46,9 @@ router.get('/:id/empleados/', async (req, res) => {
 })
 
 router.get('/replicas', async (req, res) => {
-  const replicas = await replicaService.getReplicas()
-  // TODO Invertir consulta para traer solo los dinos que tengan replicas, para poder separarlos en diferentes tablas 
-  console.log(replicas)
-  res.render("replicas/replica", { replicas, req })
+  const dinosaruiosConReplicas = await replicaService.getReplicas()
+  console.log(dinosaruiosConReplicas)
+  res.render("replicas/replica", { dinosaruiosConReplicas, req })
 })
 
 router.get('/detalle/:id', (req, res) => {

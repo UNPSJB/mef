@@ -2,10 +2,11 @@ const models = require('../models');
 
 module.exports ={
     getReplicas(args){
-        return models.Dinosaurio.findAll({
-            include:[{model: models.Replica, include: [models.Pedido, models.Hueso]}],
+        return models.Pedido.findAll({
+            include:[{ model: models.Replica, right: true, include: [models.Hueso, models.Dinosaurio]}],
             where:{
-                ...args
+                ...args,
+                tipo: 'Interno'
             },
         });
     },
