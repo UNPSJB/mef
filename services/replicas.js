@@ -1,21 +1,27 @@
 const models = require('../models');
 
-module.exports ={
-    getReplicas(args){
+module.exports = {
+    getReplicas(args) {
         return models.Pedido.findAll({
-            include:[{ model: models.Replica, right: true, include: [models.Hueso, models.Dinosaurio]}],
-            where:{
+            include: [{
+                model: models.Replica,
+                required: true,
+                right: true,
+                include: [models.Hueso, models.Dinosaurio]
+            }],
+            where: {
                 ...args,
                 tipo: 'Interno'
             },
         });
     },
     getReplica(id) {
+        
         return models.Replica.findOne({
             where: {
                 id
             },
-            include:[models.Pedido, models.Hueso, models.Dinosaurio]
+            include: [models.Pedido, models.Hueso, models.Dinosaurio]
         });
     },
     createReplica(codigo, disponible, fecha_inicio, fecha_fin, fecha_baja, obs, PedidoId, HuesoId, DinosaurioId) {
@@ -31,24 +37,25 @@ module.exports ={
             DinosaurioId
         });
     },
-    updateReplica(replicaReq){
+    updateReplica(replicaReq) {
         return models.Replica.upsert(replicaReq)
     },
-    toggleDisponible(id){
+    toggleDisponible(id) {
         return models.Replica.findByPk(id)
-        .then((replicaEncontrada) => {
-            return replicaEncontrada.update({
-                disponible: !disponible
-            });
-        })
+            .then((replicaEncontrada) => {
+                const {disponible} = replicaEncontrada
+                return replicaEncontrada.update({
+                    disponible: !disponible
+                });
+            })
     },
-    deleteReplica(id){
+    deleteReplica(id) {
         return models.Replica.findByPk(id)
-        .then((replicaEncontrada) => {
-            return replicaEncontrada.update({
-                fecha_baja:new Date(),
-                disponible:false
-            });
-        })
+            .then((replicaEncontrada) => {
+                return replicaEncontrada.update({
+                    fecha_baja: new Date(),
+                    disponible: false
+                });
+            })
     }
 }

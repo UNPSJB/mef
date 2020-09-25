@@ -46,9 +46,13 @@ router.get('/:id/empleados/', async (req, res) => {
 })
 
 router.get('/replicas', async (req, res) => {
-  const dinosaruiosConReplicas = await replicaService.getReplicas()
-  console.log(dinosaruiosConReplicas)
-  res.render("replicas/replica", { dinosaruiosConReplicas, req })
+  const dinosauriosConReplicas = await replicaService.getReplicas()
+  const pedidos = dinosauriosConReplicas.map(pedido=>{
+    const dino = pedido.Replicas[0].Dinosaurio
+    pedido.dino = dino
+    return pedido
+  })
+  res.render("replicas/replica", { pedidos, req })
 })
 
 router.get('/detalle/:id', (req, res) => {
