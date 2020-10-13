@@ -1,6 +1,7 @@
+<h1 class="mt-4"> Pedido de Replicación Nº {{id}} - Fabricar Replicación</h1>
+<span class="bg-warning form-control">Esta a punto de {{accion}} el siguiente pedido</span>
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
-    <h1>Fabricar Pedido</h1>
-    <span class="bg-warning form-control">Esta a punto de poner en fabricacion el siguiente pedido</span>
+
     {{> replica/detalle detalles}}
     <label class="form-group" for="inicio">
         Fecha Inicio
@@ -17,7 +18,7 @@
     <br>
 
     <label for="empleadosasignados">Empleados asignados:</label>
-
+    {{!-- @TODO completar con empleados asignados --}}
     <div class="form-group bg-secondary">
 
     </div>
@@ -28,8 +29,6 @@
                 <label for="empleados" id="listaEmpleados">
 
                 </label>
-            </div>
-            <div class="col-sm border">
             </div>
         </div>
     </div>

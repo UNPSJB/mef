@@ -1,4 +1,5 @@
-<h1>Facturar Pedido de replicacion</h1>
+<h1 class="mt-4"> Pedido de Replicación Nº {{id}} - Facturar Pedido</h1>
+<span class="bg-warning form-control">Esta a punto de {{accion}} el siguiente pedido</span>
 {{> replica/detalle detalles}}
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
   <h2>Detalles del Pago</h2>

@@ -1,53 +1,32 @@
+<h1 class="mt-4"> Pedido de Replicación Nº {{id}} - Finalizar Pedido</h1>
+<span class="bg-warning form-control">Esta a punto de {{accion}} el siguiente pedido</span>
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
-  <div class="container pt-4">
-    <div class="row">
-      <div class="card mx-auto mt-4 text-center">
-        <div class="card-header bg-dark text-white">
-          <h2>Finalizar Replicacion</h2>
-        </div>
-        <div class="card-body">
-          <span class="bg-info form-control text-center text-white">Esta a punto de {{accion}} el
-            siguiente
-            pedido</span>
-          <h5 class="card-title pt-2">Pedido de Replicacion Nº {{id}}</h5>
-          <div class="row pb-4">
-            {{!-- @TODO CAMBIAR @ALEX --}}
-            <div class="container col-8">
-              <label for="fechafin">
-                <h6 class="pb-2">Fecha Finalizacion de Replica</h6>
-                <input class="form-control" type="date" name="fecha_fin" id="InputFechaFinalizacion" required>
-              </label>
-            </div>
+  <div class="my-4">Fecha Finalizacion de Replica</div>
+  <input class="form-control" type="date" name="fecha_fin" id="InputFechaFinalizacion" required>
+  <button type="button" class="btn btn-info my-4" data-toggle="modal" data-target="#myModal">
+    Ver Detalle
+  </button>
+  <button type="submit" class="btn btn-success btn-block">Confirmar</button>
+  <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
 
-          </div>
-          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
-            Ver Detalle
-          </button>
-          <div class="modal fade" id="myModal">
-            <div class="modal-dialog modal-xl">
-              <div class="modal-content modal-xl">
+</form>
 
-                <!-- Modal body -->
-                <div class="modal-body">
-                  {{> replica/detalle detalles}}
-                </div>
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content modal-xl">
 
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer bg-dark text-muted">
-          <button type="submit" class="btn btn-success btn-block">Confirmar</button>
-          <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
-        </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        {{> replica/detalle detalles}}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
-</form>
+</div>
 
 <script>
 
