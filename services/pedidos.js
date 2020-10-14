@@ -89,7 +89,6 @@ module.exports = {
   updatePedido(pedido) {
     return models.Pedido.upsert(pedido);
   },
-  deletePedido() {},
   getReplicas(args){
     return models.Replica.findAll({
       where:{

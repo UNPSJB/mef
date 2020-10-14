@@ -50,11 +50,4 @@ module.exports = {
   updateFosil(fosilReq) {
     return models.Fosil.upsert(fosilReq) //update or insert = upsert XD
   },
-  deleteFosil(id) {
-    return models.Fosil.findByPk(id)
-      .then((fosilEncontrado) => {
-        // existe ? lo modifico
-        fosilEncontrado.destroy(fosilEncontrado)
-      })// fosil no existe
-  }
 }

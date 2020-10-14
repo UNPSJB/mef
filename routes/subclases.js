@@ -31,12 +31,6 @@ router.get('/editar/:id', async (req, res) => {
   res.render('subclases/editar', { ornitisquio, saurisquio, subclase, req })
 })
 
-router.get('/eliminar/:id', async (req, res) => {
-  const { id } = req.params
-  const subclase = await subclaseService.getSubclase(id)
-  res.render('subclases/eliminar', { subclase, req })
-})
-
 router.post('/', async (req, res) => {
   const { descripcion, clase } = req.body
   try {
@@ -64,16 +58,7 @@ router.put('/', async (req, res) => {
   }
 })
 
-router.delete('/', async (req, res) => {
-  const { id } = req.body
-  try {
-    await subclaseService.deleteSubclase(id)
-  } catch (errores) {
-    const subclase = await subclaseService.getSubclase(id)
-    return res.render('subclases/eliminar', { errores, subclase, req })
-  }
-  return res.redirect('/subclases')
-})
+
 
 
 module.exports = router

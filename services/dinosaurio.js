@@ -31,11 +31,4 @@ module.exports = {
   updateDinosaurio(dinoReq) {
     return models.Dinosaurio.upsert(dinoReq) //update or insert = upsert XD    
   },
-  deleteDinosaurio(id) {
-    return models.Dinosaurio.findByPk(id)
-      .then((dinoEncontrado) => {
-        //existe ? lo modifico
-        return dinoEncontrado.destroy(dinoEncontrado)
-      })//dino no existe
-  }
 }

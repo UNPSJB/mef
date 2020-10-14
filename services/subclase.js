@@ -22,12 +22,6 @@ module.exports = {
       clase
     })
   },
-  deleteSubclase(id) {
-    return models.SubClase.findByPk(id)
-      .then((subclaseEncontrado) => {
-        return subclaseEncontrado.destroy()
-      })
-  },
   updateSubclase(subclaseModificado) {
     return models.SubClase.upsert(subclaseModificado)
   }

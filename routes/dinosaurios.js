@@ -42,15 +42,7 @@ router.get('/',
       }
 });
 
-router.get('/eliminar/:id', 
-  async (req, res)=>{
-    try {
-      const dino = await dinoService.getDinosaurio(req.params.id)
-      res.render('dinosaurios/eliminar', { dino,req })
-    } catch (error) {
-      console.log(error)      
-    }
-});
+
 
 /** HUESOS  */
 
@@ -134,16 +126,6 @@ router.put('/',
     }
 });
 
-router.delete('/',
-  async (req, res) =>{
-    const { id } = req.body;
-    try {
-      await dinoService.deleteDinosaurio(id)           
-    } catch (errores) {
-      const dino = await dinoService.getDinosaurio(id);
-      return res.render('dinosaurios/eliminar', {errores, dino, req})          
-    } 
-    return res.redirect('/dinosaurios')
-});
+
 
 module.exports = router;

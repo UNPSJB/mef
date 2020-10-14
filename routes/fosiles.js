@@ -36,20 +36,6 @@ router.get('/editar/:id',
     res.render('fosiles/editar', {dinosaurio, dinosaurios, bones:bonesFiltered, fosil, req })
   })
 
-router.get('/eliminar/:id',
-  (req, res) => {
-    const { id } = req.params
-    fosilService
-      .getFosil(id)
-      .then(fosil => res.render('fosiles/eliminar', { fosil,req }))
-      .catch(err => {
-      })
-  })
-
-router.delete('/',
-  (req, res) => {
-    fosilService.deleteFosil(req.body.id).then(() => res.redirect('/fosiles'))
-  })
 
 router.put('/',
   (req, res) => {
