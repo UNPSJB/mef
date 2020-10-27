@@ -10,7 +10,7 @@
             <!-- Imagen fija no crece ni disminuye -->
             {{!-- <!-- <img src="../img/logomef.png" width="100px" height="100px" alt=""> --> --}}
             <!-- Imagen crece y disminuye conforme sea la pantalla de grande -->
-            <img class="img-fluid" src="../images/logomef.png" alt=""/>
+            <img class="img-fluid" src="../images/logomef.png" alt="" />
         </div>
         <div class="col-5 mt-2 bg-dark">
             <nav class="navbar navbar-dark bg-dark">
@@ -18,27 +18,28 @@
             </nav>
             <div class="col-12 my-5 mb-5">
                 <h2 class="text-center display-4 text-description font-weight-bold">
-                    Bienvenido!
+                    ¡Bienvenido!
                 </h2>
             </div>
 
             <form class="col-8 mx-auto" action="/login" method="POST">
-                <p class="text-description mb-4" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                <p class="text-description mb-4"
+                    style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
                     El Mef es un centro de actividades científicas, con
                     entretenimiento para toda la familia.
                 </p>
-                <input name="email" type="email" class="form-control my-4 text-center" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Ingrese mail" {{#if email}} value="{{email}}" {{/if}} required />
+                <input name="email" type="email" class="form-control my-4 text-center" id="exampleInputEmail1"
+                    aria-describedby="emailHelp" placeholder="Ingrese mail" {{#if email}} value="{{email}}" {{/if}}
+                    required />
                 <input name="password" type="password" class="form-control my-4 text-center" id="exampleInputPassword1"
                     placeholder="Contraseña" required />
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-light btn-block">
+                    <button type="submit" class="btn btn-primary w-100">
                         Ingresar
                     </button>
                 </div>
-
-                <ul class="list-unstyled list-inline text-center mt-5">
+                <ul class="list-unstyled list-inline text-center mt-5 text-white">
                     <li class="list-inline-item">
                         <a href="https://www.facebook.com/mefpatagonia/">
                             <i class="fab fa-facebook-f"></i>

@@ -35,8 +35,9 @@ router.get('/',
         const subclases = await subclaseService.getAllSubclases()
         const { alimentacion, periodo } = dino
         const [ cretacico, jurasico, triasico ] = [periodo == 'Cretacico' , periodo == 'Jurasico', periodo == 'Triasico']
-        const [ carnivoro, herbivoro, omnivoro ] = [alimentacion == 'Carnivoro', alimentacion == 'Herbivoro' , alimentacion == 'Omnivoro'] 
-        res.render('dinosaurios/editar', { dino, subclases, req, cretacico, jurasico, triasico, carnivoro, herbivoro, omnivoro });    
+        const [ carnivoro, herbivoro, omnivoro ] = [alimentacion == 'Carnivoro', alimentacion == 'Herbivoro' , alimentacion == 'Omnivoro']
+        const subclaseFiltrada = subclases.filter(subClase=>subClase.id!=dino.SubClaseId)
+        res.render('dinosaurios/editar', { dino, subclases:subclaseFiltrada, req, cretacico, jurasico, triasico, carnivoro, herbivoro, omnivoro });    
       } catch (error) {
         console.log(error)
       }

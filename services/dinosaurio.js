@@ -16,8 +16,10 @@ module.exports = {
       ...paginateModel({ page, pageSize })
     })
   },
-  getDinosaurio(id) {
-    return models.Dinosaurio.findByPk(id)
+  getDinosaurio(id ) {
+    return models.Dinosaurio.findByPk(id, {
+      include: [models.SubClase]
+    })
   },
   createDinosaurio(nombre, alimentacion, periodo, descubrimiento, SubClaseId) {
     return models.Dinosaurio.create({
