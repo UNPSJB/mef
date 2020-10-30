@@ -5,23 +5,23 @@ const bcrypt = require('bcrypt');
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Rols',[{
-      descripcion:permisos.ROLES.TALLER, // id:1
+      descripcion:'taller', // id:1
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      descripcion:permisos.ROLES.COLECCION, // id:2 
+      descripcion:'coleccion', // id:2 
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      descripcion:permisos.ROLES.RRHH, // id:3
+      descripcion:'rrhh', // id:3
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      descripcion:permisos.ROLES.SECRETARIA, // id:4
+      descripcion:'secretaria', // id:4
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      descripcion:permisos.ROLES.EXHIBICION, // id:5
+      descripcion:'exhibicion', // id:5
       createdAt: new Date(),
       updatedAt: new Date()
     }], {})
