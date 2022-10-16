@@ -36,7 +36,7 @@ services:
       - '5432:5432'
     restart: always
     volumes:
-      - mefdata
+      - "./mefdata/db:/dbdata"
     networks:
       - mefnetwork
 
@@ -44,6 +44,3 @@ services:
 networks:
   mefnetwork:
     driver: "bridge"
-volumes:
-  mefdata:
-  node_modules:
