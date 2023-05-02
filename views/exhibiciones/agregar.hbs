@@ -2,49 +2,49 @@
   <form action="/exhibiciones" method="POST">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarDinoModalLabel">
-        <h3>Agregar Exhibicion</h3>
+        <h3>Agregar Exhibición</h3>
       </div>
       <div class="card-body">
         <div class="form-group">
           <label for="nombre">Nombre:</label>
-          <input {{#with nombre}} value="{{this}}" {{/with}} type="text" minlength="4" maxlength="50" name="nombre"  class="form-control" placeholder="Nombre de la exhibicion" required>
-          <small class="form-text-muted text-muted">Minimo 4 caracteres. Maximo 50 caracteres</small><br>
+          <input {{#with nombre}} value="{{this}}" {{/with}} type="text" minlength="4" maxlength="50" name="nombre"  class="form-control" placeholder="Nombre de la exhibición" required>
+          <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
                     
-          <label for="tematica">Tematica:</label>
-          <input {{#with tematica}} value="{{this}}" {{/with}} type="text" minlength="4" maxlength="50" name="tematica"  class="form-control" placeholder="Tematica de la exhibicion" required>
-          <small class="form-text-muted text-muted">Minimo 4 caracteres. Maximo 50 caracteres</small><br>        
+          <label for="tematica">Temática:</label>
+          <input {{#with tematica}} value="{{this}}" {{/with}} type="text" minlength="4" maxlength="50" name="tematica"  class="form-control" placeholder="Tematica de la exhibición" required>
+          <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>        
           
-          <label for="duracion">Duracion: <i>Cantidad de meses</i></label>
-          <input {{#with duracion}} value="{{this}}" {{/with}} type="number" name="duracion" min="1" max="40"  class="form-control" placeholder="Duracion de la exhibicion. Ej: 2 meses, 4 meses" required>
-          <small class="form-text-muted text-muted">Minimo 1. Maximo 40. Solo números</small><br>        
+          <label for="duracion">Duración: <i>Cantidad de meses</i></label>
+          <input {{#with duracion}} value="{{this}}" {{/with}} type="number" name="duracion" min="1" max="40"  class="form-control" placeholder="Duración de la exhibición. Ej: 2 meses, 4 meses" required>
+          <small class="form-text-muted text-muted">Mínimo 1. Máximo 40. Solo números</small><br>        
         </div>
         <div class="form-group container">
           <div class="row">
             <div class="col-6" style="padding-left:0px">
-              <label for="fosiles">Listado de fosiles disponibles:</label>
+              <label for="fosiles">Listado de fósiles disponibles:</label>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar fosiles --}}
                 {{#each fosiles}}
                 <input type="checkbox" name="fosiles"  value="{{this.id}}">{{this.huesos}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{else}}
-                <i>No hay Fosiles disponibles</i>
+                <i>No hay Fósiles disponibles</i>
                 {{/each}}
               </div>
               <small class="form-text-muted text-muted">Se puede agregar fósiles luego de crear la exhibicion.</small>
             </div>
             <div class="col-6">
-              <label for="replicas">Listado de replicas disponibles:</label>
+              <label for="replicas">Listado de réplicas disponibles:</label>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar replicas --}}
                 {{#each replicas}}
                 <input type="checkbox" name="replicas"  value="{{this.id}}" min="0">{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{else}}
-                <i>No hay Replicas disponibles</i>
+                <i>No hay Réplicas disponibles</i>
                 {{/each }}
               </div>
-              <small class="form-text-muted text-muted">Se puede agregar replicas luego de crear la exhibición.</small>
+              <small class="form-text-muted text-muted">Se puede agregar réplicas luego de crear la exhibición.</small>
             </div>
           </div>
         </div>
