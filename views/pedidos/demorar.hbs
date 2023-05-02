@@ -1,5 +1,5 @@
-<h1 class="mt-4"> Pedido de Replicación Nº {{id}} - Demorar Replicación</h1>
-<span class="bg-warning form-control">Esta a punto de {{accion}} el siguiente pedido</span>
+<h1 class="mt-4">Pedido de Replicación Nº {{id}} - Demorar Replicación</h1>
+<span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
   <div class="card-body justify-content-start">
     {{!-- @TODO @ALEX cambiar a botones --}}
@@ -9,7 +9,7 @@
     <input type="radio" name="retraso_estimado" value="6 a 10 meses">6 de 10 meses <br>
     <input type="radio" name="retraso_estimado" value=" mas de 10 meses">mas de 10 meses <br>
     <p class="card-text">Ingrese Observación:</p>
-    <textarea class="form-control   " placeholder="Ingrese Observación" name="observacion" rows="5"></textarea>
+    <textarea class="form-control" placeholder="Ingrese Observación" name="observacion" rows="5"></textarea>
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Ver
       Detalle</button>
   </div>

@@ -3,44 +3,44 @@
               <label class="font-weight-bold" for="identificacion">Documento</label>
               <input type="number" class="form-empleado form-control" min="1000000" max="100000000" minlength="6" maxlength="50" name="identificacion" id="InputIdentificacion"
                 placeholder="Ingrese su documento" required {{#if this}} value="{{this.identificacion }}" {{/if}}>
-              <small class="form-text-muted text-muted">Solo números</small><br>
+              <small class="form-text-muted text-muted">Sólo números</small><br>
 
               <label class="font-weight-bold" for="nombre">Nombre</label>
               <input type="text" class="form-this form-control" minlength="1" maxlength="50" name="nombre" id="InputNombre"
                 placeholder="Ingrese Nombre" required {{#if this}}value="{{this.nombre}}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 1 caracter. Maximo 50 caracteres</small><br>
+              <small class="form-text-muted text-muted">Mínimo 1 caracter. Máximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="apellido">Apellido</label>
               <input type="text" class="form-this form-control" minlength="1" maxlength="50" name="apellido" id="InputApellido"
                 placeholder="Ingrese Apellido" required {{#if this}}value="{{this.apellido}}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 1 caracter. Maximo 50 caracteres</small><br>
+              <small class="form-text-muted text-muted">Mínimo 1 caracter. Máximo 50 caracteres</small><br>
 
-              <label class="font-weight-bold" for="direccion">Direccion</label>
+              <label class="font-weight-bold" for="direccion">Dirección</label>
               <input type="text" class="form-this form-control" minlength="5" maxlength="140" name="direccion" id="InputDireccion"
-                placeholder="Ingrese Direccion" required {{#if this}}value="{{this.direccion}}" {{/if}}>
-              <small class="form-text-muted text-muted">Direccion completa. Minimo 5 caracteres. Maximo 140 caracteres</small><br>
+                placeholder="Ingrese Dirección" required {{#if this}}value="{{this.direccion}}" {{/if}}>
+              <small class="form-text-muted text-muted">Dirección completa. Mínimo 5 caracteres. Máximo 140 caracteres</small><br>
 
             </div>
             <div class="col-6">
               <label class="font-weight-bold" for="localidad">Localidad</label>
               <input type="text" class="form-this form-control" minlength="4" maxlength="50" name="localidad" id="InputLocalidad"
                 placeholder="Ingrese Localidad" required {{#if this}}value="{{this.localidad}}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 4 caracteres. Maximo 50 caracteres</small><br>
+              <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
               
-              <label class="font-weight-bold" for="email">Email</label>
+              <label class="font-weight-bold" for="email">Correo Electrónico</label>
               <input type="email" class="form-this form-control" minlength="6" maxlength="50" name="email" id="InputEmail"
-                placeholder="Ingrese Email" required {{#if this}}value="{{this.email}}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
+                placeholder="Ingrese Correo Electrónico" required {{#if this}}value="{{this.email}}" {{/if}}>
+              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="fechaNacimiento">Fecha Nacimiento</label>
               <input type="date" class="form-this form-control" name="fecha_nacimiento" min="1900-01-01"
                 id="InputFechaNacimiento" required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
-              <small class="form-text-muted text-muted">Fecha de nacimiento de this</small><br>
+              <small class="form-text-muted text-muted">Fecha de nacimiento</small><br>
 
-              <label class="font-weight-bold" for="InputTelefono">Telefono</label>
-              <input type="tel" class="form-this form-control" minlength="6" maxlength="50" name="telefono" id="InputTelefono" placeholder="Ingrese Telefono" required
+              <label class="font-weight-bold" for="InputTelefono">Teléfono</label>
+              <input type="tel" class="form-this form-control" minlength="6" maxlength="50" name="telefono" id="InputTelefono" placeholder="Ingrese Teléfono" required
                 {{#if this}}value="{{this.telefono}}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
+              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres</small><br>
 
               {{#if this}}<input name="id" type="number" value="{{this.id}}" hidden> {{/if}}
             </div>
