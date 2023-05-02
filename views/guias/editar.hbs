@@ -10,45 +10,45 @@
             <div class="col-6 pb-2">
               <label class="font-weight-bold" for="identificacion">Documento</label>
               <input type="number" class="form-guia form-control" name="identificacion" id="InputIdentificacion"
-                placeholder="Ingrese su documento" required {{#if guia}} value="{{guia.Persona.identificacion}}"{{/if}}>
-              <small class="form-text-muted text-muted">Solo números</small><br>
+                placeholder="Ingrese su documento." required {{#if guia}} value="{{guia.Persona.identificacion}}"{{/if}}>
+              <small class="form-text-muted text-muted">Sólo números</small><br>
 
               <label class="font-weight-bold" for="nombre">Nombre</label>
               <input type="text" class="form-guia form-control" name="nombre" id="InputNombre"
                 placeholder="Ingrese Nombre" required {{#if guia}} value="{{guia.Persona.nombre}}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 1 caracter. Maximo 50 caracteres</small><br>
+              <small class="form-text-muted text-muted">Mínimo 1 caracter. Máximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="apellido">Apellido</label>
               <input type="text" class="form-guia form-control" name="apellido" id="InputApellido"
-                placeholder="Ingrese Apellido" required {{#if guia}} value="{{guia.Persona.apellido}}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 1 caracter. Maximo 50 caracteres</small><br>
+                placeholder="Ingrese Apellido." required {{#if guia}} value="{{guia.Persona.apellido}}" {{/if}}>
+              <small class="form-text-muted text-muted">Mínimo 1 carácter. Máximo 50 caracteres.</small><br>
 
               <label class="font-weight-bold" for="direccion">Direccion</label>
               <input type="text" class="form-guia form-control" name="direccion" id="InputDireccion"
-                placeholder="Ingrese Direccion" required {{#if guia}} value="{{guia.Persona.direccion}}" {{/if}}>
-              <small class="form-text-muted text-muted">Direccion completa. Minimo 5 caracteres. Maximo 140 caracteres</small><br>
+                placeholder="Ingrese Dirección." required {{#if guia}} value="{{guia.Persona.direccion}}" {{/if}}>
+              <small class="form-text-muted text-muted">Dirección completa. Mínimo 5 caracteres. Máximo 140 caracteres.</small><br>
 
             </div>
             <div class="col-6">
               <label class="font-weight-bold" for="localidad">Localidad</label>
               <input type="text" class="form-guia form-control" name="localidad" id="InputLocalidad"
-                placeholder="Ingrese Localidad" required {{#if guia}} value="{{guia.Persona.localidad}}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 4 caracteres. Maximo 50 caracteres</small><br>
+                placeholder="Ingrese Localidad." required {{#if guia}} value="{{guia.Persona.localidad}}" {{/if}}>
+              <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
 
               <label class="font-weight-bold" for="email">Email</label>
               <input type="email" class="form-guia form-control" name="email" id="InputEmail"
-                placeholder="Ingrese Email" required {{#if guia}} value="{{guia.Persona.email}}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
+                placeholder="Ingrese Email." required {{#if guia}} value="{{guia.Persona.email}}" {{/if}}>
+              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>
 
               <label class="font-weight-bold" for="fechaNacimiento">Fecha Nacimiento</label>
               <input type="date" class="form-guia form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
                 required {{#if guia}} value="{{guia.Persona.fecha_nacimiento}}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
+              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>
 
               <label class="font-weight-bold" for="InputTelefono">Telefono</label>
-              <input type="tel" class="form-guia form-control" name="telefono" id="InputTelefono" placeholder="Ingrese Telefono" required
+              <input type="tel" class="form-guia form-control" name="telefono" id="InputTelefono" placeholder="Ingrese Teléfono" required
               {{#if guia}} value="{{guia.Persona.telefono}}" {{/if}}>
-              <small class="form-text-muted text-muted">Minimo 6 caracteres. Maximo 50 caracteres</small><br>
+              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>
 
 
               {{#if guia}} <input name="idGuia" type="number" value="{{guia.id}}" hidden> {{/if}}
@@ -79,7 +79,7 @@
             <div class="col">
               <div class="row py-2 text-center mx-auto">
                 <span class="font-weight-bold pt-1">
-                  Dias Laborales:
+                  Días Laborales:
                 </span>
                 <div class="pl-2" data-toggle="buttons">
                   <label class="btn btn-secondary form-check-label">
