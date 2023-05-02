@@ -1,11 +1,11 @@
-<h1 class="mt-4"> Pedido de Replicación Nº {{id}} - Asignar empleados</h1>
-<span class="bg-warning form-control">Esta a punto de asignar {{accion}} al siguiente pedido</span>
+<h1 class="mt-4">Pedido de Replicación Nº {{id}} - Asignar empleados</h1>
+<span class="bg-warning form-control">{{accion}} al siguiente pedido</span>
 <form action="/pedidos?_method=PUT" method="POST">
   <div style="max-height: 60vh; overflow:scroll">
     <table class="table table-striped">
       <thead>
         <th>Asignado</th>
-        <th>Identificacion</th>
+        <th>Identificación</th>
         <th>Nombre</th>
         <th>Apellido</th>
       </thead>

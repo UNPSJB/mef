@@ -1,11 +1,11 @@
-<h1 class="mt-4"> Pedido de Replicación Nº {{id}} - Cancelar Replicación</h1>
-<span class="bg-warning form-control">Esta a punto de {{accion}} el siguiente pedido</span>
+<h1 class="mt-4">Pedido de Replicación Nº {{id}} - Cancelar Replicación</h1>
+<span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
   <div class="card-body">
    
     <p class="card-text">Ingrese Observación:</p>
 
-    <textarea class="form-control" placeholder="Ingrese Observación..." name="observacion" rows="5"></textarea>
+    <textarea class="form-control" placeholder="Ingrese Observación" name="observacion" rows="5"></textarea>
     <br>
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
       Ver Detalle
