@@ -36,22 +36,22 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label class="font-weight-bold" for="InputNumeroColeccion">Codigo de Coleccion</label>
+              <label class="font-weight-bold" for="InputNumeroColeccion">Código de Colección</label>
               {{#if fosil}}
               <input type="text" class="form-control" maxlength="30" name="numero_coleccion" id="InputNumeroColeccion"
                 placeholder="Ingrese Numero de Coleccion" required value="{{fosil.numero_coleccion}}">
               {{/if}}
-              <small class="form-text-muted text-muted">Maximo 30 caracteres. Se puede repetir el codigo.</small>
+              <small class="form-text-muted text-muted">Máximo 30 caracteres. Se puede repetir el código.</small>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label class="font-weight-bold"  for="InputPeso">Peso (Kg)</label>
+              <label class="font-weight-bold" for="InputPeso">Peso (Kg)</label>
               {{#if fosil}}
-              <input type="number" class="form-control" min="1" max="2000" name="peso" id="InputPeso" placeholder="Ingrese Peso de Fosil"
-                required value="{{fosil.peso}}">
+              <input type="number" class="form-control" min="1" max="2000" name="peso" id="InputPeso"
+                placeholder="Ingrese Peso de Fosil." required value="{{fosil.peso}}">
               {{/if}}
-              <small class="form-text-muted text-muted">Minimo 1 kg y Maximo 2000 kg</small>
+              <small class="form-text-muted text-muted">Mínimo 1 kg y Máximo 2000 kg</small>
             </div>
           </div>
         </div>
@@ -65,26 +65,26 @@
                   value="{{fosil.fecha_encontrado}}">
                 {{/if}}
               </div>
-              <label class="pt-3 text-center font-weight-bold">Disponible para exhibicion:</label>
+              <label class="pt-3 text-center font-weight-bold">Disponible para exhibición:</label>
 
               <br>
               {{#if fosil.disponible}}
               <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="disponible"  value="true" autocomplete="off" required checked>
-                Si
+                <input type="radio" name="disponible" value="true" autocomplete="off" required checked>
+                Sí
               </label>
               <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="disponible"  value="false" autocomplete="off">
+                <input type="radio" name="disponible" value="false" autocomplete="off">
                 No
               </label>
 
               {{else}}
               <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="disponible"  value="true" autocomplete="off">
-                Si
+                <input type="radio" name="disponible" value="true" autocomplete="off">
+                Sí
               </label>
               <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="disponible"  value="true" autocomplete="off" required checked>
+                <input type="radio" name="disponible" value="true" autocomplete="off" required checked>
                 No
               </label>
               {{/if}}
@@ -94,10 +94,10 @@
             <div class="form-group">
               <label class="font-weight-bold" for="observacion">Observaciones</label><br>
               {{#if fosil}}
-              <textarea class="form-control" maxlength="140" name="observacion"  maxlength="100" cols="number" rows="5"
+              <textarea class="form-control" maxlength="140" name="observacion" maxlength="100" cols="number" rows="5"
                 placeholder="Ingrese observaciones">{{fosil.observacion}}</textarea>
               {{/if}}
-              <small class="form-text-muted text-muted">Opcional, Maximo 140 caracteres</small>
+              <small class="form-text-muted text-muted">Opcional, Máximo 140 caracteres</small>
             </div>
           </div>
         </div>
