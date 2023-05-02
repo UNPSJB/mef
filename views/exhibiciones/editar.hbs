@@ -2,26 +2,26 @@
   <form action="/exhibiciones?_method=PUT" method="POST">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarDinoModalLabel">
-        <h3>Editar Exhibicion</h3>
+        <h3>Editar Exhibición</h3>
       </div>
       <div class="card-body">
         <div class="form-group">
           <label for="nombre">Nombre:</label>
-          <input type="text" name="nombre"  minlength="4" maxlength="50" class="form-control" placeholder="Nombre de la exhibicion" {{#with exh }} value="{{nombre}}" {{/with}}>
-          <small class="form-text-muted text-muted">Minimo 4 caracteres. Maximo 50 caracteres</small><br>
+          <input type="text" name="nombre"  minlength="4" maxlength="50" class="form-control" placeholder="Nombre de la exhibición" {{#with exh }} value="{{nombre}}" {{/with}}>
+          <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
 
-          <label for="tematica">Tematica:</label>
+          <label for="tematica">Temática:</label>
           <input type="text" name="tematica" minlength="4" maxlength="50" class="form-control" placeholder="Tematica de la tematica"{{#with exh }} value="{{tematica}}" {{/with}} >
-          <small class="form-text-muted text-muted">Minimo 4 caracteres. Maximo 50 caracteres</small><br>        
+          <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>        
 
-          <label for="duracion">Duracion:</label>
+          <label for="duracion">Duración:</label>
           <input type="text" name="duracion" min="1" max="40" class="form-control" placeholder="Duracion de la exhibicion" {{#with exh }} value="{{duracion}}" {{/with}}>
-          <small class="form-text-muted text-muted">Minimo 1. Maximo 40. Solo números</small><br>        
+          <small class="form-text-muted text-muted">Mínimo 1. Máximo 40. Solo números</small><br>        
         </div>
         <div class="form-group container">
           <div class="row">
             <div class="col-6" style="padding-left:0px">
-              <label for="fosiles">Listado de fosiles disponibles:</label>
+              <label for="fosiles">Listado de fósiles disponibles:</label>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar fosiles --}}
                 {{#each fosiles_propios}}
@@ -36,7 +36,7 @@
               <small class="form-text-muted text-muted">Se puede agregar fósiles luego de crear la exhibicion.</small>
             </div>
             <div class="col-6">
-              <label for="replicas">Listado de replicas disponibles:</label>
+              <label for="replicas">Listado de réplicas disponibles:</label>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{#each replicas_propias}}
                  <input type="checkbox" name="replicas"  value="{{this.id}}" checked>{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
@@ -47,14 +47,14 @@
                 <br>
                 {{/each}}
               </div>
-              <small class="form-text-muted text-muted">Se puede agregar replicas luego de crear la exhibicion.</small>
+              <small class="form-text-muted text-muted">Se puede agregar réplicas luego de crear la exhibición.</small>
             </div>
           </div>
         </div>
       </div>
       <div class="card-footer">
         <input type="hidden" name="id" value="{{exh.id}}" hidden>
-      <button type="submit" class="btn btn-success btn-block">Editar Exhibicion</button>
+      <button type="submit" class="btn btn-success btn-block">Editar Exhibición</button>
       </div>
     </div>
 </div>
