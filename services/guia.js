@@ -1,44 +1,42 @@
 const models = require("../models");
 const personaService = require("./persona");
-const { paginateModel } = require('./utils')
-
+const { paginateModel } = require("./utils");
 
 module.exports = {
-  getAllGuias(){
-    return models.Guia.findAll({
+  async getAllGuias() {
+    const guias = await models.Guia.findAll({
       include: [
         {
-          model: models.Persona, 
-          required: false
+          model: models.Persona,
+          required: false,
         },
         {
-          model: models.Idioma, 
-          required: false
-        }
-      ]
-    })
+          model: models.Idioma,
+          required: false,
+        },
+      ],
+    });
+    return guias.map((g) => g.toJSON());
   },
   countGuias() {
-    return models.Guia.count()
+    return models.Guia.count();
   },
   getGuias(page = 0, pageSize = 10) {
     //{ tags }//aca se pide datos a la BD
-    return models.Guia.findAndCountAll({ 
+    return models.Guia.findAndCountAll({
       include: [
         {
-          model: models.Persona, 
-          required: false
+          model: models.Persona,
+          required: false,
         },
         {
-          model: models.Idioma, 
-          required: false
-        }
+          model: models.Idioma,
+          required: false,
+        },
       ],
-      ...paginateModel({page, pageSize}),
-      order: [
-        ['updatedAt','DESC']
-      ]
-    })
+      ...paginateModel({ page, pageSize }),
+      order: [["updatedAt", "DESC"]],
+    });
   },
   getGuia(id) {
     return models.Guia.findByPk(id, { include: [models.Persona] });
@@ -47,14 +45,13 @@ module.exports = {
   createGuia(dias_trabaja, fecha_alta, horario_trabaja, idiomas, PersonaId) {
     var idiomas = [...idiomas];
     return models.Guia.create({
-        dias_trabaja,
-        fecha_alta,
-        horario_trabaja,
-        PersonaId
-      })
-      .then(guia => {
-        guia.setIdiomas(idiomas);
-      });
+      dias_trabaja,
+      fecha_alta,
+      horario_trabaja,
+      PersonaId,
+    }).then((guia) => {
+      guia.setIdiomas(idiomas);
+    });
   },
 
   // CREATE para Nuevos
@@ -83,7 +80,7 @@ module.exports = {
         fecha_nacimiento,
         telefono
       )
-      .then(persona => {
+      .then((persona) => {
         return this.createGuia(
           dias_trabaja,
           fecha_alta,
@@ -96,8 +93,8 @@ module.exports = {
   getIdiomas(args) {
     return models.Idioma.findAll({
       where: {
-        ...args
-      }
+        ...args,
+      },
     });
   },
   updateGuia(guiaReq) {
@@ -105,8 +102,8 @@ module.exports = {
   },
 
   deleteGuia(id) {
-    return models.Guia.findByPk(id).then(guiaEncontrado => {
+    return models.Guia.findByPk(id).then((guiaEncontrado) => {
       guiaEncontrado.destroy(guiaEncontrado);
     });
-  }
+  },
 };
