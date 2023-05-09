@@ -1,2 +1,6 @@
 .env
+
 node_modules/
+
+# this is for sphinx docs
+public/docs/
