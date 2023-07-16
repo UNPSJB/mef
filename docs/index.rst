@@ -5,7 +5,7 @@ My Project
 Introduction
 ------------
 
-This is an introduction to my project.
+This is an introduction to my project.Hola Soy Franco
 
 .. toctree::
     :maxdepth: 1
@@ -14,6 +14,7 @@ This is an introduction to my project.
     :caption: Contenido:
 
     sections/login
+    sections/dinosaurio
 
 
 Installation

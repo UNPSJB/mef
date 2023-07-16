@@ -40,7 +40,7 @@ services:
     depends_on:
       - sphinx
     volumes:
-      - mefdata
+      - /mefdata
     networks:
       - mefnetwork
 
@@ -50,10 +50,10 @@ services:
       - "./docs:/docs"
       - ./public/docs:/public/docs
     command: "sphinx-build -b html /docs /public/docs"
+    restart: always
 
 networks:
   mefnetwork:
     driver: "bridge"
 volumes:
-  mefdata:
   node_modules:
