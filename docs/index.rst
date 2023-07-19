@@ -1,28 +1,18 @@
-My Project
-==========
-
-
-Introduction
-------------
-
-This is an introduction to my project.Hola Soy Franco
+Museo Egidio Feruglio
+=====================
 
 .. toctree::
     :maxdepth: 1
     :numbered:
     :glob:
-    :caption: Contenido:
+    :caption: Índice:
 
+
+    sections/introduccion
+    sections/requerimientos
+    sections/roles
+    sections/simbolos
     sections/login
-    sections/dinosaurio
-
-
-Installation
-------------
-
-This is a guide on how to install my project.
-
-Usage
------
-
-This is a guide on how to use my project.
+    sections/pantalla
+    sections/gestiones
+    
