@@ -1,13 +1,22 @@
 Acceso al Sistema (Log-In)
 ===========================
 
-Para registrar un nuevo cliente, debe buscar el item **Crear** bajo la categoría **Clientes** en el menú lateral.
+Al iniciar el sistema, seremos recibidos por una pantalla de bienvenida que nos dará acceso a cinco opciones de 
+gestión disponibles:
 
-Al hacer click en dicho item, se presentará un formulario en el cual debe ingresar los datos personales del cliente.
+1 **Taller**
 
-- Para crear el nuevo cliente, haga click en **Aceptar**.
-- Para vaciar los campos del formulario, haga click en **Reiniciar**.
-- Para cancelar la creación del cliente, navegue a cualquier otro item de menú, o haga click en **Volver al listado** para ir a la lista de clientes.
+2 **Recursos Humanos (RRHH)**
+
+3 **Clientes**
+
+4 **Exhibiciones**
+
+5 **Dinosaurios**
+
+Desde esta pantalla, podremos elegir la gestión que deseamos realizar y comenzar a utilizar el sistema según 
+nuestras necesidades.
 
 
-(ACÁ TENDRÍA QUE HABER IMÁGENES DEL LOGIN)
+
+(ACÁ TENDRÍA QUE HABER UNA IMÁGEN DE LA PANTALLA DE BIENVENIDA)

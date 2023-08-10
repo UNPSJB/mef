@@ -14,5 +14,11 @@ Museo Egidio Feruglio
     sections/simbolos
     sections/login
     sections/pantalla
-    sections/gestiones
+    
+    sections/taller
+    sections/exhibicion
+    sections/rrhh
+    sections/secretaria
+    sections/coleccion
+    
     
