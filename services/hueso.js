@@ -35,7 +35,7 @@ module.exports = {
       where: {
         DinosaurioId,
         ...args
-      },
+      }, raw:true,
       order: [
         ['disponible', 'DESC']
       ]
@@ -45,7 +45,7 @@ module.exports = {
     return models.Hueso.findAll({
       where: {
         DinosaurioId
-      }
+      }, raw:true
     })
   },
   getHuesoDino(DinosaurioId, subtipohueso) {

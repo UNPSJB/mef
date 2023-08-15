@@ -18,7 +18,7 @@ module.exports = {
   },
   getDinosaurio(id ) {
     return models.Dinosaurio.findByPk(id, {
-      include: [models.SubClase]
+      include: [models.SubClase], raw:true, nest:true
     })
   },
   createDinosaurio(nombre, alimentacion, periodo, descubrimiento, SubClaseId) {
