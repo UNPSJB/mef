@@ -4,7 +4,7 @@ const { paginateModel } = require('./utils')
 module.exports = {
   getAllDinosaurios(){
     return models.Dinosaurio.findAll({
-      include: [models.SubClase]
+      include: [models.SubClase], raw:true, nest:true
     })
   },
   getDinosaurios(page = 0, pageSize = 10, args) {//{ tags }//aca se pide datos a la BD        
