@@ -77,7 +77,44 @@ adecuada del esqueleto. La posibilidad de editar estas cantidades proporciona fl
 y permite reflejar con precisión las características específicas de cada especie.
 
 **Modificación**
-(Necesito el software funcionando)
+(Según la ISFPP de Ing1 está)
+Cuando llega el momento de realizar modificaciones en la información de un dinosaurio, se desplegará una 
+interfaz que guarda similitud con la pantalla empleada para "Agregar Dinosaurio". Dentro de 
+esta interfaz, se nos brindará la oportunidad de realizar ajustes en todos los aspectos relacionados con el 
+dinosaurio en cuestión. Esto incluye la posibilidad de editar su denominación, su pauta alimentaria, el período 
+en el cual vivió, la fecha de su descubrimiento, su subclase taxonómica, así como la lista detallada de sus 
+huesos característicos.
+
+Una diferencia crucial entre esta etapa y la de "Agregar" radica en que ya se contarán con datos previamente 
+ingresados en relación con el dinosaurio en particular. Una vez que se hayan llevado a cabo las modificaciones 
+deseadas, bastará con pulsar la opción "Guardar Cambios", y así se materializarán las actualizaciones 
+efectuadas en la información.
+
+Este proceso proporciona una manera cómoda y eficiente de mantener la base de datos actualizada y precisa 
+respecto a cada espécimen de dinosaurio, permitiendo una gestión detallada y cuidadosa de los datos históricos 
+y taxonómicos de estas criaturas prehistóricas.
+
+**Eliminar** 
+(Según la ISFPP de Ing1 está pero no la ví en el software)
+El procedimiento para dar de baja a un dinosaurio se ejecuta de manera sencilla y directa. En primera instancia, 
+es necesario dirigirse a la lista de dinosaurios disponibles y localizar el ejemplar específico que se desea 
+eliminar de la base de datos. Una vez ubicado, se procede a seleccionar dicho dinosaurio.
+
+En ese instante, se desplegará una notificación en forma de cartel, diseñada para confirmar la intención de 
+eliminar el dinosaurio seleccionado. Este mensaje de confirmación busca asegurarse de que el usuario esté 
+plenamente consciente de las implicaciones de esta acción y de que esté seguro de querer llevarla a cabo. La 
+pregunta planteada en el cartel cuestiona si el usuario está seguro de eliminar el dinosaurio, buscando 
+garantizar que la eliminación sea una elección deliberada y consciente.
+
+Es importante destacar que la necesidad de dar de baja a un dinosaurio es un escenario poco común, dado que, 
+una vez que se ha establecido el descubrimiento de una nueva especie, suele ser poco frecuente encontrar 
+motivos para eliminarla de la base de datos, como si nunca hubiera existido. Generalmente, los registros 
+paleontológicos y científicos se mantienen con el propósito de preservar la historia de las especies y su 
+evolución a lo largo del tiempo.
+
+No obstante, es relevante destacar que, a pesar de la rareza de tal situación, esta opción está contemplada en 
+el software, brindando flexibilidad y control a los usuarios para administrar la información de los dinosaurios 
+en función de sus necesidades particulares y las circunstancias específicas que puedan surgir.
 
 **Moldes**
 (Necesito el software funcionando)
@@ -161,7 +198,25 @@ Colección** ingresado ya existe en la base de datos. En caso de que el código 
 notificará al usuario y no permitirá agregar el fósil nuevamente, evitando así duplicaciones y manteniendo 
 la integridad de la información.
 
-**Baja (No sé si va)**
+**Baja (Sí, va)**
+
+El proceso para eliminar un fósil es sumamente sencillo y directo. Primeramente, se requiere seleccionar el 
+fósil específico que se desea eliminar del listado de fósiles disponibles. Esto se logra mediante un simple 
+clic sobre el fósil en cuestión. Una vez que se ha realizado esta selección, se hace visible el símbolo 
+distintivo de "Eliminación".
+
+En contraste con algunas acciones de eliminación que podrían carecer de confirmación, en este caso, al activar 
+la eliminación de un fósil, se nos presentará un mensaje de confirmación. La relevancia de este mensaje radica 
+en que, una vez que el fósil es eliminado, no existe la posibilidad de recuperarlo y restaurarlo en el sistema. 
+Por ende, la confirmación tiene el propósito de asegurarse de que el usuario está plenamente consciente de la 
+decisión irreversible que está tomando.
+
+De manera similar al enfoque adoptado para la gestión de datos relacionados con los dinosaurios, la necesidad 
+de eliminar un fósil es poco común. Esto se debe a que, una vez que un fósil ha sido descubierto y agregado al 
+sistema, carece de motivos para desaparecer de la base de datos. Los registros paleontológicos tienen como 
+finalidad principal preservar la historia y evolución de estas valiosas piezas de la historia natural, lo que 
+hace que la eliminación de fósiles sea una situación infrecuente y excepcional.
+
 **Modificación (No sé si va)**
 
 
@@ -223,6 +278,22 @@ del museo. Al contar con esta funcionalidad, se asegura que la información de l
 y clasificada adecuadamente, lo que resulta fundamental para brindar una experiencia educativa y cultural 
 completa a los visitantes.
 
-**Baja (No sé si va)**
+**Baja (Sí va)**
+El procedimiento para dar de baja una subclase es bastante simple y directo. En primer lugar, se debe 
+seleccionar la subclase específica que se desea eliminar del listado de subclases disponibles. Esto se logra 
+eligiendo la subclase en cuestión directamente de la lista de subclases.
+
+Una vez efectuada la selección, se desencadena una etapa de confirmación. En este punto, se muestra un mensaje 
+en forma de cartel que busca asegurarse de la intención del usuario. Este mensaje de confirmación tiene como 
+finalidad verificar si se está seguro de eliminar la subclase en cuestión.
+
+Es esencial destacar que, en el caso de eliminar una subclase, no existe la posibilidad de revertir esta 
+acción. Una vez eliminada, la subclase no puede ser restaurada en el sistema.
+
+Si bien es poco común encontrarse en la situación de dar de baja una subclase, ya que estas subclasificaciones 
+son fundamentales en la taxonomía de los dinosaurios, se mantiene disponible esta opción dentro del sistema. 
+La razón detrás de esto radica en la flexibilidad y control que se brinda al Jefe de Colección, quien podría 
+tener razones particulares para ejecutar esta acción a nivel de administración de la base de datos.
+
 **Modificación**
-(Necesito el software funcionando)
+(Sí va)
