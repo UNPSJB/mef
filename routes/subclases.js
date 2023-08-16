@@ -47,10 +47,7 @@ router.post('/', async (req, res) => {
 router.put('/', async (req, res) => {
   const subclase = req.body
   try {
-    const subclaseDB = await subclaseService.getSubclase(subclase.id)
-    await subclaseDB.update({
-      ...subclase
-    })
+    const subclaseDB = await subclaseService.updateSubclase(subclase)
     res.redirect('/subclases')
   } catch (error) {
     const { message } = error.errors[0]

@@ -14,7 +14,7 @@ module.exports = {
     })
   },
   getSubclase(id) {
-    return models.SubClase.findByPk(id)
+    return models.SubClase.findByPk(id, {raw:true})
   },
   createSubclase(descripcion, clase) {
     return models.SubClase.create({
@@ -23,7 +23,7 @@ module.exports = {
     })
   },
   updateSubclase(subclaseModificado) {
-    return models.SubClase.upsert(subclaseModificado)
+    return models.SubClase.update(subclaseModificado, {where: {id:subclaseModificado.id}})
   }
 }
 
