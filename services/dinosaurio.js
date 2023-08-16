@@ -2,12 +2,12 @@ const models = require('../models')
 const { paginateModel } = require('./utils')
 
 module.exports = {
-  getAllDinosaurios(){
+  getAllDinosaurios() {
     return models.Dinosaurio.findAll({
-      include: [models.SubClase], raw:true, nest:true
+      include: [models.SubClase], raw: true, nest: true
     })
   },
-  getDinosaurios(page = 0, pageSize = 10, args) {//{ tags }//aca se pide datos a la BD        
+  getDinosaurios(page = 0, pageSize = 10, args) {
     return models.Dinosaurio.findAndCountAll({
       include: [models.SubClase],
       where: {
@@ -16,9 +16,9 @@ module.exports = {
       ...paginateModel({ page, pageSize })
     })
   },
-  getDinosaurio(id ) {
+  getDinosaurio(id) {
     return models.Dinosaurio.findByPk(id, {
-      include: [models.SubClase], raw:true, nest:true
+      include: [models.SubClase], raw: true, nest: true
     })
   },
   createDinosaurio(nombre, alimentacion, periodo, descubrimiento, SubClaseId) {
@@ -31,6 +31,6 @@ module.exports = {
     })
   },
   updateDinosaurio(dinoReq) {
-    return models.Dinosaurio.upsert(dinoReq) //update or insert = upsert XD    
+    return models.Dinosaurio.update(dinoReq, { where: { id: dinoReq.id } })
   },
 }
