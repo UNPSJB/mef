@@ -40,7 +40,7 @@ services:
     depends_on:
       - sphinx
     volumes:
-      - mefdata
+      - /mefdata
     networks:
       - mefnetwork
 
