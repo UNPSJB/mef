@@ -38,8 +38,8 @@ module.exports = {
       order: [["updatedAt", "DESC"]],
     });
   },
-  getGuia(id) {
-    return models.Guia.findByPk(id, { include: [models.Persona] });
+  getGuia(id,options={}) {
+    return models.Guia.findByPk(id, { include: [models.Persona],...options });
   },
   // CREATE para Existentes
   createGuia(dias_trabaja, fecha_alta, horario_trabaja, idiomas, PersonaId) {
@@ -90,11 +90,11 @@ module.exports = {
         );
       });
   },
-  getIdiomas(args) {
+  getIdiomas(args,options={}) {
     return models.Idioma.findAll({
       where: {
-        ...args,
-      },
+        ...args
+      },...options
     });
   },
   updateGuia(guiaReq) {
