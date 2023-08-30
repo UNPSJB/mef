@@ -89,12 +89,13 @@ module.exports = {
   updatePedido(pedido) {
     return models.Pedido.upsert(pedido);
   },
-  getReplicas(args){
+  getReplicas(args, options = {}){
     return models.Replica.findAll({
       where:{
         ...args
       },
-      include:[models.Hueso, models.Dinosaurio]
+      include:[models.Hueso, models.Dinosaurio],
+      ...options
     })
   }
 };
