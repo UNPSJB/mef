@@ -14,7 +14,7 @@ module.exports = {
   getClientes(page = 0, pageSize = 10, args) {
     //{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
     return models.Cliente.findAndCountAll({
-      include: [models.Persona],
+      include: [models.Persona],raw:true,nest:true,
       where: {
         ...args
       },
