@@ -61,7 +61,7 @@ En esta sección podremos editar:
 
 *   La fecha de descubrimiento (que, por lógica, debe ser menor a la fecha actual).
 
-*   La subclase (que se verá en una lista desplegable de calses cargadas previamente).
+*   La subclase (que se verá en una lista desplegable de clases cargadas previamente).
 
 Todos estos campos son obligatorios.
 
