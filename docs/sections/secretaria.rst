@@ -68,7 +68,7 @@ Consiste en asignarle:
 
 Eliminar 
 ________________________
-Esta es la sección dedicada a elminar visitas guiadas.
+Esta es la sección dedicada a eliminar visitas guiadas.
 
 Seleccione la visita guiada que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará la visita, si cancela, no se eliminará y volverá al listado de visitas.
 
