@@ -4,179 +4,26 @@ Jefe de Exhibición
 Pedidos
 _______
 
-El rol del **Jefe de Exhibición** desempeña un papel fundamental en la gestión de pedidos de réplicas de 
-fósiles, así como en el seguimiento y actualización de su estado. Estos pedidos se clasifican en dos categorías 
-principales: **Externos** e **Internos**. Los pedidos Externos son aquellos realizados por agentes o entidades 
-ajenas al museo, mientras que los pedidos Internos son generados dentro de la institución museística.
 
-En el ámbito de los pedidos **Externos**, el Jefe de Exhibición debe mantener una estrecha comunicación con 
-los proveedores o solicitantes externos. Esto implica coordinar los detalles logísticos, como plazos de entrega 
-y especificaciones técnicas. Además, el seguimiento efectivo de estos pedidos es esencial para garantizar la 
-satisfacción de los solicitantes y la correcta incorporación de las réplicas en las exhibiciones o colecciones.
-
-Por otro lado, los pedidos **Internos** representan una parte significativa de las actividades del Jefe de 
-Exhibición. En este contexto, su función se extiende a colaborar con otros departamentos del museo para 
-comprender las necesidades específicas de cada área y asegurar que las réplicas sean seleccionadas 
-adecuadamente y en consonancia con los objetivos de exhibición y educación del museo.
-
-Una herramienta valiosa que facilita la gestión de estos pedidos es la capacidad de exportar listados. 
-Este recurso ha sido ampliamente utilizado y ha demostrado ser una herramienta eficiente para generar informes 
-detallados, realizar un seguimiento proactivo de los pedidos en curso y facilitar la comunicación interna entre 
-diferentes departamentos involucrados en el proceso.
-
-El Jefe de Exhibición asume la responsabilidad de mantener una base de datos actualizada con información 
-relevante sobre cada pedido, incluyendo fechas clave, estado del proceso, interacciones con proveedores o 
-solicitantes, y cualquier observación relevante. Esto no solo mejora la eficiencia en la gestión, sino que 
-también permite tomar decisiones fundamentadas y mejorar la planificación de futuras adquisiciones.
 
 **Pantalla Principal / Listado de Pedidos**
 
-En la parte inferior, podemos apreciar la imagen de la pantalla principal que constituye el eje central para la 
-gestión de pedidos de réplicas de fósiles. Esta interfaz presenta un diseño intuitivo y eficiente, brindando 
-una visión general de los pedidos pendientes. El núcleo de esta pantalla está representado por un listado 
-exhaustivo de los pedidos registrados, con información esencial que facilita su seguimiento y control.
-Cada elemento en el listado está acompañado por una serie de atributos clave que proporcionan una perspectiva 
-rápida y completa del estado del pedido. En primer lugar, se encuentra el campo Estado del pedido, que permite 
-identificar de manera inmediata si el pedido ha sido facturado, presupuestado, confirmado o cancelado. Esta 
-clasificación por estados ofrece una valiosa referencia para comprender la etapa en la que se encuentra cada 
-solicitud y facilita una gestión proactiva.
-
-Además, se visualiza la Fecha de Inicio del Pedido, proporcionando una referencia temporal relevante que 
-permite conocer cuándo se inició el proceso de gestión del pedido. Esta información resulta de gran utilidad 
-para establecer plazos y evaluar el rendimiento en términos de tiempo de respuesta.
-
-Otro aspecto esencial del listado es la Descripción asociada a cada pedido, donde se proporcionan detalles 
-específicos sobre la naturaleza de la réplica solicitada.
-
-Asimismo, se muestra el nombre del Cliente Solicitante, lo que ayuda a identificar rápidamente a qué entidad o 
-individuo corresponde cada pedido. Mantener un registro claro y organizado de los solicitantes es fundamental 
-para establecer una comunicación efectiva y asegurar la satisfacción del cliente.
-
-Una característica adicional y sumamente útil de esta pantalla principal es la Herramienta de búsqueda. Esta 
-funcionalidad permite agilizar el proceso de localización de un pedido específico dentro del listado. Al 
-ingresar detalles como el nombre del cliente, el estado del pedido o cualquier otro criterio relevante en la 
-casilla de búsqueda, se obtendrán resultados filtrados que se ajusten a los parámetros ingresados. Esta 
-capacidad de búsqueda agiliza la navegación en el sistema, ahorrando tiempo y mejorando la eficiencia en la 
-gestión.
 
 
 **Crear Pedido de Replicación para Clientes Externos**
 
-Cuando se trata de gestionar pedidos de réplicas de fósiles de clientes externos, el proceso se simplifica 
-considerablemente gracias a una lista desplegable de clientes previamente cargados en el sistema. Esta 
-característica agiliza el ingreso de la información al permitir seleccionar rápidamente el cliente solicitante 
-de la réplica sin necesidad de introducirlo manualmente.
 
-Una vez que se ha especificado el cliente, el siguiente paso es proporcionar una detallada Descripción del 
-pedido. Este campo permite ingresar información relevante sobre la naturaleza específica de la réplica 
-solicitada. Aquí se pueden incluir detalles sobre el tipo de fósil que se desea replicar.
-
-La siguiente información que se debe registrar es el Monto del pedido, acompañado de la especificación de la 
-moneda utilizada para el cálculo del costo. Este dato es fundamental para la planificación presupuestaria y el 
-seguimiento financiero del proceso de réplica. Los montos pueden expresarse en Pesos Argentinos, Dólares 
-Americanos o Euros, brindando flexibilidad a los clientes y permitiendo una amplia variedad de transacciones 
-internacionales.
-
-Otro dato importante es la Fecha de Fin de Oferta, que indica el plazo límite para que el cliente realice su 
-pedido de réplica bajo las condiciones y términos acordados. Esta fecha juega un papel esencial en la 
-organización logística y en el cumplimiento de los compromisos contractuales.
-
-Además de la información anterior, se debe seleccionar el Dinosaurio que se desea replicar. Esta elección se 
-realizará a partir de una lista desplegable que contiene todos los dinosaurios previamente cargados en el 
-sistema. Esta funcionalidad facilita la selección precisa y evita errores en la identificación de la especie 
-que se busca reproducir.
-
-Una vez que se ha elegido el dinosaurio, se procede a seleccionar los huesos o fósiles específicos que se 
-desean replicar. Para facilitar esta tarea, se incluye un práctico botón de selección rápida que permite 
-elegir todos los huesos de manera simultánea. Del mismo modo, para una mayor flexibilidad y corrección, se 
-implementa un botón de Reset que permite borrar todas las selecciones realizadas previamente, brindando la 
-posibilidad de reiniciar el proceso de elección si es necesario.
 
 **Crear Pedido de Replicación para Clientes Internos**
 
-Cuando se trata de crear un pedido para Clientes Internos, el proceso se simplifica aún más gracias a una 
-función especial en la lista desplegable que permite seleccionar la opción "Interno". Esta característica, al 
-ser activada, trae consigo una serie de ventajas al momento de ingresar la información necesaria para el 
-pedido, ya que se adaptará automáticamente a las particularidades de los pedidos internos destinados 
-exclusivamente al museo.
 
-Una vez que se ha seleccionado la opción Interno en la lista desplegable, el sistema realiza automáticamente 
-una serie de ajustes y bloquea ciertos campos, eliminando la necesidad de completar información innecesaria 
-para este tipo de pedido. En concreto, las opciones de Descripción, Monto (junto con la especificación de la 
-moneda), y Fecha de Fin de Oferta se deshabilitan, ya que no aplican a pedidos internos, que son generados 
-exclusivamente para satisfacer las necesidades y objetivos del propio museo.
-
-En este contexto, el énfasis recae en los aspectos esenciales del pedido interno: la selección del Dinosaurio 
-que se desea replicar y la elección de los Huesos (o réplicas) específicas que serán parte de la reproducción. 
-Estos campos permanecen habilitados y operativos, ya que son fundamentales para asegurar una gestión eficiente 
-y precisa del pedido interno.
-
-Al igual que en el caso de los pedidos externos, se mantienen los prácticos botones de "Reset" y "Seleccionar 
-Todo" para los huesos, permitiendo al personal del museo tener la flexibilidad de reiniciar la selección o 
-marcar todas las opciones de manera rápida y sencilla.
 
 **Facturar Pedido de Replicación**
 
-Cuando llega el momento de facturar un pedido de réplicas de fósiles, el proceso se vuelve aún más crucial y 
-detallado. Para llevar a cabo esta operación, el usuario debe hacer clic en el botón Facturar, lo que 
-desencadena una serie de acciones que permitirán revisar y confirmar todos los detalles del pedido antes de 
-generar la factura final.
 
-Una vez que se selecciona el botón Facturar, se despliega una nueva pantalla que presenta una vista detallada 
-de todos los elementos esenciales del pedido. Desde el número de pedido hasta cada hueso o réplica solicitada, 
-cada aspecto se muestra de manera clara y organizada para una revisión exhaustiva. Este nivel de detalle brinda 
-una visión completa del pedido, asegurando que no se omitan elementos cruciales y que cada aspecto se encuentre 
-debidamente registrado y especificado.
-
-Además de los datos básicos del pedido, como el número de pedido y la lista de huesos seleccionados junto con 
-la cantidad por cada uno, la pantalla también proporciona información sobre el dinosaurio al que corresponde 
-cada hueso. Esta asociación entre huesos y dinosaurios es esencial para garantizar la exactitud y autenticidad 
-de las réplicas, asegurando que cada reproducción sea fiel a la anatomía y características del dinosaurio 
-original.
-
-Uno de los pasos más importantes en esta etapa es la elección del Medio de pago. El sistema ofrece dos 
-opciones: Cheque o Efectivo. Aquí, el usuario debe seleccionar el método preferido según las políticas y 
-procedimientos establecidos por el museo o la institución. Una vez que se ha especificado el medio de pago, el 
-pedido estará listo para ser facturado.
-
-Si, luego de revisar todos los detalles, se confirma que la información está completa y precisa, y se ha 
-seleccionado el medio de pago adecuado, el usuario puede proceder con confianza y hacer clic en el botón 
-Facturar. Al hacerlo, se generará automáticamente la factura final y se cerrará el proceso de facturación.
-
-Sin embargo, si en algún momento durante la revisión se identifican errores o falta información, el usuario 
-puede hacer clic en el botón Volver. Esta función permite regresar a la pantalla anterior, donde se encuentra 
-el listado de pedidos pendientes. Desde allí, se pueden realizar las correcciones necesarias o agregar 
-cualquier detalle que pueda haber quedado incompleto antes de volver a intentar la facturación.
 
 **Confirmar Pedido de Replicación**
 
-Una vez que el pedido de réplicas de fósiles ha sido facturado, su estado se actualizará automáticamente en el 
-listado de pedidos, reflejándose como **Estado** *Facturado*. En esta etapa, el **Jefe de Exhibición** tendrá 
-acceso a dos botones en el listado de pedidos: *Detalles* y *Confirmar*.
-
-Al hacer clic en el botón *Detalles*, se desplegará una pantalla que brinda una visión más profunda y completa 
-de todos los aspectos relacionados con el pedido facturado. Aquí, el **Jefe de Exhibición** podrá revisar 
-nuevamente la información proporcionada por el cliente, como la descripción detallada del pedido, la lista de 
-huesos o réplicas solicitadas junto con las cantidades correspondientes y el dinosaurio asociado a cada uno. 
-Esta revisión minuciosa asegura que todos los detalles estén en orden y permite una verificación adicional 
-antes de continuar con el siguiente paso.
-
-Una vez que se ha realizado una revisión exhaustiva y se ha confirmado que todo está en orden, el **Jefe de 
-Exhibición** procederá a hacer clic en el botón *Confirmar*. Sin embargo, antes de completar este paso crítico, 
-se mostrará un cartel emergente que preguntará si se está seguro de confirmar el pedido. Esta precaución 
-adicional asegura que no se realicen confirmaciones accidentales y brinda la oportunidad de revisar nuevamente 
-la información antes de proceder.
-
-Una vez que el **Jefe de Exhibición** ha confirmado el pedido, este avanzará al siguiente paso del proceso, 
-donde dependerá de la gestión del **Taller** llevar a cabo las acciones correspondientes para la fabricación de 
-las réplicas. En este punto, el pedido entrará en una serie de estados específicos que reflejan su progreso en 
-el taller. Estos estados pueden incluir En *Fabricación*, *Terminado* y *Entregado*, dependiendo del avance y el 
-estatus del proceso de reproducción de las réplicas.
-
-Es importante destacar que, a partir de este momento, el **Jefe de Exhibición** no tendrá más intervención 
-directa en la fabricación del pedido, ya que esta responsabilidad recae en el **Taller**. Sin embargo, el 
-**Jefe de Exhibición** puede realizar un seguimiento de los estados del pedido a través del sistema y estar 
-informado sobre su progreso.
 
 **Vistas de Detalles de los Pedidos**
 

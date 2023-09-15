@@ -8,17 +8,16 @@ Museo Egidio Feruglio
     :caption: Índice:
 
 
-    sections/introduccion
-    sections/requerimientos
-    sections/roles
-    sections/simbolos
-    sections/login
-    sections/pantalla
+    sections/introducciones/introduccion
+    sections/introducciones/requerimientos
+    sections/introducciones/roles
+    sections/introducciones/simbolos
+    sections/introducciones/login
+    sections/introducciones/pantalla
     
-    sections/taller
-    sections/exhibicion
-    sections/rrhh
-    sections/secretaria
-    sections/coleccion
-    
+    sections/gestiones/taller
+    sections/gestiones/exhibicion
+    sections/gestiones/rrhh
+    sections/gestiones/secretaria
+    sections/gestiones/coleccion
     

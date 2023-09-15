@@ -34,7 +34,9 @@ Consiste en asignarle:
 * Fecha de Nacimiento, solo estarán habilitadas fechas de modo que el empleado sea mayor de edad.
 
 * Número de telefono.
-(IMÁGEN)
+
+.. image:: ../images/rrhh/empleados/AgregarEmpleado.jpg
+   :width: 800
 
 **Modificación**
 
