@@ -1,4 +1,4 @@
-Jefe de Secretaria (Terminado, faltan las imágenes)
+Jefe de Secretaria (Parcialmente terminado, faltan algunas imágenes)
 ==================
 
 Bienvenido a la Gestión de Secretaría. En esta sección usted podrá ver y editar las Visitas Guiadas del Mueso.
@@ -7,19 +7,29 @@ Bienvenido a la Gestión de Secretaría. En esta sección usted podrá ver y edi
 
 Bienvenido al listado de Visitas Guiadas. 
 El presente listado le presentará un detalle de todas las Visitas Guiadas del Museo.
-(IMÁGEN DEL LISTADO)
 
-También puede seleccionar el símbolo 'lápiz' para poder editar su información general.
-(IMÁGEN DEL LÁPIZ)
+.. image:: ../images/secretaria/Bienvenido.jpg
+   :width: 800
 
-También puede seleccionar el símbolo 'basura' para poder eliminar la visita guiada.
-(IMÁGEN DEL LÁPIZ)
+Puede seleccionar el símbolo 'lápiz' para poder editar su información general.
 
-Si desea agregar un Dinosuario nuevo, haga click en el símbolo '+'. 
-(IMÁGEN DEL +)
+.. image:: ../images/lapiz
+   :width: 50
+
+Puede seleccionar el símbolo 'basura' para poder eliminar un elemento.
+
+.. image:: ../images/basura
+   :width: 50
+
+Si desea agregar un elemento nuevo, haga click en el símbolo '+'. 
+
+.. image:: ../images/+
+   :width: 50
 
 Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Excel', 'PDF', o 'CSV'
-(IMÁGEN DE "EXCEL, PDF CSV")
+
+.. image:: ../images/exportar
+   :width: 200
 
 Agregar (Visita Guiada)
 _______________________
@@ -42,7 +52,8 @@ Consiste en asignarle:
 
 * El precio de la visita, que estará en Pesos Argentinos, con un máximo de $3.000.000.
 
-(IMAGEN DE "AGREGAR VISITA")
+.. image:: ../images/secretaria/AgregarVisita
+   :width: 800
 
 Editar (Visita Guiada)
 ______________________
@@ -64,7 +75,7 @@ Consiste en asignarle:
 
 * El precio de la visita, que estará en Pesos Argentinos, con un máximo de $3.000.000.
 
-(IMAGEN DE "EDITAR VISITA")
+(NECESITO EL SOFTWARE FUNCIONANDO BIEN PARA ESTA IMAGEN DE "EDITAR VISITA")
 
 Eliminar 
 ________________________
@@ -72,4 +83,4 @@ Esta es la sección dedicada a eliminar visitas guiadas.
 
 Seleccione la visita guiada que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará la visita, si cancela, no se eliminará y volverá al listado de visitas.
 
-(IMAGEN DE "ELIMINAR VISITA")
+(NECESITO EL SOFTWARE FUNCIONANDO BIEN PARA ESTA IMAGEN DE "ELIMINAR VISITA")

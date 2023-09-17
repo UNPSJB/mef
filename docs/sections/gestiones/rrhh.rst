@@ -6,6 +6,26 @@ Bienvenido a la Gestión de Recursos Humanos. En esta sección usted podrá ver,
 .. image:: ../images/rrhh/empleados/Bienvenido.jpg
    :width: 800
 
+Puede seleccionar el símbolo 'lápiz' para poder editar su información general.
+
+.. image:: ../images/lapiz
+   :width: 50
+
+Puede seleccionar el símbolo 'basura' para poder eliminar un elemento.
+
+.. image:: ../images/basura
+   :width: 50
+
+Si desea agregar un elemento nuevo, haga click en el símbolo '+'. 
+
+.. image:: ../images/+
+   :width: 50
+
+Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Excel', 'PDF', o 'CSV'
+
+.. image:: ../images/exportar
+   :width: 200
+
 Empleados
 _________
 
