@@ -1,8 +1,10 @@
-Gestión de Jefe de Recursos Humanos (Terminado, faltan las imágenes)
+Gestión de Jefe de Recursos Humanos (Terminado)
 ===================================
 
 Bienvenido a la Gestión de Recursos Humanos. En esta sección usted podrá ver, crear, editar y eliminar a los guías y empleados del museo.
 
+.. image:: ../images/rrhh/empleados/Bienvenido.jpg
+   :width: 800
 
 Empleados
 _________
@@ -11,7 +13,10 @@ _________
 
 Bienvenido al listado de Empleados. 
 El presente listado le presentará un detalle de todos los emplados en la base de datos con sus detalles.
-(IMÁGEN DEL LISTADO)
+
+.. image:: ../images/rrhh/empleados/ListaEmpleados.jpg
+   :width: 800
+
 
 **Agregar Empleado**
 
@@ -59,15 +64,17 @@ Consiste en poder modificar:
 * Fecha de Nacimiento, solo estarán habilitadas fechas de modo que el empleado sea mayor de edad.
 
 * Número de telefono.
-(IMÁGEN)
-
+.. image:: ../images/rrhh/empleados/EditarEmpleado.jpg
+   :width: 800
 
 **Eliminar Empleado**
 
 Esta es la sección dedicada a eliminar empleados.
 
 Seleccione al empelado que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará al empleado, si cancela, no se eliminará y volverá al listado de empleados.
-(IMÁGEN)
+
+.. image:: ../images/rrhh/empleados/EliminarEmpleado.jpg
+   :width: 800
 
 Guías
 _____
@@ -75,7 +82,9 @@ _____
 **Pantalla Principal / Listado**
 Bienvenido al listado de Guías. 
 El presente listado le presentará un detalle de todos los guías en la base de datos con sus detalles.
-(IMÁGEN DEL LISTADO)
+
+.. image:: ../images/rrhh/guias/ListadoGuias.jpg
+   :width: 800
 
 **Alta**
 
@@ -103,8 +112,10 @@ Consiste en asignarle:
 
 * Días Laborales (de Lunes a Viernes/Franquero)
 
-* Idiomas que habla (de una lista precargada).
-(IMÁGEN)
+* Idiomas que habla de una lista precargada (podrá seleccionar más de un idioma con 'shift' y haciendo click en los idiomas).
+
+.. image:: ../images/rrhh/guias/AgregarGuia.jpg
+   :width: 800
 
 **Modificación**
 Esta es la sección dedicada la edición de un guía seleccionado.
@@ -131,13 +142,18 @@ Consiste en poder modificar:
 
 * Días Laborales (de Lunes a Viernes/Franquero)
 
-* Idiomas que habla (de una lista precargada).
-(IMÁGEN)
+* Idiomas que habla de una lista precargada (podrá seleccionar más de un idioma con 'shift' y haciendo click en los idiomas).
+
+.. image:: ../images/rrhh/guias/EditarGuia.jpg
+   :width: 800
+
 
 **Baja**
 
 Esta es la sección dedicada a eliminar guías.
 
 Seleccione al guía que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará al guía, si cancela, no se eliminará y volverá al listado de guías.
-(IMÁGEN)
+
+.. image:: ../images/rrhh/guias/EliminarGuia.jpg
+   :width: 800
 
