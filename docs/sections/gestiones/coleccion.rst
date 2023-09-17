@@ -16,16 +16,24 @@ la base de datos con sus detalles.
 
 Puede seleccionar el simbolo 'hueso' para ver en detalles todos los huesos
 del dinosaurio. 
-(IMÁGEN DEL HUESO)
 
-También puede seleccionar el símbolo 'lápiz' para poder editar su información general.
-(IMÁGEN DEL LÁPIZ)
+.. image:: ../images/hueso
+   :width: 50
 
-Si desea agregar un Dinosuario nuevo, haga click en el símbolo '+'. 
-(IMÁGEN DEL +)
+Puede seleccionar el símbolo 'lápiz' para poder editar su información general.
+
+.. image:: ../images/lapiz
+   :width: 50
+
+Si desea agregar un elemento nuevo, haga click en el símbolo '+'. 
+
+.. image:: ../images/+
+   :width: 50
 
 Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Excel', 'PDF', o 'CSV'
-(IMÁGEN DE "EXCEL, PDF CSV")
+
+.. image:: ../images/exportar
+   :width: 200
 
 **Alta**
 
