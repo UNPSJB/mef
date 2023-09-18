@@ -1,4 +1,4 @@
-Gestión de Colección (Terminado, faltan las imágenes)
+Gestión de Colección (Terminado)
 ====================
 
 Bienvenido a la Gestión de Colección. En esta sección usted podrá ver y editar los Dinosaurios y fósiles de la
@@ -12,7 +12,9 @@ ___________
 Bienvenido al listado de Dinoasurios. 
 El presente listado le presentará un detalle de todos los dinosaurios en
 la base de datos con sus detalles.
-(IMÁGEN DEL LISTADO)
+
+.. image:: ../images/coleccion/dinosaurio/ListaDinosaurios
+   :width: 800
 
 Puede seleccionar el simbolo 'hueso' para ver en detalles todos los huesos
 del dinosaurio. 
@@ -35,7 +37,7 @@ Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Exce
 .. image:: ../images/exportar
    :width: 200
 
-**Alta**
+**Alta de Dinosaurio**
 
 Esta es la sección dedicada al alta de los dinosaurios. 
 
@@ -54,7 +56,9 @@ Consiste en asignarle:
 *   Y un listado de huesos (que ya tendra una cantidad precargada pero editable).
 
 Todos estos campos son obligatorios.
-(IMÁGEN DEL ALTA)
+
+.. image:: ../images/coleccion/dinosaurio/AgregarDinosaurio
+   :width: 800
 
 **Editar Dinosaurio**
 
@@ -74,9 +78,10 @@ En esta sección podremos editar:
 Todos estos campos son obligatorios.
 
 No se puede editar el listado de huesos.
-(IMÁGEN DE LA EDICIÓN)
 
-**Editar Dinosaurio (No está en el software, va?)**
+.. image:: ../images/coleccion/dinosaurio/EditarDinosaurio
+   :width: 800
+
 
 **Listado de Huesos**
 
@@ -98,26 +103,41 @@ Se divide en los siguientes secciones:
 *   Piernas
 
 *   Pies
-(IMÁGEN DEL LISTADO DE HUESOS)
+
+Cada sección aparece detallada con los huesos que contiene. 
+Si hace click en el nombre de la sección en cuestión podrá ocultar los detalles de la misma.
+
+.. image:: ../images/coleccion/dinosaurio/ListaHuesos
+   :width: 1000
 
 
 Fósiles
 ________
 **Pantalla Principal / Listado**
+
 Bienvenido al listado de Fósiles. 
 El presente listado le presentará un detalle de todos los fósiles en la base de datos con sus detalles.
-(IMÁGEN DEL LISTADO)
 
-También puede seleccionar el símbolo 'lápiz' para poder editar su información general.
-(IMÁGEN DEL LÁPIZ)
+.. image:: ../images/coleccion/fosiles/ListadoFosiles
+   :width: 800
 
-Si desea agregar un Dinosuario nuevo, haga click en el símbolo '+'. 
-(IMÁGEN DEL +)
+Puede seleccionar el símbolo 'lápiz' para poder editar su información general.
+
+.. image:: ../images/lapiz
+   :width: 50
+
+Si desea agregar un elemento nuevo, haga click en el símbolo '+'. 
+
+.. image:: ../images/+
+   :width: 50
 
 Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Excel', 'PDF', o 'CSV'
-(IMÁGEN DE "EXCEL, PDF CSV")
+
+.. image:: ../images/exportar
+   :width: 200
 
 **Alta**
+
 Esta es la sección dedicada al alta de los fósiles. 
 
 Consiste en asignarle:
@@ -137,11 +157,14 @@ Consiste en asignarle:
 *   Observaciones (único campo no obligatorio).
 
 Todos estos campos son obligatorios (menos las observaciones).
-(IMÁGEN DEL ALTA)
+
+.. image:: ../images/coleccion/fosiles/AgregarFosil
+   :width: 800
 
 
 
-**Modificación (Sí va)**
+**Editar Fósil**
+
 Esta es la sección dedicada a la modificación de los fósiles. 
 
 Consiste en asignarle:
@@ -161,7 +184,9 @@ Consiste en asignarle:
 *   Observaciones (único campo no obligatorio).
 
 Todos estos campos son obligatorios (menos las observaciones).
-(IMÁGEN DEL EDITAR)
+
+.. image:: ../images/coleccion/fosiles/EditarFosil
+   :width: 800
 
 
 
@@ -171,20 +196,30 @@ Todos estos campos son obligatorios (menos las observaciones).
 Subclases
 _________
 **Pantalla Principal / Listado**
+
 Bienvenido al listado de Subclases. 
 El presente listado le presentará un detalle de todas las Subclases en la base de datos con sus detalles.
-(IMÁGEN DEL LISTADO)
 
-También puede seleccionar el símbolo 'lápiz' para poder editar su información general.
-(IMÁGEN DEL LÁPIZ)
+.. image:: ../images/coleccion/subclases/ListadoSubclases
+   :width: 800
 
-Si desea agregar un Dinosuario nuevo, haga click en el símbolo '+'. 
-(IMÁGEN DEL +)
+Puede seleccionar el símbolo 'lápiz' para poder editar su información general.
+
+.. image:: ../images/lapiz
+   :width: 50
+
+Si desea agregar un elemento nuevo, haga click en el símbolo '+'. 
+
+.. image:: ../images/+
+   :width: 50
 
 Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Excel', 'PDF', o 'CSV'
-(IMÁGEN DE "EXCEL, PDF CSV")
+
+.. image:: ../images/exportar
+   :width: 200
 
 **Alta**
+
 Esta es la sección dedicada al alta de las subclases. 
 
 Consiste en asignarle:
@@ -193,7 +228,11 @@ Consiste en asignarle:
 
 * Y la clase a la que pertenece (Saurisquio/Ornitisquio).
 
-**Modificación**
+.. image:: ../images/coleccion/subclases/AgregarSubclase
+   :width: 800
+
+**Editar Subclase**
+
 Esta es la sección dedicada a modificar las subclases. 
 
 Consiste en asignarle una nueva:
@@ -201,3 +240,6 @@ Consiste en asignarle una nueva:
 * Descripción, es decir su nombre.
 
 * Y la clase a la que pertenece (Saurisquio/Ornitisquio).
+
+.. image:: ../images/coleccion/subclases/EditarSubclase
+   :width: 800

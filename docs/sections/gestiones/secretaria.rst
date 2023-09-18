@@ -31,7 +31,7 @@ Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Exce
 .. image:: ../images/exportar
    :width: 200
 
-Agregar (Visita Guiada)
+Agregar Visita Guiada
 _______________________
 
 Esta es la sección dedicada al alta de las visitas guiadas.
@@ -55,7 +55,7 @@ Consiste en asignarle:
 .. image:: ../images/secretaria/AgregarVisita
    :width: 800
 
-Editar (Visita Guiada)
+Editar Visita Guiada (NECESITO EL SOFTWARE FUNCIONANDO BIEN PARA ESTA IMAGEN DE "EDITAR VISITA")
 ______________________
 Esta es la sección dedicada a la edición de las visitas guiadas.
 
@@ -75,12 +75,11 @@ Consiste en asignarle:
 
 * El precio de la visita, que estará en Pesos Argentinos, con un máximo de $3.000.000.
 
-(NECESITO EL SOFTWARE FUNCIONANDO BIEN PARA ESTA IMAGEN DE "EDITAR VISITA")
 
-Eliminar 
+
+Eliminar Visita Guiada (NECESITO EL SOFTWARE FUNCIONANDO BIEN PARA ESTA IMAGEN DE "ELIMINAR VISITA")
 ________________________
 Esta es la sección dedicada a eliminar visitas guiadas.
 
 Seleccione la visita guiada que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará la visita, si cancela, no se eliminará y volverá al listado de visitas.
 
-(NECESITO EL SOFTWARE FUNCIONANDO BIEN PARA ESTA IMAGEN DE "ELIMINAR VISITA")
