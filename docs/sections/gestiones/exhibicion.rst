@@ -1,6 +1,31 @@
 Jefe de Exhibición
 ==================
 
+Bienvenido a la Gestión de Exhibición. En esta sección usted podrá...
+
+.. image:: ../images/exhibicion/Bienvenida
+   :width: 800
+
+Si desea agregar un elemento nuevo, haga click en el símbolo '+'. 
+
+.. image:: ../images/+
+   :width: 50
+
+   Puede seleccionar el símbolo 'lápiz' para poder editar su información general.
+
+.. image:: ../images/lapiz
+   :width: 50
+
+Puede seleccionar el símbolo 'basura' para poder eliminar un elemento.
+
+.. image:: ../images/basura
+   :width: 50
+
+Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Excel', 'PDF', o 'CSV'
+
+.. image:: ../images/exportar
+   :width: 200
+
 Pedidos
 _______
 
@@ -8,21 +33,35 @@ _______
 
 **Pantalla Principal / Listado de Pedidos**
 
+Bienvenido al listado de Pedidos. 
+El presente listado le presentará un detalle de todos los pedidos de réplica en la base de datos con sus detalles.
+
+.. image:: ../images/exhibicion/pedidos/ListadoPedidos
+   :width: 800
 
 
 **Crear Pedido de Replicación para Clientes Externos**
 
+El pedido de Replicación de pedidos Externos consiste en pedidos hechos por agentes externos al museo.
+Estos pueden ser Clientes Particulaes (personas) o Clientes Institucionales (instituciones).
+En cualquiera de los dos casos se carga al cliente en base a su DNI (si es particular) o CUE (si es institucional) de una lista precargada.
 
+.. image:: ../images/exhibicion/pedidos/AgregarPedidoInterno
+   :width: 800
 
 **Crear Pedido de Replicación para Clientes Internos**
 
+El pedido de Replicación de pedidos Internos consiste en pedidos hechos por y para el museo. Por lo que no son necesarios datos del cliente.
 
+.. image:: ../images/exhibicion/pedidos/AgregarPedidoInterno
+   :width: 800
 
 **Facturar Pedido de Replicación**
 
 
 
 **Confirmar Pedido de Replicación**
+
 
 
 **Vistas de Detalles de los Pedidos**
