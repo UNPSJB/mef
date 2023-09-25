@@ -22,7 +22,7 @@ router.post('/login', permisos.redirectHome, (req, res) => {
   return accountService.auth(email, password)
     .then(user => {
       if( !user) {
-        res.render('login', {layout:'login', error: "email y/o contrasena incorrectos!", email});
+        res.render('login', {layout:'login', error: "e-mail y/o contraseña incorrectos.", email});
       }
       if (user) {
         const session = req.session;

@@ -2,7 +2,7 @@ Museo Egidio Feruglio
 =====================
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 4
     :numbered:
     :glob:
     :caption: Índice:
