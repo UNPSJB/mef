@@ -18,5 +18,6 @@ Desde esta pantalla, podremos elegir la gestión que deseamos realizar y comenza
 nuestras necesidades.
 
 
-.. image:: ../images/login
-   :width: 800
+.. image:: ../images/welcome.png
+   :width: 400
+(ACÁ TENDRÍA QUE HABER UNA IMÁGEN DE LA PANTALLA DE BIENVENIDA)

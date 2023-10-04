@@ -15,9 +15,6 @@ Introducción
 
     Su recorrido comienza en la vida de los hombre en la cueva de las Manos y finaliza en el big bang y el origen del universo.
 
-.. image:: ../images/mef
-   :width: 800
-
 ¿Cuál es el objetivo del Manual de Usuario?
 -------------------------------------------
 
