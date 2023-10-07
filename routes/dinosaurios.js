@@ -56,8 +56,9 @@ router.get('/moldes/:id',
       const dino = await dinoService.getDinosaurio(id)
       const huesos = await huesoService.getHuesosDino(id)
       const huesosAgrupados = await Promise.all(
-        bones.map((bone) => {
-          return huesoService.getHuesosDinoArgs(id, { subtipohueso: bone }).then(huesos => {
+        bones.map(async (bone) => {
+          const agrupacionDeHuesos = await huesoService.getHuesosDinoArgs(id, { subtipohueso: bone })
+          return agrupacionDeHuesos.map (huesos => {
             const hueso = { agrupado: bone, huesos }
             return hueso
           })
