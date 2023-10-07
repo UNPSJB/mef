@@ -54,7 +54,7 @@
 
 <script>
   function toggleMolde(id) {
-    fetch(`http://localhost:3000/dinosaurios/moldes/toggle?id=${id}`, {
+    fetch(`/dinosaurios/moldes/toggle?id=${id}`, {
       method: "PATCH",
       credentials: "same-origin",
     })

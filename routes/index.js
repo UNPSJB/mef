@@ -6,36 +6,34 @@ var permisos = require('../middlewares/permisos');
 
 router.get('/', permisos.asignaPermisos, permisos.estaLogueado, (req, res) => {
   try {
-    res.render('home',{req});
-    
+    res.render('home', { req });
+
   } catch (error) {
     console.log(error)
   }
 });
 
-router.get('/login', permisos.redirectHome,(req, res) => {
-  res.render('login', {layout:'login'});
+router.get('/login', permisos.redirectHome, (req, res) => {
+  res.render('login', { layout: 'login' });
 });
 
-router.post('/login', permisos.redirectHome, (req, res) => {
+router.post('/login', permisos.redirectHome, async (req, res) => {
   const { email, password } = req.body;
-  return accountService.auth(email, password)
-    .then(user => {
-      if( !user) {
-        res.render('login', {layout:'login', error: "e-mail y/o contraseña incorrectos.", email});
-      }
-      if (user) {
-        const session = req.session;
-        session.userId = user.id;
-        session.rol = [...user.Rols];
-        req.session.save();
-        res.redirect('/');
-      }
-    });
+  const user = await accountService.auth(email, password)
+  if (!user) {
+    res.render('login', { layout: 'login', error: "e-mail y/o contraseña incorrectos!", email });
+  }
+  if (user) {
+    const session = req.session;
+    session.userId = user.id;
+    session.rol = [...user.Rols];
+    req.session.save();
+    res.redirect('/');
+  }
 });
 
-router.delete('/logout', permisos.estaLogueado, (req,res) =>{
-  req.session.destroy(()=>{
+router.delete('/logout', permisos.estaLogueado, (req, res) => {
+  req.session.destroy(() => {
     res.redirect('/login');
   });
 })
