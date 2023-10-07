@@ -3,8 +3,10 @@ const { paginateModel } = require('./utils')
 
 
 module.exports = {
-  getAllExhibiciones() {
-    return models.Exhibicion.findAll({ raw: true })
+  getAllExhibiciones(args={},opts={}) {
+    return models.Exhibicion.findAll({ where: {
+      ...args
+    },...opts })
   },
   getExhibiciones(page = 0, pageSize = 10, args) {
     return models.Exhibicion.findAndCountAll({
