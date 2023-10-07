@@ -8,10 +8,9 @@ const guiaService = require('../services/guia')
 const paginate = require('../middlewares/paginate')
 const { generatePagination } = require("../services/utils")
 
-//lista todos las visitas
 router.get('/', async (req, res) => {
   try {
-    const visitas = await visitaService.getAllVisitas()
+    const visitas = await visitaService.getAllVisitas({},{raw:true,nest:true})
     res.render('visitas/visita', { visitas, req })
   } catch (error) {
     console.log(error)
@@ -20,7 +19,7 @@ router.get('/', async (req, res) => {
 
 router.get('/agregar', async (req, res) => {
   const exhibiciones = await exhibicionService.getAllExhibiciones()
-  const clientes = await clienteService.getAllClientes()
+  const clientes = await clienteService.getAllClientes({},{raw:true,nest:true})
   const guias = await guiaService.getAllGuias()
   res.render('visitas/agregar', { exhibiciones, clientes, guias, req })
 })
