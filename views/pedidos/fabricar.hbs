@@ -39,7 +39,7 @@
 
 <script>
     $(document).ready(() => {
-        fetch(`http://localhost:3000/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
+        fetch(`/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
             .then((res) => {
                 return res.json();
             })

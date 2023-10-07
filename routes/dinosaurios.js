@@ -75,7 +75,7 @@ router.get('/huesos/:id',
     try {
       const { id } = req.params;
       const huesos = await huesoService.getHuesosDino(id)
-      res.send(JSON.stringify(huesos, null, 4))
+      res.send(huesos)
     } catch (error) {
       console.log(error)
     }
