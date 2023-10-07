@@ -11,7 +11,7 @@ const paginate = require('../middlewares/paginate')
 
 router.get('/', async (req, res) => {
   try {
-    const exhibiciones = await exhibicionService.getAllExhibiciones()
+    const exhibiciones = await exhibicionService.getAllExhibiciones({},{raw:true})
     res.render('exhibiciones/exhibicion', { exhibiciones, req })
   } catch (error) {
     res.redirect('/404')
