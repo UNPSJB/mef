@@ -4,18 +4,18 @@ const { paginateModel } = require('./utils')
 
 module.exports = {
   getAllExhibiciones() {
-    return models.Exhibicion.findAll()
+    return models.Exhibicion.findAll({ raw: true })
   },
   getExhibiciones(page = 0, pageSize = 10, args) {
     return models.Exhibicion.findAndCountAll({
       where: {
         ...args
       },
-      ...paginateModel({ page, pageSize })      
+      ...paginateModel({ page, pageSize })
     })
   },
-  getExhibicion(id) {
-    return models.Exhibicion.findByPk(id)
+  getExhibicion(id, args = {}) {
+    return models.Exhibicion.findByPk(id, { ...args })
   },
   createExhibicion(nombre, tematica, duracion, fosiles, replicas) {
     return models.Exhibicion.create({
@@ -81,19 +81,17 @@ module.exports = {
     })
   },
 
-  getReplicas(exhibicion_id) {
-    return models.Exhibicion.findByPk(exhibicion_id).then(exh => {
-      return exh.getReplicas({
+  async getReplicas(exhibicion_id, options = []) {
+    const exhibicion = await models.Exhibicion.findByPk(exhibicion_id)
+      return exhibicion.getReplicas({
         include: [models.Hueso, models.Dinosaurio]
       })
-    })
   },
 
-  deleteExhibicion(id) {
-    models.Exhibicion.findByPk(id).then(async e => {
-      await e.setFosils([])
-      await e.setReplicas([])
-      return e.destroy()
-    })
+  async deleteExhibicion(id) {
+    const exhibicion = await models.Exhibicion.findByPk(id)
+    await exhibicion.setFosils([])
+    await exhibicion.setReplicas([])
+    return exhibicion.destroy()
   }
 }

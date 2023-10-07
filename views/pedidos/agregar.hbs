@@ -2,7 +2,7 @@
   <form action="/pedidos" method="post">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarReplicaModalLabel">
-        <h1>Crear pedido de replicacion</h1>
+        <h1>Crear pedido de replicación</h1>
       </div>
       <div class="card-body">
         {{!-- BARRA DE NAVEGACION --}}
@@ -22,18 +22,18 @@
                     {{/each}}
                   </select>
 
-                  <label class="font-weight-bold" for="descripcion">Descripcion:</label>
+                  <label class="font-weight-bold" for="descripcion">Descripción:</label>
                   <input disabled class="cliente form-control" type="text" name="descripcion"
-                    placeholder="Solo necesario para pedidos con clientes" />
+                    placeholder="Solamente necesario para pedidos con clientes" />
                   <label for="monto">Monto:</label>
                   <input disabled class="cliente form-control" type="number" name="monto"
-                    placeholder="Solo necesario para pedidos con clientes" min="0" />
+                    placeholder="Solamente necesario para pedidos con clientes" min="0" />
                   <label for="moneda">Moneda</label>
                   <input disabled class="cliente" type="radio" name="moneda" value="Pesos Argentinos">Pesos Argentinos
                   <input type="radio" name="moneda" value="Dolares">Dolares Americanos
                   <input type="radio" name="moneda" value="Euros">Euros
 
-                  <label for="fin-oferta">Fin de Oferta: <i>solo requerido para pedidos con cliente</i></label>
+                  <label for="fin-oferta">Fin de Oferta: <i>solamente requerido para pedidos con cliente</i></label>
                   <input disabled class="cliente form-control" type="date" name="finoferta" id="InpuFinOferta" />
                 </label>
               </div>
@@ -111,7 +111,7 @@
 
   function buscarHuesos() {
     let dinoId = e.options[e.selectedIndex].value;
-    fetch(`http://localhost:3000/dinosaurios/huesos/${dinoId}`, { mode: "cors" })
+    fetch(`/dinosaurios/huesos/${dinoId}`, { mode: "cors" })
       .then((res) => {
         return res.json()
       })

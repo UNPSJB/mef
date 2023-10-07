@@ -1,9 +1,9 @@
-<h1 class="mt-4"> Pedido de Replicación Nº {{id}} - Entregar pedido</h1>
-<span class="bg-warning form-control">Esta a punto de {{accion}} el siguiente pedido</span>
+<h1 class="mt-4">Pedido de Replicación Nº {{id}} - Entregar pedido</h1>
+<span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
 
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
 
-  <label for="fecha_envio" class="col-form-label">Fecha de Envio</label>
+  <label for="fecha_envio" class="col-form-label">Fecha de Envío</label>
   <input class="form-control" type="date" name="fecha_envio" id="InputFechaEnvio" required>
 
   <label for="fecha_entrega" class="col-form-label">Fecha de Entrega</label>

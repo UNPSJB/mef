@@ -1,11 +1,11 @@
-<h1 class="mt-4"> Pedido de Replicación Nº {{id}} - Asignar empleados</h1>
-<span class="bg-warning form-control">Esta a punto de asignar {{accion}} al siguiente pedido</span>
+<h1 class="mt-4">Pedido de Replicación Nº {{id}} - Asignar empleados</h1>
+<span class="bg-warning form-control">{{accion}} al siguiente pedido</span>
 <form action="/pedidos?_method=PUT" method="POST">
   <div style="max-height: 60vh; overflow:scroll">
     <table class="table table-striped">
       <thead>
         <th>Asignado</th>
-        <th>Identificacion</th>
+        <th>Identificación</th>
         <th>Nombre</th>
         <th>Apellido</th>
       </thead>
@@ -57,7 +57,7 @@
 <script>
   $(document).ready(() => {
 
-    fetch(`http://localhost:3000/pedidos/{{id}}/empleados`, { mode: "cors" })//necesito a todos los empleados
+    fetch(`/pedidos/{{id}}/empleados`, { mode: "cors" })//necesito a todos los empleados
       .then((res) => {
         return res.json();
       })
@@ -69,7 +69,7 @@
           $(`#${json[key].id}`).prop("checked", true);
         }
       })
-    fetch(`http://localhost:3000/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
+    fetch(`/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
       .then((res) => {
         return res.json();
       })

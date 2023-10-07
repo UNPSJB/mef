@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) =>{
         }
 
         demorar(pedido,args){
-            console.log('No se puede realizar esa accion viejo');
+            console.log('No se puede realizar esa accion');
         }
     }
     Demorado.init({

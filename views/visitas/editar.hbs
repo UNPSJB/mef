@@ -17,7 +17,7 @@
                 <option value="">No hay exhibiciones disponibles</option>
                 {{/each}}
               </select>
-              <small class="form-text-muted text-muted">Exhibicion elegida.</small><br>
+              <small class="form-text-muted text-muted">Exhibición elegida.</small><br>
               
               <label class="font-weight-bold" for="clienteId">Cliente</label>
               <select class="form-control" name="clienteId" placeholder="Ingrese Cliente" required>
@@ -30,20 +30,20 @@
               </select>
               <small class="form-text-muted text-muted">Cliente que solicita la visita.</small><br>
 
-              <label class="font-weight-bold" for="guiaId">Guia</label>
+              <label class="font-weight-bold" for="guiaId">Guía</label>
               <select class="form-control" name="guiaId" placeholder="Ingrese Guia" required>
                 <option value="{{visita.GuiumId}}" selected>{{visita.Guium.Persona.identificacion}} | {{visita.Guium.Persona.nombre}} {{visita.Guium.Persona.apellido}}</option>
                 {{#each guias}}
                 <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}} {{this.Persona.apellido}}</option>
                 {{else}}
-                <option value="">No hay guias disponibles</option>               
+                <option value="">No hay guías disponibles</option>               
                 {{/each}}
               </select>
-              <small class="form-text-muted text-muted">Guia encargado de la visita.</small><br>
+              <small class="form-text-muted text-muted">Guía encargado de la visita.</small><br>
 
               <label class="font-weight-bold" for="cantidadPersonas">Cantidad de Personas</label>
               <input type="number" class="form-control" name="cantidadPersonas" min="1" max="300" placeholder="Ingrese Cantidad de Personas" value="{{visita.cantidadDePersonas}}" required>
-              <small class="form-text-muted text-muted">Minimo 1 persona. Maximo 300.</small>
+              <small class="form-text-muted text-muted">Mínimo 1 persona. Máximo 300.</small>
 
             </div>
             <div class="col-6">
@@ -90,7 +90,7 @@
               
               <label class="font-weight-bold" for="precio">Precio</label>
               <input class="form-control" type="number" name="precio" min="1" max="3000000" value="{{visita.precio}}" placeholder="Ingrese el Precio de la Visita Guiada" required>
-              <small class="form-text-muted text-muted">Minimo $1. Maximo $3.000.000 (Pesos Argentinos)</small>
+              <small class="form-text-muted text-muted">Mínimo $1. Máximo $3.000.000 (Pesos Argentinos)</small>
 
             </div>
           </div>

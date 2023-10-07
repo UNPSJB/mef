@@ -1,6 +1,6 @@
 <form action="/replicas/pedidos/{{accion}}/{{id}}" method="put">
     <h1>Fabricar Pedido</h1>
-    <span class="bg-warning form-control">Esta a punto de editar a los empleados trabajando sobre el pedido</span>
+    <span class="bg-warning form-control">Estas editando los empleados que trabajan en el pedido</span>
     {{> replica/detalle detalles}}
     <div style="padding-top: 10px">
         <div class="row">
@@ -9,7 +9,7 @@
         <div class="row">
             <table class="table table-striped">
                 <thead>
-                    <th>Identificacion</th>
+                    <th>Identificación</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Asignado</th>
@@ -25,10 +25,10 @@
     <div class="container border">
         <div class="row">
             <div class="col-sm border" style="height: 21vh; overflow: auto">
-                aca poner los empleados que si estan trabajando en el pedido
+                Listado de empleados que estan trabajando en el pedido
             </div>
             <div class="col-sm border">
-                aca poner los empleados que no estan trabajando
+                Listado de empleados que no estan trabajando en el pedido
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
 
 <script>
     $(document).ready(() => {
-        fetch(`http://localhost:3000/replicas/empleados`, { mode: "cors" })//necesito a todos los empleados
+        fetch(`/replicas/empleados`, { mode: "cors" })//necesito a todos los empleados
             .then((res) => {
                 return res.json();
             })

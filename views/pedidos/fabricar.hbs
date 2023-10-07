@@ -1,5 +1,5 @@
-<h1 class="mt-4"> Pedido de Replicación Nº {{id}} - Fabricar Replicación</h1>
-<span class="bg-warning form-control">Esta a punto de {{accion}} el siguiente pedido</span>
+<h1 class="mt-4">Pedido de Replicación Nº {{id}} - Fabricar Replicación</h1>
+<span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
 
     {{> replica/detalle detalles}}
@@ -39,7 +39,7 @@
 
 <script>
     $(document).ready(() => {
-        fetch(`http://localhost:3000/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
+        fetch(`/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
             .then((res) => {
                 return res.json();
             })
@@ -52,7 +52,6 @@
                     arr.push(generateCheckbox(json[key].id, json[key].Persona.nombre, json[key].Persona.apellido))
                     arr.push("<br>")
                 }
-                console.log(arr.toString().replace(/[,]/gm, ''));
                 contenedor.innerHTML = arr.toString().replace(/[,]/gm, '');
             })
 

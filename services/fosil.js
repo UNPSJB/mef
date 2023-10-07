@@ -4,7 +4,7 @@ const { paginateModel } = require('./utils')
 module.exports = {
   getAllFosiles(args) {
     return models.Fosil.findAll({
-      include: [models.Dinosaurio],
+      include: [models.Dinosaurio], raw: true, nest: true,
       where: {
         ...args
       }
@@ -24,7 +24,7 @@ module.exports = {
       where: {
         id
       },
-      include: models.Dinosaurio
+      include: models.Dinosaurio, raw: true, nest: true
     })
   },
   createFosil(numero_coleccion, peso, disponible, fecha_encontrado, observacion, DinosaurioId, huesos) {
