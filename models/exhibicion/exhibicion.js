@@ -29,8 +29,6 @@ module.exports = (sequelize, DataTypes) => {
         msg:'La exhibición debe tener tematica.'
       }
     }
-  }, {
-    paranoid:true
   });
   Exhibicion.associate = function(models){
     models.Exhibicion.belongsToMany(models.Replica,{
