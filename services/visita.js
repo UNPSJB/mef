@@ -23,11 +23,12 @@ module.exports = {
       ...paginateModel({page, pageSize})
     });
   },
-  getVisita(id) {
+  getVisita(id, opts={}) {
     return models.Visita.findOne({
       where: {
         id
       },
+      ...opts,
       include: [{ model: models.Cliente, include: models.Persona }, { model: models.Guia, include: models.Persona }, { model: models.Exhibicion }]
     });
   },

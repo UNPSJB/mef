@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/agregar', async (req, res) => {
-  const exhibiciones = await exhibicionService.getAllExhibiciones()
+  const exhibiciones = await exhibicionService.getAllExhibiciones({},{raw:true,nest:true})
   const clientes = await clienteService.getAllClientes({},{raw:true,nest:true})
   const guias = await guiaService.getAllGuias()
   res.render('visitas/agregar', { exhibiciones, clientes, guias, req })
@@ -26,16 +26,16 @@ router.get('/agregar', async (req, res) => {
 
 router.get('/editar/:id', async (req, res) => {
   const { id } = req.params
-  const exhibiciones = await exhibicionService.getAllExhibiciones()
-  const clientes = await clienteService.getAllClientes()
+  const exhibiciones = await exhibicionService.getAllExhibiciones({},{raw:true,nest:true})
+  const clientes = await clienteService.getAllClientes({},{raw:true,nest:true})
   const guias = await guiaService.getAllGuias()
-  const visita = await visitaService.getVisita(id)
+  const visita = await visitaService.getVisita(id, {raw:true,nest:true})
   res.render('visitas/editar', { visita, exhibiciones, clientes, guias, req })
 })
 
 router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params
-  const visita = await visitaService.getVisita(id)
+  const visita = await visitaService.getVisita(id, {raw:true,nest:true})
   res.render('visitas/eliminar', { visita, req })
 })
 
