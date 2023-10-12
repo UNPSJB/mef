@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/agregar', async (req, res) => {
-  const exhibiciones = await exhibicionService.getAllExhibiciones()
+  const exhibiciones = await exhibicionService.getAllExhibiciones({},{raw:true,nest:true})
   const clientes = await clienteService.getAllClientes({},{raw:true,nest:true})
   const guias = await guiaService.getAllGuias()
   res.render('visitas/agregar', { exhibiciones, clientes, guias, req })
