@@ -35,7 +35,7 @@ router.get('/editar/:id', async (req, res) => {
 
 router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params
-  const visita = await visitaService.getVisita(id)
+  const visita = await visitaService.getVisita(id, {raw:true,nest:true})
   res.render('visitas/eliminar', { visita, req })
 })
 
