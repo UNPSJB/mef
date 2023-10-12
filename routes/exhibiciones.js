@@ -22,11 +22,13 @@ router.get('/detalle/:id', async (req,res)=>{
   const {id} = req.params
   try {
     const exhibicion =  await exhibicionService.getExhibicion(id)
-    const fosiles = await exhibicion.getFosils({include:[ models.Dinosaurio ]})
-    const replicas = await exhibicion.getReplicas({include:[models.Hueso, models.Dinosaurio, models.Pedido]})
+    const fosiles = await exhibicion.getFosils({include:[ models.Dinosaurio ], raw:true, nest:true})
+    const replicas = await exhibicion.getReplicas({include:[models.Hueso, models.Dinosaurio, models.Pedido],raw:true, nest:true})
+    console.log(exhibicion)
     /**@TODO esto tambien moverlo al service, aplica para otras cosas donde sea similar, usar mas objetos */
-    res.render('exhibiciones/detalle', {exhibicion, fosiles, replicas})
+    res.render('exhibiciones/detalle', {exhibicion:exhibicion.dataValues, fosiles, replicas})
   } catch (error) {
+    console.log(error)
     res.redirect('/404')
   }
 })
@@ -43,20 +45,19 @@ router.get('/agregar', async (req, res) => {
 
 router.get('/editar/:id', async (req, res) => {
   const { id } = req.params
-  const replicas = await pedidoService.getReplicas({ disponible: true })
+  const replicas = await pedidoService.getReplicas({ disponible: true }, {raw:true, nest:true})
   const replicas_propias = await exhibicionService.getReplicas(id)
   const fosiles= await fosilService.getAllFosiles({ disponible: true })
   const fosiles_propios = await exhibicionService.getFosiles(id)
-  const exhibicion = await exhibicionService.getExhibicion(id)
+  const exhibicion = await exhibicionService.getExhibicion(id, {raw:true})
   res.render('exhibiciones/editar', { exh: exhibicion,req, fosiles, replicas, fosiles_propios, replicas_propias })
 })
 
-router.get('/eliminar/:id', (req, res) => {
+router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params
-  exhibicionService.getExhibicion(id).then(exh => {
-    res.render('exhibiciones/eliminar', { exh, id,req })
+  const exhibicion = await exhibicionService.getExhibicion(id, {raw:true})
+    res.render('exhibiciones/eliminar', { exh: exhibicion, id,req })
   })
-})
 
 router.post('/', async (req, res) => {
   const {nombre, tematica, duracion, fosiles, replicas} = req.body

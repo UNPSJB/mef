@@ -82,7 +82,7 @@
 
 <script>
   function toggleDisponible(id) {
-    fetch(`http://localhost:3000/replicas/disponibilidad/${id}`, {
+    fetch(`/replicas/disponibilidad/${id}`, {
       method: "PATCH",
       credentials: "same-origin",
     })
