@@ -5,3 +5,4 @@ mefdata
 
 # this is for sphinx docs
 public/docs/
+public/docs/*
