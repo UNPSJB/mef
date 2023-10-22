@@ -20,23 +20,23 @@ router.get('/',
       const pedidos = await pedidosService.getAllPedidos()
       const _pedidos = []
       for (pedido of pedidos) {
-          const estadoActual = await pedido.estado
-          const estadoInstance = estadoActual.constructor.name
-          const _pedido = JSON.parse(JSON.stringify(pedido.dataValues))
-          _pedidos.push({ ..._pedido, estadoActual, estadoInstance })
+        const estadoActual = await pedido.estado
+        const estadoInstance = estadoActual.constructor.name
+        const _pedido = JSON.parse(JSON.stringify(pedido.dataValues))
+        _pedidos.push({ ..._pedido, estadoActual, estadoInstance })
       }
       res.render('pedidos/lista', { pedidos: _pedidos, req })
     } catch (error) {
       console.error(error)
       res.redirect('/404')
-      
+
     }
   })
 router.get('/agregar',
   async (req, res) => {
     try {
       const dinosaurios = await dinoService.getAllDinosaurios()
-      const clientes = await  clienteService.getAllClientes({}, { raw: true, nest: true})
+      const clientes = await clienteService.getAllClientes({}, { raw: true, nest: true })
       res.render('pedidos/agregar', { dinosaurios, clientes, req })
     } catch (error) {
       // pagina 500 ?
@@ -53,7 +53,7 @@ router.get('/:id/empleados/', async (req, res) => {
 
 router.get('/replicas', async (req, res) => {
   const dinosauriosConReplicas = await replicaService.getReplicas()
-  const pedidos = dinosauriosConReplicas.map(pedido=>{
+  const pedidos = dinosauriosConReplicas.map(pedido => {
     const dino = pedido.Replicas[0].Dinosaurio
     pedido.dino = dino
     return pedido
@@ -67,10 +67,12 @@ router.get('/detalle/:id', async (req, res) => {
     const pedido = await pedidosService.getPedido({ id })
     const estado = await pedido.estado
     const estadosPedido = await pedido.estados
-    const detalles = await pedido.getDetalles({ include: [{
-      model: models.Hueso,
-      include: [models.Dinosaurio]
-    }], raw: true, nest: true })
+    const detalles = await pedido.getDetalles({
+      include: [{
+        model: models.Hueso,
+        include: [models.Dinosaurio]
+      }], raw: true, nest: true
+    })
 
     const presupuestado = await pedido.getPresupuestado()
     let estados = estadosPedido.map(estado => {
@@ -80,7 +82,7 @@ router.get('/detalle/:id', async (req, res) => {
     const estadoInstance = estado.constructor.name
     const hueso = await huesoService.getHueso(detalles[0].HuesoId)
     const dinosaurio = JSON.parse(JSON.stringify(hueso.Dinosaurio))
-    console.log("🚀 ~ file: pedidos.js:82 ~ router.get ~ { id, estadoInstance, presupuestado, estados, pedido, dinosaurio, hueso, detalles, req }:", { hueso, detalles})
+    console.log("🚀 ~ file: pedidos.js:82 ~ router.get ~ { id, estadoInstance, presupuestado, estados, pedido, dinosaurio, hueso, detalles, req }:", { hueso, detalles })
     res.render("pedidos/detalle", { id, estadoInstance, presupuestado, estados, pedido, dinosaurio, hueso, detalles, req })
   } catch (error) {
     console.error(error)
@@ -90,25 +92,22 @@ router.get('/detalle/:id', async (req, res) => {
 // models.Dinosaurio
 router.get('/:accion/:id',
   permisos.permisosParaEstado(),
-  (req, res) => {
+  async (req, res) => {
     const { accion, id } = req.params
     try {
-      pedidosService.getPedido({ id }).then(async pedido => {
-        const detalles = await pedido.getDetalles({ include: [models.Pedido, models.Hueso] })
-        const estado = await pedido.estado
-        res.render(`pedidos/${accion}`, { accion, id, detalles, pedido, estado, req })
-      })
+      const pedido = await pedidosService.getPedido({ id })
+      const detalles = await pedido.getDetalles({ include: [models.Pedido, models.Hueso] })
+      const estado = await pedido.estado
+      res.render(`pedidos/${accion}`, { accion, id, detalles, pedido, estado, req })
     } catch (e) {//@TODO que hacer
       res.redirect('/404')
     }
   })
 
-router.get('/empleados', (req, res) => {
+router.get('/empleados', async (req, res) => {
   try {
-    return empleadoService.getAllEmpleados()
-      .then((empleados) => {
-        res.send(JSON.stringify(empleados, null, 4))
-      })
+    const empleados = await empleadoService.getAllEmpleados()
+    res.send(JSON.stringify(empleados, null, 4))
   } catch (err) {
     console.log(err)
   }
@@ -151,14 +150,15 @@ router.put('/', async (req, res) => {
   res.redirect('/pedidos')
 })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { hueso, cliente, descripcion, monto, finoferta, moneda } = req.body
-  /** @TODO agregar async await, y la vista de error */
+
   if (cliente === "Interno") {
-    pedidosService.solicitar(hueso).then(e => res.redirect('/pedidos'))
+    await pedidosService.solicitar(hueso)
   } else {
-    pedidosService.presupuestar(hueso, cliente, descripcion, monto, finoferta, moneda).then(e => res.redirect('/pedidos'))
+    await pedidosService.presupuestar(hueso, cliente, descripcion, monto, finoferta, moneda)
   }
+  res.redirect('/pedidos')
 })
 /**
  * @TODO revisar esto

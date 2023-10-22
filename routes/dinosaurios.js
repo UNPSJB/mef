@@ -86,7 +86,7 @@ router.patch('/moldes/toggle',
   async (req, res) => { /// esto NO PUEDE SER ACCEDIDO por bones
     try {
       const { id } = req.query
-      huesoService.toggleDisponibilidadHueso(id);
+      await huesoService.toggleDisponibilidadHueso(id);
       res.send(200);
     } catch (error) {
       console.log(error)
