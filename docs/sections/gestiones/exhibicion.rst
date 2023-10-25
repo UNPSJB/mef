@@ -108,12 +108,31 @@ El Alta de Exhibición consiste en asignarle a la misma:
    :width: 800
 
 
-**Editar Exhibición (Necesito el software andando para hacer esta parte)**
+**Editar Exhibición**
+
+El Editar Exhibición consiste en poder editarle a la misma:
+
+*  El Nombre (entre 4 y 50 caracteres)
+
+*  La Temática (entre 4 y 50 caracteres)
+
+*  La duración en meses (solo se aceptan números entre 1 y 40 meses).
+
+*  El Listado de Fósiles disponibles (se pueden agregar más después de creada la exhibición).
+
+*  El Listado de Réplicas disponibles (se pueden agregar más después de creada la exhibición).
+
+.. image:: ../images/exhibicion/exhibiciones/EditarExhibicion
+   :width: 800
 
 
+**Eliminar Exhibición**
 
-**Eliminar Exhibición (Necesito el software andando para hacer esta parte)**
+Esta es la sección dedicada a eliminar exhibiciones.
 
+Seleccione la exhibición que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará la exhibición, si cancela, no se eliminará y volverá al listado de exhibiciones.
+
+(Acá iría la imagen pero falta el "Cancelar" de la pantalla de eliminación)
 
 Clientes
 ________
