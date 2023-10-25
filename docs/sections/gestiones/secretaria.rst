@@ -1,4 +1,4 @@
-Jefe de Secretaria (Parcialmente terminado, faltan algunas imágenes)
+Jefe de Secretaria (Terminado)
 ==================
 
 Bienvenido a la Gestión de Secretaría. En esta sección usted podrá ver y editar las Visitas Guiadas del Mueso.
@@ -55,8 +55,9 @@ Consiste en asignarle:
 .. image:: ../images/secretaria/AgregarVisita
    :width: 800
 
-Editar Visita Guiada (NECESITO EL SOFTWARE FUNCIONANDO BIEN PARA ESTA IMAGEN DE "EDITAR VISITA")
+Editar Visita Guiada 
 ______________________
+
 Esta es la sección dedicada a la edición de las visitas guiadas.
 
 Consiste en asignarle:
@@ -75,11 +76,14 @@ Consiste en asignarle:
 
 * El precio de la visita, que estará en Pesos Argentinos, con un máximo de $3.000.000.
 
+.. image:: ../images/secretaria/EditarVisita
+   :width: 800
 
-
-Eliminar Visita Guiada (NECESITO EL SOFTWARE FUNCIONANDO BIEN PARA ESTA IMAGEN DE "ELIMINAR VISITA")
+Eliminar Visita Guiada
 ________________________
 Esta es la sección dedicada a eliminar visitas guiadas.
 
 Seleccione la visita guiada que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará la visita, si cancela, no se eliminará y volverá al listado de visitas.
 
+.. image:: ../images/secretaria/EliminarVisita
+   :width: 800
