@@ -71,16 +71,18 @@ router.get('/moldes/:id',
     }
   });
 
-router.get('/huesos/:id',
+  router.get('/huesos/:id',
   async (req, res) => {
     try {
       const { id } = req.params;
-      const huesos = await huesoService.getHuesosDino(id)
-      res.send(huesos)
+      const huesos = await huesoService.getHuesosDino(id);
+      res.render('huesos/lista', { huesos, req }); // Renderiza una vista llamada 'lista' y pasa los huesos como datos
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      res.redirect('/404'); // Redirige a una página de error si ocurre algún problema
     }
-  })
+  });
+
 
 router.patch('/moldes/toggle',
   async (req, res) => { /// esto NO PUEDE SER ACCEDIDO por bones

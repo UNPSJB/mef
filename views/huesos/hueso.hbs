@@ -21,20 +21,20 @@
             {{/if}}
           </thead>
           <tbody>
-            {{#each huesos}}
+            {{#each this}} <!-- Ajuste aquí -->
             <tr>
-              <td>{{this.nombre}}</td>
-              <td>{{this.nombre}} {{this.numero}}</td>
-              <td>{{this.tipohueso}}</td>
-              <td>{{this.subtipohueso}}</td>
-              {{#if ../../req.taller}}
+              <td>{{this.huesos.nombre}}</td> <!-- Ajuste aquí -->
+              <td>{{this.huesos.nombre}} {{this.huesos.numero}}</td> <!-- Ajuste aquí -->
+              <td>{{this.huesos.tipohueso}}</td> <!-- Ajuste aquí -->
+              <td>{{this.huesos.subtipohueso}}</td> <!-- Ajuste aquí -->
+              {{#if ../req.taller}} <!-- Ajuste aquí -->
               <td>
                 <form action="/dinosaurios/moldes?_method=PATCH" method="POST">
                   <label class="switch">
-                    {{#if this.disponible}}
-                    <input onchange="toggleMolde({{this.id}})" type="checkbox" checked>
+                    {{#if this.huesos.disponible}} <!-- Ajuste aquí -->
+                    <input onchange="toggleMolde({{this.huesos.id}})" type="checkbox" checked> <!-- Ajuste aquí -->
                     {{else}}
-                    <input onchange="toggleMolde({{this.id}})" type="checkbox">
+                    <input onchange="toggleMolde({{this.huesos.id}})" type="checkbox"> <!-- Ajuste aquí -->
                     {{/if}}
                     <span class="slider round"></span>
                   </label>
@@ -51,6 +51,7 @@
 </div>
 
 {{/each}}
+
 
 <script>
   function toggleMolde(id) {
