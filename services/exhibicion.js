@@ -19,10 +19,13 @@ module.exports = {
   getExhibicion(id, args = {}) {
     return models.Exhibicion.findByPk(id, { ...args })
   },
+  
   createExhibicion(nombre, tematica, duracion, fosiles, replicas) {
     return models.Exhibicion.create({
       nombre, tematica, duracion
     }).then(exhibicion => {
+      
+      //Revisar este comportamiento
       if (fosiles) {//si hay fósiles, ponerlos como no disponibles
         const listaDeFosiles = [...fosiles]
         listaDeFosiles.every(async fosil_id => {

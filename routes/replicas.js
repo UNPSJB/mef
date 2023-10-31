@@ -5,19 +5,15 @@ const replicaService = require('../services/replicas')
 
 
 router.get('/eliminar/:id',
-  (req, res) => {
+  async (req, res) => {
     const { id } = req.params
-
-    replicaService
-      .getReplica(id)
-      .then(replica => {
+    const replica= await replicaService.getReplica(id)
         console.log(replica)
         res.render('replicas/baja', { replica, req })
       })
       .catch(err => {
         console.log('error de baja')
       })
-})
 
 router.patch('/disponibilidad/:id',
   (req, res) => {
@@ -27,8 +23,10 @@ router.patch('/disponibilidad/:id',
 })
 
 router.delete('/',
-  (req, res) => {
-    replicaService.deleteReplica(req.body.id).then(() => res.redirect('/pedidos/replicas'))
+ async (req, res) => {
+  //aca bastaria el awit nomas? no hago nada con delate replica  
+  await replicaService.deleteReplica(req.body.id) 
+  res.redirect('/pedidos/replicas')
 })
 
 module.exports = router

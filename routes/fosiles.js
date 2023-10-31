@@ -5,7 +5,7 @@ const router = express.Router()
 const dinoService = require('../services/dinosaurio')
 const fosilService = require('../services/fosil')
 
-const bones = ['Cráneo', 'Torax','Vertebral', 'Pelvis','Brazo','Manos','Piernas','Pies']
+const bones = ['Cráneo', 'Torax', 'Vertebral', 'Pelvis', 'Brazo', 'Manos', 'Piernas', 'Pies']
 const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
 
@@ -13,17 +13,16 @@ router.get('/',
   async (req, res) => {
     try {
       const fosiles = await fosilService.getAllFosiles()
-      res.render('fosiles/fosil', { results:fosiles, req })
+      res.render('fosiles/fosil', { results: fosiles, req })
     } catch (error) {
-      res.redirect('/404')      
+      res.redirect('/404')
     }
   })
 
 router.get('/agregar',
-  (req, res) => {
-    dinoService.getAllDinosaurios().then(results => {
-      res.render('fosiles/agregar', { results, bones ,req })
-    })
+  async (req, res) => {
+    const results= await dinoService.getAllDinosaurios()
+    res.render('fosiles/agregar', { results, bones, req })
   })
 
 router.get('/editar/:id',
@@ -32,30 +31,30 @@ router.get('/editar/:id',
     const fosil = await fosilService.getFosil(id)
     const dinosaurios = await dinoService.getAllDinosaurios()
     const dinosaurio = fosil.Dinosaurio
-    const bonesFiltered = bones.filter(bone=> bone!==fosil.huesos)
-    res.render('fosiles/editar', {dinosaurio, dinosaurios, bones:bonesFiltered, fosil, req })
+    const bonesFiltered = bones.filter(bone => bone !== fosil.huesos)
+    res.render('fosiles/editar', { dinosaurio, dinosaurios, bones: bonesFiltered, fosil, req })
   })
 
 
 router.put('/',
-  (req, res) => {
-    /** @todo agregar async await, render con objeto fosiles, error y request */
-    fosilService.updateFosil(req.body).then(() => res.redirect('/fosiles'))
+  async (req, res) => {
+    await fosilService.updateFosil(req.body) 
+    res.redirect('/fosiles')
   })
 
 router.post('/',
   async (req, res) => {
     const { DinosaurioId, huesos, numero_coleccion, peso, disponible, fecha_encontrado, observacion } = req.body
     try {
-        // createFosil(numero_coleccion, peso, disponible, fecha_encontrado, observacion, DinosaurioId, huesos) {
-      const fosil = await fosilService.createFosil(numero_coleccion, peso, disponible, fecha_encontrado, observacion, DinosaurioId, huesos )
+      // createFosil(numero_coleccion, peso, disponible, fecha_encontrado, observacion, DinosaurioId, huesos) {
+      const fosil = await fosilService.createFosil(numero_coleccion, peso, disponible, fecha_encontrado, observacion, DinosaurioId, huesos)
       res.redirect('/fosiles')
     } catch (error) {
       /** @TODO revisar */
       const { message } = error.errors[0]
-      const results =  await dinoService.getAllDinosaurios()
-      res.render('fosiles/agregar', { results, dino: req.body, bones ,req, errores: message })
-    }       
-})
+      const results = await dinoService.getAllDinosaurios()
+      res.render('fosiles/agregar', { results, dino: req.body, bones, req, errores: message })
+    }
+  })
 
 module.exports = router

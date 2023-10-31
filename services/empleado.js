@@ -48,10 +48,9 @@ module.exports = {
   updateEmpleado(empleadoReq) { //@TODO mostrar dino sin editar o algo
     return models.Empleado.upsert(empleadoReq)
   },
-  deleteEmpleado(id) {
-    return models.Empleado.findByPk(id)
-      .then((empleadoEncontrado) => {
-        empleadoEncontrado.destroy(empleadoEncontrado)
-      })
+  async deleteEmpleado(id) {
+    const empleado=  await models.Empleado.findByPk(id)
+    empleado.destroy(empleado)
+
   }
 }
