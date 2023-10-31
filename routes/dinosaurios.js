@@ -113,7 +113,6 @@ router.post('/',
       const subclases = await subclaseService.getAllSubclases()
       res.render("dinosaurios/agregar", { errores: message, dino, subclases, req })
     }
-
   });
 
 router.put('/',

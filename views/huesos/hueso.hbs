@@ -1,13 +1,13 @@
 <h1>Lista de huesos</h1>
-<h5>Dinosaurio: {{ dino.nombre }}, {{ dino.periodo }}, {{ dino.alimentacion }}</h5>
+<h5>Dinosaurio: {{dino.nombre}}, {{dino.periodo}}, {{dino.alimentacion}}</h5>
 
 {{#each huesosAgrupados }}
 <div class="huesos-agrupados">
-  <a class="btn btn-secondary btn-block my-2" data-toggle="collapse" href="#{{agrupado}}" role="button"
-    aria-expanded="false" aria-controls="{{agrupado}}">
-    {{agrupado}}
+  <a class="btn btn-secondary btn-block my-2" data-toggle="collapse" href="#{{this.[0].agrupado}}" role="button"
+    aria-expanded="false" aria-controls="{{this.[0].agrupado}}">
+    {{this.[0].agrupado}}
   </a>
-  <div class="collapse show" id="{{agrupado}}">
+  <div class="collapse show" id="{{this.[0].agrupado}}">
     <div class="card card-body">
       <div class="padding-top:10px">
         <table class="table table-striped">
