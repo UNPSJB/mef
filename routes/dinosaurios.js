@@ -75,13 +75,12 @@ router.get('/moldes/:id',
   async (req, res) => {
     try {
       const { id } = req.params;
-      const huesos = await huesoService.getHuesosDino(id);
-      res.render('huesos/lista', { huesos, req }); // Renderiza una vista llamada 'lista' y pasa los huesos como datos
+      const huesos = await huesoService.getHuesosDino(id)
+      res.send(huesos)
     } catch (error) {
-      console.log(error);
-      res.redirect('/404'); // Redirige a una página de error si ocurre algún problema
+      console.log(error)
     }
-  });
+  })
 
 
   router.patch('/moldes/toggle',
