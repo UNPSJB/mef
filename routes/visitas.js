@@ -53,18 +53,18 @@ router.post('/', async (req, res) => {
 router.put('/', async (req, res) => {
   const { id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio } = req.body
   /** agregar async await, try catch, render con visitas, request, error */
+  // ver que onda visita no se usa 
   return visitaService.updateVisita(id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio)
     .then(visita => {
       res.redirect('/visitas')
     })
 })
 
-router.delete('/', (req, res) => {
+router.delete('/', async (req, res) => {
   const { id } = req.body
-  visitaService.deleteVisita(id)
-    .then(() => {
-      res.redirect('/visitas')
-    })
+  await visitaService.deleteVisita(id)
+  res.redirect('/visitas')
+    
 })
 
 module.exports = router

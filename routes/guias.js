@@ -6,14 +6,14 @@ const personaService = require('../services/persona');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const paginate = require('../middlewares/paginate')
-const { generatePagination} = require('../services/utils');
+const { generatePagination } = require('../services/utils');
 
 router.get('/',
   paginate,
   async (req, res) => {
     try {
       const guias = await guiaService.getAllGuias()
-      res.render('guias/guia', {results:guias, req})
+      res.render('guias/guia', { results: guias, req })
     } catch (error) {
       res.redirect('/404')
     }
@@ -22,7 +22,7 @@ router.get('/',
 
 router.get('/agregar',
   async (req, res) => {
-    const idiomas = await guiaService.getIdiomas({},{raw:true,nest:true});
+    const idiomas = await guiaService.getIdiomas({}, { raw: true, nest: true });
     res.render('guias/agregar', { req, idiomas });
   }
 );
@@ -32,26 +32,25 @@ router.get('/editar/:id',
     const guia = await guiaService.getGuia(req.params.id);
 
     const { dias_trabaja, horario_trabaja } = guia
-    const [ normal, franquero ] = [ dias_trabaja === 'Normal', dias_trabaja === 'Franquero' ]
-    const [ diurno, nocturno ] = [ horario_trabaja === 'Diurno', horario_trabaja === 'Nocturno']
+    const [normal, franquero] = [dias_trabaja === 'Normal', dias_trabaja === 'Franquero']
+    const [diurno, nocturno] = [horario_trabaja === 'Diurno', horario_trabaja === 'Nocturno']
 
-    const idiomasGuia = await guia.getIdiomas({raw:true,nest:true});
- 
+    const idiomasGuia = await guia.getIdiomas({ raw: true, nest: true });
+
     const IDidiomasGuia = idiomasGuia.map(item => {
       return item.id;
     });
     const idioma = await guiaService.getIdiomas({
       id: { [Op.notIn]: [...IDidiomasGuia] }
-    },{raw:true,nest:true});
-    res.render('guias/editar', { normal, franquero, diurno, nocturno, guia:JSON.parse(JSON.stringify(guia)), req, idioma, idiomasGuia });
+    }, { raw: true, nest: true });
+    res.render('guias/editar', { normal, franquero, diurno, nocturno, guia: JSON.parse(JSON.stringify(guia)), req, idioma, idiomasGuia });
   }
 );
 
 router.get('/eliminar/:id',
-  (req, res) => {
-    guiaService.getGuia(req.params.id,{raw:true,nest:true}).then(guia => {
-      res.render('guias/eliminar', { guia, req });
-    });
+  async (req, res) => {
+    const guia = await guiaService.getGuia(req.params.id, { raw: true, nest: true })
+    res.render('guias/eliminar', { guia, req });
   }
 );
 
@@ -134,9 +133,9 @@ router.put(
         dias_trabaja,
         horario_trabaja
       });
-  
+
       const guia = await guiaService.getGuia(idGuia);
-  
+
       await guia.setIdiomas([...idiomas]);
       await personaService.updatePersona({
         id: idPersona,
@@ -152,7 +151,7 @@ router.put(
       res.redirect('/guias');
     } catch (error) {
       /** @todo agregar render con objeto guias, elecciones, request, error */
-      console.log(error)      
+      console.log(error)
     }
   }
 );
@@ -165,9 +164,8 @@ router.delete(
       await guiaService.deleteGuia(id);
       return res.redirect('/guias');
     } catch (error) {
-      guiaService.getGuia(id).then(guia => {
-        res.render('guias/eliminar', { error, guia, req });
-      });
+      const guia = await guiaService.getGuia(id)
+      res.render('guias/eliminar', { error, guia, req });
     }
   }
 );

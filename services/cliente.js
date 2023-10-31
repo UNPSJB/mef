@@ -31,22 +31,13 @@ module.exports = {
       PersonaId,
     });
   },
-  createCliente(tipo, identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono) {
-    return personaService
-      .createPersona(identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono)
-      .then(persona => {
-        return models.Cliente.create({
-          tipo,
-          PersonaId: persona.id,
-        });
-      });
-  },
+ 
   updateCliente(clienteReq) {
     return models.Cliente.upsert(clienteReq);
   },
-  deleteCliente(id) {
-    return models.Cliente.findByPk(id).then(clienteEncontrado => {
-      return clienteEncontrado.destroy(clienteEncontrado);
-    });
+  async deleteCliente(id) {
+    //preguntar a doni si asi eta bien 
+    const clienteEncontrado= await models.Cliente.findByPk(id)
+    return clienteEncontrado.destroy(clienteEncontrado);
   },
 };
