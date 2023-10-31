@@ -21,21 +21,17 @@
             {{/if}}
           </thead>
           <tbody>
-            {{#each this}} <!-- Ajuste aquí -->
+            {{#each this}}
             <tr>
-              <td>{{this.huesos.nombre}}</td> <!-- Ajuste aquí -->
-              <td>{{this.huesos.nombre}} {{this.huesos.numero}}</td> <!-- Ajuste aquí -->
-              <td>{{this.huesos.tipohueso}}</td> <!-- Ajuste aquí -->
-              <td>{{this.huesos.subtipohueso}}</td> <!-- Ajuste aquí -->
-              {{#if ../req.taller}} <!-- Ajuste aquí -->
+              <td>{{this.huesos.nombre}}</td>
+              <td>{{this.huesos.nombre}} {{this.huesos.numero}}</td>
+              <td>{{this.huesos.tipohueso}}</td>
+              <td>{{this.huesos.subtipohueso}}</td>
+              {{#if ../req.taller}}
               <td>
-                <form action="/dinosaurios/moldes?_method=PATCH" method="POST">
+                <form action="/dinosaurios/moldes/toggle" method="PATCH"> <!-- Ajuste aquí -->
                   <label class="switch">
-                    {{#if this.huesos.disponible}} <!-- Ajuste aquí -->
-                    <input onchange="toggleMolde({{this.huesos.id}})" type="checkbox" checked> <!-- Ajuste aquí -->
-                    {{else}}
-                    <input onchange="toggleMolde({{this.huesos.id}})" type="checkbox"> <!-- Ajuste aquí -->
-                    {{/if}}
+                    <input type="checkbox" onchange="toggleMolde('{{this.huesos.id}}')" {{#if this.huesos.disponible}}checked{{/if}}> <!-- Ajuste aquí -->
                     <span class="slider round"></span>
                   </label>
                 </form>
@@ -52,7 +48,6 @@
 
 {{/each}}
 
-
 <script>
   function toggleMolde(id) {
     fetch(`/dinosaurios/moldes/toggle?id=${id}`, {
@@ -62,6 +57,7 @@
     //aca hago una llamada con fetch
   }
 </script>
+
 {{!-- <link type="text/css" rel="stylesheet" href="toggleSwitch.css"> no funciona--}}
 <style>
   /* The switch - the box around the slider */
