@@ -36,6 +36,7 @@ module.exports = (sequelize,DataTypes) => {
                 this.getPresupuestado(), 
             ]).then(estados => {
                 return estados.filter(e =>{
+                    if(!e)return false;
                     if('createdAt' in e){
                         return e;
                     }
