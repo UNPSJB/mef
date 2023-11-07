@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
         args:false,
         msg:'La exhibición debe tener nombre.'
       },
-      unique: {
-        args: true,
-        msg: 'Ese nombre de exhibición ya existe!'
-      }
     },
     duracion:{
       type:DataTypes.STRING,
