@@ -75,14 +75,14 @@ router.get('/detalle/:id', async (req, res) => {
     })
 
     const presupuestado = await pedido.getPresupuestado()
-    let estados = estadosPedido.map(estado => {
+    let estados = []
+    estadosPedido.forEach(estado => {
       estado.estadoInstance = estado.constructor.name
-      return estado
+      estados.push({...estado.dataValues, estadoInstance: estado.constructor.name})
     })
     const estadoInstance = estado.constructor.name
     const hueso = await huesoService.getHueso(detalles[0].HuesoId)
     const dinosaurio = JSON.parse(JSON.stringify(hueso.Dinosaurio))
-    console.log("🚀 ~ file: pedidos.js:82 ~ router.get ~ { id, estadoInstance, presupuestado, estados, pedido, dinosaurio, hueso, detalles, req }:", { hueso, detalles })
     res.render("pedidos/detalle", { id, estadoInstance, presupuestado, estados, pedido, dinosaurio, hueso, detalles, req })
   } catch (error) {
     console.error(error)
