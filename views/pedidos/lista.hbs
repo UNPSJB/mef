@@ -7,7 +7,6 @@
   {{/if}}
 </h1>
 
-
 <table class="table" id="pedidos">
   <thead>
     <th>#</th>
@@ -15,7 +14,7 @@
     <th>Cliente</th>
     <th>Inicio Pedido</th>
     <th>Descripción</th>
-    <th>Acciones</th>
+    <th class="acciones">Acciones</th> <!-- Añadido la clase "acciones" a la columna de Acciones -->
   </thead>
   <tbody>
     {{#each pedidos}}
@@ -43,13 +42,12 @@
     {{/each}}
   </tbody>
 </table>
+
 <script>
   $(document).ready(function () {
     $('#pedidos').DataTable({
       dom: 'Bfrtip',
-      buttons: [
-        'pdf', 'excel', 'csv'
-      ],
+      buttons: ['pdf', 'excel', 'csv'],
       searching: true,
       ordering: true,
       language: {
@@ -73,7 +71,13 @@
           sortAscending: ": Ordenar ascendente",
           sortDescending: ": Ordenar descendente"
         }
-      }
+      },
+      columnDefs: [
+        {
+          targets: 'acciones',
+          orderable: false,
+        },
+      ],
     });
   });
 </script>
