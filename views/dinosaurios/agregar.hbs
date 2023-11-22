@@ -11,7 +11,8 @@
               <label class="font-weight-bold pt-2 pb-2 border-top btn-block" for="InputNombreCientifico">Nombre
                 científico</label>
               <input type="text" class="form-control" name="nombre" id="InputNombreCientifico"
-                placeholder="Ingrese Nombre Científico" maxlength="30" required {{#if dino}} value="{{dino.nombre}}" {{/if}}>
+                placeholder="Ingrese Nombre Científico" maxlength="30" required {{#if dino}} value="{{dino.nombre}}"
+                {{/if}}>
 
               <small class="form-text-muted text-muted">Máximo 30 caracteres</small>
             </div>
@@ -21,12 +22,11 @@
             </label>
             <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
               <label class="btn btn-secondary form-check-label active">
-                <input type="radio" name="alimentacion"  value="Carnivoro" autocomplete="off" checked
-                  required>
+                <input type="radio" name="alimentacion" value="Carnivoro" autocomplete="off" checked required>
                 CARNÍVORO
               </label>
               <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="alimentacion"  value="Herbivoro" autocomplete="off"> HERBÍVORO
+                <input type="radio" name="alimentacion" value="Herbivoro" autocomplete="off"> HERBÍVORO
               </label>
               <label class="btn btn-secondary form-check-label">
                 <input type="radio" name="alimentacion" id="option3" value="Omnivoro" autocomplete="off"> OMNÍVORO
@@ -37,12 +37,11 @@
             </label>
             <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
               <label class="btn btn-secondary  active">
-                <input class="form-check-input" type="radio" name="periodo" value="Cretacico" 
-                  autocomplete="off" checked required> CRETÁCICO
+                <input class="form-check-input" type="radio" name="periodo" value="Cretacico" autocomplete="off" checked
+                  required> CRETÁCICO
               </label>
               <label class="btn btn-secondary">
-                <input class="form-check-input" type="radio" name="periodo" value="Jurasico" 
-                  autocomplete="off">
+                <input class="form-check-input" type="radio" name="periodo" value="Jurasico" autocomplete="off">
                 JURÁSICO
               </label>
               <label class="btn btn-secondary">
@@ -53,8 +52,8 @@
             </div>
             <div class="form-group pt-5">
               <label class="font-weight-bold pr-4" for="InputFechaDescubrimiento">Fecha Descubrimiento</label>
-              <input class="text-center" type="date" name="descubrimiento" min = "1800-01-01" id="InputFechaDescubrimiento"
-                required {{#if dino}} value="{{dino.descubrimiento}}" {{/if}}>
+              <input class="text-center" type="date" name="descubrimiento" min="1800-01-01"
+                id="InputFechaDescubrimiento" required {{#if dino}} value="{{dino.descubrimiento}}" {{/if}}>
             </div>
             <div class="form-group-vertical">
               <label class="font-weight-bold pt-4" for="exampleFormControlSelect1">Subclase</label>
@@ -70,7 +69,9 @@
           <table class="table table-striped col-6 border-bottom">
             <thead>
               <tr class="row">
-                <th class="col-md-20"><h2>Listado de huesos</h2></th>
+                <th class="col-md-20">
+                  <h2>Listado de huesos</h2>
+                </th>
               </tr>
               <tr>
                 <th scope="col">Nombre de Hueso</th>
@@ -138,44 +139,50 @@
                 <i>*Existen huesos que se cargaran por defecto ya que no están sujetos a que cambie su cantidad.</i>
               </div>
             </div>
-            
-          </div>
-          
-        </div>
-        <div class="row">
-          <div class="form-group btn btn-block">
-            <button type="submit" class="btn btn-success form-control">Agregar Dinosaurio</button>
+
           </div>
         </div>
+
+
+        <div class="form-group btn btn-block">
+          <button type="submit" class="btn btn-success form-control">Agregar Dinosaurio</button>
+        </div>
+        <div class="form-group btn btn-block">
+          <a href="/dinosaurios" class="btn btn-danger btn-block">Cancelar</a>
+        </div>
+
       </div>
 
     </div>
   </form>
 </div>
 
+<div class="fixed-bottom d-flex justify-content-end mr-3 mb-3">
+  <a href="/" class="btn btn-primary">Menú Principal</a>
+</div>
 
 <script>
-    // setea la fecha actual como fecha máxima de "descubrimiento"
+  // setea la fecha actual como fecha máxima de "descubrimiento"
 
 
-    $(document).ready(function () {
-        var hoy = formatDate(new Date());
-        document.getElementById("InputFechaDescubrimiento").setAttribute("max", hoy);
-        $("#InputFechaDescubrimiento").attr("max", hoy);
-    })
+  $(document).ready(function () {
+    var hoy = formatDate(new Date());
+    document.getElementById("InputFechaDescubrimiento").setAttribute("max", hoy);
+    $("#InputFechaDescubrimiento").attr("max", hoy);
+  })
 
-    function formatDate(date) {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
+  function formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
 
-        if (month.length < 2)
-            month = '0' + month;
-        if (day.length < 2)
-            day = '0' + day;
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
 
-        return [year, month, day].join('-');
-    }
+    return [year, month, day].join('-');
+  }
 
 </script>

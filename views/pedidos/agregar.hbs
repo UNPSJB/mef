@@ -54,7 +54,7 @@
               <div class="form-group">
                 <h3>Seleccione huesos</h3>
                 <label for="Total">
-                  
+
                   <button type="button" class="btn btn-primary" id="total">
                     Seleccionar Todo
                   </button>
@@ -68,17 +68,25 @@
                       <label for="huesos" id="listaHuesos">
                       </label>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="form-group btn btn-block">
+          <button class="btn btn-success btn-block" type="submit" id="submitForm">Agregar Pedido de Replicación</button>
+          </div>
+          <div class="form-group btn btn-block">
+            <a href="/pedidos" class="btn btn-danger btn-block">Cancelar</a>
+          </div>
         </div>
-        <button class="btn btn-success btn-block" type="submit" id="submitForm">Agregar Pedido de Replicación</button>
       </div>
-    </div>
   </form>
 </div>
 
+<div class="fixed-bottom d-flex justify-content-end mr-3 mb-3">
+  <a href="/" class="btn btn-primary">Menú Principal</a>
+</div>
 
 
 
@@ -123,7 +131,7 @@
         for (var key in json) {
           arr.push(generateCheckbox(json[key].id, json[key].nombre, json[key].numero))
         }
-        let htmlParseado =  arr.toString().split(',').join('')
+        let htmlParseado = arr.toString().split(',').join('')
         contenedor.innerHTML = htmlParseado
       })
       .catch((err) => {
@@ -174,13 +182,13 @@
 </script>
 
 <script>
-// https://stackoverflow.com/questions/22238368/how-can-i-require-at-least-one-checkbox-be-checked-before-a-form-can-be-submitte
-$(document).ready(function () {
-    $('#submitForm').click(function() {
+  // https://stackoverflow.com/questions/22238368/how-can-i-require-at-least-one-checkbox-be-checked-before-a-form-can-be-submitte
+  $(document).ready(function () {
+    $('#submitForm').click(function () {
       checked = $("input[type=checkbox]:checked").length;
-      if(!checked) {
+      if (!checked) {
         return false;
       }
     });
-});
+  });
 </script>

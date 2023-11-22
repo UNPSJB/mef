@@ -9,7 +9,7 @@ module.exports = {
   },
   getDinosaurios(page = 0, pageSize = 10, args) {
     return models.Dinosaurio.findAndCountAll({
-      include: [models.SubClase],
+      include: [models.SubClase], 
       where: {
         ...args
       },
