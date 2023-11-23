@@ -59,7 +59,7 @@ Ejecutar TODAS las seeds:
 
 En docker (suponiendo que el container se llame mef_app_1)
 ```
-  sudo docker exec mef_app_1 npx sequelize-cli db:seed:all
-  sudo docker exec mef_app_1 npx sequelize-cli db:drop
-  sudo docker exec mef_app_1 npx sequelize-cli db:create
+  sudo docker exec mef-app-1 npx sequelize-cli db:seed:all
+  sudo docker exec mef-app-1 npx sequelize-cli db:drop
+  sudo docker exec mef-app-1 npx sequelize-cli db:create
 ```
