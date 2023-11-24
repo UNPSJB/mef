@@ -118,6 +118,24 @@ module.exports = {
     let huesosArr = []
 
     for (let index = 1; index <= MAX; index++) {
+      const nombresDinosaurios = [
+        "Ankylosaurus",
+        "Brachiosaurus",
+        "Stegosaurus",
+        "Pterodactyl",
+        "Allosaurus",
+        "Diplodocus",
+        "Parasaurolophus",
+        "Spinosaurus",
+        "Velociraptor",
+        "Triceratops",
+        "Tyrannosaurus",
+        "Archaeopteryx",
+        "Iguanodon",
+        "Microraptor",
+        "Oviraptor",
+      ];
+      
       let dinosaurioObj = {
         nombre: faker.commerce.productName() + 'saurus ' + index,
         alimentacion: generarAlimentacion(),
