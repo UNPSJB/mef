@@ -7,16 +7,19 @@
       <div class="card-body">
         <div class="form-group">
           <label for="nombre">Nombre:</label>
-          <input {{#with nombre}} value="{{this}}" {{/with}} type="text" minlength="4" maxlength="50" name="nombre"  class="form-control" placeholder="Nombre de la exhibición" required>
+          <input {{#with nombre}} value="{{this}}" {{/with}} type="text" minlength="4" maxlength="50" name="nombre"
+            class="form-control" placeholder="Nombre de la exhibición" required>
           <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
-                    
+
           <label for="tematica">Temática:</label>
-          <input {{#with tematica}} value="{{this}}" {{/with}} type="text" minlength="4" maxlength="50" name="tematica"  class="form-control" placeholder="Tematica de la exhibición" required>
-          <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>        
-          
+          <input {{#with tematica}} value="{{this}}" {{/with}} type="text" minlength="4" maxlength="50" name="tematica"
+            class="form-control" placeholder="Tematica de la exhibición" required>
+          <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
+
           <label for="duracion">Duración: <i>Cantidad de meses</i></label>
-          <input {{#with duracion}} value="{{this}}" {{/with}} type="number" name="duracion" min="1" max="40"  class="form-control" placeholder="Duración de la exhibición. Ej: 2 meses, 4 meses" required>
-          <small class="form-text-muted text-muted">Mínimo 1. Máximo 40. Solo números</small><br>        
+          <input {{#with duracion}} value="{{this}}" {{/with}} type="number" name="duracion" min="1" max="40"
+            class="form-control" placeholder="Duración de la exhibición. Ej: 2 meses, 4 meses" required>
+          <small class="form-text-muted text-muted">Mínimo 1. Máximo 40. Solo números</small><br>
         </div>
         <div class="form-group container">
           <div class="row">
@@ -25,7 +28,7 @@
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar fosiles --}}
                 {{#each fosiles}}
-                <input type="checkbox" name="fosiles"  value="{{this.id}}">{{this.huesos}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" name="fosiles" value="{{this.id}}">{{this.huesos}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{else}}
                 <i>No hay Fósiles disponibles</i>
@@ -38,7 +41,8 @@
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar replicas --}}
                 {{#each replicas}}
-                <input type="checkbox" name="replicas"  value="{{this.id}}" min="0">{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" name="replicas" value="{{this.id}}" min="0">{{this.Hueso.nombre}} |
+                {{this.Dinosaurio.nombre}}
                 <br>
                 {{else}}
                 <i>No hay Réplicas disponibles</i>
@@ -49,10 +53,18 @@
           </div>
         </div>
       </div>
-      <div class="card-footer">
-      <button type="submit" class="btn btn-success btn-block">Agregar Exhibición</button>
+      <div class="form-group btn btn-block">
+        <button type="submit" class="btn btn-success btn-block">Agregar Exhibición</button>
+      </div>
+      <div class="form-group btn btn-block">
+        <a href="/exhibiciones" class="btn btn-danger btn-block">Cancelar</a>
       </div>
     </div>
 </div>
 </form>
+</div>
+
+
+<div class="fixed-bottom d-flex justify-content-end mr-3 mb-3">
+  <a href="/" class="btn btn-primary">Menú Principal</a>
 </div>
