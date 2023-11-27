@@ -70,4 +70,4 @@ Pasos, si quiero reiniciar las seeds (primero hay que cerrar el pgAdmin):
 
 5. Ejecutar el contenedor de nuevo.
 
-6. sudo docker exec mef-app-1 npx sequelize-cli db:seed:all  (para cargar las seeds nuevas)
+6. sudo docker exec mef-app-1 npx sequelize-cli db:seed:all (para cargar las seeds nuevas)
