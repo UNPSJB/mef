@@ -17,7 +17,7 @@ const huesosPersonalizados = ['Vertebras Cervicales', 'Vertebras Dorsales', 'Ver
 
 const apendiculares = pelvis.concat(brazo).concat(piernas);
 
-const MAX = 300; //cantidad de dinosaurios
+
 const faker = require('faker/locale/es_MX');
 
 
@@ -135,12 +135,11 @@ module.exports = {
       "Oviraptor",
     ];
 
-    for (let index = 1; index <= MAX; index++) {
+    for (let index = 1; index <= nombresDinosaurios.length+1; index++) {
 
 
       let dinosaurioObj = {
-        //nombre: nombresDinosaurios[Math.floor(Math.random() * nombresDinosaurios.length)],
-        nombre: faker.commerce.productName() + 'saurus ' + index,
+        nombre: nombresDinosaurios[index-1],
         alimentacion: generarAlimentacion(),
         periodo: generarPeriodo(),
         descubrimiento: new Date(),
