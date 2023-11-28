@@ -9,22 +9,25 @@
           {{>persona/cliente cliente.Persona}}
         </div>
 
-        <div class="row">
-          <label class="btn btn-secondary form-check-label">
-            <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required {{#if particular}}
-              checked {{/if}}> Particular
+        <div class="row justify-content-center p-3x">
+         <label class="btn btn-secondary form-check-label mr-3">
+            <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required>
+            Particular
           </label>
-          <label class="btn btn-secondary form-check-label">
-            <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off" {{#if institucional}}
-              checked {{/if}}> Institucional
+          <label class="btn btn-secondary form-check-label ">
+            <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off" required>
+            Institucional
           </label>
 
           {{#if cliente}}<input name="idCliente" type="number" value="{{cliente.id}}" hidden> {{/if}}
           {{#if cliente}}<input name="idPersona" type="number" value="{{cliente.Persona.id}}" hidden> {{/if}}
           </label>
         </div>
-        <div class="row">
+        <div class="form-group btn btn-block">
           <button type="submit" class="btn btn-success form-control">Guardar cambios</button>
+        </div>
+        <div class="form-group btn btn-block">
+          <a href="/clientes" class="btn btn-danger btn-block">Cancelar</a>
         </div>
       </div>
     </div>

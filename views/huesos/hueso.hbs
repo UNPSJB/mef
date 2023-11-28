@@ -11,7 +11,6 @@
 <h5>Dinosaurio: {{dino.nombre}}, {{dino.periodo}}, {{dino.alimentacion}}</h5>
 
 
-
 {{#each huesosAgrupados }}
 <div class="huesos-agrupados">
   <a class="btn btn-secondary btn-block my-2" data-toggle="collapse" href="#{{this.[0].agrupado}}" role="button"
@@ -28,6 +27,7 @@
             <th>Tipo</th>
             <th>Subtipo</th>
             {{#if ../req.taller}}
+            <th>Disponible</th>
             <th>Tiene Molde</th>
             {{/if}}
           </thead>
@@ -39,10 +39,11 @@
               <td>{{this.huesos.tipohueso}}</td>
               <td>{{this.huesos.subtipohueso}}</td>
               {{#if ../req.taller}}
+              <td>{{this.huesos.disponible}}</td> <!-- Ajuste aquí -->
               <td>
-                <form action="/dinosaurios/moldes/toggle" method="PATCH"> <!-- Ajuste aquí -->
+                <form action="/dinosaurios/moldes/toggle" method="PATCH">
                   <label class="switch">
-                    <input type="checkbox" onchange="toggleMolde('{{this.huesos.id}}')" {{#if this.huesos.disponible}}checked{{/if}}> <!-- Ajuste aquí -->
+                    <input type="checkbox" onchange="toggleMolde('{{this.huesos.id}}')" {{#if this.huesos.disponible}}checked{{/if}}>
                     <span class="slider round"></span>
                   </label>
                 </form>
@@ -56,7 +57,6 @@
     </div>
   </div>
 </div>
-
 {{/each}}
 
 <script>
@@ -68,6 +68,7 @@
     //aca hago una llamada con fetch
   }
 </script>
+
 
 {{!-- <link type="text/css" rel="stylesheet" href="toggleSwitch.css"> no funciona--}}
 <style>
