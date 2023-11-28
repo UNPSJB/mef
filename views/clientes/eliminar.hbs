@@ -34,18 +34,8 @@
     <div class="card-footer">
         <form action="/clientes?_method=DELETE" method="POST" class="row justify-content-evenly">
             <input name="id" type="number" value="{{cliente.id}}" hidden required>
-            <button type="submit" class="btn btn-danger col-12 col-md-6">Eliminar</button>
+            <button type="submit" class="btn btn-danger col-6">Eliminar</button>
+            <a href="/clientes" class="btn btn-secondary col-6">Cancelar</a>
         </form>
-
-        <div class="form-group btn btn-block">
-    <a href="/clientes" class="btn btn-danger btn-block">Cancelar</a>
-</div>
     </div>
-
-</div>
-
-
-
-<div class="form-group btn btn-block">
-    <button type="submit" class="btn btn-success form-control">Agregar Dinosaurio</button>
 </div>
