@@ -57,9 +57,17 @@ Ejecutar TODAS las seeds:
     npx sequelize-cli db:seed:all
 ```
 
-En docker (suponiendo que el container se llame mef_app_1)
-```
-  sudo docker exec mef-app-1 npx sequelize-cli db:seed:all
-  sudo docker exec mef-app-1 npx sequelize-cli db:drop
-  sudo docker exec mef-app-1 npx sequelize-cli db:create
-```
+En docker (suponiendo que el container se llame mef-app-1)
+``
+Pasos, si quiero reiniciar las seeds (primero hay que cerrar el pgAdmin):
+1. sudo docker-compose up (para ejecutar el contenedor)
+
+2. sudo docker exec mef-app-1 npx sequelize-cli db:drop (para dropear la BD)
+
+3. sudo docker exec mef-app-1 npx sequelize-cli db:create (para crear la base de datos nueva) 
+
+4. Detener el contenedor.
+
+5. Ejecutar el contenedor de nuevo.
+
+6. sudo docker exec mef-app-1 npx sequelize-cli db:seed:all (para cargar las seeds nuevas)

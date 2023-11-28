@@ -117,8 +117,29 @@ module.exports = {
 
     let huesosArr = []
 
+    const nombresDinosaurios = [
+      "Ankylosaurus",
+      "Brachiosaurus",
+      "Stegosaurus",
+      "Pterodactyl",
+      "Allosaurus",
+      "Diplodocus",
+      "Parasaurolophus",
+      "Spinosaurus",
+      "Velociraptor",
+      "Triceratops",
+      "Tyrannosaurus",
+      "Archaeopteryx",
+      "Iguanodon",
+      "Microraptor",
+      "Oviraptor",
+    ];
+
     for (let index = 1; index <= MAX; index++) {
+
+
       let dinosaurioObj = {
+        //nombre: nombresDinosaurios[Math.floor(Math.random() * nombresDinosaurios.length)],
         nombre: faker.commerce.productName() + 'saurus ' + index,
         alimentacion: generarAlimentacion(),
         periodo: generarPeriodo(),
@@ -128,15 +149,16 @@ module.exports = {
         updatedAt: new Date(),
         deletedAt: null,
       }
+
       dinosaurioArr.push(dinosaurioObj)
 
       base.forEach(nombre => {
         huesosArr.push({
-          nombre, 
-          numero: 1, 
-          DinosaurioId: index, 
-          tipohueso: definirTipoSubtipo(nombre).tipohueso, 
-          subtipohueso: definirTipoSubtipo(nombre).subtipohueso, 
+          nombre,
+          numero: 1,
+          DinosaurioId: index,
+          tipohueso: definirTipoSubtipo(nombre).tipohueso,
+          subtipohueso: definirTipoSubtipo(nombre).subtipohueso,
           createdAt: new Date(),
           updatedAt: new Date()
         });
@@ -144,10 +166,10 @@ module.exports = {
       })
       craneo.forEach((nombre) => {
         huesosArr.push({
-          nombre, numero: 1, 
-          DinosaurioId: index, 
-          tipohueso: definirTipoSubtipo(nombre).tipohueso, 
-          subtipohueso: definirTipoSubtipo(nombre).subtipohueso, 
+          nombre, numero: 1,
+          DinosaurioId: index,
+          tipohueso: definirTipoSubtipo(nombre).tipohueso,
+          subtipohueso: definirTipoSubtipo(nombre).subtipohueso,
           createdAt: new Date(),
           updatedAt: new Date()
         });
@@ -158,7 +180,7 @@ module.exports = {
             nombre,
             numero: i,
             DinosaurioId: index,
-            tipohueso: definirTipoSubtipo(nombre).tipohueso, 
+            tipohueso: definirTipoSubtipo(nombre).tipohueso,
             subtipohueso: definirTipoSubtipo(nombre).subtipohueso,
             createdAt: new Date(),
             updatedAt: new Date()
@@ -171,7 +193,7 @@ module.exports = {
             nombre: huesosPersonalizados[key],
             numero: j,
             DinosaurioId: index,
-            tipohueso: definirTipoSubtipo(huesosPersonalizados[key]).tipohueso, 
+            tipohueso: definirTipoSubtipo(huesosPersonalizados[key]).tipohueso,
             subtipohueso: definirTipoSubtipo(huesosPersonalizados[key]).subtipohueso,
             createdAt: new Date(),
             updatedAt: new Date()
