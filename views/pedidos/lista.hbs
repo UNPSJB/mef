@@ -1,3 +1,7 @@
+<div class="fixed-top d-flex justify-content-end mr-3 mt-5" style="top: 85px; right: 10px;">
+  <a href="/" class="btn btn-primary">Menú Principal / Atrás</a>
+</div>
+
 <h1 class="bg-secondary text-center text-white rounded p-2 mt-2">
   Pedidos
   {{#if req.exhibicion}}
@@ -7,7 +11,6 @@
   {{/if}}
 </h1>
 
-
 <table class="table" id="pedidos">
   <thead>
     <th>#</th>
@@ -15,7 +18,7 @@
     <th>Cliente</th>
     <th>Inicio Pedido</th>
     <th>Descripción</th>
-    <th>Acciones</th>
+    <th scope="col" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
     {{#each pedidos}}
@@ -43,13 +46,15 @@
     {{/each}}
   </tbody>
 </table>
+
+
+
+
 <script>
   $(document).ready(function () {
     $('#pedidos').DataTable({
       dom: 'Bfrtip',
-      buttons: [
-        'pdf', 'excel', 'csv'
-      ],
+      buttons: ['pdf', 'excel', 'csv'],
       searching: true,
       ordering: true,
       language: {
@@ -61,8 +66,8 @@
         infoFiltered: "(de un total de _MAX_)",
         infoPostFix: "",
         loadingRecords: "Cargando...",
-        zeroRecords: "No hay elementos agregados",
-        emptyTable: "No hay elementos :(",
+        zeroRecords: "No hay coincidencias.",
+        emptyTable: "No hay pedidos.",
         paginate: {
           first: "Primero",
           previous: "Anterior",
@@ -73,7 +78,13 @@
           sortAscending: ": Ordenar ascendente",
           sortDescending: ": Ordenar descendente"
         }
-      }
+      },
+      columnDefs: [
+        {
+          targets: 'acciones',
+          orderable: false,
+        },
+      ],
     });
   });
 </script>

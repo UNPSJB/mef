@@ -16,7 +16,7 @@
     <th>Fecha de Nacimiento</th>
     <th>Telefono</th>
     <th>Idiomas</th>
-    <th>Acciones</th>
+    <th scope="col" data-orderable="false">Acciones</th> <!-- Desactiva el ordenamiento en esta columna -->
   </thead>
   <tbody>
     {{#each results}}
@@ -62,8 +62,8 @@
         infoFiltered: "(de un total de _MAX_)",
         infoPostFix: "",
         loadingRecords: "Cargando...",
-        zeroRecords: "No hay elementos agregados",
-        emptyTable: "No hay elementos :(",
+        zeroRecords: "No hay coincidencias.",
+        emptyTable: "No hay guías.",
         paginate: {
           first: "Primero",
           previous: "Anterior",

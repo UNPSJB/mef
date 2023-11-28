@@ -5,12 +5,12 @@
         <h1>Agregar cliente</h1>
       </div>
       <div class="card-body">
-          <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
-            {{>persona/cliente cliente}}
-          </div>
+        <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
+          {{>persona/cliente cliente}}
+        </div>
         <div class="row justify-content-center p-3x">
           <label class="btn btn-secondary form-check-label mr-3">
-            <input type="radio" name="tipoCliente" value="Particular"  autocomplete="off" required>
+            <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required>
             Particular
           </label>
           <label class="btn btn-secondary form-check-label ">
@@ -18,9 +18,16 @@
             Institucional
           </label>
         </div>
-        <div class="pt-4">
+        <div class="form-group btn btn-block">
           <button type="submit" class="btn btn-success form-control">Agregar Cliente</button>
+        </div>
+        <div class="form-group btn btn-block">
+          <a href="/clientes" class="btn btn-danger btn-block">Cancelar</a>
         </div>
       </div>
   </form>
+</div>
+
+<div class="fixed-bottom d-flex justify-content-end mr-3 mb-3">
+  <a href="/" class="btn btn-primary">Menú Principal</a>
 </div>

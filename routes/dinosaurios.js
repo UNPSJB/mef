@@ -71,7 +71,7 @@ router.get('/moldes/:id',
     }
   });
 
-router.get('/huesos/:id',
+  router.get('/huesos/:id',
   async (req, res) => {
     try {
       const { id } = req.params;
@@ -82,16 +82,19 @@ router.get('/huesos/:id',
     }
   })
 
-router.patch('/moldes/toggle',
-  async (req, res) => { /// esto NO PUEDE SER ACCEDIDO por bones
+
+  router.patch('/moldes/toggle',
+  async (req, res) => {
     try {
-      const { id } = req.query
+      const { id } = req.query;
       await huesoService.toggleDisponibilidadHueso(id);
-      res.send(200);
+      res.sendStatus(200); // Enviar un estado de respuesta adecuado
     } catch (error) {
-      console.log(error)
+      console.error(error);
+      res.sendStatus(500); // Enviar un estado de error en caso de que ocurra un error
     }
   });
+
 
 router.post('/',
   async (req, res) => { // esto llama a dino service
@@ -109,7 +112,6 @@ router.post('/',
       const subclases = await subclaseService.getAllSubclases()
       res.render("dinosaurios/agregar", { errores: message, dino, subclases, req })
     }
-
   });
 
 router.put('/',

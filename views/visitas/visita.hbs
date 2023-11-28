@@ -15,7 +15,7 @@
     <th scope='col'>Fecha de visita</th>
     <th scope='col'>Horario</th>
     <th scope='col'>Precio</th>
-    <th scope='col'>Acciones</th>
+    <th scope='col' data-orderable='false'>Acciones</th> <!-- data-orderable='false' desactiva el ordenamiento en esta columna -->
   </thead>
   <tbody>
     {{#each visitas}}
@@ -42,12 +42,31 @@
 
 <script type='text/javascript' charset='utf8' src='https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js'></script>
 <script>
-  $(document).ready( function () { $('#visitas').DataTable({ dom: 'Bfrtip', buttons: [ 'pdf', 'excel', 'csv' ],
-  searching: true, ordering: true, language: { processing:"Buscando...", search:"Buscar:", lengthMenu:"Mostrando
-  _MENU_", info:"Mostrando _START_ de _END_ de un total de _TOTAL_ ", infoEmpty:"Mostrando 0 de 0 de un total de 0 ",
-  infoFiltered: "(de un total de _MAX_)", infoPostFix: "", loadingRecords:"Cargando...", zeroRecords:"No hay elementos
-  agregados", emptyTable:"No hay elementos :(", paginate:{ first:"Primero", previous:"Anterior", next:"Siguiente",
-  last:"Último" }, aria: { sortAscending: ": Ordenar ascendente", sortDescending: ": Ordenar descendente" } } }); });
+  $(document).ready( function () { 
+    $('#visitas').DataTable({ 
+      dom: 'Bfrtip', 
+      buttons: ['pdf', 'excel', 'csv'], 
+      searching: true, 
+      ordering: true, 
+      language: { 
+        processing:"Buscando...", 
+        search:"Buscar:", 
+        lengthMenu:"Mostrando _MENU_", 
+        info:"Mostrando _START_ de _END_ de un total de _TOTAL_ ", 
+        infoEmpty:"Mostrando 0 de 0 de un total de 0 ", 
+        infoFiltered: "(de un total de _MAX_)", 
+        infoPostFix: "", 
+        loadingRecords:"Cargando...", 
+        zeroRecords:"No hay coincidencias.", 
+        emptyTable:"No hay visitas.", 
+        paginate:{ first:"Primero", previous:"Anterior", next:"Siguiente", last:"Último" }, 
+        aria: { sortAscending: ": Ordenar ascendente", sortDescending: ": Ordenar descendente" } 
+      }, 
+      columnDefs: [
+        { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
+      ]
+    }); 
+  });
 </script>
 
 <link
