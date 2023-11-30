@@ -1,70 +1,95 @@
 <div class="sidenav">
   {{#if coleccion}}
   {{!-- Acá van los permisos de colección LISTO--}}
-  <a class="menu-item text-white" href="/dinosaurios" >
-  <i class="fas fa-dragon"></i>Dinosaurios</a>
+  <a class="menu-item text-white" href="/dinosaurios">
+    <i class="fas fa-dragon"></i>Dinosaurios
+  </a>
 
   <a class="menu-item text-white" href="/fosiles" role="button">
-  <i class="fas fa-bone"></i>Fosiles</a>
-  
+    <i class="fas fa-bone"></i>Fosiles
+  </a>
+
   <a class="menu-item text-white" href="/subclases" role="button">
-  <i class="fas fa-chevron-circle-down"></i>Subclases</a>
+    <i class="fas fa-chevron-circle-down"></i>Subclases
+  </a>
   {{/if}}
 
 
   {{#if exhibicion}}
   {{!-- Acá van los permisos de exhibición LISTO--}}
   <a class="menu-item text-white" href="/pedidos" role="button">
-  <i class="fas fa-user"></i>Pedidos</a>
-  
+    <i class="fas fa-user"></i>Pedidos
+  </a>
+
   <a class="menu-item text-white" href="/exhibiciones" role="button">
-  <i class="fas fa-dragon"></i>Exhibiciones</a>
-  
+    <i class="fas fa-dragon"></i>Exhibiciones
+  </a>
+
   <a class="menu-item text-white" href="/clientes" role="button">
-  <i class="fas fa-highlighter"></i>Clientes</a>
+    <i class="fas fa-highlighter"></i>Clientes
+  </a>
   {{/if}}
 
   {{#if secretaria}}
   {{!-- Acá van los permisos de secretaria LISTO--}}
   <a class="menu-item text-white" href="/visitas" role="button">
-  <i class="fas fa-user"></i>Visitas Guiadas</a>
+    <i class="fas fa-user"></i>Visitas Guiadas
+  </a>
   {{/if}}
 
   {{#if taller}}
   {{!-- Acá van los permisos de taller LISTO--}}
   <a class="menu-item text-white" href="/pedidos/replicas" role="button">
-  <i class="fas fa-user"></i>Réplicas</a>
-  
+    <i class="fas fa-user"></i>Réplicas
+  </a>
+
   <a class="menu-item text-white" href="/pedidos" role="button">
-  <i class="fas fa-user"></i>Pedidos</a>
-  
+    <i class="fas fa-user"></i>Pedidos
+  </a>
+
   <a class="menu-item text-white" href="/dinosaurios" role="button">
-  <i class="fas fa-dragon align-top"></i>Dinosaurios</a>
+    <i class="fas fa-dragon align-top"></i>Dinosaurios
+  </a>
   {{/if}}
 
   {{#if rrhh}}
   {{!-- Acá van los permisos de rrhh LISTO--}}
   <a class="menu-item text-white" href="/empleados" role="button">
-  <i class="fas fa-user"></i>Empleados</a>
- 
+    <i class="fas fa-user"></i>Empleados
+  </a>
+
   <a class="menu-item text-white" href="/guias" role="button">
-  <i class="fas fa-user"></i>Guias</a>
+    <i class="fas fa-user"></i>Guias
+  </a>
   {{/if}}
+
+  <button class="menu-item text-white" onclick="goBack()">
+    <i class="fas fa-arrow-left"></i>Atrás
+  </button>
 </div>
 
+<script>
+  function goBack() {
+    var currentUrl = window.location.href;// Obtener la URL actual
+    var lastSlashIndex = currentUrl.lastIndexOf('/');// Encontrar la última barra en la URL 
+    var parentUrl = currentUrl.substring(0, lastSlashIndex);// Construir la URL padre eliminando la última parte de la ruta
+    window.location.href = parentUrl;// Redirigir a la URL padre
+  }
+</script>
 
 <style>
-.sidenav {
-  height: 100%;
-  background-color: #343a40;
-}
+  .sidenav {
+    height: 100%;
+    background-color: #343a40;
+  }
 
-.menu-item {
-  display: block;
-  padding: 10px 10px 10px 10px;
-}
-.menu-item > i {
-  padding: 0 10px 0 0;
-  width: 30px;
-}
+  .menu-item {
+    display: block;
+    padding: 10px 10px 10px 10px;
+  }
+
+  .menu-item > i {
+    padding: 0 10px 0 0;
+    width: 30px;
+  }
 </style>

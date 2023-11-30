@@ -1,25 +1,35 @@
 <nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Mef - 
+
+  
+  <a class="navbar-brand" href="/">Mef -
     {{#if coleccion}}
-      Colección
+    Colección
     {{/if}}
     {{#if exhibicion}}
-      Exhibición
+    Exhibición
     {{/if}}
     {{#if secretaria}}
-      Secretaría
+    Secretaría
     {{/if}}
     {{#if taller}}
-      Taller
+    Taller
     {{/if}}
     {{#if rrhh}}
-      Recursos Humanos
+    Recursos Humanos
     {{/if}}
-  </a>  
+  </a>
 
-  <form method="POST" action="/logout?_method=DELETE">
-    <button type="submit" class="btn btn-danger">
-      Cerrar Sesión
-    </button>
-  </form>
+  <div class="d-flex">
+    <a href="/" class="btn btn-primary mr-2">
+      Pantalla Inicial
+    </a>
+    
+    <form method="POST" action="/logout?_method=DELETE">
+      <button type="submit" class="btn btn-danger">
+        Cerrar Sesión
+      </button>
+    </form>
+  </div>
+
+
 </nav>
