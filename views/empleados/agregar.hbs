@@ -53,9 +53,24 @@
               {{#if empleado}}<input name="id" type="number" value="{{empleado.id}}" hidden> {{/if}}
             </div>
           </div>
-          <div class="row">
-            <button type="submit" class="btn btn-success form-control">Agregar Empleado</button>
+
+
+
+          <!-- Botones de Agregar y Cancelar -->
+          <div class="form-group">
+            <div class="row">
+              <div class="col-6">
+                <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Empleado</button>
+              </div>
+              <div class="col-6">
+                <a href="/empleados" class="btn btn-danger btn-sm btn-block">Cancelar</a>
+              </div>
+            </div>
           </div>
+          <!--********************************-->
+
+
+
         </div>
       </div>
   </form>
