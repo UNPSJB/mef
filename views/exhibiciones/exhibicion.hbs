@@ -7,6 +7,7 @@
 </h1>
 <table class="table table-striped table-bordered" id="exhibiciones">
   <thead>
+    <th scope="col">#</th>
     <th scope="col">Nombre</th>
     <th scope="col">Temática</th>
     <th scope="col">Duración</th>
@@ -16,6 +17,7 @@
   <tbody>
     {{#each exhibiciones}}
     <tr>
+      <td>{{this.id}}</td>
       <td>{{this.nombre}}</td>
       <td>{{this.tematica}}</td>
       <td>{{this.duracion}} meses</td>
