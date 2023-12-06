@@ -113,16 +113,17 @@
 </div>
 
 <script>
-  // Setea la fecha de mañana como la fecha mínima de la visita.
+  //Ponemos fecha mínima "mañana" porque si ponemos "hoy" puede haber problemas en el horario, si ponemos una hora de "hoy" que ya pasó. 
+  
   $(document).ready(function () {
     var manana = calcularFechaManana();
     document.getElementById("fechaVisita").setAttribute("min", manana);
   })
 
+  // Setea la fecha de mañana como la fecha mínima de la visita.
   function calcularFechaManana() {
     var mañana = new Date();
     mañana.setDate(mañana.getDate() + 1);
-
     return formatDate(mañana);
   }
 
@@ -136,7 +137,6 @@
       month = '0' + month;
     if (day.length < 2)
       day = '0' + day;
-
     return [year, month, day].join('-');
   }
 </script>

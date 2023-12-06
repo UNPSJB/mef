@@ -24,7 +24,7 @@ const faker = require('faker/locale/es_MX');
 module.exports = {
   up: (queryInterface, Sequelize) => {
 
-    let dinosaurioArr = [];
+
     const definirTipoSubtipo = (nombre) => {
       switch (nombre) {
         case 'Paladar':
@@ -117,29 +117,157 @@ module.exports = {
 
     let huesosArr = []
 
-    const nombresDinosaurios = [
-      "Ankylosaurus",
-      "Brachiosaurus",
-      "Stegosaurus",
-      "Pterodactyl",
-      "Allosaurus",
-      "Diplodocus",
-      "Parasaurolophus",
-      "Spinosaurus",
-      "Velociraptor",
-      "Triceratops",
-      "Tyrannosaurus",
-      "Archaeopteryx",
-      "Iguanodon",
-      "Microraptor",
-      "Oviraptor",
-    ];
 
-    for (let index = 1; index <= nombresDinosaurios.length+1; index++) {
+    //Acá tengo todos los objetos "dinosaurio" que luego van a hacer de seeds en la BD
+
+    let dinosaurioArr = [];
+
+    const dinos = [
+      // 1)
+      {
+        nombre: 'Ankylosaurus',
+        alimentación: 'Herbívoro',
+        periodo: 'Cretácico',
+        subclase: 'Ankylosauridae',
+        descubrimiento: '12/11/1908'
+      },
+      // 2)
+      {
+        nombre: 'Brachiosaurus',
+        alimentacion: 'Herbívoro',
+        periodo: 'Jurásico',
+        subclase: 'Brachiosauridae',
+        descubrimiento: '12/12/1903'
+      },
+      // 3)
+      {
+        nombre: 'Stegosaurus',
+        alimentacion: 'Herbívoro',
+        periodo: 'Jurásico',
+        subclase: 'Stegosauridae',
+        descubrimiento: '12/08/1877'
+      },
+      // 4)
+      {
+        nombre: 'Pterodactylus',
+        alimentacion: 'Carnívoro',
+        periodo: 'Jurásico',
+        subclase: 'Pterosauria',
+        descubrimiento: '02/12/1784'
+      },
+
+      // 5)
+      {
+        nombre: 'Allosaurus',
+        alimentacion: 'Carnívoro',
+        periodo: 'Jurásico',
+        subclase: 'Allosauridae',
+        descubrimiento: '12/11/1877'
+      },
+
+      // 6)
+      {
+        nombre: 'Diplodocus',
+        alimentacion: 'Herbívoro',
+        periodo: 'Jurásico',
+        subclase: 'Diplodocidae',
+        descubrimiento: '03/04/1878'
+      },
+
+      // 7)
+      {
+        nombre: 'Parasaurolophus',
+        alimentacion: 'Herbívoro',
+        periodo: 'Cretácico',
+        subclase: 'Hadrosauridae',
+        descubrimiento: '12/10/1922'
+      },
+
+      // 8)
+      {
+        nombre: 'Spinosaurus',
+        alimentacion: 'Carnívoro',
+        periodo: 'Cretácico',
+        subclase: 'Cretácico',
+        descubrimiento: '10/12/1912'
+      },
+
+      // 9)
+      {
+        nombre: 'Velociraptor',
+        alimentacion: 'Carnívoro',
+        periodo: 'Cretácico',
+        subclase: 'Dromaeosauridae',
+        descubrimiento: '20/01/1923'
+      },
+
+      // 10)
+      {
+        nombre: 'Triceratops',
+        alimentacion: 'Herbívoro',
+        periodo: 'Cretácico',
+        subclase: 'Ceratopsidae',
+        descubrimiento: '12/02/1887'
+      },
+
+      // 11)
+      {
+        nombre: 'Tyrannosaurus rex',
+        alimentacion: 'Carnívoro',
+        periodo: 'Cretácico',
+        subclase: 'Tyrannosauridae',
+        descubrimiento: '12/08/1902'
+      },
+
+      // 12)
+      {
+        nombre: 'Archaeopteryx',
+        alimentacion: 'Omnívoro',
+        periodo: 'Jurásico',
+        subclase: 'Avialae',
+        descubrimiento: '12/06/1861'
+      },
+
+      // 13)
+      {
+        nombre: 'Iguanodon',
+        alimentacion: 'Herbívoro',
+        periodo: 'Cretácico',
+        subclase: 'Iguanodontidae',
+        descubrimiento: '12/11/1822'
+      },
+
+      // 14)
+      {
+        nombre: 'Microraptor',
+        alimentacion: 'Carnívoro',
+        periodo: 'Cretácico',
+        subclase: 'Dromaeosauridae',
+        descubrimiento: '30/08/2003'
+      },
+
+      // 15)
+      {
+        nombre: 'Oviraptor',
+        alimentacion: 'Omnívoro',
+        periodo: 'Cretácico',
+        subclase: 'Oviraptoridae',
+        descubrimiento: '12/01/1923'
+      },
+    ]
+    //****************************************************************************/
+    for (let i = 0; i < dinos.length; i++) {
+      dinosaurioArr.push(dinos[i]);
 
 
-      let dinosaurioObj = {
-        nombre: nombresDinosaurios[index-1],
+
+
+      // for (let index = 1; index <= nombresDinosaurios.length + 1; index++) {
+
+
+      //Acá genero al dinosuario
+      /*let dinosaurioObj = {
+        nombre: nombresDinosaurios[index - 1],
         alimentacion: generarAlimentacion(),
         periodo: generarPeriodo(),
         descubrimiento: new Date(),
@@ -147,9 +275,28 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
-      }
+      }*/
 
-      dinosaurioArr.push(dinosaurioObj)
+      /*const nombresDinosaurios = [
+            "Ankylosaurus",
+            "Brachiosaurus",
+            "Stegosaurus",
+            "Pterodactyl",
+            "Allosaurus",
+            "Diplodocus",
+            "Parasaurolophus",
+            "Spinosaurus",
+            "Velociraptor",
+            "Triceratops",
+            "Tyrannosaurus",
+            "Archaeopteryx",
+            "Iguanodon",
+            "Microraptor",
+            "Oviraptor",
+          ];*/
+
+
+
 
       base.forEach(nombre => {
         huesosArr.push({
@@ -201,6 +348,8 @@ module.exports = {
       }
 
     }
+
+
     return queryInterface.bulkInsert('Dinosaurios', dinosaurioArr, {})
       .then(() => {
         return queryInterface.bulkInsert('Huesos', huesosArr, {});
