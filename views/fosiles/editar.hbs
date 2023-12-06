@@ -101,12 +101,22 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <input type="numbrer" name="id" value="{{fosil.id}}" hidden>
-          <div class="col-12 text-center">
-            <button type="submit" class="btn btn-success btn-block">Guardar Cambios</button>
+
+
+        <!--Botones de Guardar y Cancelar--->
+        <div class="form-group">
+          <div class="row">
+            <input type="numbrer" name="id" value="{{fosil.id}}" hidden>
+            <div class="col-6">
+              <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
+            </div>
+            <div class="col-6">
+              <a href="/fosiles" class="btn btn-danger btn-sm btn-block">Cancelar</a>
+            </div>
           </div>
         </div>
+        <!--****************************--->
+
       </div>
     </div>
 </div>

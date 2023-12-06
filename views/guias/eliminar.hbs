@@ -1,5 +1,5 @@
 <h1>Eliminar Guia</h1>
-<div class="alert alert-danger mt-4">Seguro que queres borrar esto ?</div>
+<div class="alert alert-danger mt-4">¿Seguro que desea borrar esto?</div>
  <table class="table">
      <thead>
         <th scope="col">Documento</th>    
@@ -27,8 +27,13 @@
     </tbody>
  </table>
 
+
+
+<!---Botones de Eliminar y Cancelar-->
 <form action="/guias?_method=DELETE" method="POST" >
 <input name="id" type="number" value="{{guia.id}}" hidden required>
-<button type="submit" class="btn btn-danger btn-block">Eliminar</button>
-<a href="/guias" class="btn btn-secondary btn-block">Volver</a>
+<button type="submit" class="btn btn-danger">Eliminar</button>
+<a href="/guias" class="btn btn-primary">No</a>
+<!---******************************-->
+
 </form>

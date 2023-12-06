@@ -1,25 +1,29 @@
 <div style="padding-top: 10px"></div>
 <h1 class="bg-secondary text-center text-white rounded p-2">
-  Fosiles
+  Fósiles
   <a href="/fosiles/agregar" class="btn btn-success btn-primary border border-light" rel="noopener noreferrer">
     +
   </a>
 </h1>
-<table style="table-layout: fixed; word-wrap: break-word;" class="table table-hover table-striped table-bordered" id="fosiles">
+<table style="table-layout: fixed; word-wrap: break-word;" class="table table-hover table-striped table-bordered"
+  id="fosiles">
   <thead>
+    <th scope="col">#</th>
     <th scope="col">Código de Colección</th>
+    <th scope="col">Dinosaurio</th>
     <th scope="col">Disponible para exhibición</th>
     <th scope="col">Peso</th>
     <th scope="col">Fecha Encontrado</th>
     <th scope="col">Hueso Referencia</th>
-    <th scope="col">Dinosaurio</th>
     <th scope="col">Observaciones</th>
     <th scope="col">Acciones</th>
   </thead>
   <tbody>
     {{#each results}}
     <tr>
+      <th>{{id}}</th>
       <td style="word-wrap: break-word;">{{this.numero_coleccion}}</td>
+      <td>{{this.Dinosaurio.nombre}}</td>
       <td>{{#if this.disponible}}
         Sí
         {{else}}
@@ -29,7 +33,6 @@
       <td>{{this.peso}} Kg.</td>
       <td>{{this.fecha_encontrado}}</td>
       <td>{{this.huesos}}</td>
-      <td>{{this.Dinosaurio.nombre}}</td>
       <td style="word-wrap: break-word;">{{this.observacion}}</td>
       <td>
         {{!-- Acciones --}}
@@ -81,8 +84,10 @@
   });
 </script>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.css" />
+<link rel="stylesheet" type="text/css"
+  href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.css" />
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.js"></script>
+<script type="text/javascript"
+  src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.js"></script>

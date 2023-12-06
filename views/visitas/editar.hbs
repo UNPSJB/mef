@@ -94,12 +94,24 @@
 
             </div>
           </div>
-          <div class="row">
-            <div class="col">
-              <input type="hidden" name="id" value="{{visita.id}}">
-              <button type="submit" class="btn btn-success btn-block">Agregar Visita</button>
+
+
+
+          <!--Botones de Guardar y Cancelar--->
+            <div class="form-group">
+              <div class="row">
+                <input type="hidden" name="id" value="{{visita.id}}">
+                <div class="col-6">
+                  <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
+                </div>
+                <div class="col-6">
+                  <a href="/visitas" class="btn btn-danger btn-sm btn-block">Cancelar</a>
+                </div>
+              </div>
             </div>
-          </div>
+            <!--****************************--->
+
+
         </div>
       </div>
   </form>
