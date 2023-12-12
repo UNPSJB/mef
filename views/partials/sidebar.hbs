@@ -75,7 +75,7 @@
     var parentUrl = currentUrl.substring(0, lastSlashIndex); // Construir la URL padre eliminando la última parte de la ruta
 
     // Eliminar "models" o "moldes" al final de la URL
-    parentUrl = parentUrl.replace(/\/(models|moldes)$/, '');
+    parentUrl = parentUrl.replace(/\/(detalle|editar|moldes)$/, '');
 
     window.location.href = parentUrl; // Redirigir a la URL padre
   }
