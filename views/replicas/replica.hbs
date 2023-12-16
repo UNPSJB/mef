@@ -3,9 +3,9 @@
     Réplicas
   </h1>
   {{#each pedidos}}
-  {{this.dino.nombre}}
-  {{this.tipo}}
-  {{this.id}}
+  {{this.dataValues.dino.nombre}}
+  {{this.dataValues.tipo}}
+  {{this.dataValues.id}}
   <table class="replicas" class="table table-striped table-bordered">
     <thead>
       <th scope="col">Hueso</th>
@@ -15,18 +15,18 @@
       <th scope="col" data-orderable="false">Acciones</th> <!-- Desactiva el ordenamiento en esta columna -->
     </thead>
     <tbody>
-      {{#each this.Replicas}}
+      {{#each this.dataValues.Replicas}}
       <tr>
-        <td>{{this.Hueso.nombre}}</td>
-        <td>{{this.fecha_inicio}}</td>
-        <td>{{this.fecha_fin}}</td>
+        <td>{{this.dataValues.Hueso.dataValues.nombre}}</td>
+        <td>{{this.dataValues.fecha_inicio}}</td>
+        <td>{{this.dataValues.fecha_fin}}</td>
         <td>
           <form action="/replicas/disponibilidad?_method=PATCH" method="POST">
             <label class="switch">
-              {{#if this.disponible}}
-              <input onchange="toggleDisponible({{this.id}})" type="checkbox" checked>
+              {{#if this.dataValues.disponible}}
+              <input onchange="toggleDisponible({{this.dataValues.id}})" type="checkbox" checked>
               {{else}}
-              <input onchange="toggleDisponible({{this.id}})" type="checkbox">
+              <input onchange="toggleDisponible({{this.dataValues.id}})" type="checkbox">
               {{/if}}
               <span class="slider round"></span>
             </label>
@@ -35,13 +35,12 @@
         <!-- acciones aca -->
         <td>
 
-          <a href="/replicas/eliminar/{{this.id}}"><span style="color:red" class="material-icons">delete</span></a>
+          <a href="/replicas/eliminar/{{this.dataValues.id}}"><span style="color:red" class="material-icons">delete</span></a>
         </td>
       </tr>
       {{/each}}
     </tbody>
   </table>
-{{else}}No hay réplicas.
   {{/each}}
 </div>
 <script>
@@ -89,7 +88,8 @@
     //aca hago una llamada con fetch
   }
 </script>
-{{!-- <link type="text/css" rel="stylesheet" href="toggleSwitch.css"> no funciona--}}
+{{!--
+<link type="text/css" rel="stylesheet" href="toggleSwitch.css"> no funciona--}}
 <style>
   /* The switch - the box around the slider */
   .switch {
