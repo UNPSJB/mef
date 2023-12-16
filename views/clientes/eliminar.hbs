@@ -1,4 +1,4 @@
-<div class="alert alert-danger">Seguro que queres borrar esto ?</div>
+<div class="alert alert-danger">¿Está seguro que desea borrar a este cliente?</div>
 <div class="card mt-4">
     <div class="card-header text-center bg-dark text-white">
         <h1>Eliminar Cliente</h1>
@@ -31,11 +31,15 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer">
-        <form action="/clientes?_method=DELETE" method="POST" class="row justify-content-evenly">
-            <input name="id" type="number" value="{{cliente.id}}" hidden required>
-            <button type="submit" class="btn btn-danger col-6">Eliminar</button>
-            <a href="/clientes" class="btn btn-secondary col-6">Cancelar</a>
-        </form>
-    </div>
+
+
+
+
+    <!---Botones de Eliminar y Cancelar-->
+    <form action="/guias?_method=DELETE" method="POST">
+        <input name="id" type="number" value="{{cliente.id}}" hidden required>
+        <button type="submit" class="btn btn-danger">Eliminar Cliente</button>
+        <a href="/guias" class="btn btn-primary">Cancelar</a>
+        <!---******************************-->
+
 </div>

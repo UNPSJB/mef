@@ -1,7 +1,3 @@
-<div class="fixed-top d-flex justify-content-end mr-3 mt-5" style="top: 85px; right: 10px;">
-  <a href="/" class="btn btn-primary">Menú Principal / Atrás</a>
-</div>
-
 <div style="padding-top: 10px"></div>
 <h1 class="bg-secondary text-center text-white rounded p-2">
   Exhibiciones
@@ -11,6 +7,7 @@
 </h1>
 <table class="table table-striped table-bordered" id="exhibiciones">
   <thead>
+    <th scope="col">#</th>
     <th scope="col">Nombre</th>
     <th scope="col">Temática</th>
     <th scope="col">Duración</th>
@@ -20,6 +17,7 @@
   <tbody>
     {{#each exhibiciones}}
     <tr>
+      <td>{{this.id}}</td>
       <td>{{this.nombre}}</td>
       <td>{{this.tematica}}</td>
       <td>{{this.duracion}} meses</td>
