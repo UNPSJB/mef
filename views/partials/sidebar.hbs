@@ -63,19 +63,10 @@
   </a>
   {{/if}}
 
-  <button class="menu-item text-white" onclick="goBack()">
-    <i class="fas fa-arrow-left"></i>Atrás
-  </button>
+ 
 </div>
 
-<script>
-  function goBack() {
-    var currentUrl = window.location.href;// Obtener la URL actual
-    var lastSlashIndex = currentUrl.lastIndexOf('/');// Encontrar la última barra en la URL 
-    var parentUrl = currentUrl.substring(0, lastSlashIndex);// Construir la URL padre eliminando la última parte de la ruta
-    window.location.href = parentUrl;// Redirigir a la URL padre
-  }
-</script>
+
 
 <style>
   .sidenav {
