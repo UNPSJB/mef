@@ -129,25 +129,14 @@ router.post('/:nuevoEstado/:id', async (req, res) => {
   }
 })
 router.put('/', async (req, res) => {
+  try{
   const { idPedido, empleado } = req.body
-  let pedido = await pedidosService.getPedido({ id: idPedido })
-  let empleados = []
-  const getEmpleados = async () => {
-    return Promise.all(
-      empleado.map(async empl => {
-        const empleado = await empleadoService.getEmpleado(empl)
-        return empleado
-      })
-    )
-  }
-
-  if (Array.isArray(empleado))
-    empleados = await getEmpleados()
-  else
-    empleados = await empleadoService.getEmpleado(empleado)
-  /** @todo agregar try catch, render con pedidos, elecciones, request */
-  await pedido.setEmpleados(empleados)
+  const pedido = await pedidosService.getPedido({ id: idPedido })
+  await pedido.setEmpleados(empleado)
   res.redirect('/pedidos')
+  }catch(e){
+    console.error(e)
+  }
 })
 
 router.post('/', async (req, res) => {
