@@ -46,22 +46,24 @@
           .then((allEmployees) => {
             let arr = [];
 
-            for (var key in allEmployees) {
-              const employee = allEmployees[key];
-              const isSelected = selectedEmployees.find((selected) => selected.id === employee.id);
-              
-              if (isSelected) {
+            // Agregar empleados seleccionados primero
+            selectedEmployees.forEach((selected) => {
+              const employee = allEmployees.find((emp) => emp.id === selected.id);
+              if (employee) {
                 arr.push(generateCheckbox(employee.id, employee.Persona.identificacion, employee.Persona.nombre, employee.Persona.apellido, true));
                 arr.push("<br>");
-              } else {
-                // No agregar a la lista de empleados no seleccionados si tiene el mismo número de identificación que un empleado seleccionado
-                const hasSameIdentification = selectedEmployees.find((selected) => selected.Persona.identificacion === employee.Persona.identificacion);
-                if (!hasSameIdentification) {
-                  arr.push(generateCheckbox(employee.id, employee.Persona.identificacion, employee.Persona.nombre, employee.Persona.apellido, false));
-                  arr.push("<br>");
-                }
               }
-            }
+            });
+
+            // Agregar empleados no seleccionados
+            allEmployees.forEach((employee) => {
+              const isSelected = selectedEmployees.find((selected) => selected.id === employee.id);
+              if (!isSelected) {
+                arr.push(generateCheckbox(employee.id, employee.Persona.identificacion, employee.Persona.nombre, employee.Persona.apellido, false));
+                arr.push("<br>");
+              }
+            });
+
             contenedor.innerHTML = arr.join('');
           });
       });
