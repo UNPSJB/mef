@@ -14,18 +14,18 @@
         <tr>
           <td>
             <label class="switch">
-              <input type="checkbox" name="empleado" value="{{this.id}}" id="{{this.id}}" checked />
+              <input type="checkbox" name="empleado" value="{{this.dataValues.id}}" id="{{this.dataValues.id}}" checked />
               <span class="slider round"></span>
             </label>
           </td>
           <td>
-            {{this.Persona.identificacion}}
+            {{this.dataValues.Persona.dataValues.identificacion}}
           </td>
           <td>
-            {{this.Persona.nombre}}
+            {{this.dataValues.Persona.dataValues.nombre}}
           </td>
           <td>
-            {{this.Persona.apellido}}
+            {{this.dataValues.Persona.dataValues.apellido}}
           </td>
         </tr>
         {{/each}}
@@ -38,12 +38,10 @@
   <button type="submit" class="btn btn-success btn-block">Confirmar</button>
   <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
 </form>
+
+
+
 <script>
-  $(document).ready(() => {
-
-
-  });
-
   function generateCheckbox(id, identificacion, nombre, apellido) {
     return `<tr><td>
       <label class="switch">
@@ -69,6 +67,8 @@
           $(`#${json[key].id}`).prop("checked", true);
         }
       })
+
+
     fetch(`/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
       .then((res) => {
         return res.json();
@@ -85,7 +85,6 @@
         }
         contenedor.innerHTML = arr.toString().replace(/[,]/gm, '');
       })
-
   });
 </script>
 

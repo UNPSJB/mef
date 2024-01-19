@@ -10,10 +10,10 @@
         <tbody>
             {{#each this}}
             <tr>
-                <td>{{this.cantidad}}</td>
-                <td>{{this.Hueso.nombre}}</td>
-                <td>{{this.Pedido.tipo}}</td>
-                <td>{{this.Pedido.motivo}}</td>
+                <td>{{this.dataValues.cantidad}}</td>
+                <td>{{this.dataValues.Hueso.dataValues.nombre}}</td>
+                <td>{{this.dataValues.Pedido.dataValues.tipo}}</td>
+                <td>{{this.dataValues.Pedido.dataValues.motivo}}</td>
             </tr>
             {{/each}}
         </tbody>
