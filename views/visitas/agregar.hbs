@@ -116,7 +116,7 @@
   //Ponemos fecha mínima "mañana" porque si ponemos "hoy" puede haber problemas en el horario, si ponemos una hora de "hoy" que ya pasó. 
   
   $(document).ready(function () {
-    var manana = calcularFechaManana();
+    const manana = calcularFechaManana();
     document.getElementById("fechaVisita").setAttribute("min", manana);
   })
 
