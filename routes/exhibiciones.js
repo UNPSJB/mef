@@ -26,7 +26,7 @@ router.get('/detalle/:id', async (req,res)=>{
     const replicas = await exhibicion.getReplicas({include:[models.Hueso, models.Dinosaurio, models.Pedido],raw:true, nest:true})
     console.log(exhibicion)
     /**@TODO esto tambien moverlo al service, aplica para otras cosas donde sea similar, usar mas objetos */
-    res.render('exhibiciones/detalle', {exhibicion:exhibicion.dataValues, fosiles, replicas})
+    res.render('exhibiciones/detalle', {exhibicion:exhibicion.dataValues, fosiles, replicas,req})
   } catch (error) {
     console.log(error)
     res.redirect('/404')
