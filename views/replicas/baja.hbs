@@ -6,6 +6,7 @@
     <div class="card-body">
         <table class="table">
             <thead>
+                <th scope="col">#</th>
                 <th scope="col">Dinosaurio</th>
                 <th scope="col">Hueso</th>
                 <th scope="col">Disponible</th>
@@ -14,24 +15,25 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{replica.Dinosaurio.nombre}}</td>
-                    <td>{{replica.Hueso.nombre}}</td>
+                    <td>{{replica.dataValues.id}}</td>
+                    <td>{{replica.dataValues.Dinosaurio.dataValues.nombre}}</td>
+                    <td>{{replica.dataValues.Hueso.dataValues.nombre}}</td>
                     <td>
-                        {{#if replica.disponible}}
+                        {{#if replica.dataValues.disponible}}
                         Sí
                         {{else}}
                         No
                         {{/if}}
                     </td>
-                    <td>{{replica.fecha_inicio}}</td>
-                    <td>{{replica.fecha_fin}}</td>
+                    <td>{{replica.dataValues.fecha_inicio}}</td>
+                    <td>{{replica.dataValues.fecha_fin}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="card-footer">
         <form action="/replicas?_method=DELETE" method="POST">
-            <input type="number" name="id" value="{{replica.id}}" hidden required>
+            <input type="number" name="id" value="{{replica.dataValues.id}}" hidden required>
             <button type="submit" class="btn btn-danger btn-block">Eliminar</button>
             <a href="/pedidos/replicas" class="btn btn-secondary btn-block">Volver</a>
         </form>
