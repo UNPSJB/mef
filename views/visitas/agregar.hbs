@@ -122,7 +122,7 @@
 
   // Setea la fecha de mañana como la fecha mínima de la visita.
   function calcularFechaManana() {
-    var mañana = new Date();
+    const mañana = new Date();
     mañana.setDate(mañana.getDate() + 1);
     return formatDate(mañana);
   }
