@@ -16,7 +16,7 @@ module.exports = {
         });
     },
     getReplica(id) {
-        
+
         return models.Replica.findOne({
             where: {
                 id
@@ -43,19 +43,18 @@ module.exports = {
     toggleDisponible(id) {
         return models.Replica.findByPk(id)
             .then((replicaEncontrada) => {
-                const {disponible} = replicaEncontrada
+                const { disponible } = replicaEncontrada
                 return replicaEncontrada.update({
                     disponible: !disponible
                 });
             })
     },
-    deleteReplica(id) {
-        return models.Replica.findByPk(id)
-            .then((replicaEncontrada) => {
-                return replicaEncontrada.update({
-                    fecha_baja: new Date(),
-                    disponible: false
-                });
-            })
+    async deleteReplica(id) {
+        const replica = await models.Replica.findByPk(id);
+        await replica.update({
+            fecha_baja: new Date(),
+            disponible: false
+        });
+        await replica.destroy()
     }
 }
