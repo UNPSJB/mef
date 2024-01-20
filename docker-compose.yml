@@ -49,8 +49,11 @@ services:
     volumes:
       - './docs:/docs'
       - ./public/docs:/public/docs
-    command: 'sphinx-build -b html /docs /public/docs'
+    command: "sphinx-build -b html /docs /public/docs"
+    restart: always
 
 networks:
   mefnetwork:
-    driver: 'bridge'
+    driver: "bridge"
+volumes:
+  node_modules:
