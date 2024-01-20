@@ -22,7 +22,7 @@ router.patch('/disponibilidad/:id',
 
 router.delete('/',
   async (req, res) => {
-    //aca bastaria el awit nomas? no hago nada con delate replica  
+    //Le falta un Try Catch para manejar los errores.   
     await replicaService.deleteReplica(req.body.id)
     res.redirect('/pedidos/replicas')
   })
