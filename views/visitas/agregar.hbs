@@ -95,8 +95,6 @@
               <small class="form-text-muted text-muted">Mínimo $1. Máximo $3.000.000 (Pesos Argentinos)</small>
             </div>
           </div>
-
-
           <!-- Botones de Agregar y Cancelar -->
           <div class="form-group">
             <div class="row">
@@ -109,19 +107,25 @@
             </div>
           </div>
           <!--********************************-->
-
-
         </div>
       </div>
   </form>
 </div>
 
 <script>
-  // setea la fecha actual como la fecha minima de "encontrado".
+  //Ponemos fecha mínima "mañana" porque si ponemos "hoy" puede haber problemas en el horario, si ponemos una hora de "hoy" que ya pasó. 
+  
   $(document).ready(function () {
-    var hoy = formatDate(new Date());
-    document.getElementById("fechaVisita").setAttribute("min", hoy);
+    const manana = calcularFechaManana();
+    document.getElementById("fechaVisita").setAttribute("min", manana);
   })
+
+  // Setea la fecha de mañana como la fecha mínima de la visita.
+  function calcularFechaManana() {
+    const mañana = new Date();
+    mañana.setDate(mañana.getDate() + 1);
+    return formatDate(mañana);
+  }
 
   function formatDate(date) {
     var d = new Date(date),
@@ -133,8 +137,6 @@
       month = '0' + month;
     if (day.length < 2)
       day = '0' + day;
-
     return [year, month, day].join('-');
   }
-
 </script>
