@@ -2,6 +2,7 @@
 <div class="alert alert-danger">¿Seguro que desea borrar esto?</div>
  <table class="table">
      <thead>
+        <th scope="col">#</th> 
         <th scope="col">Documento</th>    
         <th scope="col">Nombre</th>
         <th scope="col">Apellido</th>
@@ -13,6 +14,7 @@
      </thead>
     <tbody>
         <tr>
+            <td>{{empleado.Persona.id}}</td>
             <td>{{empleado.Persona.identificacion}}</td>    
             <td>{{empleado.Persona.nombre}}</td>
             <td>{{empleado.Persona.apellido}}</td>
