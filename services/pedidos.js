@@ -6,7 +6,7 @@ const PRESUPUESTADO = 'Presupuestado';
 const { paginateModel } = require('./utils')
 
 module.exports = {
-  getAllPedidos(args){
+  getAllPedidos(args, opts = {}){
     return models.Pedido.findAll({
       include: [models.Persona],
       where:{
@@ -37,7 +37,11 @@ module.exports = {
       where : {
         ...args
       },
-      include: [models.Persona,{model: models.Empleado, include: models.Persona}]
+      include: [models.Persona,{
+        model: models.Empleado, include: models.Persona
+      }, {
+        model: models.Detalle,
+      }]
     })
   },
   obtenerPedido(id){
@@ -89,12 +93,13 @@ module.exports = {
   updatePedido(pedido) {
     return models.Pedido.upsert(pedido);
   },
-  getReplicas(args){
+  getReplicas(args, options = {}){
     return models.Replica.findAll({
       where:{
         ...args
       },
-      include:[models.Hueso, models.Dinosaurio]
+      include:[models.Hueso, models.Dinosaurio],
+      ...options
     })
   }
 };

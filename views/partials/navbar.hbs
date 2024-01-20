@@ -1,25 +1,43 @@
 <nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Mef - 
+
+  
+  <a class="navbar-brand" href="/">Mef -
     {{#if coleccion}}
-      Colección
+    Colección
     {{/if}}
     {{#if exhibicion}}
-      Exhibición
+    Exhibición
     {{/if}}
     {{#if secretaria}}
-      Secretaría
+    Secretaría
     {{/if}}
     {{#if taller}}
-      Taller
+    Taller
     {{/if}}
     {{#if rrhh}}
-      Recursos Humanos
+    Recursos Humanos
     {{/if}}
-  </a>  
+  </a>
+  
+  <div class="d-flex">
+     <button class="btn btn-primary mr-2" onclick="goBack()">
+        <i class="fas fa-arrow-left mr-1"></i>Atrás
+      </button>
+    <a href="/" class="btn btn-primary mr-2">
+      Pantalla Inicial
+    </a>
+    
+    <form method="POST" action="/logout?_method=DELETE">
+      <button type="submit" class="btn btn-danger">
+        Cerrar Sesión
+      </button>
+    </form>
+  </div>
 
-  <form method="POST" action="/logout?_method=DELETE">
-    <button type="submit" class="btn btn-danger">
-      Cerrar Sesion
-    </button>
-  </form>
+
 </nav>
+<script>
+  function goBack() {
+    window.history.back(); 
+  }
+</script>

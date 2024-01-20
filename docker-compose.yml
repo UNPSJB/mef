@@ -1,31 +1,31 @@
-version: "3"
+version: '3'
 
-services: 
+services:
   app:
-      build: .
-      environment:
-        HOST: db
-        EXPRESS_PORT: 4001
-        DATABASE: mef
-        PWD_SECRET: contrasenasupersecreta
-        DATABASE_PORT: db
-        DATABASE_TYPE: postgres
-        DATABASE_USER: postgres
-        DATABASE_PASSWORD: postgres
-        NODE_ENV: development
-        SESS_LIFETIME: 1000*60*60*2
-        SESS_NAME: sid
-        SESS_SECRET: ssh!qiert,it\'asecret!
-      volumes: 
-        - ".:/usr/src"
-        - "/usr/src/node_modules"
-      restart: always
-      ports: 
-          - 4001:4001
-      depends_on:
-        - db
-        - sphinx
-      networks:
+    build: .
+    environment:
+      HOST: db
+      EXPRESS_PORT: 4001
+      DATABASE: mef
+      PWD_SECRET: contrasenasupersecreta
+      DATABASE_PORT: db
+      DATABASE_TYPE: postgres
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      NODE_ENV: development
+      SESS_LIFETIME: 1000*60*60*2
+      SESS_NAME: sid
+      SESS_SECRET: ssh!qiert,it\'asecret!
+    volumes:
+      - '.:/usr/src'
+      - '/usr/src/node_modules'
+    restart: always
+    ports:
+      - 4001:4001
+    depends_on:
+      - db
+      - sphinx
+    networks:
       - mefnetwork
 
   db:
@@ -34,7 +34,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mef
-    ports: 
+    ports:
       - '5432:5432'
     restart: always
     depends_on:
@@ -47,7 +47,7 @@ services:
   sphinx:
     image: sphinxdoc/sphinx
     volumes:
-      - "./docs:/docs"
+      - './docs:/docs'
       - ./public/docs:/public/docs
     command: "sphinx-build -b html /docs /public/docs"
     restart: always

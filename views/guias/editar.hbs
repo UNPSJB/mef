@@ -113,9 +113,23 @@
               {{/each}}
             </select>
           </div>
-          <div class="row">
-            <button type="submit" class="btn btn-success form-control">Guardar cambios</button>
-          </div>
+
+
+          <!--Botones de Guardar y Cancelar--->
+            <div class="form-group">
+              <div class="row">
+               <!-- <input type="hidden" name="id" value="{{visita.id}}">-->
+                <div class="col-6">
+                  <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
+                </div>
+                <div class="col-6">
+                  <a href="/guias" class="btn btn-danger btn-sm btn-block">Cancelar</a>
+                </div>
+              </div>
+            </div>
+            <!--****************************--->
+
+          
         </div>
       </div>
   </form>

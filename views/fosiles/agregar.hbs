@@ -19,7 +19,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label class="font-weight-bold"  for="hueso">Seleccionar Hueso</label>
+              <label class="font-weight-bold" for="hueso">Seleccionar Hueso</label>
               <select class="form-control" name="huesos" id="huesoId">
                 {{#each bones}}
                 <option value="{{this}}">{{this}}</option>
@@ -33,15 +33,16 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold" for="InputNumeroColeccion">Código de Colección</label>
-              <input type="text" class="form-control" maxlength="30" name="numero_coleccion" id="InputNumeroColeccion" placeholder="Ingrese Número de Colección" required>
+              <input type="text" class="form-control" maxlength="30" name="numero_coleccion" id="InputNumeroColeccion"
+                placeholder="Ingrese Número de Colección" required>
               <small class="form-text-muted text-muted">Máximo 30 caracteres. Se puede repetir el código.</small>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label class="font-weight-bold"  for="InputPeso">Peso (en Kilogramos)</label>
-              <input type="number" min="1" max="2000" class="form-control" name="peso" id="InputPeso" placeholder="Ingrese Peso de Fósil."
-                required>
+              <label class="font-weight-bold" for="InputPeso">Peso (en Kilogramos)</label>
+              <input type="number" min="1" max="2000" class="form-control" name="peso" id="InputPeso"
+                placeholder="Ingrese Peso de Fósil." required>
               <small class="form-text-muted text-muted">Mínimo 1 kg y Máximo 2000 kg</small>
             </div>
           </div>
@@ -69,17 +70,27 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold" for="observacion">Observaciones</label><br>
-              <textarea class="form-control" name="observacion" maxlength="140" cols="number" rows="5" placeholder="Ingrese observaciones"></textarea>
+              <textarea class="form-control" name="observacion" maxlength="140" cols="number" rows="5"
+                placeholder="Ingrese observaciones"></textarea>
               <small class="form-text-muted text-muted">Opcional, Máximo 140 caracteres.</small>
 
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-12 text-center">
-            <button type="submit" class="btn btn-success form-control">Agregar Fósil</button>
+
+        <!-- Botones de Agrega y Cancelar -->
+        <div class="form-group">
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Fósil</button>
+            </div>
+            <div class="col-6">
+              <a href="/fosiles" class="btn btn-danger btn-sm btn-block">Cancelar</a>
+            </div>
           </div>
         </div>
+        <!--********************************-->
+
       </div>
     </div>
   </form>

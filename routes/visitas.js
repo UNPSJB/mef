@@ -8,10 +8,9 @@ const guiaService = require('../services/guia')
 const paginate = require('../middlewares/paginate')
 const { generatePagination } = require("../services/utils")
 
-//lista todos las visitas
 router.get('/', async (req, res) => {
   try {
-    const visitas = await visitaService.getAllVisitas()
+    const visitas = await visitaService.getAllVisitas({},{raw:true,nest:true})
     res.render('visitas/visita', { visitas, req })
   } catch (error) {
     console.log(error)
@@ -19,24 +18,24 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/agregar', async (req, res) => {
-  const exhibiciones = await exhibicionService.getAllExhibiciones()
-  const clientes = await clienteService.getAllClientes()
+  const exhibiciones = await exhibicionService.getAllExhibiciones({},{raw:true,nest:true})
+  const clientes = await clienteService.getAllClientes({},{raw:true,nest:true})
   const guias = await guiaService.getAllGuias()
   res.render('visitas/agregar', { exhibiciones, clientes, guias, req })
 })
 
 router.get('/editar/:id', async (req, res) => {
   const { id } = req.params
-  const exhibiciones = await exhibicionService.getAllExhibiciones()
-  const clientes = await clienteService.getAllClientes()
+  const exhibiciones = await exhibicionService.getAllExhibiciones({},{raw:true,nest:true})
+  const clientes = await clienteService.getAllClientes({},{raw:true,nest:true})
   const guias = await guiaService.getAllGuias()
-  const visita = await visitaService.getVisita(id)
+  const visita = await visitaService.getVisita(id, {raw:true,nest:true})
   res.render('visitas/editar', { visita, exhibiciones, clientes, guias, req })
 })
 
 router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params
-  const visita = await visitaService.getVisita(id)
+  const visita = await visitaService.getVisita(id, {raw:true,nest:true})
   res.render('visitas/eliminar', { visita, req })
 })
 
@@ -54,18 +53,18 @@ router.post('/', async (req, res) => {
 router.put('/', async (req, res) => {
   const { id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio } = req.body
   /** agregar async await, try catch, render con visitas, request, error */
+  // ver que onda visita no se usa 
   return visitaService.updateVisita(id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio)
     .then(visita => {
       res.redirect('/visitas')
     })
 })
 
-router.delete('/', (req, res) => {
+router.delete('/', async (req, res) => {
   const { id } = req.body
-  visitaService.deleteVisita(id)
-    .then(() => {
-      res.redirect('/visitas')
-    })
+  await visitaService.deleteVisita(id)
+  res.redirect('/visitas')
+    
 })
 
 module.exports = router

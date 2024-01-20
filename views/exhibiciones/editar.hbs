@@ -7,16 +7,19 @@
       <div class="card-body">
         <div class="form-group">
           <label for="nombre">Nombre:</label>
-          <input type="text" name="nombre"  minlength="4" maxlength="50" class="form-control" placeholder="Nombre de la exhibición" {{#with exh }} value="{{nombre}}" {{/with}}>
+          <input type="text" name="nombre" minlength="4" maxlength="50" class="form-control"
+            placeholder="Nombre de la exhibición" {{#with exh }} value="{{nombre}}" {{/with}}>
           <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
 
           <label for="tematica">Temática:</label>
-          <input type="text" name="tematica" minlength="4" maxlength="50" class="form-control" placeholder="Tematica de la tematica"{{#with exh }} value="{{tematica}}" {{/with}} >
-          <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>        
+          <input type="text" name="tematica" minlength="4" maxlength="50" class="form-control"
+            placeholder="Tematica de la tematica" {{#with exh }} value="{{tematica}}" {{/with}}>
+          <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
 
           <label for="duracion">Duración:</label>
-          <input type="text" name="duracion" min="1" max="40" class="form-control" placeholder="Duracion de la exhibicion" {{#with exh }} value="{{duracion}}" {{/with}}>
-          <small class="form-text-muted text-muted">Mínimo 1. Máximo 40. Solo números</small><br>        
+          <input type="text" name="duracion" min="1" max="40" class="form-control"
+            placeholder="Duracion de la exhibicion" {{#with exh }} value="{{duracion}}" {{/with}}>
+          <small class="form-text-muted text-muted">Mínimo 1. Máximo 40. Solo números</small><br>
         </div>
         <div class="form-group container">
           <div class="row">
@@ -25,11 +28,12 @@
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar fosiles --}}
                 {{#each fosiles_propios}}
-                 <input type="checkbox" name="fosiles"  value="{{this.id}}" checked> {{this.huesos}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" name="fosiles" value="{{this.id}}" checked> {{this.huesos}} |
+                {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
                 {{#each fosiles}}
-                <input type="checkbox" name="fosiles"  value="{{this.id}}">{{this.huesos}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" name="fosiles" value="{{this.id}}">{{this.huesos}} | {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
               </div>
@@ -39,11 +43,13 @@
               <label for="replicas">Listado de réplicas disponibles:</label>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{#each replicas_propias}}
-                 <input type="checkbox" name="replicas"  value="{{this.id}}" checked>{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" name="replicas" value="{{this.id}}" checked>{{this.Hueso.nombre}} |
+                {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
                 {{#each replicas}}
-                <input type="checkbox" name="replicas"  value="{{this.id}}">{{this.Hueso.nombre}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" name="replicas" value="{{this.id}}">{{this.Hueso.nombre}} |
+                {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
               </div>
@@ -52,12 +58,24 @@
           </div>
         </div>
       </div>
-      <div class="card-footer">
-        <input type="hidden" name="id" value="{{exh.id}}" hidden>
-      <button type="submit" class="btn btn-success btn-block">Editar Exhibición</button>
+
+
+      <!--Botones de Guardar y Cancelar--->
+      <div class="form-group">
+        <div class="row">
+          <input type="hidden" name="id" value="{{exh.id}}" hidden>
+          <div class="col-6">
+            <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
+          </div>
+          <div class="col-6">
+            <a href="/exhibiciones" class="btn btn-danger btn-sm btn-block">Cancelar</a>
+          </div>
+        </div>
       </div>
+      <!--****************************--->
+
+
     </div>
 </div>
 </form>
 </div>
-

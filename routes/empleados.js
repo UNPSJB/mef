@@ -21,19 +21,17 @@ router.get('/agregar', (req, res) => {
     res.render('empleados/agregar', { req })
 })
 
-router.get('/editar/:id', (req, res) => {
+router.get('/editar/:id', async (req, res) => {
   const { id } = req.params
   //ver cuando id no existe
-  empleadoService.getEmpleado(id).then(empleado => {
-    res.render('empleados/editar', { empleado, req })
-  })
+  const empleado= await empleadoService.getEmpleado(id)
+  res.render('empleados/editar', { empleado, req })
 })
 
-router.get('/eliminar/:id', (req, res) => {
+router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params
-  empleadoService.getEmpleado(id).then(empleado => {
-    res.render('empleados/eliminar', { empleado, req })
-  })
+  const empleado= await empleadoService.getEmpleado(id)
+  res.render('empleados/eliminar', { empleado, req })
 })
   
 router.post('/', async (req, res) =>{
@@ -70,11 +68,10 @@ router.put('/', async (req, res) => {
   }
 })
 
-router.delete('/', (req, res) => {
+router.delete('/', async (req, res) => {
   const { id } = req.body
-  empleadoService.deleteEmpleado(id).then(() => {
-    res.redirect('/empleados')
-  })
+  await empleadoService.deleteEmpleado(id)
+  res.redirect('/empleados')
 })
 
 module.exports = router

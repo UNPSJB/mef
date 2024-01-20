@@ -16,26 +16,32 @@ const paginate = require('../middlewares/paginate')
 
 router.get('/',
   async (req, res) => {
-    // https://flaviocopes.com/javascript-async-await-array-map/
-    const pedidosPromesa = await pedidosService.getAllPedidos()
-    const pedidosFunc = async () => {
-      return Promise.all(pedidosPromesa.map(async pedido => {
-        pedido.estadoActual = await pedido.estado
-        pedido.estadoInstance = pedido.estadoActual.constructor.name
-        return pedido
-      }))
+    try {
+      const pedidos = await pedidosService.getAllPedidos()
+      const _pedidos = []
+      for (pedido of pedidos) {
+        const estadoActual = await pedido.estado
+        const estadoInstance = estadoActual.constructor.name
+        const _pedido = JSON.parse(JSON.stringify(pedido.dataValues))
+        _pedidos.push({ ..._pedido, estadoActual, estadoInstance })
+      }
+      res.render('pedidos/lista', { pedidos: _pedidos, req })
+    } catch (error) {
+      console.error(error)
+      res.redirect('/404')
+
     }
-    const pedidos = await pedidosFunc()
-    res.render('pedidos/lista', { pedidos, req })
   })
 router.get('/agregar',
-  (req, res) => {
-    dinoService.getAllDinosaurios().then((dinosaurios) => {
-      clienteService.getAllClientes().then(clientes => {
-        // cambiar a todos los clientes y todos los dinosaurios
-        res.render('pedidos/agregar', { dinosaurios, clientes, req })
-      })
-    })
+  async (req, res) => {
+    try {
+      const dinosaurios = await dinoService.getAllDinosaurios()
+      const clientes = await clienteService.getAllClientes({}, { raw: true, nest: true })
+      res.render('pedidos/agregar', { dinosaurios, clientes, req })
+    } catch (error) {
+      // pagina 500 ?
+      console.error(error)
+    }
   })
 
 router.get('/:id/empleados/', async (req, res) => {
@@ -47,7 +53,7 @@ router.get('/:id/empleados/', async (req, res) => {
 
 router.get('/replicas', async (req, res) => {
   const dinosauriosConReplicas = await replicaService.getReplicas()
-  const pedidos = dinosauriosConReplicas.map(pedido=>{
+  const pedidos = dinosauriosConReplicas.map(pedido => {
     const dino = pedido.Replicas[0].Dinosaurio
     pedido.dino = dino
     return pedido
@@ -55,98 +61,93 @@ router.get('/replicas', async (req, res) => {
   res.render("replicas/replica", { pedidos, req })
 })
 
-router.get('/detalle/:id', (req, res) => {
-  const { id } = req.params
-  pedidosService.getPedido({ id }).then(async pedido => {
+router.get('/detalle/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const pedido = await pedidosService.getPedido({ id })
     const estado = await pedido.estado
     const estadosPedido = await pedido.estados
-    const detalles = await pedido.getDetalles({ include: [models.Hueso] })
-    const presupuestado = await pedido.getPresupuestado()
-    const estados = estadosPedido.map(estado => {
-      estado.estadoInstance = estado.constructor.name
-      return estado
+    const detalles = await pedido.getDetalles({
+      include: [{
+        model: models.Hueso,
+        include: [models.Dinosaurio]
+      }], raw: true, nest: true
     })
 
+    const presupuestado = await pedido.getPresupuestado()
+    let estados = []
+    estadosPedido.forEach(estado => {
+      estado.estadoInstance = estado.constructor.name
+      estados.push({...estado.dataValues, estadoInstance: estado.constructor.name})
+    })
     const estadoInstance = estado.constructor.name
     const hueso = await huesoService.getHueso(detalles[0].HuesoId)
-    const dinosaurio = hueso.Dinosaurio
+    const dinosaurio = JSON.parse(JSON.stringify(hueso.Dinosaurio))
     res.render("pedidos/detalle", { id, estadoInstance, presupuestado, estados, pedido, dinosaurio, hueso, detalles, req })
-  })
+  } catch (error) {
+    console.error(error)
+  }
 
 })
 // models.Dinosaurio
 router.get('/:accion/:id',
   permisos.permisosParaEstado(),
-  (req, res) => {
+  async (req, res) => {
     const { accion, id } = req.params
     try {
-      pedidosService.getPedido({ id }).then(async pedido => {
-        const detalles = await pedido.getDetalles({ include: [models.Pedido, models.Hueso] })
-        const estado = await pedido.estado
-        res.render(`pedidos/${accion}`, { accion, id, detalles, pedido, estado, req })
-      })
+      const pedido = await pedidosService.getPedido({ id })
+      const detalles = await pedido.getDetalles({ include: [models.Pedido, models.Hueso] })
+      const estado = await pedido.estado
+      res.render(`pedidos/${accion}`, { accion, id, detalles, pedido, estado, req })
     } catch (e) {//@TODO que hacer
       res.redirect('/404')
     }
   })
 
-router.get('/empleados', (req, res) => {
+router.get('/empleados', async (req, res) => {
   try {
-    return empleadoService.getAllEmpleados()
-      .then((empleados) => {
-        res.send(JSON.stringify(empleados, null, 4))
-      })
+    const empleados = await empleadoService.getAllEmpleados()
+    res.send(JSON.stringify(empleados, null, 4))
   } catch (err) {
     console.log(err)
   }
 })
 
-router.post('/:accion/:id', (req, res) => {
-  const { accion, id } = req.params
-
-  pedidosService.getPedido({ id }).then(async (pedido) => {
-    try {
-      await pedido.hacer(accion, req.body)
-    } catch (error) {
-      /**
-       * @TODO agregar una vista de que no se puede hacer
-       */
-      console.log("log error::::::", error)
-    }
-  })
-    .then(() => res.redirect('/pedidos'))
-    .catch(() => { res.redirect('/404') })
+router.post('/:nuevoEstado/:id', async (req, res) => {
+  const { nuevoEstado, id } = req.params
+  try {
+    const pedido = await pedidosService.getPedido({ id });
+    // transicion a nuevo estado
+    await pedido.cambiarEstado(nuevoEstado, req.body)
+    res.redirect('/pedidos')
+  } catch (error) {
+    /**
+     * @TODO agregar una vista de que no se puede hacer
+     */
+    console.log("log error::::::", error)
+    res.redirect('/404')
+  }
 })
 router.put('/', async (req, res) => {
+  try{
   const { idPedido, empleado } = req.body
-  let pedido = await pedidosService.getPedido({ id: idPedido })
-  let empleados = []
-  const getEmpleados = async () => {
-    return Promise.all(
-      empleado.map(async empl => {
-        const empleado = await empleadoService.getEmpleado(empl)
-        return empleado
-      })
-    )
-  }
-
-  if (Array.isArray(empleado))
-    empleados = await getEmpleados()
-  else
-    empleados = await empleadoService.getEmpleado(empleado)
-  /** @todo agregar try catch, render con pedidos, elecciones, request */
-  await pedido.setEmpleados(empleados)
+  const pedido = await pedidosService.getPedido({ id: idPedido })
+  await pedido.setEmpleados(empleado)
   res.redirect('/pedidos')
+  }catch(e){
+    console.error(e)
+  }
 })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { hueso, cliente, descripcion, monto, finoferta, moneda } = req.body
-  /** @TODO agregar async await, y la vista de error */
+
   if (cliente === "Interno") {
-    pedidosService.solicitar(hueso).then(e => res.redirect('/pedidos'))
+    await pedidosService.solicitar(hueso)
   } else {
-    pedidosService.presupuestar(hueso, cliente, descripcion, monto, finoferta, moneda).then(e => res.redirect('/pedidos'))
+    await pedidosService.presupuestar(hueso, cliente, descripcion, monto, finoferta, moneda)
   }
+  res.redirect('/pedidos')
 })
 /**
  * @TODO revisar esto

@@ -1,7 +1,7 @@
 <h1 class="mt-4">Pedido de Replicación Nº {{id}} - Fabricar Replicación</h1>
 <span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
-
+   
     {{> replica/detalle detalles}}
     <label class="form-group" for="inicio">
         Fecha Inicio
@@ -16,6 +16,7 @@
         <h3>Asignar empleados</h3>
     </label>
     <br>
+    
 
     <label for="empleadosasignados">Empleados asignados:</label>
     {{!-- @TODO completar con empleados asignados --}}
@@ -39,7 +40,7 @@
 
 <script>
     $(document).ready(() => {
-        fetch(`http://localhost:3000/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
+        fetch(`/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
             .then((res) => {
                 return res.json();
             })

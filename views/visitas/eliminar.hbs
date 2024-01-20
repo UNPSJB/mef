@@ -24,8 +24,11 @@
     </tbody>
  </table>
 
+<!---Botones de Eliminar y Cancelar-->
 <form action="/visitas?_method=DELETE" method="POST" >
 <input name="id" type="number" value="{{visita.id}}" hidden required>
 <button type="submit" class="btn btn-danger">Eliminar</button>
 <a href="/visitas" class="btn btn-primary">No</a>
+<!---******************************-->
+
 </form>

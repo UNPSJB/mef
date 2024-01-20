@@ -54,7 +54,7 @@
               <div class="form-group">
                 <h3>Seleccione huesos</h3>
                 <label for="Total">
-                  
+
                   <button type="button" class="btn btn-primary" id="total">
                     Seleccionar Todo
                   </button>
@@ -68,17 +68,32 @@
                       <label for="huesos" id="listaHuesos">
                       </label>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+
+         
+
+          <!-- Botones de Agregar y Cancelar -->
+          <div class="form-group">
+            <div class="row">
+              <div class="col-6">
+                <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Pedido de Replicación</button>
+              </div>
+              <div class="col-6">
+                <a href="/pedidos" class="btn btn-danger btn-sm btn-block">Cancelar</a>
+              </div>
+            </div>
+          </div>
+          <!--********************************-->
+
         </div>
-        <button class="btn btn-success btn-block" type="submit" id="submitForm">Agregar Pedido de Replicación</button>
       </div>
-    </div>
   </form>
 </div>
-
 
 
 
@@ -111,7 +126,7 @@
 
   function buscarHuesos() {
     let dinoId = e.options[e.selectedIndex].value;
-    fetch(`http://localhost:3000/dinosaurios/huesos/${dinoId}`, { mode: "cors" })
+    fetch(`/dinosaurios/huesos/${dinoId}`, { mode: "cors" })
       .then((res) => {
         return res.json()
       })
@@ -123,7 +138,7 @@
         for (var key in json) {
           arr.push(generateCheckbox(json[key].id, json[key].nombre, json[key].numero))
         }
-        let htmlParseado =  arr.toString().split(',').join('')
+        let htmlParseado = arr.toString().split(',').join('')
         contenedor.innerHTML = htmlParseado
       })
       .catch((err) => {
@@ -174,13 +189,13 @@
 </script>
 
 <script>
-// https://stackoverflow.com/questions/22238368/how-can-i-require-at-least-one-checkbox-be-checked-before-a-form-can-be-submitte
-$(document).ready(function () {
-    $('#submitForm').click(function() {
+  // https://stackoverflow.com/questions/22238368/how-can-i-require-at-least-one-checkbox-be-checked-before-a-form-can-be-submitte
+  $(document).ready(function () {
+    $('#submitForm').click(function () {
       checked = $("input[type=checkbox]:checked").length;
-      if(!checked) {
+      if (!checked) {
         return false;
       }
     });
-});
+  });
 </script>

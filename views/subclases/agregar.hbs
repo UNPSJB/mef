@@ -11,31 +11,47 @@
             <div class="row">
               <div class="form-group col">
                 <label class="font-weight-bold">Descripción:</label>
-                <input type="text" name="descripcion" minlength="4" maxlength="50" class="form-control" placeholder="Ingrese Descripción Subclase"
-                  required {{#if subclase}} value="{{subclase.descripcion}}" {{/if}}>
+                <input type="text" name="descripcion" minlength="4" maxlength="50" class="form-control"
+                  placeholder="Ingrese Descripción Subclase" required {{#if subclase}} value="{{subclase.descripcion}}"
+                  {{/if}}>
                 <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
 
               </div>
             </div>
 
             <div class="row pb-4 text-center mx-auto">
-                <span class="font-weight-bold pb-2">Clase:</span>
-                <div class="pl-2" data-toggle="buttons">
-                  <div class="btn btn-secondary form-check-label">
-                    <input type="radio" name="clase"  value="Saurisquio" autocomplete="off" required>
-                    Saurisquio
-                  </div>
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="clase"  value="Ornitisquio" autocomplete="off">
-                    Ornitisquio
-                  </label>
+              <span class="font-weight-bold pb-2">Clase:</span>
+              <div class="pl-2" data-toggle="buttons">
+                <div class="btn btn-secondary form-check-label">
+                  <input type="radio" name="clase" value="Saurisquio" autocomplete="off" required>
+                  Saurisquio
                 </div>
-            </div>
-            <div class="row">
-              <div class="form-group col pb-2">
-                <button type="submit" class="btn btn-success btn-block form-control">Agregar Subclase</button>
+                <label class="btn btn-secondary form-check-label">
+                  <input type="radio" name="clase" value="Ornitisquio" autocomplete="off">
+                  Ornitisquio
+                </label>
               </div>
             </div>
+
+
+
+
+            <!-- Botones de Agregar y Cancelar -->
+            <div class="form-group">
+              <div class="row">
+                <div class="col-6">
+                  <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Subclase</button>
+                </div>
+                <div class="col-6">
+                  <a href="/subclases" class="btn btn-danger btn-sm btn-block">Cancelar</a>
+                </div>
+              </div>
+            </div>
+            <!--********************************-->
+
+
+
+
           </div>
         </div>
       </div>

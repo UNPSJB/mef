@@ -30,22 +30,24 @@ module.exports = {
       }
     })
   },
-  getHuesosDinoArgs(DinosaurioId, args){
+  getHuesosDinoArgs(DinosaurioId, args) {
     return models.Hueso.findAll({
       where: {
         DinosaurioId,
         ...args
       },
+      raw: true,
       order: [
         ['disponible', 'DESC']
       ]
-    })    
+    })
   },
   getHuesosDino(DinosaurioId) {
     return models.Hueso.findAll({
       where: {
         DinosaurioId
-      }
+      },
+      raw: true
     })
   },
   getHuesoDino(DinosaurioId, subtipohueso) {

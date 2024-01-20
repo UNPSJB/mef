@@ -7,7 +7,6 @@
   {{/if}}
 </h1>
 
-
 <table class="table" id="pedidos">
   <thead>
     <th>#</th>
@@ -15,7 +14,7 @@
     <th>Cliente</th>
     <th>Inicio Pedido</th>
     <th>Descripción</th>
-    <th>Acciones</th>
+    <th scope="col" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
     {{#each pedidos}}
@@ -43,13 +42,15 @@
     {{/each}}
   </tbody>
 </table>
+
+
+
+
 <script>
   $(document).ready(function () {
     $('#pedidos').DataTable({
       dom: 'Bfrtip',
-      buttons: [
-        'pdf', 'excel', 'csv'
-      ],
+      buttons: ['pdf', 'excel', 'csv'],
       searching: true,
       ordering: true,
       language: {
@@ -61,8 +62,8 @@
         infoFiltered: "(de un total de _MAX_)",
         infoPostFix: "",
         loadingRecords: "Cargando...",
-        zeroRecords: "No hay elementos agregados",
-        emptyTable: "No hay elementos :(",
+        zeroRecords: "No hay coincidencias.",
+        emptyTable: "No hay pedidos.",
         paginate: {
           first: "Primero",
           previous: "Anterior",
@@ -73,7 +74,13 @@
           sortAscending: ": Ordenar ascendente",
           sortDescending: ": Ordenar descendente"
         }
-      }
+      },
+      columnDefs: [
+        {
+          targets: 'acciones',
+          orderable: false,
+        },
+      ],
     });
   });
 </script>

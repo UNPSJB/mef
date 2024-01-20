@@ -17,10 +17,10 @@ module.exports = (sequelize,DataTypes) => {
     const Presupuestado = require('../estado/presupuestado')(sequelize,DataTypes);
 
     class Pedido extends Sequelize.Model {
-        async hacer(func, args){
-            const estado = await this.estado;
-            const res = await estado[func](this,args);//this es el pedido, args es el formulario [si lo hay] de el req.body
-            return res;
+        async cambiarEstado(nuevoEstado, datos){
+            const estado = await this.estadoActual();
+            const estadoActualizado = await estado[nuevoEstado](this, datos);//this es el pedido, args es el formulario [si lo hay] de el req.body
+            return estadoActualizado;
         }
         get estados() {
             return Promise.all([
@@ -36,19 +36,14 @@ module.exports = (sequelize,DataTypes) => {
                 this.getPresupuestado(), 
             ]).then(estados => {
                 return estados.filter(e =>{
-                    if(e == []){
-                        return false;
-                    }
-                    if(e == null){
-                        return false;
-                    }
+                    if(!e)return false;
                     if('createdAt' in e){
                         return e;
-                    }else{
-                        return false;
                     }
-
+                    return false;
                 }).sort((e1,e2) => {
+                    // ordenamos por fecha de creacion descendente
+                    // quiere decir que el ultimo estado (el mas nuevo) es el primero
                     return new Date(e2.fecha) - new Date(e1.fecha);
                 });
             });
@@ -57,6 +52,12 @@ module.exports = (sequelize,DataTypes) => {
             return this.estados.then(estados => {
                 return estados[0]
             });
+        }
+        async estadoActual() {
+            const estados = await this.estados;
+            // Aca es 0 porque lo ordenamos por fecha de creacion descendente
+            // por lo tanto el primero es el mas nuevo
+            return estados[0];
         }
         crearDetalles(huesos){
             if(Array.isArray(huesos)){
@@ -103,12 +104,12 @@ module.exports = (sequelize,DataTypes) => {
         hooks:{
             afterCreate(pedido){
                 const PedidoId = pedido.id;
-                if(pedido.tipo === 'Externo'){//externo
+                if(pedido.tipo === 'Externo'){
                     Presupuestado.create({
                         PedidoId,
                     })
                 }
-                if(pedido.tipo === 'Interno'){//interno
+                if(pedido.tipo === 'Interno'){
                     Confirmado.create({
                         PedidoId,
                     })

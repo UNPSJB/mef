@@ -9,27 +9,6 @@
         <th>Nombre</th>
         <th>Apellido</th>
       </thead>
-      <tbody>
-        {{#each pedido.Empleados}}
-        <tr>
-          <td>
-            <label class="switch">
-              <input type="checkbox" name="empleado" value="{{this.id}}" id="{{this.id}}" checked />
-              <span class="slider round"></span>
-            </label>
-          </td>
-          <td>
-            {{this.Persona.identificacion}}
-          </td>
-          <td>
-            {{this.Persona.nombre}}
-          </td>
-          <td>
-            {{this.Persona.apellido}}
-          </td>
-        </tr>
-        {{/each}}
-      </tbody>
       <tbody id="listaEmpleados">
       </tbody>
     </table>
@@ -38,57 +17,58 @@
   <button type="submit" class="btn btn-success btn-block">Confirmar</button>
   <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
 </form>
+
 <script>
-  $(document).ready(() => {
-
-
-  });
-
-  function generateCheckbox(id, identificacion, nombre, apellido) {
-    return `<tr><td>
-      <label class="switch">
-      <input type="checkbox" name="empleado" value="${id}" id="${id}">
-      <span class="slider round"></span>
-      </label>
-      </td><td>${identificacion}</td><td>${nombre}</td><td>${apellido}</td></tr>`;
+  function generateCheckbox(id, identificacion, nombre, apellido, isChecked) {
+    return `<tr>
+      <td>
+        <label class="switch">
+          <input type="checkbox" name="empleado" value="${id}" id="${id}" ${isChecked ? 'checked' : ''} />
+          <span class="slider round"></span>
+        </label>
+      </td>
+      <td>${identificacion}</td>
+      <td>${nombre}</td>
+      <td>${apellido}</td>
+    </tr>`;
   }
 </script>
 
 <script>
   $(document).ready(() => {
-
-    fetch(`http://localhost:3000/pedidos/{{id}}/empleados`, { mode: "cors" })//necesito a todos los empleados
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        let arr = [];
-        let contenedor = document.getElementById("listaEmpleadosSeleccionados");
-        const entries = Object.entries(json);
-        for (var key in json) {
-          $(`#${json[key].id}`).prop("checked", true);
-        }
-      })
-    fetch(`http://localhost:3000/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        console.log(json)
-        let arr = [];
+    fetch(`/pedidos/{{id}}/empleados`, { mode: "cors" })
+      .then((res) => res.json())
+      .then((selectedEmployees) => {
         let contenedor = document.getElementById("listaEmpleados");
-        contenedor.innerHTML = "";
-        const entries = Object.entries(json);
-        for (var key in json) {
-          arr.push(generateCheckbox(json[key].id, json[key].Persona.identificacion, json[key].Persona.nombre, json[key].Persona.apellido))
-          arr.push("<br>")
-        }
-        contenedor.innerHTML = arr.toString().replace(/[,]/gm, '');
-      })
 
+        fetch(`/pedidos/empleados`, { mode: "cors" })
+          .then((res) => res.json())
+          .then((allEmployees) => {
+            let arr = [];
+
+            // Agregar empleados seleccionados primero
+            selectedEmployees.forEach((selected) => {
+              const employee = allEmployees.find((emp) => emp.id === selected.id);
+              if (employee) {
+                arr.push(generateCheckbox(employee.id, employee.Persona.identificacion, employee.Persona.nombre, employee.Persona.apellido, true));
+                arr.push("<br>");
+              }
+            });
+
+            // Agregar empleados no seleccionados
+            allEmployees.forEach((employee) => {
+              const isSelected = selectedEmployees.find((selected) => selected.id === employee.id);
+              if (!isSelected) {
+                arr.push(generateCheckbox(employee.id, employee.Persona.identificacion, employee.Persona.nombre, employee.Persona.apellido, false));
+                arr.push("<br>");
+              }
+            });
+
+            contenedor.innerHTML = arr.join('');
+          });
+      });
   });
 </script>
-
 <style>
   /* The switch - the box around the slider */
   .switch {

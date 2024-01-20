@@ -8,7 +8,7 @@ module.exports = {
       include: [models.Persona],
       where: {
         ...args
-      }
+      },raw:true,nest:true
     })
   },
   getEmpleados(page = 0, pageSize = 10, args) {//{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo empleado
@@ -24,7 +24,7 @@ module.exports = {
     })
   }, //@TODO mostrar dino sin editar o algo
   getEmpleado(id) {
-    return models.Empleado.findByPk(id, { include: [models.Persona] })
+    return models.Empleado.findByPk(id, { include: [models.Persona],raw:true,nest:true })
   },
   asignarAPedido(pedidoId, empleadoId) {
     return models.Pedido.findByPk(pedidoId)
@@ -48,10 +48,9 @@ module.exports = {
   updateEmpleado(empleadoReq) { //@TODO mostrar dino sin editar o algo
     return models.Empleado.upsert(empleadoReq)
   },
-  deleteEmpleado(id) {
-    return models.Empleado.findByPk(id)
-      .then((empleadoEncontrado) => {
-        empleadoEncontrado.destroy(empleadoEncontrado)
-      })
+  async deleteEmpleado(id) {
+    const empleado=  await models.Empleado.findByPk(id)
+    empleado.destroy(empleado)
+
   }
 }

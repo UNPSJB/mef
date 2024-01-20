@@ -2,23 +2,20 @@ Museo Egidio Feruglio
 =====================
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 4
     :numbered:
     :glob:
     :caption: Índice:
 
 
-    sections/introduccion
-    sections/requerimientos
-    sections/roles
-    sections/simbolos
-    sections/login
-    sections/pantalla
+    sections/introducciones/introduccion
+    sections/introducciones/requerimientos
+    sections/introducciones/roles
+    sections/introducciones/login
     
-    sections/taller
-    sections/exhibicion
-    sections/rrhh
-    sections/secretaria
-    sections/coleccion
-    
+    sections/gestiones/taller
+    sections/gestiones/exhibicion
+    sections/gestiones/rrhh
+    sections/gestiones/secretaria
+    sections/gestiones/coleccion
     

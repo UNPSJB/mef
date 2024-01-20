@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
         args:false,
         msg:'La exhibición debe tener nombre.'
       },
-      unique: {
-        args: true,
-        msg: 'Ese nombre de exhibición ya existe!'
-      }
     },
     duracion:{
       type:DataTypes.STRING,
@@ -29,8 +25,6 @@ module.exports = (sequelize, DataTypes) => {
         msg:'La exhibición debe tener tematica.'
       }
     }
-  }, {
-    paranoid:true
   });
   Exhibicion.associate = function(models){
     models.Exhibicion.belongsToMany(models.Replica,{
