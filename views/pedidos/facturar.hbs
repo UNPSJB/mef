@@ -9,8 +9,8 @@
   </label>
   <br>
   <label for="presupuesto">Valor Presupuestado</label>
-  <input class="form-control" type="number" name="presupuesto" value="{{estado.monto}}" readonly>
-  <label for="Moneda"><b>Moneda:</b></label>{{estado.moneda}}
+  <input class="form-control" type="number" name="presupuesto" value="{{estado.dataValues.monto}}" readonly>
+  <label for="Moneda"><b>Moneda:</b></label>{{estado.dataValues.moneda}}
   <button type="submit" class="btn btn-success btn-block">Facturar</button>
   <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
 
