@@ -12,7 +12,8 @@ module.exports = {
 
     //generar personas
     for (let index = 0; index < MAX; index++) {
-      let fakeId = Math.round(Math.random() * 1000000 * 99) + 1000000; //entre 1 y 100 millones
+      //let fakeId = Math.round(Math.random() * 1000000 * 99) + 1000000; //entre 1 y 100 millones
+      let fakeId = Math.round(Math.random() * (50000000 - 14000000)) + 14000000; //entre 14 millones y 50 millones.
 
       let peopleObj = {
         identificacion: fakeId,
