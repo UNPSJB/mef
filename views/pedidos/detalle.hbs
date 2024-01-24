@@ -19,7 +19,7 @@
     </thead>
     <tbody>
       <td>
-        {{#with pedido.Persona}}
+        {{#with pedido.dataValues.Persona.dataValues}}
         {{nombre}} {{apellido}}
         {{else}}
         <i>Interno</i>
@@ -28,7 +28,7 @@
       {{#with dinosaurio}}
       <td>{{ nombre }}</td>
       {{/with}}
-      {{#with presupuestado}}
+      {{#with presupuestado.dataValues}}
       <td>
         {{ monto }}
       </td>
