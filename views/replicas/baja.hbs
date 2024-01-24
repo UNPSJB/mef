@@ -7,17 +7,17 @@
         <table class="table">
             <thead>
                 <th scope="col">#</th>
-                <th scope="col">Dinosaurio</th>
                 <th scope="col">Hueso</th>
+                <th scope="col">Dinosaurio</th>
                 <th scope="col">Disponible</th>
                 <th scope="col">Fecha de inicio</th>
                 <th scope="col">Fecha de finalización</th>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{replica.dataValues.id}}</td>
-                    <td>{{replica.dataValues.Dinosaurio.dataValues.nombre}}</td>
+                    <td>{{replica.dataValues.Hueso.dataValues.id}}</td>
                     <td>{{replica.dataValues.Hueso.dataValues.nombre}}</td>
+                    <td>{{replica.dataValues.Dinosaurio.dataValues.nombre}}</td>
                     <td>
                         {{#if replica.dataValues.disponible}}
                         Sí
