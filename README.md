@@ -18,3 +18,4 @@
 * Villanueva, Alex Fabian
 * Jones Escudero, Lautaro Alexander
 * Barria Reyes, Jose Daniel
+* Irigoyen Carlos Damian

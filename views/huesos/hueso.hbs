@@ -1,66 +1,87 @@
 <h5>Dinosaurio: {{dino.nombre}}, {{dino.periodo}}, {{dino.alimentacion}}</h5>
 
-
 {{#each huesosAgrupados }}
-<div class="huesos-agrupados">
-  <a class="btn btn-secondary btn-block my-2" data-toggle="collapse" href="#{{this.[0].agrupado}}" role="button"
-    aria-expanded="false" aria-controls="{{this.[0].agrupado}}">
-    {{this.[0].agrupado}}
-  </a>
-  <div class="collapse show" id="{{this.[0].agrupado}}">
-    <div class="card card-body">
-      <div class="padding-top:10px">
-        <table class="table table-striped">
-          <thead>
-            <th>Nombre</th>
-            <th>Hueso</th>
-            <th>Tipo</th>
-            <th>Subtipo</th>
-            {{#if ../req.taller}}
-            <th>Disponible</th>
-            <th>Tiene Molde</th>
-            {{/if}}
-          </thead>
-          <tbody>
-            {{#each this}}
-            <tr>
-              <td>{{this.huesos.nombre}}</td>
-              <td>{{this.huesos.nombre}} {{this.huesos.numero}}</td>
-              <td>{{this.huesos.tipohueso}}</td>
-              <td>{{this.huesos.subtipohueso}}</td>
+  <div class="huesos-agrupados">
+    <a class="btn btn-secondary btn-block my-2" data-toggle="collapse" href="#{{this.[0].agrupado}}" role="button"
+      aria-expanded="false" aria-controls="{{this.[0].agrupado}}">
+      {{this.[0].agrupado}}
+    </a>
+    <div class="collapse show" id="{{this.[0].agrupado}}">
+      <div class="card card-body">
+        <div class="padding-top:10px">
+          <table class="table table-striped">
+            <thead>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Hueso</th>
+              <th>Tipo</th>
+              <th>Subtipo</th>
               {{#if ../req.taller}}
-              <td>{{this.huesos.disponible}}</td> <!-- Ajuste aquí -->
-              <td>
-                <form action="/dinosaurios/moldes/toggle" method="PATCH">
-                  <label class="switch">
-                    <input type="checkbox" onchange="toggleMolde('{{this.huesos.id}}')" {{#if this.huesos.disponible}}checked{{/if}}>
-                    <span class="slider round"></span>
-                  </label>
-                </form>
-              </td>
+                <th>Tiene Molde</th>
               {{/if}}
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {{#each this}}
+                <tr>
+                  <td>{{this.huesos.id}}</td>
+                  <td>{{this.huesos.nombre}}</td>
+                  <td>{{this.huesos.nombre}} {{this.huesos.numero}}</td>
+                  <td>{{this.huesos.tipohueso}}</td>
+                  <td>{{this.huesos.subtipohueso}}</td>
+                  <!--Disponible Significa que el hueso Tiene Molde -->
+                    <td>
+                        <form action="/dinosaurios/moldes/toggle" method="PATCH">
+                          <label class="switch">
+                            <input type="checkbox" onchange="toggleMolde('{{this.huesos.id}}')" {{#if this.huesos.disponible}}checked{{/if}}>
+                            <span class="slider round"></span>
+                          </label>
+                        </form> 
+                    </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
 {{/each}}
 
 <script>
+  function toggleDisponible(id) {
+    console.log("Toggle Disponible called with ID:", id);
+    // Obtén la referencia al checkbox
+    var checkbox = document.querySelector(`input[data-id="${id}"]`);
+
+    // Actualiza el valor de 'disponible' directamente en el objeto
+    this.huesos.disponible = checkbox.checked;
+
+    // Puedes realizar otras acciones según sea necesario
+
+    console.log("Nuevo valor de Disponible:", this.huesos.disponible);
+  }
+
   function toggleMolde(id) {
     fetch(`/dinosaurios/moldes/toggle?id=${id}`, {
       method: "PATCH",
       credentials: "same-origin",
     })
-    //aca hago una llamada con fetch
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("Toggle Molde response:", data);
+      // Puedes realizar acciones adicionales según la respuesta del servidor, si es necesario
+    })
+    .catch(error => {
+      console.error("Toggle Molde error:", error);
+    });
   }
 </script>
 
-
-{{!-- <link type="text/css" rel="stylesheet" href="toggleSwitch.css"> no funciona--}}
 <style>
   /* The switch - the box around the slider */
   .switch {
