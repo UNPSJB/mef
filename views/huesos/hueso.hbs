@@ -62,7 +62,6 @@
   }
 
   function toggleMolde(id) {
-    console.log("Toggle Molde called with ID:", id);
     fetch(`/dinosaurios/moldes/toggle?id=${id}`, {
       method: "PATCH",
       credentials: "same-origin",
