@@ -9,7 +9,7 @@
         <div class="container">
           <div class="row">
             <div class="col" class="tab-content" id="myTabContent">
-              {{!-- Hola tab contenido --}}
+              {{!--  tab contenido --}}
               <div class="" id="externo">
                 <label class="col form-group" id="Example">
                   <label class="font-weight-bold" for="cliente">Cliente:</label>
@@ -17,8 +17,8 @@
                   <select name="cliente" id="listadoClientes" class="form-control">
                     <option value="Interno"><i>Interno</i></option>
                     {{#each clientes}}
-                    <option value="{{this.Persona.id}}"> {{ this.Persona.nombre }}
-                      {{this.Persona.apellido}} {{this.Persona.identificacion}} </option>
+                      <option value="{{this.Persona.id}}"> {{ this.Persona.nombre }}
+                        {{this.Persona.apellido}} {{this.Persona.identificacion}} </option>
                     {{/each}}
                   </select>
 
@@ -28,18 +28,24 @@
                   <label for="monto">Monto:</label>
                   <input disabled class="cliente form-control" type="number" name="monto"
                     placeholder="Solamente necesario para pedidos con clientes" min="0" />
-                  <label for="moneda">Moneda</label>
-                  <input disabled class="cliente" type="radio" name="moneda" value="Pesos Argentinos">Pesos Argentinos
+                  <br>
+                  <label class="font-weight-bold" for="monto">Monto:</label>
+                  <br>
+                  <input type="radio" name="moneda" value="Pesos Argentinos">Pesos Argentinos
+                  <br>
                   <input type="radio" name="moneda" value="Dolares">Dolares Americanos
+                  <br>
                   <input type="radio" name="moneda" value="Euros">Euros
+                  <br>
+                  <br>
+                  <label class="font-weight-bold" for="finoferta">Fin De Oferta:  <i>solamente requerido para pedidos con cliente</i></label>
+                  <input disabled class="cliente form-control {{#if isInterno}}interno{{/if}}" type="date" name="finoferta" id="InpuFinOferta" {{#if isInterno}}required{{/if}}/>
 
-                  <label for="fin-oferta">Fin de Oferta: <i>solamente requerido para pedidos con cliente</i></label>
-                  <input disabled class="cliente form-control" type="date" name="finoferta" id="InpuFinOferta" />
                 </label>
               </div>
             </div>
             <div class="col-6 pb-3">
-              {{!-- Hola Dinosaurio --}}
+              {{!-- Dinosaurio --}}
               <div class="form-group">
                 <h3>Seleccione Dinosaurio</h3>
                 <select class="form-control" name="dinosaurio" onchange="buscarHuesos()" id="selectHueso" required>
@@ -47,14 +53,13 @@
                   <option value="" selected aria-required="true">Seleccione un Dinosaurio
                   </option>
                   {{#each dinosaurios}}
-                  <option value="{{ this.id }}">{{ this.nombre }}</option>
+                    <option value="{{ this.id }}">{{ this.nombre }}</option>
                   {{/each}}
                 </select>
               </div>
               <div class="form-group">
                 <h3>Seleccione huesos</h3>
                 <label for="Total">
-
                   <button type="button" class="btn btn-primary" id="total">
                     Seleccionar Todo
                   </button>
@@ -74,9 +79,6 @@
             </div>
           </div>
 
-
-         
-
           <!-- Botones de Agregar y Cancelar -->
           <div class="form-group">
             <div class="row">
@@ -92,32 +94,51 @@
 
         </div>
       </div>
+    </div>
   </form>
 </div>
 
-
-
-
-
 <script>
   $(document).ready(() => {
-    $('#listadoClientes').change(function () {
-      if (this.value === "Interno") {
+    // Función para manejar cambios en el cliente
+    function handleClienteChange() {
+      // Desseleccionar la moneda cuando el cliente vuelve a ser interno
+      if ($('#listadoClientes').val() === "Interno") {
+        $("[name='moneda']").prop("checked", false);
         $(".cliente").each(function () {
           this.disabled = true;
           this.required = false;
-        })
+        });
+        // Deshabilitar radio buttons de moneda
+        $("[name='moneda']").prop("disabled", true);
+        // Mostrar el campo finoferta solo para pedidos internos
+        $(".interno").prop("disabled", false);
+        $(".interno").prop("required", true);
       } else {
         $(".cliente").each(function () {
           this.disabled = false;
           this.required = true;
-        })
+        });
+        // Habilitar radio buttons de moneda
+        $("[name='moneda']").prop("disabled", false);
+        // Ocultar el campo finoferta para pedidos no internos
+        $(".interno").prop("disabled", true);
+        $(".interno").prop("required", false);
       }
+    }
 
-    })
+    // Manejar el cambio de cliente al cargar la página
+    handleClienteChange();
+
+    // Manejar el cambio de cliente cuando se selecciona
+    $('#listadoClientes').change(function () {
+      handleClienteChange();
+    });
+
+    // ... (Otros scripts)
+
   });
 </script>
-
 
 <script>
   //https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
