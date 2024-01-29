@@ -111,9 +111,6 @@
         });
         // Deshabilitar radio buttons de moneda
         $("[name='moneda']").prop("disabled", true);
-        // Mostrar el campo finoferta solo para pedidos internos
-        $(".interno").prop("disabled", false);
-        $(".interno").prop("required", true);
       } else {
         $(".cliente").each(function () {
           this.disabled = false;
@@ -121,9 +118,7 @@
         });
         // Habilitar radio buttons de moneda
         $("[name='moneda']").prop("disabled", false);
-        // Ocultar el campo finoferta para pedidos no internos
-        $(".interno").prop("disabled", true);
-        $(".interno").prop("required", false);
+     
       }
     }
 
