@@ -1,95 +1,101 @@
-<h4 class="pt-2">Detalle de Pedido #{{id}}: {{dinosaurio.nombre}}</h4>
-<div class="container">
-  <div class="row border" style="min-height: 2rem;">
-    <div class="col">
-      <b>Estado Actual:</b> {{estadoInstance}}
-    </div>
-  </div>
-  <table class="table table-striped">
-    <thead>
-      <th>Cliente</th>
-      {{#with dinosaurio}}
-      <th>Dinosaurio</th>
-      {{/with}}
-      {{#with presupuestado}}
-      <th>Monto</th>
-      <th>Moneda</th>
-      <th>Fecha de fin de oferta</th>
-      {{/with}}
-    </thead>
-    <tbody>
-      <td>
-        {{#with pedido.dataValues.Persona.dataValues}}
-        {{nombre}} {{apellido}}
-        {{else}}
-        <i>Interno</i>
-        {{/with}}
-      </td>
-      {{#with dinosaurio}}
-      <td>{{ nombre }}</td>
-      {{/with}}
-      {{#with presupuestado.dataValues}}
-      <td>
-        {{ monto }}
-      </td>
-      <td>
-        {{ moneda }}
-      </td>
-      <td>
-        {{ fecha_fin_oferta }}
-      </td>
-      {{/with}}
-    </tbody>
-  </table>
-  <div class="row border">
-    <div class="col border">
-      <b>Huesos del pedido</b>
-      <div style="max-height: 50vh; overflow:auto;">
-        <table class="table table-striped">
-          <thead>
-            <th>N°</th>
-            <th>Hueso</th>
-          </thead>
-          <tbody>
-            {{#each detalles}}
-            <tr>
-              <td>{{ Hueso.numero }}</td>
-              <td>{{ Hueso.nombre }}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="row border">
-    <div class="col border">
-      <b>Registro de cambios</b>
-      <table class="table table-striped">
-        <thead>
-          <th>Estado</th>
-          <th>Fecha de cambio</th>
-          <th>Acciones</th>
-        </thead>
-        <tbody>
-          {{#each estados}}
-          <tr>
-            <td>{{ estadoInstance }}</td>
-            <td class="shortDateFormat">{{ fecha}}</td>
-            <td>
-              <button class="btn btn-primary" data-toggle="modal" data-target="#{{estadoInstance}}"
-                id="mostrar-{{estadoInstance}}">Detalles</button>
-            </td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-  </div>
-  {{#each estados}}
-  {{> estados/todos this}}
-  {{/each}}
+<div class="text-center">
+    <h4 class="pt-2" style="color: #000000; font-weight: bold; text-decoration: underline;">Detalle de Pedido #{{id}}: {{dinosaurio.nombre}}</h4>
 </div>
+
+
+
+<div class="container">
+    <div class="row border p-2">
+        <div class="col">
+            <b>Estado Actual:</b> {{estadoInstance}}
+        </div>
+    </div>
+
+    <div class="table-responsive mt-3">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Dinosaurio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        {{#with pedido.dataValues.Persona.dataValues}}
+                        {{nombre}} {{apellido}}
+                        {{else}}
+                        <i>Interno</i>
+                        {{/with}}
+                    </td>
+                    {{#with dinosaurio}}
+                    <td>{{ nombre }}</td>
+                    {{/with}}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row border p-2 mt-3">
+        <div class="col">
+            <b>Huesos del pedido</b>
+            <div class="table-responsive" style="max-height: 50vh; overflow:auto;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Hueso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each detalles}}
+                        <tr>
+                            <td>{{ Hueso.numero }}</td>
+                            <td>{{ Hueso.nombre }}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row border p-2 mt-3">
+        <div class="col">
+            <b>Registro de cambios</b>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Estado</th>
+                            <th>Fecha de cambio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each estados}}
+                        <tr>
+                            <td>{{ estadoInstance }}</td>
+                            <td class="shortDateFormat">{{ fecha}}</td>
+                            <td>
+                                <button class="btn btn-primary" data-toggle="modal"
+                                    data-target="#{{estadoInstance}}" id="mostrar-{{estadoInstance}}">Detalles</button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {{#each estados}}
+    {{> estados/todos this}}
+    {{/each}}
+</div>
+
+
+
 
 <script>
   /*! jquery-dateformat 01-08-2019 */
