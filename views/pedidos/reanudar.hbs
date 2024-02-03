@@ -2,6 +2,16 @@
 <span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
   {{> replica/detalle detalles}}
-  <button type="submit" class="btn btn-success btn-block">Confirmar</button>
-  <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
+
+  <!-- Botones de Confirmar y Volver -->
+  <div class="row mt-4">
+    <div class="col-6">
+      <a href="/pedidos" class="btn btn-danger btn-block">Volver</a>
+    </div>
+    <div class="col-6">
+      <button type="submit" class="btn btn-success btn-block">Confirmar</button>
+    </div>
+  </div>
+  <!--********************************-->
+
 </form>

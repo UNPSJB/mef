@@ -1,50 +1,57 @@
-<h5>Dinosaurio: {{dino.nombre}}, {{dino.periodo}}, {{dino.alimentacion}}</h5>
+<div class="text-center">
+  <h4 class="pt-2" style="color: #000000; font-weight: bold;">
+    <span style="text-decoration: underline;">Dinosaurio #{{dino.id}}:</span>  {{dino.nombre}}, {{dino.periodo}},
+    {{dino.alimentacion}},
+  </h4>
+</div>
+
 
 {{#each huesosAgrupados }}
-  <div class="huesos-agrupados">
-    <a class="btn btn-secondary btn-block my-2" data-toggle="collapse" href="#{{this.[0].agrupado}}" role="button"
-      aria-expanded="false" aria-controls="{{this.[0].agrupado}}">
-      {{this.[0].agrupado}}
-    </a>
-    <div class="collapse show" id="{{this.[0].agrupado}}">
-      <div class="card card-body">
-        <div class="padding-top:10px">
-          <table class="table table-striped">
-            <thead>
-              <th>#</th>
-              <th>Nombre</th>
-              <th>Hueso</th>
-              <th>Tipo</th>
-              <th>Subtipo</th>
-              {{#if ../req.taller}}
-                <th>Tiene Molde</th>
-              {{/if}}
-            </thead>
-            <tbody>
-              {{#each this}}
-                <tr>
-                  <td>{{this.huesos.id}}</td>
-                  <td>{{this.huesos.nombre}}</td>
-                  <td>{{this.huesos.nombre}} {{this.huesos.numero}}</td>
-                  <td>{{this.huesos.tipohueso}}</td>
-                  <td>{{this.huesos.subtipohueso}}</td>
-                  <!--Disponible Significa que el hueso Tiene Molde -->
-                    <td>
-                        <form action="/dinosaurios/moldes/toggle" method="PATCH">
-                          <label class="switch">
-                            <input type="checkbox" onchange="toggleMolde('{{this.huesos.id}}')" {{#if this.huesos.disponible}}checked{{/if}}>
-                            <span class="slider round"></span>
-                          </label>
-                        </form> 
-                    </td>
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
+<div class="huesos-agrupados">
+  <a class="btn btn-secondary btn-block my-2" data-toggle="collapse" href="#{{this.[0].agrupado}}" role="button"
+    aria-expanded="false" aria-controls="{{this.[0].agrupado}}">
+    {{this.[0].agrupado}}
+  </a>
+  <div class="collapse show" id="{{this.[0].agrupado}}">
+    <div class="card card-body">
+      <div class="padding-top:10px">
+        <table class="table table-striped">
+          <thead>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Hueso</th>
+            <th>Tipo</th>
+            <th>Subtipo</th>
+            {{#if ../req.taller}}
+            <th>Tiene Molde</th>
+            {{/if}}
+          </thead>
+          <tbody>
+            {{#each this}}
+            <tr>
+              <td>{{this.huesos.id}}</td>
+              <td>{{this.huesos.nombre}}</td>
+              <td>{{this.huesos.nombre}} {{this.huesos.numero}}</td>
+              <td>{{this.huesos.tipohueso}}</td>
+              <td>{{this.huesos.subtipohueso}}</td>
+              <!--Disponible Significa que el hueso Tiene Molde -->
+              <td>
+                <form action="/dinosaurios/moldes/toggle" method="PATCH">
+                  <label class="switch">
+                    <input type="checkbox" onchange="toggleMolde('{{this.huesos.id}}')" {{#if
+                      this.huesos.disponible}}checked{{/if}}>
+                    <span class="slider round"></span>
+                  </label>
+                </form>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+</div>
 {{/each}}
 
 <script>
@@ -66,19 +73,19 @@
       method: "PATCH",
       credentials: "same-origin",
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log("Toggle Molde response:", data);
-      // Puedes realizar acciones adicionales según la respuesta del servidor, si es necesario
-    })
-    .catch(error => {
-      console.error("Toggle Molde error:", error);
-    });
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Toggle Molde response:", data);
+        // Puedes realizar acciones adicionales según la respuesta del servidor, si es necesario
+      })
+      .catch(error => {
+        console.error("Toggle Molde error:", error);
+      });
   }
 </script>
 
