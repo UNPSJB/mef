@@ -13,25 +13,73 @@ const schedule = require('node-schedule')
 
 const { generatePagination } = require('../services/utils')
 const paginate = require('../middlewares/paginate')
+async function obtenerDetallesPedido(pedido) {
+  try {
+    const detalles = await pedido.getDetalles({
+      include: [
+        {
+          model: models.Hueso,
+          include: [models.Dinosaurio] // Incluir información del dinosaurio
+        }
+      ]
+    });
 
-router.get('/',
-  async (req, res) => {
-    try {
-      const pedidos = await pedidosService.getAllPedidos()
-      const _pedidos = []
-      for (pedido of pedidos) {
-        const estadoActual = await pedido.estado
-        const estadoInstance = estadoActual.constructor.name
-        const _pedido = JSON.parse(JSON.stringify(pedido.dataValues))
-        _pedidos.push({ ..._pedido, estadoActual, estadoInstance })
-      }
-      res.render('pedidos/lista', { pedidos: _pedidos, req })
-    } catch (error) {
-      console.error(error)
-      res.redirect('/404')
+    return detalles.map(detalle => {
+      const huesoId = detalle.Hueso ? detalle.Hueso.id : null;
+      const dinosaurioId = detalle.Hueso && detalle.Hueso.Dinosaurio ? detalle.Hueso.Dinosaurio.id : null;
+      const nombreDinosaurio = detalle.Hueso && detalle.Hueso.Dinosaurio ? detalle.Hueso.Dinosaurio.nombre : null;
+      return {
+        idPedido: pedido.id,
+        idDetalle: detalle.id,
+        huesoId,
+        dinosaurioId,
+        nombreDinosaurio,
+        // Otras propiedades del hueso y dinosaurio según sea necesario
+      };
+    });
+  } catch (error) {
+    console.error("Error al obtener los detalles del pedido:", error);
+    return [];
+  }
+}
 
+router.get('/', async (req, res) => {
+  try {
+    const pedidos = await pedidosService.getAllPedidos();
+    const _pedidos = [];
+    const idsPedidos = []; // Array para almacenar los IDs
+
+    for (const pedido of pedidos) {
+      const estadoActual = await pedido.estado;
+      const estadoInstance = estadoActual.constructor.name;
+      const idPedido = pedido.id;
+
+      console.log("ID del pedido:", idPedido);
+      idsPedidos.push(idPedido); // Añadir el ID al array
+
+      // Obtener detalles del pedido con información del hueso y dinosaurio
+      const detallesPedido = await obtenerDetallesPedido(pedido);
+
+      detallesPedido.forEach(detalle => {
+        // Imprimir la información de cada detalle del pedido
+        console.log("ID del pedido:", detalle.idPedido);
+        console.log("ID del detalle:", detalle.idDetalle);
+        console.log("Hueso ID:", detalle.huesoId);
+        console.log("Dinosaurio ID:", detalle.dinosaurioId);
+        console.log("Nombre del Dinosaurio:", detalle.nombreDinosaurio);
+      });
+
+      const _pedido = JSON.parse(JSON.stringify(pedido.dataValues));
+      _pedidos.push({ ..._pedido, estadoActual, estadoInstance, detallesPedido });
     }
-  })
+
+    res.render('pedidos/lista', { pedidos: _pedidos, req, idsPedidos });
+  } catch (error) {
+    console.error(error);
+    res.redirect('/404');
+  }
+});
+
 router.get('/agregar',
   async (req, res) => {
     try {
