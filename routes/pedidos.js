@@ -25,14 +25,10 @@ async function obtenerDetallesPedido(pedido) {
     });
 
     return detalles.map(detalle => {
-      const huesoId = detalle.Hueso ? detalle.Hueso.id : null;
-      const dinosaurioId = detalle.Hueso && detalle.Hueso.Dinosaurio ? detalle.Hueso.Dinosaurio.id : null;
-      const nombreDinosaurio = detalle.Hueso && detalle.Hueso.Dinosaurio ? detalle.Hueso.Dinosaurio.nombre : null;
+  
+      const nombreDinosaurio = detalle.Hueso.Dinosaurio.nombre
       return {
-        idPedido: pedido.id,
-        idDetalle: detalle.id,
-        huesoId,
-        dinosaurioId,
+      
         nombreDinosaurio,
         // Otras propiedades del hueso y dinosaurio según sea necesario
       };
@@ -52,20 +48,11 @@ router.get('/', async (req, res) => {
     for (const pedido of pedidos) {
       const estadoActual = await pedido.estado;
       const estadoInstance = estadoActual.constructor.name;
-      const idPedido = pedido.id;
-
-      console.log("ID del pedido:", idPedido);
-      idsPedidos.push(idPedido); // Añadir el ID al array
-
       // Obtener detalles del pedido con información del hueso y dinosaurio
       const detallesPedido = await obtenerDetallesPedido(pedido);
 
       detallesPedido.forEach(detalle => {
-        // Imprimir la información de cada detalle del pedido
-        console.log("ID del pedido:", detalle.idPedido);
-        console.log("ID del detalle:", detalle.idDetalle);
-        console.log("Hueso ID:", detalle.huesoId);
-        console.log("Dinosaurio ID:", detalle.dinosaurioId);
+
         console.log("Nombre del Dinosaurio:", detalle.nombreDinosaurio);
       });
 
