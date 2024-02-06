@@ -14,6 +14,7 @@
     <th>Cliente</th>
     <th>Inicio Pedido</th>
     <th>Descripción</th>
+    <th>Nombre Dinosaurio</th> <!-- Nueva columna para el nombre del dinosaurio -->
     <th scope="col" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
@@ -38,14 +39,17 @@
         <i>No hay Descripción</i>
         {{/with}}
       </td>
+      <td>
+        {{#if this.detallesPedido.length}} <!-- Verificar si hay detalles -->
+          {{this.detallesPedido.[0].nombreDinosaurio}} <!-- Mostrar el nombre del primer dinosaurio en detalles -->
+        {{else}}
+          <i>No hay Dino</i> <!-- Mostrar el mensaje si no hay detalles -->
+        {{/if}}
+      </td>
     </tr>
     {{/each}}
   </tbody>
 </table>
-
-
-
-
 <script>
   $(document).ready(function () {
     $('#pedidos').DataTable({
