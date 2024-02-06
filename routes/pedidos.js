@@ -19,18 +19,14 @@ async function obtenerDetallesPedido(pedido) {
       include: [
         {
           model: models.Hueso,
-          include: [models.Dinosaurio] // Incluir información del dinosaurio
+          include: [models.Dinosaurio] 
         }
       ]
     });
-
     return detalles.map(detalle => {
-  
       const nombreDinosaurio = detalle.Hueso.Dinosaurio.nombre
       return {
-      
         nombreDinosaurio,
-        // Otras propiedades del hueso y dinosaurio según sea necesario
       };
     });
   } catch (error) {
@@ -43,24 +39,15 @@ router.get('/', async (req, res) => {
   try {
     const pedidos = await pedidosService.getAllPedidos();
     const _pedidos = [];
-    const idsPedidos = []; // Array para almacenar los IDs
-
     for (const pedido of pedidos) {
       const estadoActual = await pedido.estado;
       const estadoInstance = estadoActual.constructor.name;
       // Obtener detalles del pedido con información del hueso y dinosaurio
       const detallesPedido = await obtenerDetallesPedido(pedido);
-
-      detallesPedido.forEach(detalle => {
-
-        console.log("Nombre del Dinosaurio:", detalle.nombreDinosaurio);
-      });
-
       const _pedido = JSON.parse(JSON.stringify(pedido.dataValues));
       _pedidos.push({ ..._pedido, estadoActual, estadoInstance, detallesPedido });
     }
-
-    res.render('pedidos/lista', { pedidos: _pedidos, req, idsPedidos });
+    res.render('pedidos/lista', { pedidos: _pedidos, req});
   } catch (error) {
     console.error(error);
     res.redirect('/404');
