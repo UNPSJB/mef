@@ -10,17 +10,24 @@
 <table class="table" id="pedidos">
   <thead>
     <th>#</th>
+    <th>Dinosaurio</th>
     <th>Estado</th>
     <th>Cliente</th>
     <th>Inicio Pedido</th>
     <th>Descripción</th>
-    <th>Nombre Dinosaurio</th> <!-- Nueva columna para el nombre del dinosaurio -->
     <th scope="col" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
     {{#each pedidos}}
     <tr class="{{this.estadoInstance}} {{req.exhibicion}} {{req.taller}}">
       <td class="id">{{this.id}}</td>
+      <td>
+        {{#if this.detallesPedido.length}} <!-- Verificar si hay detalles -->
+        {{this.detallesPedido.[0].nombreDinosaurio}} <!-- Mostrar el nombre del primer dinosaurio en detalles -->
+        {{else}}
+        <i>No hay Dino</i> <!-- Mostrar el mensaje si no hay detalles -->
+        {{/if}}
+      </td>
       <td>{{this.estadoInstance}}</td>
       <td class="cliente">
         {{#with this.Persona as |Cliente|}}
@@ -38,13 +45,6 @@
         {{else}}
         <i>No hay Descripción</i>
         {{/with}}
-      </td>
-      <td>
-        {{#if this.detallesPedido.length}} <!-- Verificar si hay detalles -->
-          {{this.detallesPedido.[0].nombreDinosaurio}} <!-- Mostrar el nombre del primer dinosaurio en detalles -->
-        {{else}}
-          <i>No hay Dino</i> <!-- Mostrar el mensaje si no hay detalles -->
-        {{/if}}
       </td>
     </tr>
     {{/each}}
