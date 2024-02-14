@@ -22,8 +22,8 @@ router.get('/list',
   async (req, res) => {
     try {
       const total=await dinoService.countDinosaurios()
-      const {start,length,draw,search}=req.query
-      const dinosaurios = await dinoService.getDinosauriosDataTable({start,length,search})
+      const {start,length,draw,search,columns,order}=req.query
+      const dinosaurios = await dinoService.getDinosauriosDataTable({start,length,search,columns,order})
       res.json({ draw,data: dinosaurios, recordsTotal:total, recordsFiltered:total})
     } catch (error) {
       res.redirect('/404')

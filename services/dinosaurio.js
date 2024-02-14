@@ -1,6 +1,6 @@
 const models = require('../models')
 const { paginateModel } = require('./utils')
-const { Op } = require('sequelize')
+const { Op, literal } = require('sequelize')
 module.exports = {
   getAllDinosaurios() {
     return models.Dinosaurio.findAll({
@@ -9,15 +9,19 @@ module.exports = {
   },
   getDinosauriosDataTable({ draw, start, length, search, order, columns }) {
     let querySearch = undefined;
-    if (search.value && search.value.length>1) {
+    const [orderValue] = order
+    const columnOrder = columns[parseInt(orderValue.column)].data.split('.').map(name => `"${name}"`).join('.')
+    
+    if (search.value && search.value.length > 1) {
       querySearch = { [Op.or]: [{ nombre: { [Op.iLike]: `%${search.value}%` } }] }
     }
-    console.log('!!!!!!', start, length, querySearch)
+
     return models.Dinosaurio.findAll({
-      offset: start,
       limit: length,
+      offset: start,
       where: querySearch,
-      include: [models.SubClase], raw: true, nest: true, logging: console.log
+      order: literal(`${columnOrder} ${orderValue.dir}`),
+      include: [models.SubClase]
     })
   },
   countDinosaurios() {
