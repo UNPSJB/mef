@@ -1,19 +1,33 @@
 const models = require('../models')
 const { paginateModel } = require('./utils')
 const { Op, literal } = require('sequelize')
+
+const genericSearch = (search, fields) => {
+  return fields.map(field => {
+    if (field === 'SubClase.descripcion') {
+      return literal(`"SubClase"."descripcion" ILIKE '%${search}%'`);
+    } else if (field !== 'id') {
+      return literal(`"${field}"::text ILIKE '%${search}%'`);
+    } else {
+      return literal(`"Dinosaurio"."id"::text ILIKE '%${search}%'`);
+    }
+  });
+};
 module.exports = {
   getAllDinosaurios() {
     return models.Dinosaurio.findAll({
       include: [models.SubClase], raw: true, nest: true
     })
   },
-  getDinosauriosDataTable({ draw, start, length, search, order, columns }) {
+  
+  getDinosauriosDataTable({ start, length, search, order, columns }) {
     let querySearch = undefined;
     const [orderValue] = order
     const columnOrder = columns[parseInt(orderValue.column)].data.split('.').map(name => `"${name}"`).join('.')
-    
+
     if (search.value && search.value.length > 1) {
-      querySearch = { [Op.or]: [{ nombre: { [Op.iLike]: `%${search.value}%` } }] }
+     // querySearch = { [Op.or]: [{ nombre: { [Op.iLike]: `%${search.value}%` } }] }
+     querySearch = { [Op.or]:genericSearch(search.value,["id","nombre","alimentacion","periodo","descubrimiento","SubClase.descripcion"])} 
     }
 
     return models.Dinosaurio.findAll({
