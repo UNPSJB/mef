@@ -19,31 +19,6 @@
     <th scope="col">Acciones</th>
   </thead>
   <tbody>
-    {{#each results}}
-    <tr>
-      <th>{{id}}</th>
-      <td style="word-wrap: break-word;">{{this.numero_coleccion}}</td>
-      <td>{{this.Dinosaurio.nombre}}</td>
-      <td>{{#if this.disponible}}
-        Sí
-        {{else}}
-        No
-        {{/if}}
-      </td>
-      <td>{{this.peso}} Kg.</td>
-      <td>{{this.fecha_encontrado}}</td>
-      <td>{{this.huesos}}</td>
-      <td style="word-wrap: break-word;">{{this.observacion}}</td>
-      <td>
-        {{!-- Acciones --}}
-        <a href="/fosiles/editar/{{this.id}}">
-          <span class="material-icons">
-            edit
-          </span>
-        </a>
-      </td>
-    </tr>
-    {{/each}}
   </tbody>
 </table>
 
@@ -52,9 +27,85 @@
   $(document).ready(function () {
     $('#fosiles').DataTable({
       dom: 'Bfrtip',
-      buttons: ['pdf', 'excel', 'csv'],
+      serverSide: true,
+      ajax: {
+        url: '/fosiles/list',
+        type: 'GET',
+        data: function (d) {
+          d.start = d.start;
+          d.length = d.length;
+          d.search = d.search.value;
+          d.order = d.order;
+          d.columns = d.columns;
+        }
+      },
+      columns: [
+        { data: 'id' },
+        { data: 'numero_coleccion' },
+        { data: 'Dinosaurio.nombre' },
+        { data: 'disponible',
+          render: function(data) {
+            return data ? 'Sí' : 'No';
+          }
+        },
+        { data: 'peso' },
+        { data: 'fecha_encontrado' },
+        { data: 'huesos' },
+        { data: 'observacion',
+          render: function(data) {
+            return data ? data : 'Sin observaciones';
+          }
+        },
+        { 
+          data: null,
+          className: 'no-export', // Agregar clase "no-export" a la columna de acciones
+          render: function (data, type, row) {
+            return '<a href="/fosiles/editar/' + data.id + '"><span class="material-icons">edit</span></a>';
+          }
+        }
+      ],
+      buttons: [
+        {
+          extend: 'pdfHtml5',
+          exportOptions: {
+            modifier: {
+              page: 'all' // Exportar todos los datos, no solo los de la página actual
+              
+            },
+            columns: ':not(.no-export)' // Exportar todas las columnas excepto las que tienen la clase "no-export"
+          },
+          customize: function(doc) {
+            // Establecer ancho de columna fijo
+            doc.content[1].table.widths = ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'];
+            // Ajustar el estilo de los títulos de las columnas
+            for (var i = 0; i < doc.content[1].table.body[0].length; i++) {
+              doc.content[1].table.body[0][i].alignment = 'center';
+            }
+          }
+        },
+        {
+          extend: 'excelHtml5',
+          exportOptions: {
+            modifier: {
+              page: 'all' // Exportar todos los datos, no solo los de la página actual
+            },
+            columns: ':not(.no-export)' // Exportar todas las columnas excepto las que tienen la clase "no-export"
+          },
+          customize: function(xlsx) {
+            // Establecer ancho de columna fijo
+            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+          }
+        },
+        {
+          extend: 'csv',
+          exportOptions: {
+            columns: ':not(.no-export)' // Exportar todas las columnas excepto las que tienen la clase "no-export"
+          }
+        }
+      ],
       searching: true,
       ordering: true,
+      processing:true,
       language: {
         processing: "Buscando...",
         search: "Buscar:",
