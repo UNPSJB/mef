@@ -19,29 +19,6 @@
     <th scope="col" class="no-sort">Acciones</th> <!-- Agrega la clase 'no-sort' a la columna "Acciones" -->
   </thead>
   <tbody>
-    {{#each dinosaurio}}
-    <tr>
-      <th>{{id}}</th>
-      <td>{{nombre}}</td>
-      <td>{{alimentacion}}</td>
-      <td>{{periodo}}</td>
-      <td>{{SubClase.descripcion}}</td>
-      <td>{{descubrimiento}}</td>
-      <!-- acciones aca -->
-      <td>
-        {{#if ../req.coleccion}}
-        <a href="/dinosaurios/editar/{{id}}"><span class="material-icons">
-            edit
-          </span></a>
-        <!--editar-->
-        
-        {{/if}}
-        <a href="/dinosaurios/moldes/{{id}}"><span
-            style="font-size: 17px;vertical-align:text-bottom;line-height: 2;">🦴</span></a>
-        {{!-- otras acciones mas --}}
-      </td>
-    </tr>
-    {{/each}}
   </tbody>
 </table>
 
@@ -49,11 +26,19 @@
   $(document).ready(function () {
     $('#dinosTable').DataTable({
       dom: 'Bfrtip',
+      serverSide: true,
+      ajax:'/dinosaurios/list',
+      columns: [{ data: 'id' }, { data: 'nombre' }, { data: 'alimentacion' }, { data: 'periodo' },
+      { data: 'SubClase.descripcion' }, { data: 'descubrimiento'},{render:()=>{
+      const id= '{{id}}'
+      return `{{#if ../req.coleccion}} <a href="/dinosaurios/editar/${id}"><span class="material-icons">edit</span></a>{{/if}}<a href="/dinosaurios/moldes/${id}"><span style="font-size: 17px;vertical-align:text-bottom;line-height: 2;">🦴</span></a>`
+      }}],
       buttons: [
         'pdf', 'excel', 'csv'
       ],
       searching: true,
       ordering: true,
+      processing:true,
       language: {
         processing: "Buscando...",
         search: "Buscar:",

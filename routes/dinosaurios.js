@@ -18,6 +18,18 @@ router.get('/',
     }
   })
 
+router.get('/list',
+  async (req, res) => {
+    try {
+      const total=await dinoService.countDinosaurios()
+      const {start,length,draw,search,columns,order}=req.query
+      const dinosaurios = await dinoService.getDinosauriosDataTable({start,length,search,columns,order})
+      res.json({ draw,data: dinosaurios, recordsTotal:total, recordsFiltered:total})
+    } catch (error) {
+      res.redirect('/404')
+    }
+  })
+
 router.get('/agregar',
   async (req, res) => {
     try {
@@ -58,7 +70,7 @@ router.get('/moldes/:id',
       const huesosAgrupados = await Promise.all(
         bones.map(async (bone) => {
           const agrupacionDeHuesos = await huesoService.getHuesosDinoArgs(id, { subtipohueso: bone })
-          return agrupacionDeHuesos.map (huesos => {
+          return agrupacionDeHuesos.map(huesos => {
             const hueso = { agrupado: bone, huesos }
             return hueso
           })
@@ -71,7 +83,7 @@ router.get('/moldes/:id',
     }
   });
 
-  router.get('/huesos/:id',
+router.get('/huesos/:id',
   async (req, res) => {
     try {
       const { id } = req.params;
@@ -83,7 +95,7 @@ router.get('/moldes/:id',
   })
 
 
-  router.patch('/moldes/toggle',
+router.patch('/moldes/toggle',
   async (req, res) => {
     try {
       const { id } = req.query;
