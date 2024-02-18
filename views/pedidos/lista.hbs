@@ -10,6 +10,7 @@
 <table class="table" id="pedidos">
   <thead>
     <th>#</th>
+    <th>Dinosaurio</th>
     <th>Estado</th>
     <th>Cliente</th>
     <th>Inicio Pedido</th>
@@ -20,6 +21,13 @@
     {{#each pedidos}}
     <tr class="{{this.estadoInstance}} {{req.exhibicion}} {{req.taller}}">
       <td class="id">{{this.id}}</td>
+      <td>
+        {{#if this.detallesPedido.length}} <!-- Verificar si hay detalles -->
+        {{this.detallesPedido.[0].nombreDinosaurio}} <!-- Mostrar el nombre del primer dinosaurio en detalles -->
+        {{else}}
+        <i>No hay Dino</i> <!-- Mostrar el mensaje si no hay detalles -->
+        {{/if}}
+      </td>
       <td>{{this.estadoInstance}}</td>
       <td class="cliente">
         {{#with this.Persona as |Cliente|}}
@@ -42,10 +50,6 @@
     {{/each}}
   </tbody>
 </table>
-
-
-
-
 <script>
   $(document).ready(function () {
     $('#pedidos').DataTable({

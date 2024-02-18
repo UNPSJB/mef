@@ -91,20 +91,24 @@
             </div>
           </div>
 
-
           <div class="row text-center pb-4">
             <label class="font-weight-bold pt-1 btn-block" for="idiomas">
               Idiomas:
             </label>
-            <select class="form-control" name="idiomas" multiple required>
-              {{#each idiomas }}
-              <option value="{{ this.id }}">
-                {{this.nombre}}
-              </option>
-              {{/each}}
-            </select>
+            <!-- Agregamos un contenedor con scroll -->
+            <div class="col-12" style="max-height: 200px; overflow-y: auto;">
+              <div class="form-check text-left">
+                {{#each idiomas }}
+                <input class="form-check-input" type="checkbox" name="idiomas[]" value="{{ this.id }}"
+                  id="idioma{{ this.id }}">
+                <label class="form-check-label" for="idioma{{ this.id }}">
+                  {{this.nombre}}
+                </label>
+                <br> <!-- Agregar un salto de línea después de cada idioma -->
+                {{/each}}
+              </div>
+            </div>
           </div>
-
 
           <!-- Botones de Agregar y Cancelar -->
           <div class="form-group">

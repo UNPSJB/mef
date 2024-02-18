@@ -95,6 +95,6 @@ module.exports = {
     });
   },
   updateFosil(fosilReq) {
-    return models.Fosil.upsert(fosilReq); //update or insert = upsert XD
+    return models.Fosil.update(fosilReq, { where: { id: fosilReq.id } });
   },
 };
