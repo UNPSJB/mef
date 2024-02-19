@@ -20,6 +20,17 @@ router.get('/', async (req, res) => {
     res.redirect('/404');
   }
 });
+router.get('/list', async (req, res) => {
+  try {
+    const total = await clienteService.countClientes();
+    const { start, length, draw, search, columns, order } = req.query;
+    console.log('RUTA', search);
+    const clientes = await clienteService.getClientesDataTable({ start, length, search, columns, order });
+    res.json({ draw, data: clientes, recordsTotal: total, recordsFiltered: total });
+  } catch (error) {
+    res.redirect('/404');
+  }
+});
 
 router.get('/agregar', (req, res) => {
   res.render('clientes/agregar', { req });
