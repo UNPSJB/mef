@@ -5,19 +5,19 @@ const { Op, literal } = require('sequelize');
 const MIN_CHARS = 1;
 const genericSearch = (search, fields) => {
   return fields.map(field => {
+    if (field === 'Persona.fecha_nacimiento') {
+      // Si el campo es fecha_nacimiento, comparamos solo por año, mes o día utilizando LIKE
+      return literal(`TO_CHAR("Persona"."fecha_nacimiento", 'YYYY-MM-DD') LIKE '%${search}%'`);
+    }
     if (
       field === 'Persona.nombre' ||
       field === 'Persona.apellido' ||
-      field === 'Persona.direccion' ||
       field === 'Persona.localidad' ||
-      field === 'Persona.email' ||
-      field === 'Persona.telefono'
+      field === 'Persona.identificacion' ||
+      field === 'Persona.direccion'
     ) {
       // Si el campo pertenece a la tabla Persona, aplicamos ILIKE directamente
       return literal(`"Persona"."${field.split('.')[1]}" ILIKE '%${search}%'`);
-    } else if (field === 'id') {
-      // Si es el campo ID, lo tratamos como Persona.id
-      return literal(`"Persona"."id"::text ILIKE '%${search}%'`);
     } else {
       // Si no pertenece a Persona ni es ID, asumimos que pertenece a Cliente y no prefixeamos
       return literal(`"${field}"::text ILIKE '%${search}%'`);
@@ -47,14 +47,13 @@ module.exports = {
       console.log('ESTOY EN EL IF YOU');
       querySearch = {
         [Op.or]: genericSearch(search, [
-          'id',
           'tipo',
           'Persona.nombre',
+          'Persona.identificacion',
           'Persona.apellido',
-          'Persona.direccion',
           'Persona.localidad',
-          'Persona.email',
-          'Persona.telefono',
+          'Persona.fecha_nacimiento',
+          'Persona.direccion',
         ]),
       };
     }
