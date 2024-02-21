@@ -9,19 +9,17 @@
         <div class="container">
           <div class="row">
             <div class="col" class="tab-content" id="myTabContent">
-              {{!--  tab contenido --}}
+              {{!-- tab contenido --}}
               <div class="" id="externo">
                 <label class="col form-group" id="Example">
                   <label class="font-weight-bold" for="cliente">Cliente:</label>
-
                   <select name="cliente" id="listadoClientes" class="form-control">
                     <option value="Interno"><i>Interno</i></option>
                     {{#each clientes}}
-                      <option value="{{this.Persona.id}}"> {{ this.Persona.nombre }}
-                        {{this.Persona.apellido}} {{this.Persona.identificacion}} </option>
+                    <option value="{{this.Persona.id}}"> {{ this.Persona.nombre }}
+                      {{this.Persona.apellido}} {{this.Persona.identificacion}} </option>
                     {{/each}}
                   </select>
-
                   <label class="font-weight-bold" for="descripcion">Descripción:</label>
                   <input disabled class="cliente form-control" type="text" name="descripcion"
                     placeholder="Solamente necesario para pedidos con clientes" />
@@ -38,9 +36,10 @@
                   <input type="radio" name="moneda" value="Euros">Euros
                   <br>
                   <br>
-                  <label class="font-weight-bold" for="finoferta">Fin De Oferta:  <i>solamente requerido para pedidos con cliente</i></label>
-                  <input disabled class="cliente form-control {{#if isInterno}}interno{{/if}}" type="date" name="finoferta" id="InpuFinOferta" {{#if isInterno}}required{{/if}}/>
-
+                  <label class="font-weight-bold" for="finoferta">Fin De Oferta: <i>solamente requerido para pedidos con
+                      cliente</i></label>
+                  <input disabled class="cliente form-control {{#if isInterno}}interno{{/if}}" type="date"
+                    name="finoferta" id="InpuFinOferta" {{#if isInterno}}required{{/if}} />
                 </label>
               </div>
             </div>
@@ -53,7 +52,7 @@
                   <option value="" selected aria-required="true">Seleccione un Dinosaurio
                   </option>
                   {{#each dinosaurios}}
-                    <option value="{{ this.id }}">{{ this.nombre }}</option>
+                  <option value="{{ this.id }}">{{ this.nombre }}</option>
                   {{/each}}
                 </select>
               </div>
@@ -78,20 +77,14 @@
               </div>
             </div>
           </div>
-
-          <!-- Botones de Agregar y Cancelar -->
+          <!-- Botón de Agregar -->
           <div class="form-group">
-            <div class="row">
+            <div class="row justify-content-end">
               <div class="col-6">
                 <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Pedido de Replicación</button>
               </div>
-              <div class="col-6">
-                <a href="/pedidos" class="btn btn-danger btn-sm btn-block">Cancelar</a>
-              </div>
             </div>
           </div>
-          <!--********************************-->
-
         </div>
       </div>
     </div>
@@ -118,20 +111,15 @@
         });
         // Habilitar radio buttons de moneda
         $("[name='moneda']").prop("disabled", false);
-     
       }
     }
-
     // Manejar el cambio de cliente al cargar la página
     handleClienteChange();
-
     // Manejar el cambio de cliente cuando se selecciona
     $('#listadoClientes').change(function () {
       handleClienteChange();
     });
-
     // ... (Otros scripts)
-
   });
 </script>
 
@@ -139,7 +127,6 @@
   //https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
   let e = document.getElementById("selectHueso");
   e.addEventListener("change", buscarHuesos);
-
   function buscarHuesos() {
     let dinoId = e.options[e.selectedIndex].value;
     fetch(`/dinosaurios/huesos/${dinoId}`, { mode: "cors" })
@@ -161,7 +148,6 @@
         console.log(err)
       })
   }
-
   function generateCheckbox(id, nombre, numero) {
     return `<input type="checkbox" name="hueso" value="${id}">${nombre} #${numero} <br>`;
   }
@@ -188,18 +174,15 @@
     document.getElementById("InpuFinOferta").setAttribute("min", hoy);
     $("#InpuFinOferta").attr("min", hoy);
   })
-
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
-
     if (month.length < 2)
       month = '0' + month;
     if (day.length < 2)
       day = '0' + day;
-
     return [year, month, day].join('-');
   }
 </script>

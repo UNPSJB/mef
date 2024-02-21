@@ -10,7 +10,8 @@
             <div class="col-6 pb-2">
               <label class="font-weight-bold" for="exhibicionId">Exhibición</label>
               <select class="form-control" name="exhibicionId" placeholder="Ingrese Exhibición" required>
-                <option value="{{visita.ExhibicionId}}" selected> {{visita.Exhibicion.tematica}} | {{visita.Exhibicion.nombre}}</option>
+                <option value="{{visita.ExhibicionId}}" selected> {{visita.Exhibicion.tematica}} |
+                  {{visita.Exhibicion.nombre}}</option>
                 {{#each exhibiciones}}
                 <option value="{{this.id}}">{{this.tematica}} | {{this.nombre}}</option>
                 {{else}}
@@ -18,100 +19,91 @@
                 {{/each}}
               </select>
               <small class="form-text-muted text-muted">Exhibición elegida.</small><br>
-              
               <label class="font-weight-bold" for="clienteId">Cliente</label>
               <select class="form-control" name="clienteId" placeholder="Ingrese Cliente" required>
-                <option value="{{visita.ClienteId}}">{{visita.Cliente.Persona.identificacion}} | {{visita.Cliente.Persona.nombre}} {{visita.Cliente.Persona.apellido}}</option>
+                <option value="{{visita.ClienteId}}">{{visita.Cliente.Persona.identificacion}} |
+                  {{visita.Cliente.Persona.nombre}} {{visita.Cliente.Persona.apellido}}</option>
                 {{#each clientes}}
-                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}} {{this.Persona.apellido}}</option>
+                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}}
+                  {{this.Persona.apellido}}</option>
                 {{else}}
                 <option value="">No hay clientes disponibles</option>
                 {{/each}}
               </select>
               <small class="form-text-muted text-muted">Cliente que solicita la visita.</small><br>
-
               <label class="font-weight-bold" for="guiaId">Guía</label>
               <select class="form-control" name="guiaId" placeholder="Ingrese Guia" required>
-                <option value="{{visita.GuiumId}}" selected>{{visita.Guium.Persona.identificacion}} | {{visita.Guium.Persona.nombre}} {{visita.Guium.Persona.apellido}}</option>
+                <option value="{{visita.GuiumId}}" selected>{{visita.Guium.Persona.identificacion}} |
+                  {{visita.Guium.Persona.nombre}} {{visita.Guium.Persona.apellido}}</option>
                 {{#each guias}}
-                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}} {{this.Persona.apellido}}</option>
+                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}}
+                  {{this.Persona.apellido}}</option>
                 {{else}}
-                <option value="">No hay guías disponibles</option>               
+                <option value="">No hay guías disponibles</option>
                 {{/each}}
               </select>
               <small class="form-text-muted text-muted">Guía encargado de la visita.</small><br>
-
               <label class="font-weight-bold" for="cantidadPersonas">Cantidad de Personas</label>
-              <input type="number" class="form-control" name="cantidadPersonas" min="1" max="300" placeholder="Ingrese Cantidad de Personas" value="{{visita.cantidadDePersonas}}" required>
+              <input type="number" class="form-control" name="cantidadPersonas" min="1" max="300"
+                placeholder="Ingrese Cantidad de Personas" value="{{visita.cantidadDePersonas}}" required>
               <small class="form-text-muted text-muted">Mínimo 1 persona. Máximo 300.</small>
-
             </div>
             <div class="col-6">
               <label class="font-weight-bold" for="fecha">Fecha</label>
-              <input type="date" class="form-control" id="fechaVisita" name="fecha" placeholder="Ingrese Fecha" value="{{visita.fechaVisita}}" required>
-              <small class="form-text-muted text-muted">Fecha de la visita guiada. La visita debe ser igual o posterior a hoy</small><br>
-            
+              <input type="date" class="form-control" id="fechaVisita" name="fecha" placeholder="Ingrese Fecha"
+                value="{{visita.fechaVisita}}" required>
+              <small class="form-text-muted text-muted">Fecha de la visita guiada. La visita debe ser igual o posterior
+                a hoy</small><br>
               <label class="font-weight-bold" for="email">Horario</label>
-              <select class= "form-control" name="horario" >
+              <select class="form-control" name="horario">
                 <option value="{{visita.horario}}" selected>{{visita.horario}}:00 hs</option>
                 <option value="9">
                   09:00hs
                 </option>
-                <option  value="10">
+                <option value="10">
                   10:00hs
                 </option>
-                <option  value="11">
+                <option value="11">
                   11:00hs
                 </option>
-                <option  value="12">
+                <option value="12">
                   12:00hs
                 </option>
-                <option  value="13">
+                <option value="13">
                   13:00hs
                 </option>
-                <option  value="14">
+                <option value="14">
                   14:00hs
                 </option>
-                <option  value="15">
+                <option value="15">
                   15:00hs
                 </option>
-                <option  value="16">
+                <option value="16">
                   16:00hs
                 </option>
-                <option  value="17">
+                <option value="17">
                   17:00hs
                 </option>
-                <option  value="18">
+                <option value="18">
                   18:00hs
                 </option>
-
               </select>
               <small class="form-text-muted text-muted">Horario de la visita guiada.</small><br>
-              
               <label class="font-weight-bold" for="precio">Precio</label>
-              <input class="form-control" type="number" name="precio" min="1" max="3000000" value="{{visita.precio}}" placeholder="Ingrese el Precio de la Visita Guiada" required>
+              <input class="form-control" type="number" name="precio" min="1" max="3000000" value="{{visita.precio}}"
+                placeholder="Ingrese el Precio de la Visita Guiada" required>
               <small class="form-text-muted text-muted">Mínimo $1. Máximo $3.000.000 (Pesos Argentinos)</small>
-
             </div>
           </div>
-
-
-
-          <!--Botones de Guardar y Cancelar--->
-            <div class="form-group">
-              <div class="row">
-                <input type="hidden" name="id" value="{{visita.id}}">
-                <div class="col-6">
-                  <a href="/visitas" class="btn btn-danger btn-sm btn-block">Cancelar</a>
-                </div>
-                <div class="col-6">
-                  <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
-                </div>
+          <!--Botón de Guardar--->
+          <div class="form-group">
+            <div class="row justify-content-end">
+              <input type="hidden" name="id" value="{{visita.id}}">
+              <div class="col-6">
+                <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
               </div>
             </div>
-            <!--****************************--->
-
-
+          </div>
         </div>
       </div>
   </form>
@@ -123,19 +115,15 @@
     var hoy = formatDate(new Date());
     document.getElementById("fechaVisita").setAttribute("min", hoy);
   })
-
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
-
     if (month.length < 2)
       month = '0' + month;
     if (day.length < 2)
       day = '0' + day;
-
     return [year, month, day].join('-');
   }
-
 </script>

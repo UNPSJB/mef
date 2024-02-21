@@ -2,7 +2,7 @@
   <form action="/exhibiciones?_method=PUT" method="POST">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarDinoModalLabel">
-        <h3>Editar Exhibición</h3>
+        <h3>Editar Exhibición #{{exhibicion.id}}</h3> <!--TODO quiero que se vea el id de la exhibición-->
       </div>
       <div class="card-body">
         <div class="form-group">
@@ -58,24 +58,15 @@
           </div>
         </div>
       </div>
-
-
-      <!--Botones de Guardar y Cancelar--->
+      <!--Botón de Guardar -->
       <div class="form-group">
-        <div class="row">
+        <div class="row justify-content-end">
           <input type="hidden" name="id" value="{{exh.id}}" hidden>
           <div class="col-6">
             <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
           </div>
-          <div class="col-6">
-            <a href="/exhibiciones" class="btn btn-danger btn-sm btn-block">Cancelar</a>
-          </div>
         </div>
       </div>
-      <!--****************************--->
-
-
     </div>
-</div>
-</form>
+  </form>
 </div>

@@ -31,26 +31,10 @@
             </tbody>
         </table>
     </div>
-
-
-    <div class="card-footer">
-
-    </div>
-
-    <!-- Botones de Eliminar y Volver -->
-    <div class="row mt-4">
-        <div class="col-6">
-            <a href="/pedidos/replicas" class="btn btn-secondary btn-block">Volver</a>
-        </div>
-        <div class="col-6">
-            <form action="/replicas?_method=DELETE" method="POST">
-                <input type="number" name="id" value="{{replica.dataValues.id}}" hidden required>
-                <button type="submit" class="btn btn-danger btn-block">Eliminar</button>
-            </form>
-        </div>
-    </div>
-    <!--********************************-->
-
-
-
 </div>
+
+<!-- Botón de Eliminar -->
+<form action="/replicas?_method=DELETE" method="POST">
+    <input type="number" name="id" value="{{replica.dataValues.id}}" hidden required>
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+</form>

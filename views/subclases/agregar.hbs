@@ -7,7 +7,6 @@
             <h3>Agregar Subclase</h3>
           </div>
           <div class="card-body">
-
             <div class="row">
               <div class="form-group col">
                 <label class="font-weight-bold">Descripción:</label>
@@ -15,10 +14,8 @@
                   placeholder="Ingrese Descripción Subclase" required {{#if subclase}} value="{{subclase.descripcion}}"
                   {{/if}}>
                 <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
-
               </div>
             </div>
-
             <div class="row pb-4 text-center mx-auto">
               <span class="font-weight-bold pb-2">Clase:</span>
               <div class="pl-2" data-toggle="buttons">
@@ -32,26 +29,14 @@
                 </label>
               </div>
             </div>
-
-
-
-
-            <!-- Botones de Agregar y Cancelar -->
+            <!-- Botón de Agregar -->
             <div class="form-group">
-              <div class="row">
+              <div class="row justify-content-end">
                 <div class="col-6">
                   <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Subclase</button>
                 </div>
-                <div class="col-6">
-                  <a href="/subclases" class="btn btn-danger btn-sm btn-block">Cancelar</a>
-                </div>
               </div>
             </div>
-            <!--********************************-->
-
-
-
-
           </div>
         </div>
       </div>
