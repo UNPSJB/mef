@@ -33,15 +33,9 @@
             </tbody>
         </table>
     </div>
-
-
-
-
-    <!---Botones de Eliminar y Cancelar-->
+    <!--Botón de Eliminar -->
     <form action="/clientes?_method=DELETE" method="POST">
         <input name="id" type="number" value="{{cliente.id}}" hidden required>
         <button type="submit" class="btn btn-danger">Eliminar Cliente</button>
-        <a href="/clientes" class="btn btn-primary">Cancelar</a>
-    <!---******************************-->
-
+    </form>
 </div>

@@ -2,15 +2,14 @@
   <form class="pt-3" action="/clientes?_method=PUT" method="POST">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarClienteModalLabel">
-        <h1>Editar Cliente</h1>
+        <h1>Editar Cliente #{{cliente.Persona.id}}</h1>
       </div>
       <div class="card-body">
         <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
           {{>persona/cliente cliente.Persona}}
         </div>
-
         <div class="row justify-content-center p-3x">
-         <label class="btn btn-secondary form-check-label mr-3">
+          <label class="btn btn-secondary form-check-label mr-3">
             <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required>
             Particular
           </label>
@@ -18,53 +17,40 @@
             <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off" required>
             Institucional
           </label>
-
           {{#if cliente}}<input name="idCliente" type="number" value="{{cliente.id}}" hidden> {{/if}}
           {{#if cliente}}<input name="idPersona" type="number" value="{{cliente.Persona.id}}" hidden> {{/if}}
           </label>
         </div>
-
-
-
-        <!--Botones de Guardar y Cancelar--->
-            <div class="form-group">
-              <div class="row">
-                <div class="col-6">
-                  <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
-                </div>
-                <div class="col-6">
-                  <a href="/clientes" class="btn btn-danger btn-sm btn-block">Cancelar</a>
-                </div>
-              </div>
+        <br> <!-- Salto de renglón -->
+        <!--Botón de Guardar -->
+        <div class="form-group">
+          <div class="row justify-content-end">
+            <div class="col-6">
+              <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
             </div>
-            <!--****************************--->
-
-
-
+          </div>
+        </div>
       </div>
     </div>
   </form>
 </div>
 
+<!-- Setea la fecha actual -->
 <script>
-  // setea la fecha actual
   $(document).ready(function () {
     var hoy = formatDate(new Date());
     document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
     $("#InputFechaNacimiento").attr("max", hoy);
   })
-
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear() - 18; //Los clientes deben tener 18 años o más
-
     if (month.length < 2)
       month = '0' + month;
     if (day.length < 2)
       day = '0' + day;
-
     return [year, month, day].join('-');
   }
 </script>

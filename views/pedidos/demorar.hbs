@@ -3,7 +3,6 @@
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
   <div class="card-body justify-content-start">
     {{!-- @TODO @ALEX cambiar a botones --}}
-
     <input type="radio" name="retraso_estimado" value="2 a 4 meses" required>2 de 4 meses <br>
     <input type="radio" name="retraso_estimado" value="4 a 6 meses">4 de 6 meses <br>
     <input type="radio" name="retraso_estimado" value="6 a 10 meses">6 de 10 meses <br>
@@ -13,7 +12,7 @@
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Ver
       Detalle</button>
   </div>
-  <!-- Botón de Confirmar -->
+  <!-- Botón de Demorar -->
   <div class="row justify-content-end">
     <div class="col-6">
       <button type="submit" class="btn btn-success btn-block">Demorar</button>
