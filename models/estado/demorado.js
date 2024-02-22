@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) =>{
             defaultValue:'Demorado',
             allowNull:false  
         } ,
-        retraso_estimado: DataTypes.STRING, //3 meses, 2 semanas, dos semanas, cinco anos
+        
         PedidoId:{
             type:DataTypes.INTEGER,
             references:{
@@ -38,4 +38,3 @@ module.exports = (sequelize, DataTypes) =>{
     });
     return Demorado;
 }
-
