@@ -26,12 +26,12 @@ Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Exce
 .. image:: ../images/exportar
    :width: 200
 
-Empleados
-_________
+Empleados de Taller
+___________________
 
 **Pantalla Principal / Listado**
 
-Bienvenido al listado de Empleados. 
+Bienvenido al listado de Empleados de Taller. 
 El presente listado le presentará un detalle de todos los emplados en la base de datos con sus detalles.
 
 .. image:: ../images/rrhh/empleados/ListaEmpleados.jpg

@@ -1,7 +1,7 @@
 Gestión de Jefe de Recursos Humanos
 ===================================
 
-Empleados
+Empleados de Taller
 _________
 
 **Pantalla Principal / Listado**
