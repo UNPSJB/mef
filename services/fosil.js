@@ -43,7 +43,6 @@ module.exports = {
         ]),
       };
     }
-    console.log('ACA....', search);
 
     return models.Fosil.findAll({
       limit: length,
