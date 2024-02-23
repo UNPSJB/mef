@@ -91,7 +91,6 @@ module.exports = {
     return models.Cliente.upsert(clienteReq);
   },
   async deleteCliente(id) {
-    //preguntar a doni si asi eta bien
     const clienteEncontrado = await models.Cliente.findByPk(id);
     return clienteEncontrado.destroy(clienteEncontrado);
   },
