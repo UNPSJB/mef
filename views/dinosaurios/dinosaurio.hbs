@@ -28,11 +28,26 @@
       dom: 'Bfrtip',
       serverSide: true,
       ajax:'/dinosaurios/list',
-      columns: [{ data: 'id' }, { data: 'nombre' }, { data: 'alimentacion' }, { data: 'periodo' },
-      { data: 'SubClase.descripcion' }, { data: 'descubrimiento'},{render:()=>{
-      const id= '{{id}}'
-      return `{{#if ../req.coleccion}} <a href="/dinosaurios/editar/${id}"><span class="material-icons">edit</span></a>{{/if}}<a href="/dinosaurios/moldes/${id}"><span style="font-size: 17px;vertical-align:text-bottom;line-height: 2;">🦴</span></a>`
-      }}],
+      columns: [
+        { data: 'id' },
+        { data: 'nombre' },
+        { data: 'alimentacion' },
+        { data: 'periodo' },
+        { data: 'SubClase.descripcion' }, 
+        { data: 'descubrimiento'},
+        { 
+          data: null,
+          render: function(data, type, row) {
+            const id = data.id;
+            let editLink = '';
+            if (row.req && row.req.coleccion) {
+              editLink = `<a href="/dinosaurios/editar/${id}" class="no-export"><span class="material-icons">edit</span></a>`;
+            }
+            return `${editLink}<a href="/dinosaurios/moldes/${id}" class="no-export"><span style="font-size: 17px;vertical-align:text-bottom;line-height: 2;">🦴</span></a>`;
+          }
+        }
+      
+      ],
       buttons: [
         'pdf', 'excel', 'csv'
       ],
