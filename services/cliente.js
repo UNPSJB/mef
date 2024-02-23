@@ -43,7 +43,6 @@ module.exports = {
       .join('.');
 
     if (search && search.length > MIN_CHARS) {
-      console.log('ESTOY EN EL IF YOU');
       querySearch = {
         [Op.or]: genericSearch(search, [
           'tipo',
