@@ -55,7 +55,6 @@ module.exports = {
         ]),
       };
     }
-    console.log(querySearch);
     return models.Cliente.findAll({
       limit: length,
       offset: start,
