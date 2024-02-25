@@ -107,5 +107,18 @@
         jQuery(elem).text(jQuery.format.date(jQuery(elem).text(), longDateFormat));
       }
     });
-  });
+
+});
+
+// Función para actualizar el contenido del modal de detalle de fabricando
+function actualizarDetalleFabricando() {
+    // Actualizar el contenido del modal con los datos actuales sin hacer una solicitud AJAX
+    $('#detalle-fabricando-modal .modal-body').load(window.location.href + ' #detalle-fabricando-modal .modal-body');
+}
+
+// Llamar a la función de actualización al cargar la página
+$(document).ready(function() {
+    actualizarDetalleFabricando(); // Llamar a la función de actualización al cargar la página
+});
 </script>
+
