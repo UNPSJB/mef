@@ -9,7 +9,7 @@
 
 <table class="table" id="pedidos">
   <thead>
-    <th>#</th>
+    <th>#</th> 
     <th>Dinosaurio</th>
     <th>Estado</th>
     <th>Cliente</th>
@@ -18,42 +18,45 @@
     <th scope="col" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
-    {{#each pedidos}}
-    <tr class="{{this.estadoInstance}} {{req.exhibicion}} {{req.taller}}">
-      <td class="id">{{this.id}}</td>
-      <td>
-        {{#if this.detallesPedido.length}} <!-- Verificar si hay detalles -->
-        {{this.detallesPedido.[0].nombreDinosaurio}} <!-- Mostrar el nombre del primer dinosaurio en detalles -->
-        {{else}}
-        <i>No hay Dino</i> <!-- Mostrar el mensaje si no hay detalles -->
-        {{/if}}
-      </td>
-      <td>{{this.estadoInstance}}</td>
-      <td class="cliente">
-        {{#with this.Persona as |Cliente|}}
-        {{Cliente.nombre}} {{Cliente.apellido}}
-        {{else}}
-        <i>Interno</i>
-        {{/with}}
-      </td>
-      <td class="shortDateFormat">
-        {{this.createdAt}}
-      </td>
-      <td>
-        {{#with this.motivo}}
-        {{this}}
-        {{else}}
-        <i>No hay Descripción</i>
-        {{/with}}
-      </td>
-    </tr>
-    {{/each}}
   </tbody>
 </table>
 <script>
   $(document).ready(function () {
     $('#pedidos').DataTable({
       dom: 'Bfrtip',
+      serverSide:true,
+      ajax:{
+        url:'/pedidos/list',
+        type:'GET',
+        data: function (d) {
+          d.start = d.start;
+          d.length = d.length;
+          d.search = d.search.value;
+          d.order = d.order;
+          d.columns = d.columns;
+        },
+      },  
+        columns: [
+        { data: 'id'},
+        { data: 'Dinosaurio.nombre'},
+        { data: 'estadoInstance' },
+        { data: 'Persona.nombre'},
+        {data:'createdAt'},
+        {data:'motivo'},
+        {render: function (d) {    
+          return 'Hello'
+        }
+        }
+        /*
+            <th>#</th>
+            <th>Dinosaurio</th>
+            <th>Estado</th>
+            <th>Cliente</th>
+             <th>Inicio Pedido</th>
+             <th>Descripción</th>
+        
+        */
+      ],
       buttons: ['pdf', 'excel', 'csv'],
       searching: true,
       ordering: true,

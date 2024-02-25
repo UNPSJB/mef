@@ -3,103 +3,125 @@ const INTERNO = 'Interno';
 const EXTERNO = 'Externo';
 const CONFIRMADO = 'Confirmado';
 const PRESUPUESTADO = 'Presupuestado';
-const { paginateModel } = require('./utils')
-
+const { paginateModel } = require('./utils');
+function obtenerDinosaurio(detalles) {
+  try {
+    const [primeretalle] = detalles;
+    return primeretalle.Hueso.Dinosaurio;
+  } catch (error) {
+    console.error('Error al obtener los detalles del pedido:', error);
+    return null;
+  }
+}
 module.exports = {
-  getAllPedidos(args, opts = {}){
+  getAllPedidos(args, opts = {}) {
     return models.Pedido.findAll({
       include: [models.Persona],
-      where:{
-        ...args
+      where: {
+        ...args,
       },
-      order:[
-        ['createdAt', 'DESC']
-      ]
-    })    
+      order: [['createdAt', 'DESC']],
+    });
   },
-  countPedidos(){
-    return models.Pedido.count()
+  countPedidos() {
+    return models.Pedido.count();
   },
   getPedidos(page = 0, pageSize = 10, args) {
     return models.Pedido.findAll({
       include: [models.Persona],
-      where:{
-        ...args
+      where: {
+        ...args,
       },
-      order:[
-        ['createdAt', 'DESC']
+      order: [['createdAt', 'DE9SC']],
+      ...paginateModel({ page, pageSize }),
+    });
+  },
+  async getPedidosDataTable({ start, length, search, order, columns }) {
+    const pedidos = await models.Pedido.findAll({
+      limit: length,
+      offset: start,
+      include: [
+        models.Persona,
+        { model: models.Detalle, include: [{ model: models.Hueso, as: 'Hueso', include: [models.Dinosaurio] }] },
       ],
-      ...paginateModel({ page, pageSize })
-    })
+    });
+    const pedidosJson = JSON.parse(JSON.stringify(pedidos));
+
+    await Promise.all(
+      pedidos.map(async (pedido, index) => {
+        const estado = await pedido.estado;
+        const dinosaurio = obtenerDinosaurio(pedido.Detalles);
+        pedidosJson[index].estadoInstance = estado.constructor.name;
+        pedidosJson[index].Dinosaurio = dinosaurio;
+      })
+    );
+    return pedidosJson;
   },
   getPedido(args) {
     return models.Pedido.findOne({
-      where : {
-        ...args
+      where: {
+        ...args,
       },
-      include: [models.Persona,{
-        model: models.Empleado, include: models.Persona
-      }, {
-        model: models.Detalle,
-      }]
-    })
+      include: [
+        models.Persona,
+        {
+          model: models.Empleado,
+          include: models.Persona,
+        },
+        {
+          model: models.Detalle,
+        },
+      ],
+    });
   },
-  obtenerPedido(id){
-    return models.Pedido.findByPk(id, {include:[persona]});
+  obtenerPedido(id) {
+    return models.Pedido.findByPk(id, { include: [persona] });
   },
-  getPresupuestados(){
+  getPresupuestados() {
     return models.Pedido.findAll({
-      where:{
-        tipo:'Externo',
-        autorizacion: false
-      }
-    })
+      where: {
+        tipo: 'Externo',
+        autorizacion: false,
+      },
+    });
   },
-  solicitar(huesos){
+  solicitar(huesos) {
     return models.Pedido.create({
-      autorizacion:true,
-      tipo:INTERNO,
-    }).then(pedido=>{
-      pedido.crearDetalles(huesos)
-    })
+      autorizacion: true,
+      tipo: INTERNO,
+    }).then(pedido => {
+      pedido.crearDetalles(huesos);
+    });
   },
-  presupuestar(
-    huesos,
-    cliente,
-    descripcion,
-    monto,
-    fecha_fin_oferta,
-    moneda
-  ) {
+  presupuestar(huesos, cliente, descripcion, monto, fecha_fin_oferta, moneda) {
     //crea el pedido y sus detalles
     return models.Pedido.create({
-        tipo:EXTERNO,
-        PersonaId:cliente, //@TODO aca va cliente
-        motivo:descripcion
-      })
-      .then(async pedido => {
-        //una vez que hayas creado el presupuesto
-        //agregarle todos sus ddetalles
-        pedido.crearDetalles(huesos);
-        const estado = await pedido.estado;
-        await estado.update({
-          cantidad_huesos:huesos.length,
-          monto,
-          fecha_fin_oferta,
-          moneda
-        })
+      tipo: EXTERNO,
+      PersonaId: cliente, //@TODO aca va cliente
+      motivo: descripcion,
+    }).then(async pedido => {
+      //una vez que hayas creado el presupuesto
+      //agregarle todos sus ddetalles
+      pedido.crearDetalles(huesos);
+      const estado = await pedido.estado;
+      await estado.update({
+        cantidad_huesos: huesos.length,
+        monto,
+        fecha_fin_oferta,
+        moneda,
       });
+    });
   },
   updatePedido(pedido) {
     return models.Pedido.upsert(pedido);
   },
-  getReplicas(args, options = {}){
+  getReplicas(args, options = {}) {
     return models.Replica.findAll({
-      where:{
-        ...args
+      where: {
+        ...args,
       },
-      include:[models.Hueso, models.Dinosaurio],
-      ...options
-    })
-  }
+      include: [models.Hueso, models.Dinosaurio],
+      ...options,
+    });
+  },
 };
