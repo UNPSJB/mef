@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) =>{
             defaultValue:'Demorado',
             allowNull:false  
         } ,
+        motivo_demora:{
+            type:DataTypes.STRING,
+            defaultValue:'Otros' 
+        },
         
         PedidoId:{
             type:DataTypes.INTEGER,
