@@ -9,12 +9,12 @@ module.exports = (sequelize, DataTypes) =>{
         fabricar(){
             console.log('No se puede realizar la accion');
         }
-        demorar(pedido,args){//retraso_estimado
+        demorar(pedido,args){
             const PedidoId = pedido.id;
-            const { retraso_estimado, observacion: descripcion } = args;
+            const { motivo_demora, observacion: descripcion } = args;
             return sequelize.models.Demorado.create({
                 PedidoId,
-                retraso_estimado,
+                motivo_demora,
                 descripcion,
                 fecha:new Date() // created_at
             })

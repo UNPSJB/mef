@@ -13,25 +13,21 @@
                 maxlength="50" name="identificacion" id="InputIdentificacion" placeholder="Ingrese su documento"
                 required {{#if this}} value="{{this.tipo }}" {{/if}}>
               <small class="form-text-muted text-muted">Sólo números.</small><br>
-
               <label class="font-weight-bold" for="nombre">Nombre</label>
               <input type="text" class="form-empleado form-control" minlength="1" maxlength="50" name="nombre"
                 id="InputNombre" placeholder="Ingrese Nombre" required {{#if this}}value="{{this.nombre}}" {{/if}}>
               <small class="form-text-muted text-muted">Mínimo 1 caracter. Máximo 50 caracteres.</small><br>
-
               <label class="font-weight-bold" for="apellido">Apellido</label>
               <input type="text" class="form-empleado form-control" minlength="1" maxlength="50" name="apellido"
                 id="InputApellido" placeholder="Ingrese Apellido" required {{#if this}}value="{{this.apellido}}"
                 {{/if}}>
               <small class="form-text-muted text-muted">Mínimo 1 caracter. Máximo 50 caracteres</small><br>
-
               <label class="font-weight-bold" for="direccion">Dirección</label>
               <input type="text" class="form-empleado form-control" minlength="5" maxlength="140" name="direccion"
                 id="InputDireccion" placeholder="Ingrese Dirección" required {{#if this}}value="{{this.direccion}}"
                 {{/if}}>
               <small class="form-text-muted text-muted">Dirección completa. Mínimo 5 caracteres. Máximo 140
                 caracteres.</small><br>
-
               <div class="row py-4 text-center mx-auto">
                 <span class="font-weight-bold pt-1">
                   Horario Laboral:
@@ -54,24 +50,20 @@
                 id="InputLocalidad" placeholder="Ingrese Localidad." required {{#if this}}value="{{this.localidad}}"
                 {{/if}}>
               <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
-
               <label class="font-weight-bold" for="email">Correo Electrónico</label>
               <input type="email" class="form-empleado form-control" minlength="6" maxlength="50" name="email"
                 id="InputEmail" placeholder="Ingrese correo electrónico" required {{#if this}}value="{{this.email}}"
                 {{/if}}>
               <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>
-
               <label class="font-weight-bold" for="fechaNacimiento">Fecha Nacimiento</label>
               <input type="date" class="form-empleado form-control" name="fecha_nacimiento" min="1900-01-01"
                 id="InputFechaNacimiento" required {{#if this}}value="{{this.fecha_nacimiento}}" {{/if}}>
               <small class="form-text-muted text-muted">Fecha de nacimiento de empleado</small><br>
-
               <label class="font-weight-bold" for="InputTelefono">Teléfono</label>
               <input type="tel" class="form-empleado form-control" minlength="6" maxlength="50" name="telefono"
                 id="InputTelefono" placeholder="Ingrese Teléfono" required {{#if this}}value="{{this.telefono}}"
                 {{/if}}>
               <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>
-
               <div class="row py-4 text-center mx-auto">
                 <span class="font-weight-bold pt-1">
                   Dias Laborales:
@@ -90,7 +82,6 @@
               {{#if this}}<input name="id" type="number" value="{{this.id}}" hidden> {{/if}}
             </div>
           </div>
-
           <div class="row text-center pb-4">
             <label class="font-weight-bold pt-1 btn-block" for="idiomas">
               Idiomas:
@@ -109,39 +100,26 @@
               </div>
             </div>
           </div>
-
-          <!-- Botones de Agregar y Cancelar -->
+          <!-- Botón de Agregar -->
           <div class="form-group">
-            <div class="row">
-              <div class="col-6">
-                <a href="/guias" class="btn btn-danger btn-sm btn-block">Cancelar</a>
-              </div>
+            <div class="row justify-content-end">
               <div class="col-6">
                 <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Guía</button>
               </div>
             </div>
           </div>
-          <!--********************************-->
-
-
         </div>
       </div>
   </form>
 </div>
 
-
-
+<!-- Setea la fecha actual -->
 <script>
-
-  // setea la fecha actual
-
-
   $(document).ready(function () {
     var hoy = formatDate(new Date());
     document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
     $("#InputFechaNacimiento").attr("max", hoy);
   })
-
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
@@ -155,10 +133,6 @@
 
     return [year, month, day].join('-');
   }
-
-
-
   $(document).ready(() => {
-
   });
 </script>

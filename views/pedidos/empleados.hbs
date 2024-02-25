@@ -14,18 +14,12 @@
     </table>
   </div>
   {{#if id}}<input name="idPedido" type="number" value="{{id}}" hidden> {{/if}}
-
-  <!-- Botones de Confirmar y Volver -->
-  <div class="row mt-4">
+  <!-- Botón de Asignar -->
+  <div class="row justify-content-end">
     <div class="col-6">
-      <a href="/pedidos" class="btn btn-danger btn-block">Volver</a>
-    </div>
-    <div class="col-6">
-      <button type="submit" class="btn btn-success btn-block">Confirmar</button>
+      <button type="submit" class="btn btn-success btn-block">Asignar</button>
     </div>
   </div>
-  <!--********************************-->
-
 </form>
 
 <script>

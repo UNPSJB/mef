@@ -1,31 +1,76 @@
-<h1 class="mt-4">Pedido de Replicación Nº {{id}} - Demorar Replicación</h1>
-<span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
-<form action="/pedidos/{{accion}}/{{id}}" method="post">
-  <div class="card-body justify-content-start">
-    {{!-- @TODO @ALEX cambiar a botones --}}
+<!DOCTYPE html>
+<html lang="en">
 
-    <input type="radio" name="retraso_estimado" value="2 a 4 meses" required>2 de 4 meses <br>
-    <input type="radio" name="retraso_estimado" value="4 a 6 meses">4 de 6 meses <br>
-    <input type="radio" name="retraso_estimado" value="6 a 10 meses">6 de 10 meses <br>
-    <input type="radio" name="retraso_estimado" value=" mas de 10 meses">mas de 10 meses <br>
-    <p class="card-text">Ingrese Observación:</p>
-    <textarea class="form-control" placeholder="Ingrese Observación" name="observacion" rows="5"></textarea>
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Ver
-      Detalle</button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedido de Replicación - Demorar Replicación</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container mt-4">
+    <h1 class="mb-4">Pedido de Replicación Nº {{id}} - Demorar Replicación</h1>
+    <div class="alert alert-warning" role="alert">
+      {{accion}} el siguiente pedido
+    </div>
+    <form action="/pedidos/{{accion}}/{{id}}" method="post">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text">Motivo:</p>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="motivo_demora" id="motivoPresupuestario" value="Presupuestario"
+              required>
+            <label class="form-check-label" for="motivoPresupuestario">
+              Presupuestario
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="motivo_demora" id="motivoFaltaPersonal" value="Falta Personal"
+              required>
+            <label class="form-check-label" for="motivoFaltaPersonal">
+              Falta de Personal
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="motivo_demora" id="motivoFaltaMaterial" value="Falta Material"
+              required>
+            <label class="form-check-label" for="motivoFaltaMaterial">
+              Falta de Material
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="motivo_demora" id="motivoOtros" value="Otros" required>
+            <label class="form-check-label" for="motivoOtros">
+              Otros
+            </label>
+          </div>
+          <br>
+          <p class="card-text">Ingrese Observación:</p>
+          <textarea class="form-control" placeholder="Ingrese Observación" name="observacion" rows="5"></textarea>
+          <br>
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Ver Detalle</button>
+        </div>
+      </div>
+      <!-- Botón de Demorar -->
+      <div class="row justify-content-end mt-3">
+        <div class="col-6">
+          <button type="submit" class="btn btn-success btn-block">Demorar</button>
+        </div>
+      </div>
+    </form>
   </div>
 
-  <!-- Botones de Confirmar y Volver -->
-  <div class="row mt-4">
-    <div class="col-6">
-      <a href="/pedidos" class="btn btn-danger btn-block">Volver</a>
-    </div>
-    <div class="col-6">
-      <button type="submit" class="btn btn-success btn-block">Confirmar</button>
-    </div>
-  </div>
-  <!--********************************-->
+</body>
 
-</form>
+</html>
+
 
 
 

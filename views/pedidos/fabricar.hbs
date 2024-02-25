@@ -1,7 +1,6 @@
 <h1 class="mt-4">Pedido de Replicación Nº {{id}} - Fabricar Replicación</h1>
 <span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
-
     {{> replica/detalle detalles}}
     <label class="form-group" for="inicio">
         Fecha Inicio
@@ -13,17 +12,14 @@
     </label>
     <br>
     <label for="asignacion">
-        <h3>Asignar empleados</h3>
+        <h3>Asignar empleados de taller</h3>
     </label>
     <br>
-
-
-    <label for="empleadosasignados">Empleados asignados:</label>
+    <label for="empleadosasignados">Empleados de taller asignados:</label>
     {{!-- @TODO completar con empleados asignados --}}
     <div class="form-group bg-secondary">
-
     </div>
-    <label for="empleadossinasignar">Empleados disponibles:</label>
+    <label for="empleadossinasignar">Empleados  de taller disponibles:</label>
     <div class="container border">
         <div class="row">
             <div class="col-sm border" style="height: 21vh; overflow: auto">
@@ -33,18 +29,14 @@
             </div>
         </div>
     </div>
-
-    <!-- Botones de Confirmar y Volver -->
-    <div class="row mt-4">
-        <div class="col-6">
-            <a href="/pedidos" class="btn btn-danger btn-block">Volver</a>
-        </div>
-        <div class="col-6">
-            <button type="submit" class="btn btn-success btn-block">Confirmar</button>
+    <br> <!-- Salto de línea -->
+    <!-- Botón de Fabricar -->
+    <div class="row justify-content-end">
+        <div class="col-6 text-right">
+            <button type="submit" class="btn btn-success btn-block">Fabricar</button>
         </div>
     </div>
-    <!--********************************-->
-
+    <br>
 </form>
 
 <script>
@@ -64,9 +56,7 @@
                 }
                 contenedor.innerHTML = arr.toString().replace(/[,]/gm, '');
             })
-
     });
-
     function generateCheckbox(id, nombre, apellido) {
         return `<input type="checkbox" name="empleado" value="${id}"> ${nombre}  ${apellido}`;
     }
@@ -84,18 +74,15 @@
     $("#InputFechaInicio").change(function () {
         document.getElementById("InputFechaFin").setAttribute("min", this.value);
     })
-
     function formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
             day = '' + d.getDate(),
             year = d.getFullYear();
-
         if (month.length < 2)
             month = '0' + month;
         if (day.length < 2)
             day = '0' + day;
-
         return [year, month, day].join('-');
     }
 </script>

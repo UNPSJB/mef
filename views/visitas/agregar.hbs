@@ -17,7 +17,6 @@
                 {{/each}}
               </select>
               <small class="form-text-muted text-muted">Exhibición elegida.</small><br>
-
               <label class="font-weight-bold" for="clienteId">Cliente</label>
               <select class="form-control" name="clienteId" placeholder="Ingrese Cliente" required>
                 {{#each clientes}}
@@ -28,7 +27,6 @@
                 {{/each}}
               </select>
               <small class="form-text-muted text-muted">Cliente que solicita la visita.</small><br>
-
               <label class="font-weight-bold" for="guiaId">Guía</label>
               <select class="form-control" name="guiaId" placeholder="Ingrese Guía" required>
                 {{#each guias}}
@@ -39,12 +37,10 @@
                 {{/each}}
               </select>
               <small class="form-text-muted text-muted">Guía encargado de la visita.</small><br>
-
               <label class="font-weight-bold" for="cantidadPersonas">Cantidad de Personas</label>
               <input type="number" class="form-control" name="cantidadPersonas" min="1" max="300"
                 placeholder="Ingrese Cantidad de Personas" required>
               <small class="form-text-muted text-muted">Mínimo 1 persona. Máximo 300.</small>
-
             </div>
             <div class="col-6">
               <label class="font-weight-bold" for="fecha">Fecha</label>
@@ -52,7 +48,6 @@
                 required>
               <small class="form-text-muted text-muted">Fecha de la visita guiada. La visita debe ser igual o posterior
                 a hoy</small><br>
-
               <label class="font-weight-bold" for="email">Horario</label>
               <select class="form-control" name="horario" required>
                 <option value="9">
@@ -85,31 +80,22 @@
                 <option value="18">
                   18:00hs
                 </option>
-
               </select>
               <small class="form-text-muted text-muted">Horario de la visita guiada.</small><br>
-
               <label class="font-weight-bold" for="precio">Precio</label>
               <input class="form-control" type="number" name="precio" min="1" max="3000000"
                 placeholder="Ingrese el Precio de la Visita Guiada" required>
               <small class="form-text-muted text-muted">Mínimo $1. Máximo $3.000.000 (Pesos Argentinos)</small>
             </div>
           </div>
-
-
-          <!-- Botones de Agregar y Cancelar -->
+          <!-- Botón de Agregar -->
           <div class="form-group">
-            <div class="row">
-              <div class="col-6">
-                <a href="/visitas" class="btn btn-danger btn-sm btn-block">Cancelar</a>
-              </div>
+            <div class="row justify-content-end">
               <div class="col-6">
                 <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Visita Guiada</button>
               </div>
             </div>
           </div>
-          <!--********************************-->
-
         </div>
       </div>
   </form>
@@ -117,25 +103,21 @@
 
 <script>
   //Ponemos fecha mínima "mañana" porque si ponemos "hoy" puede haber problemas en el horario, si ponemos una hora de "hoy" que ya pasó. 
-  
   $(document).ready(function () {
     const manana = calcularFechaManana();
     document.getElementById("fechaVisita").setAttribute("min", manana);
   })
-
   // Setea la fecha de mañana como la fecha mínima de la visita.
   function calcularFechaManana() {
     const mañana = new Date();
     mañana.setDate(mañana.getDate() + 1);
     return formatDate(mañana);
   }
-
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
-
     if (month.length < 2)
       month = '0' + month;
     if (day.length < 2)

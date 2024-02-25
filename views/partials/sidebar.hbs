@@ -4,69 +4,53 @@
   <a class="menu-item text-white" href="/dinosaurios">
     <i class="fas fa-dragon"></i>Dinosaurios
   </a>
-
   <a class="menu-item text-white" href="/fosiles" role="button">
     <i class="fas fa-bone"></i>Fósiles
   </a>
-
   <a class="menu-item text-white" href="/subclases" role="button">
     <i class="fas fa-chevron-circle-down"></i>Subclases
   </a>
   {{/if}}
-
-
   {{#if exhibicion}}
   {{!-- Acá van los permisos de exhibición LISTO--}}
   <a class="menu-item text-white" href="/pedidos" role="button">
     <i class="fas fa-user"></i>Pedidos
   </a>
-
   <a class="menu-item text-white" href="/exhibiciones" role="button">
     <i class="fas fa-dragon"></i>Exhibiciones
   </a>
-
   <a class="menu-item text-white" href="/clientes" role="button">
     <i class="fas fa-highlighter"></i>Clientes
   </a>
   {{/if}}
-
   {{#if secretaria}}
   {{!-- Acá van los permisos de secretaria LISTO--}}
   <a class="menu-item text-white" href="/visitas" role="button">
     <i class="fas fa-user"></i>Visitas Guiadas
   </a>
   {{/if}}
-
   {{#if taller}}
   {{!-- Acá van los permisos de taller LISTO--}}
   <a class="menu-item text-white" href="/pedidos/replicas" role="button">
     <i class="fas fa-user"></i>Réplicas
   </a>
-
   <a class="menu-item text-white" href="/pedidos" role="button">
     <i class="fas fa-user"></i>Pedidos
   </a>
-
   <a class="menu-item text-white" href="/dinosaurios" role="button">
     <i class="fas fa-dragon align-top"></i>Dinosaurios
   </a>
   {{/if}}
-
   {{#if rrhh}}
   {{!-- Acá van los permisos de rrhh LISTO--}}
   <a class="menu-item text-white" href="/empleados" role="button">
-    <i class="fas fa-user"></i>Empleados
+    <i class="fas fa-user"></i>Empleados de Taller
   </a>
-
   <a class="menu-item text-white" href="/guias" role="button">
     <i class="fas fa-user"></i>Guias
   </a>
   {{/if}}
-
- 
 </div>
-
-
 
 <style>
   .sidenav {
@@ -79,7 +63,7 @@
     padding: 10px 10px 10px 10px;
   }
 
-  .menu-item > i {
+  .menu-item>i {
     padding: 0 10px 0 0;
     width: 30px;
   }

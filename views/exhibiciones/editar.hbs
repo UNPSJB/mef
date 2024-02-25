@@ -2,7 +2,7 @@
   <form action="/exhibiciones?_method=PUT" method="POST">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarDinoModalLabel">
-        <h3>Editar Exhibición</h3>
+        <h3>Editar Exhibición #{{exh.id}}</h3>
       </div>
       <div class="card-body">
         <div class="form-group">
@@ -10,12 +10,10 @@
           <input type="text" name="nombre" minlength="4" maxlength="50" class="form-control"
             placeholder="Nombre de la exhibición" {{#with exh }} value="{{nombre}}" {{/with}}>
           <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
-
           <label for="tematica">Temática:</label>
           <input type="text" name="tematica" minlength="4" maxlength="50" class="form-control"
             placeholder="Tematica de la tematica" {{#with exh }} value="{{tematica}}" {{/with}}>
           <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
-
           <label for="duracion">Duración:</label>
           <input type="text" name="duracion" min="1" max="40" class="form-control"
             placeholder="Duracion de la exhibicion" {{#with exh }} value="{{duracion}}" {{/with}}>
@@ -58,24 +56,15 @@
           </div>
         </div>
       </div>
-
-
-      <!--Botones de Guardar y Cancelar--->
+      <!--Botón de Guardar -->
       <div class="form-group">
-        <div class="row">
+        <div class="row justify-content-end">
           <input type="hidden" name="id" value="{{exh.id}}" hidden>
           <div class="col-6">
             <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
           </div>
-          <div class="col-6">
-            <a href="/exhibiciones" class="btn btn-danger btn-sm btn-block">Cancelar</a>
-          </div>
         </div>
       </div>
-      <!--****************************--->
-
-
     </div>
-</div>
-</form>
+  </form>
 </div>

@@ -1,6 +1,4 @@
 <nav class="navbar navbar-dark bg-dark">
-
-  
   <a class="navbar-brand" href="/">Mef -
     {{#if coleccion}}
     Colección
@@ -18,26 +16,25 @@
     Recursos Humanos
     {{/if}}
   </a>
-  
   <div class="d-flex">
-     <button class="btn btn-primary mr-2" onclick="goBack()">
-        <i class="fas fa-arrow-left mr-1"></i>Atrás
-      </button>
     <a href="/" class="btn btn-primary mr-2">
       Pantalla Inicial
     </a>
-    
+    <a href="/docs/" class="btn btn-info mr-2">
+
+      Manual
+    </a>
     <form method="POST" action="/logout?_method=DELETE">
       <button type="submit" class="btn btn-danger">
         Cerrar Sesión
       </button>
     </form>
   </div>
-
-
 </nav>
+
+
 <script>
   function goBack() {
-    window.history.back(); 
+    window.history.back();
   }
 </script>
