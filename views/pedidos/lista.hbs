@@ -40,9 +40,17 @@
         { data: 'id'},
         { data: 'Dinosaurio.nombre'},
         { data: 'estadoInstance' },
-        { data: 'Persona.nombre'},
+        { data: function (row) { 
+          if (row.Persona){
+            return row.Persona.nombre + ' ' + row.Persona.apellido
+          }
+          return "Interno"
+        }, 
+        },
         {data:'createdAt'},
+        //TODO agregar valor por defecto no hay descripcion
         {data:'motivo'},
+        //TODO agregar acciones
         {render: function (d) {    
           return 'Hello'
         }

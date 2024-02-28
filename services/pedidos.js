@@ -4,6 +4,22 @@ const EXTERNO = 'Externo';
 const CONFIRMADO = 'Confirmado';
 const PRESUPUESTADO = 'Presupuestado';
 const { paginateModel } = require('./utils');
+const { Op, literal } = require('sequelize');
+const MIN_CHARS = 1;
+const genericSearch = (search, fields) => {
+  return fields.map(field => {
+    if (field === 'Dinosaurio.nombre') {
+      console.log('Entreeee', field);
+      return literal(`"Detalles->Hueso->Dinosaurio"."nombre" ILIKE '%${search}%'`);
+    }
+    if (field === 'createdAt') {
+      // Si el campo es fecha_nacimiento, comparamos solo por año, mes o día utilizando LIKE
+      return literal(`TO_CHAR("Pedido"."createdAt", 'YYYY-MM-DD') LIKE '%${search}%'`);
+    }
+    return literal(`"Pedido"."${field}"::text ILIKE '%${search}%'`);
+  });
+};
+
 function obtenerDinosaurio(detalles) {
   try {
     const [primeretalle] = detalles;
@@ -37,9 +53,24 @@ module.exports = {
     });
   },
   async getPedidosDataTable({ start, length, search, order, columns }) {
+    let querySearch = undefined;
+    const [orderValue] = order;
+    const columnOrder = columns[parseInt(orderValue.column)].data
+      .split('.')
+      .map(name => `"${name}"`)
+      .join('.');
+
+    if (search && search.length > MIN_CHARS) {
+      const resultados = genericSearch(search, ['id', 'Dinosaurio.nombre']);
+      console.log(resultados);
+      querySearch = {
+        [Op.or]: genericSearch(search, ['id', 'createdAt', 'motivo']),
+      };
+    }
     const pedidos = await models.Pedido.findAll({
       limit: length,
       offset: start,
+      where: querySearch,
       include: [
         models.Persona,
         { model: models.Detalle, include: [{ model: models.Hueso, as: 'Hueso', include: [models.Dinosaurio] }] },
