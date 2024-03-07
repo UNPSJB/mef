@@ -2,15 +2,12 @@
     <h4 class="pt-2" style="color: #000000; font-weight: bold; text-decoration: underline;">Detalle de Pedido #{{id}}: {{dinosaurio.nombre}}</h4>
 </div>
 
-
-
 <div class="container">
     <div class="row border p-2">
         <div class="col">
             <b>Estado Actual:</b> {{estadoInstance}}
         </div>
     </div>
-
     <div class="table-responsive mt-3">
         <table class="table table-striped">
             <thead>
@@ -35,7 +32,6 @@
             </tbody>
         </table>
     </div>
-
     <div class="row border p-2 mt-3">
         <div class="col">
             <b>Huesos del pedido</b>
@@ -59,7 +55,6 @@
             </div>
         </div>
     </div>
-
     <div class="row border p-2 mt-3">
         <div class="col">
             <b>Registro de cambios</b>
@@ -88,14 +83,10 @@
             </div>
         </div>
     </div>
-
     {{#each estados}}
     {{> estados/todos this}}
     {{/each}}
 </div>
-
-
-
 
 <script>
   /*! jquery-dateformat 01-08-2019 */
