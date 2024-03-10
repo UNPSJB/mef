@@ -18,25 +18,6 @@
     <th scope='col' data-orderable='false'>Acciones</th> <!-- data-orderable='false' desactiva el ordenamiento en esta columna -->
   </thead>
   <tbody>
-    {{#each visitas}}
-      <tr>
-        <td>{{this.id}}</td>
-        <td>{{this.Exhibicion.tematica}} | {{this.Exhibicion.nombre}}</td>
-        <td>{{this.Cliente.Persona.identificacion}}
-          |
-          {{this.Cliente.Persona.nombre}}
-          {{this.Cliente.Persona.apellido}}</td>
-        <td>{{this.Guium.Persona.identificacion}} | {{this.Guium.Persona.nombre}} {{this.Guium.Persona.apellido}} </td>
-        <td>{{this.cantidadDePersonas}}</td>
-        <td>{{this.fechaVisita}}</td>
-        <td>{{this.horario}} hs</td>
-        <td>${{this.precio}}</td>
-        <td>
-          <a href='/visitas/editar/{{this.id}}'><span class='material-icons'>edit</span></a>
-          <a href='/visitas/eliminar/{{this.id}}'><span style='color:red' class='material-icons'>delete</span></a>
-        </td>
-      </tr>
-    {{/each}}
   </tbody>
 </table>
 
@@ -47,7 +28,51 @@
       dom: 'Bfrtip', 
       buttons: ['pdf', 'excel', 'csv'], 
       searching: true, 
-      ordering: true, 
+      ordering: true,
+       serverSide: true, // Indica que el procesamiento de datos se realiza en el servidor
+      ajax: {
+        url: '/visitas/list', // URL del endpoint que devuelve los datos de visitas
+        type: 'GET', // Tipo de petición HTTP
+        data: function (d) {
+          // Parámetros de la solicitud
+          d.start = d.start;
+          d.length = d.length;
+          d.search = d.search.value;
+          d.order = d.order;
+          d.columns = d.columns;
+        }
+      },
+       columns: [
+      { data: 'id' },
+      {
+        data: null,
+        render: function (data, type, row) {
+          return row.Exhibicion.tematica + ' | ' + row.Exhibicion.nombre;
+        }
+      },
+      {
+        data: 'Cliente.Persona.identificacion',
+        render: function (data, type, row) {
+          return data + ' | ' + row.Cliente.Persona.nombre + ' ' + row.Cliente.Persona.apellido;
+        }
+      },
+      {
+        data: 'Guium.Persona.identificacion',
+        render: function (data, type, row) {
+          return data + ' | ' + row.Guium.Persona.nombre + ' ' + row.Guium.Persona.apellido;
+        }
+      },
+      { data: 'cantidadDePersonas' },
+      { data: 'fechaVisita' },
+      { data: 'horario' },
+      { data: 'precio' },
+      {
+        data: null,
+        render: function (data, type, row) {
+          return '<a href="/visitas/editar/' + data.id + '"><span class="material-icons">edit</span></a>';
+        }
+      }
+    ],
       language: { 
         processing:"Buscando...", 
         search:"Buscar:", 
