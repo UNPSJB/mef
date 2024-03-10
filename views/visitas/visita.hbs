@@ -4,6 +4,10 @@
   <a href='/visitas/agregar' class='btn btn-success btn-primary border border-light' rel='noopener noreferrer'>
     +
   </a>
+  <a href="http://localhost:4001/docs/sections/gestiones/secretaria.html#visitas-guiadas" class="btn btn-info ml-auto"
+    target="_blank">
+    Manual
+  </a>
 </h1>
 <table class='table table-striped table-bordered' id='visitas'>
   <thead>
@@ -24,7 +28,6 @@
   </tbody>
 </table>
 
-<script type='text/javascript' charset='utf8' src='https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js'></script>
 <script>
   $(document).ready(function () {
     $('#visitas').DataTable({
@@ -72,7 +75,12 @@
       }
     },
     { data: 'horario' },
-    { data: 'precio' },
+    {
+      data: 'precio',
+      render: function (data, type, row) {
+        return '$' + data;
+      }
+    },
     {
       data: 'estado',
       render: function (data, type, row) {
@@ -88,6 +96,9 @@
     {
       data: null,
       render: function (data, type, row) {
+        if (row.estado === "Cancelada" || row.estado === "Finalizada") {
+          return '';
+        }
         return '<a href="/visitas/editar/' + data.id + '"><span class="material-icons">edit</span></a>';
       }
     }
@@ -109,7 +120,7 @@
     columnDefs: [
     { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
   ]
-    });
+    }); 
   });
 </script>
 

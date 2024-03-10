@@ -24,8 +24,14 @@ router.get('/list', async (req, res) => {
   try {
     const total = await clienteService.countClientes();
     const { start, length, draw, search, columns, order } = req.query;
-    const clientes = await clienteService.getClientesDataTable({ start, length, search, columns, order });
-    res.json({ draw, data: clientes, recordsTotal: total, recordsFiltered: total });
+    const { clientes, recordsFiltered } = await clienteService.getClientesDataTable({
+      start,
+      length,
+      search,
+      columns,
+      order,
+    });
+    res.json({ draw, data: clientes, recordsTotal: total, recordsFiltered: recordsFiltered });
   } catch (error) {
     res.redirect('/404');
   }
@@ -40,13 +46,14 @@ router.get('/editar/:id', async (req, res) => {
   try {
     const cliente = await clienteService.getCliente(id, { raw: true, nest: true });
     const { tipo } = cliente;
-    const [particular, institucional] = [tipo == 'Particular', tipo == 'Institucional'];
+    const [particular, institucional] = [tipo === 'Particular', tipo === 'Institucional'];
 
     res.render('clientes/editar', { particular, institucional, cliente, req });
   } catch (error) {
     res.redirect('/404');
   }
 });
+
 
 router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params;
