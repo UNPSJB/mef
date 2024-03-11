@@ -19,30 +19,6 @@
       <th scope="col" data-orderable="false">Acciones</th> <!-- Desactiva el ordenamiento en esta columna -->
     </thead>
     <tbody>
-      {{#each results}}
-      <tr>
-        <td>{{this.Persona.id}}</td>
-        <td>{{this.Persona.identificacion}}</td>
-        <td>{{this.Persona.nombre}}</td>
-        <td>{{this.Persona.apellido}}</td>
-        <td>{{this.Persona.direccion}}</td>
-        <td>{{this.Persona.localidad}}</td>
-        <td>{{this.Persona.email}}</td>
-        <td>{{this.Persona.fecha_nacimiento}}</td>
-        <td>{{this.Persona.telefono}}</td>
-        <!-- acciones aca -->
-        <td>
-          <a href="/empleados/editar/{{this.id}}">
-            <span class="material-icons">edit</span>
-          </a>
-          <!--editar-->
-          <a href="/empleados/eliminar/{{this.id}}">
-            <span style="color:red" class="material-icons">delete</span>
-          </a>
-          {{!-- otras acciones mas --}}
-        </td>
-      </tr>
-      {{/each}}
     </tbody>
   </table>
 </div>
@@ -52,6 +28,36 @@
   $(document).ready(function () {
     $('#empleados').DataTable({
       dom: 'Bfrtip',
+      serverSide: true,
+    ajax: {
+      url: '/empleados/list',
+      type: 'GET',
+      data: function (d) {
+        d.start = d.start;
+        d.length = d.length;
+        d.search = d.search.value;
+        d.order = d.order;
+        d.columns = d.columns;
+      }
+    },
+    columns: [
+      { data: 'Persona.id' },
+      { data: 'Persona.identificacion' },
+      { data: 'Persona.nombre' },
+      { data: 'Persona.apellido' },
+      { data: 'Persona.direccion' },
+      { data: 'Persona.localidad' },
+      { data: 'Persona.email' },
+      { data: 'Persona.fecha_nacimiento' },
+      { data: 'Persona.telefono' },
+      {
+        data: null,
+        render: function (data, type, row) {
+          return '<a href="/empleados/editar/' + data.id + '"><span class="material-icons">edit</span></a>' +
+            '<a href="/empleados/eliminar/' + data.id + '"><span style="color:red" class="material-icons">delete</span></a>';
+        }
+      }
+    ],
       buttons: [
         'pdf', 'excel', 'csv'
       ],
