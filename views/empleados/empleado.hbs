@@ -36,66 +36,97 @@
       ajax: {
         url: '/empleados/list',
         type: 'GET',
-      {{> paginacion / data}}
-     
-    },
-    columns: [
-    { data: 'Persona.id' },
-    { data: 'Persona.identificacion' },
-    { data: 'Persona.nombre' },
-    { data: 'Persona.apellido' },
-    { data: 'Persona.direccion' },
-    { data: 'Persona.localidad' },
-    { data: 'Persona.email' },
-    {
-      data: 'Persona.fecha_nacimiento',
-      render: function (data, type, row) {
-        if (data) {
-          const date = new Date(data);
-          const day = String(date.getDate()).padStart(2, '0');
-          const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11
-          const year = date.getFullYear();
-          return `${day}/${month}/${year}`;
+        data: function (d) {
+          d.start = d.start;
+          d.length = d.length;
+          d.search = d.search.value;
+          d.order = d.order;
+          d.columns = d.columns;
+        }
+      },
+      columns: [
+        { data: 'Persona.id' },
+        { data: 'Persona.identificacion' },
+        { data: 'Persona.nombre' },
+        { data: 'Persona.apellido' },
+        { data: 'Persona.direccion' },
+        { data: 'Persona.localidad' },
+        { data: 'Persona.email' },
+        { data: 'Persona.fecha_nacimiento' },
+        { data: 'Persona.telefono' },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return '<a href="/empleados/editar/' + data.id + '"><span class="material-icons">edit</span></a>' +
+              '<a href="/empleados/eliminar/' + data.id + '"><span style="color:red" class="material-icons">delete</span></a>';
+          }
+        }
+      ],
+      buttons: [
+        'pdf', 'excel', 'csv'
+      ],
+      searching: true,
+      ordering: true,
+      language: {
+        processing: "Buscando...",
+        search: "Buscar:",
+        lengthMenu: "Mostrando _MENU_",
+        info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+        infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
+        infoFiltered: "(de un total de _MAX_)",
+        infoPostFix: "",
+        loadingRecords: "Cargando...",
+        zeroRecords: "No se ha encontrado elementos con ese filtro",
+        emptyTable: "No hay empleados.",
+        paginate: {
+          first: "Primero",
+          previous: "Anterior",
+          next: "Siguiente",
+          last: "Último"
+        },
+        aria: {
+          sortAscending: ": Ordenar ascendente",
+          sortDescending: ": Ordenar descendente"
         }
         return '';
       }
     },
-    { data: 'Persona.telefono' },
-    {
-      data: null,
-      render: function (data, type, row) {
-        return '<a href="/empleados/editar/' + data.id + '"><span class="material-icons">edit</span></a>' +
-          '<a href="/empleados/eliminar/' + data.id + '"><span style="color:red" class="material-icons">delete</span></a>';
+      { data: 'Persona.telefono' },
+      {
+        data: null,
+        render: function (data, type, row) {
+          return '<a href="/empleados/editar/' + data.id + '"><span class="material-icons">edit</span></a>' +
+            '<a href="/empleados/eliminar/' + data.id + '"><span style="color:red" class="material-icons">delete</span></a>';
+        }
+      }
+  ],
+      buttons: [
+      'pdf', 'excel', 'csv'
+    ],
+      searching: true,
+      ordering: true,
+      language: {
+      processing: "Buscando...",
+      search: "Buscar:",
+      lengthMenu: "Mostrando _MENU_",
+      info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+      infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
+      infoFiltered: "(de un total de _MAX_)",
+      infoPostFix: "",
+      loadingRecords: "Cargando...",
+      zeroRecords: "No se ha encontrado elementos con ese filtro",
+      emptyTable: "No hay empleados.",
+      paginate: {
+        first: "Primero",
+        previous: "Anterior",
+        next: "Siguiente",
+        last: "Último"
+      },
+      aria: {
+        sortAscending: ": Ordenar ascendente",
+        sortDescending: ": Ordenar descendente"
       }
     }
-  ],
-    buttons: [
-    'pdf', 'excel', 'csv'
-  ],
-    searching: true,
-    ordering: true,
-    language: {
-    processing: "Buscando...",
-    search: "Buscar:",
-    lengthMenu: "Mostrando _MENU_",
-    info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
-    infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
-    infoFiltered: "(de un total de _MAX_)",
-    infoPostFix: "",
-    loadingRecords: "Cargando...",
-    zeroRecords: "No se ha encontrado elementos con ese filtro",
-    emptyTable: "No hay empleados.",
-    paginate: {
-      first: "Primero",
-      previous: "Anterior",
-      next: "Siguiente",
-      last: "Último"
-    },
-    aria: {
-      sortAscending: ": Ordenar ascendente",
-      sortDescending: ": Ordenar descendente"
-    }
-  }
     });
   });
 </script>
