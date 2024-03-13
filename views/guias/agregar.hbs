@@ -100,12 +100,11 @@
               </div>
             </div>
           </div>
+          <br>
           <!-- Botón de Agregar -->
-          <div class="form-group">
-            <div class="row justify-content-end">
-              <div class="col-6">
-                <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Guía</button>
-              </div>
+          <div class="row justify-content-center">
+            <div class="col-6 text-center">
+              <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Guía</button>
             </div>
           </div>
         </div>
@@ -125,12 +124,10 @@
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear() - 18;// Los empleados deben tener 18 años o más
-
     if (month.length < 2)
       month = '0' + month;
     if (day.length < 2)
       day = '0' + day;
-
     return [year, month, day].join('-');
   }
   $(document).ready(() => {

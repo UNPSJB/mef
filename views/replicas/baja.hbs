@@ -32,9 +32,13 @@
         </table>
     </div>
 </div>
-
+<br>
 <!-- Botón de Eliminar -->
-<form action="/replicas?_method=DELETE" method="POST">
-    <input type="number" name="id" value="{{replica.dataValues.id}}" hidden required>
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-</form>
+<div class="row justify-content-center">
+    <div class="col-6 text-center">
+        <form action="/replicas?_method=DELETE" method="POST">
+            <input type="number" name="id" value="{{replica.dataValues.id}}" hidden required>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+    </div>
+</div>

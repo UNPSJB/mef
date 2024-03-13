@@ -1,10 +1,13 @@
 <h1 class="mt-4">Pedido de Replicación Nº {{id}} - Reanudar Replicación</h1>
 <span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
+  <br>
   {{> replica/detalle detalles}}
+  <br>
   <!-- Botón de Confirmar -->
-  <div class="row justify-content-end">
-    <div class="col-6 text-right"> <!-- Cambiado text-right para alinear el contenido a la derecha -->
+  <br>
+  <div class="row justify-content-center">
+    <div class="col-6 text-center">
       <button type="submit" class="btn btn-success btn-lg">Reanudar</button>
     </div>
   </div>
