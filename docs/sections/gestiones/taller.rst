@@ -40,8 +40,33 @@ ocultar el listado de huesos de esas sección para tener un vista más organizad
 .. image:: ../images/taller/dinosaurios/ListadoHuesos
    :width: 800
 
-Réplicas (No funciona en el software)
+Réplicas
 ________
+
+**Pantalla Principal / Listado**
+
+El siguiente es un listado con todas las réplicas que se encuentran en la base de datos del museo.
+Estas réplicas se dividen por número de pedido. 
+
+Por ejemplo, en la imagen de abajo se pueden ver 
+las réplicas correspondientes al pedido Nº 320 y en el mismo podemos ver, por cada réplica: su número,
+el hueso y dinosaurio al que corresponde, la fecha de inicio y finalización de su fabricación, si se
+encuentra disponible para exhibición (en color azul, está disponible, en gris, no)y por úlimto la acción 
+de eliminarla, si deseamos.
+
+Más abajo podremos pasar a la página siguiente pero dentro del mismo pedido de replicación.
+
+.. image:: ../images/taller/replicas/ListadoReplicas
+   :width: 800
+
+**Eliminar Réplica**
+
+Al hacer click en el logo de eliminación, aparecerá la siguiente pantalla con todos los datos de la réplica
+a eliminar. Si no desea eliminarla, deberá retroceder desde su navegador a la pantalla del listado.
+
+.. image:: ../images/taller/replicas/EliminarReplica
+   :width: 800
+
 
 Pedidos
 _______
@@ -53,3 +78,27 @@ El presente listado le presentará en detalle todos los pedidos de replicación 
 
 .. image:: ../images/taller/pedidos/ListadoPedidos
    :width: 800
+
+**Detalle del Pedido de Replicación**
+
+Al hacer click en el botón "Detalle" accederá a los detalles del pedido en cuestión.
+
+En la imagen de abajo se puede apreciar el detalle del pedido Nº 321. En el mismo podremos
+ver el Estado Actual del pedido, el Cliente solicitante, el Dinosaurio al que corresponde, 
+un listado de cada hueso a replicar, y un registro con todos los cambios de estado, su fecha
+correspondiente y la opción de ver los detalles de cada estado.
+
+.. image:: ../images/taller/pedidos/DetallePedido
+   :width: 800
+
+**Fabricar Pedido de Replicación**
+
+**Demorar Pedido de Replicación**
+
+**Reanudar Pedido de Replicación**
+
+**Cancelar Pedido de Replicación**
+
+**Cancelar Pedido de Replicación**
+
+**Agregar o Eliminar Empleados del Pedido de Replicación**
