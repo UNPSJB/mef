@@ -44,28 +44,29 @@ router.get('/eliminar/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const { identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono } = req.body;
   try {
-    const persona = await personaService.createPersona(
-      identificacion,
-      nombre,
-      apellido,
-      direccion,
-      localidad,
-      email,
-      fecha_nacimiento,
-      telefono
-    );
-    const empleado = await empleadoService.createEmpleado(persona.id);
+    let personaId = 0;
+    const persona = await personaService.getPersonaArgs({ identificacion });
+    if (!persona) {
+      const nuevaPersona = await personaService.createPersona(
+        identificacion,
+        nombre,
+        apellido,
+        direccion,
+        localidad,
+        email,
+        fecha_nacimiento,
+        telefono
+      );
+      personaId = nuevaPersona.id;
+    }
+    if (persona) {
+      personaId = persona.id;
+    }
+    await empleadoService.createEmpleado(persona.id);
     res.redirect('/empleados');
   } catch (error) {
-    try {
-      const persona = await personaService.getPersonaArgs({ identificacion });
-      await empleadoService.createEmpleado(persona.id);
-      res.redirect('/empleados');
-    } catch (error) {
-      /** @TODO agregar objeto persona y empleado */
-      const { message } = error.errors[0];
-      res.render('empleados/agregar', { errores: message, empleado: req.body, req });
-    }
+    const { message } = error.errors[0];
+    res.render('empleados/agregar', { errores: message, empleado: req.body, req });
   }
 });
 
