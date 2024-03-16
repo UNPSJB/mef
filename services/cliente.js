@@ -34,7 +34,7 @@ module.exports = {
       ...opts,
     });
   },
-  getClientesDataTable({ start, length, search, order, columns }) {
+  async getClientesDataTable({ start, length, search, order, columns }) {
     let querySearch = undefined;
     const [orderValue] = order;
     const columnOrder = columns[parseInt(orderValue.column)].data
