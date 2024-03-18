@@ -26,9 +26,13 @@
         </tr>
     </tbody>
 </table>
-
+<br>
 <!---Boton de Eliminar-->
-<form action="/visitas?_method=DELETE" method="POST">
-    <input name="id" type="number" value="{{visita.id}}" hidden required>
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-</form>
+<div class="row justify-content-center">
+    <div class="col-6 text-center">
+        <form action="/visitas?_method=DELETE" method="POST">
+            <input name="id" type="number" value="{{visita.id}}" hidden required>
+            <button type="submit" class="btn btn-danger">Eliminar Visita</button>
+        </form>
+    </div>
+</div>

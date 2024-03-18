@@ -26,9 +26,13 @@
         </tr>
     </tbody>
 </table>
-
-<!---Botón de Eliminar-->
-<form action="/empleados?_method=DELETE" method="POST">
-    <input name="id" type="number" value="{{empleado.id}}" hidden required>
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-</form>
+<br>
+<!---Botón de Eliminar Empleado de Taller-->
+<div class="row justify-content-center">
+    <div class="col-6 text-center">
+        <form action="/empleados?_method=DELETE" method="POST">
+            <input name="id" type="number" value="{{empleado.id}}" hidden required>
+            <button type="submit" class="btn btn-danger">Eliminar Empleado de Taller</button>
+        </form>
+    </div>
+</div>

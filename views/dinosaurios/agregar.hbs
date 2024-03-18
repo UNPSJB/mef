@@ -13,11 +13,6 @@
               <input type="text" class="form-control" name="nombre" id="InputNombreCientifico"
                 placeholder="Ingrese Nombre Científico" maxlength="30" required {{#if dino}} value="{{dino.nombre}}"
                 {{/if}}>
-
-
-
-
-
               <small class="form-text-muted text-muted">Máximo 30 caracteres</small>
             </div>
             {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
@@ -69,7 +64,6 @@
               </select>
             </div>
           </div>
-
           <table class="table table-striped col-6 border-bottom">
             <thead>
               <tr class="row">
@@ -129,7 +123,6 @@
                     name="cant_dedos_mano" value="3" placeholder="cantidad de huesos" required></td>
               </tr>
               <tr>
-
                 <td>Cantidad de dedos pies</td>
                 <td><input class="text-right border border-0 radio radio" type="number" min="1" max="100"
                     name="cant_dedos_pie" value="4" placeholder="cantidad de huesos" required></td>
@@ -143,54 +136,36 @@
                 <i>*Existen huesos que se cargaran por defecto ya que no están sujetos a que cambie su cantidad.</i>
               </div>
             </div>
-
           </div>
         </div>
-
-
-        <div class="form-group">
-          <div class="row">
-            <div class="col-6">
-              <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Dinosaurio</button>
-            </div>
-            <div class="col-6">
-              <a href="/dinosaurios" class="btn btn-danger btn-sm btn-block">Cancelar</a>
-            </div>
+        <br>
+        <!-- Botón de Agregar Dinosaurio  -->
+        <div class="row justify-content-center">
+          <div class="col-6 text-center">
+            <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Dinosaurio</button>
           </div>
         </div>
-
-
-        
       </div>
     </div>
   </form>
 </div>
 
-
-
-
 <script>
   // setea la fecha actual como fecha máxima de "descubrimiento"
-
-
   $(document).ready(function () {
     var hoy = formatDate(new Date());
     document.getElementById("InputFechaDescubrimiento").setAttribute("max", hoy);
     $("#InputFechaDescubrimiento").attr("max", hoy);
   })
-
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
-
     if (month.length < 2)
       month = '0' + month;
     if (day.length < 2)
       day = '0' + day;
-
     return [year, month, day].join('-');
   }
-
 </script>

@@ -2,12 +2,13 @@
   <form class="pt-3" action="/clientes?_method=PUT" method="POST">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarClienteModalLabel">
-        <h1>Editar Cliente #{{cliente.Persona.id}}</h1>
+        <h1>Editar Cliente #{{cliente.id}}</h1>
       </div>
       <div class="card-body">
         <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
           {{>persona/cliente cliente.Persona}}
         </div>
+        <br>
         <div class="row justify-content-center p-3x">
           <label class="btn btn-secondary form-check-label mr-3">
             <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required>
@@ -21,13 +22,11 @@
           {{#if cliente}}<input name="idPersona" type="number" value="{{cliente.Persona.id}}" hidden> {{/if}}
           </label>
         </div>
-        <br> <!-- Salto de renglón -->
+        <br>
         <!--Botón de Guardar -->
-        <div class="form-group">
-          <div class="row justify-content-end">
-            <div class="col-6">
-              <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
-            </div>
+        <div class="row justify-content-center">
+          <div class="col-6 text-center">
+            <button type="submit" class="btn btn-success btn-sm btn-block">Editar Cliente</button>
           </div>
         </div>
       </div>
