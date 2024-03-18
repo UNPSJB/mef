@@ -33,14 +33,7 @@
       ajax: {
         url: '/visitas/list', // URL del endpoint que devuelve los datos de visitas
         type: 'GET', // Tipo de petición HTTP
-        data: function (d) {
-          // Parámetros de la solicitud
-          d.start = d.start;
-          d.length = d.length;
-          d.search = d.search.value;
-          d.order = d.order;
-          d.columns = d.columns;
-        }
+        {{> paginacion/data}}
       },
        columns: [
       { data: 'id' },
