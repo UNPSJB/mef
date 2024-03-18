@@ -1,5 +1,5 @@
 <div class="container">
-  <form action="/pedidos" method="post">
+  <form action="/pedidos" method="post" id="form">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarReplicaModalLabel">
         <h1>Crear pedido de replicación</h1>
@@ -29,7 +29,7 @@
                   <br>
                   <label class="font-weight-bold" for="monto">Monto:</label>
                   <br>
-                  <input type="radio" name="moneda" value="Pesos Argentinos">Pesos Argentinos
+                  <input required type="radio" name="moneda" value="Pesos Argentinos">Pesos Argentinos
                   <br>
                   <input type="radio" name="moneda" value="Dolares">Dolares Americanos
                   <br>
@@ -92,6 +92,14 @@
 
 <script>
   $(document).ready(() => {
+    $("#form").change(function (event) {
+      const MIN_CANT_HUESOS = 1
+      const huesosSeleccionados = $('input:checkbox:checked').length;
+      if (huesosSeleccionados < MIN_CANT_HUESOS) {
+        return $(':submit').prop('disabled', true);
+      }
+      return $(':submit').prop('disabled', false);
+    })
     // Función para manejar cambios en el cliente
     function handleClienteChange() {
       // Desseleccionar la moneda cuando el cliente vuelve a ser interno
