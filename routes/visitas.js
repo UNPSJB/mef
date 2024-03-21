@@ -68,11 +68,4 @@ router.put('/', async (req, res) => {
       res.redirect('/visitas');
     });
 });
-
-router.delete('/', async (req, res) => {
-  const { id } = req.body;
-  await visitaService.deleteVisita(id);
-  res.redirect('/visitas');
-});
-
 module.exports = router;
