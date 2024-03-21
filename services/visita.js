@@ -90,7 +90,7 @@ module.exports = {
       ],
     });
   },
-  createVisita(ExhibicionId, ClienteId, GuiumId, cantidadDePersonas, fechaVisita, horario, precio) {
+  createVisita(ExhibicionId, ClienteId, GuiumId, cantidadDePersonas, fechaVisita, horario, precio, estado) {
     return models.Visita.create({
       ExhibicionId,
       ClienteId,
@@ -99,6 +99,7 @@ module.exports = {
       fechaVisita,
       horario,
       precio,
+      estado,
       cancelada: false,
     });
   },
@@ -111,6 +112,7 @@ module.exports = {
     fechaVisita,
     horario,
     precio,
+    estado,
     cancelada = false
   ) {
     return models.Visita.findByPk(id).then(visit => {
@@ -122,13 +124,9 @@ module.exports = {
         fechaVisita,
         horario,
         precio,
+        estado,
         cancelada,
       });
-    });
-  },
-  deleteVisita(id) {
-    return models.Visita.findByPk(id).then(visita => {
-      visita.destroy();
     });
   },
 };
