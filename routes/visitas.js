@@ -60,10 +60,10 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/', async (req, res) => {
-  const { id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio } = req.body;
+  const { id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado } = req.body;
   /** agregar async await, try catch, render con visitas, request, error */
   return visitaService
-    .updateVisita(id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio)
+    .updateVisita(id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado)
     .then(visita => {
       res.redirect('/visitas');
     });
