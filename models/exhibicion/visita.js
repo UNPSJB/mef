@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         fechaVisita: DataTypes.DATEONLY,
         horario: DataTypes.STRING,
         precio: DataTypes.FLOAT,
+        //estado:DataTypes.STRING,
         cancelada: {
             type: DataTypes.BOOLEAN,
             allowNull: false,

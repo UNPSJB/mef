@@ -49,10 +49,10 @@ router.get('/eliminar/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio } = req.body;
+  const { exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado } = req.body;
   /** @TODO agregar try catch y la vista de agregar visita */
   try {
-    await visitaService.createVisita(exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio);
+    await visitaService.createVisita(exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado);
     res.redirect('/visitas');
   } catch (error) {
     res.render('visitas/agregar', { req });
@@ -62,7 +62,6 @@ router.post('/', async (req, res) => {
 router.put('/', async (req, res) => {
   const { id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio } = req.body;
   /** agregar async await, try catch, render con visitas, request, error */
-  // ver que onda visita no se usa
   return visitaService
     .updateVisita(id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio)
     .then(visita => {
