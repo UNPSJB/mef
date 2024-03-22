@@ -136,7 +136,7 @@
 </div>
 
 
-<!--Setea la fecha actual como la fecha minima de "encontrado".-->
+<!--Setea la fecha actual como la fecha mínima de "encontrado".-->
 <script>
   $(document).ready(function () {
     var hoy = formatDate(new Date());
@@ -156,7 +156,7 @@
 </script>
 
 
-<!--Script que oculta el estado actual de la visita para que no se vea repetido entre las opciones.-->
+<!--Script que oculta el ESTADO actual de la visita para que no se vea repetido entre las opciones.-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function () {
@@ -172,7 +172,7 @@
 </script>
 
 
-<!--Script que oculta la exhibición actual de la visita para que no se vea repetido entre las opciones.-->
+<!--Script que oculta la EXHIBICIÓN actual de la visita para que no se vea repetido entre las opciones.-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function () {
@@ -181,5 +181,29 @@
 
     // Ocultar la opción seleccionada
     $("select[name='exhibicionId'] option:selected").css("display", "none");
+  });
+</script>
+
+<!--Script que oculta al CLIENTE actual de la visita para que no se vea repetido entre las opciones.-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Mostrar todas las opciones
+    $("select[name='clienteId'] option").css("display", "");
+
+    // Ocultar la opción seleccionada
+    $("select[name='clienteId'] option:selected").css("display", "none");
+  });
+</script>
+
+<!--Script que oculta al GUÍA actual de la visita para que no se vea repetido entre las opciones.-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Mostrar todas las opciones
+    $("select[name='guiaId'] option").css("display", "");
+
+    // Ocultar la opción seleccionada
+    $("select[name='guiaId'] option:selected").css("display", "none");
   });
 </script>
