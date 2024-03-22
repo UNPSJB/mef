@@ -207,3 +207,15 @@
     $("select[name='guiaId'] option:selected").css("display", "none");
   });
 </script>
+
+<!--Script que oculta al HORARIO actual de la visita para que no se vea repetido entre las opciones.-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Mostrar todas las opciones
+    $("select[name='horario'] option").css("display", "");
+
+    // Ocultar la opción seleccionada
+    $("select[name='horario'] option:selected").css("display", "none");
+  });
+</script>
