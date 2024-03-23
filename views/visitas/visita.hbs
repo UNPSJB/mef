@@ -14,7 +14,7 @@
     <th scope='col'>Cantidad de personas</th>
     <th scope='col'>Fecha de visita</th>
     <th scope='col'>Horario</th>
-    <th scope='col'>Precio</th>
+    <th scope='col'>Precio (ARS)</th>
     <th scope='col'>Estado</th>
     <th scope='col' data-orderable='false'>Acciones</th>
     <!-- data-orderable='false' desactiva el ordenamiento en esta columna -->
@@ -60,7 +60,12 @@
     { data: 'cantidadDePersonas' },
     { data: 'fechaVisita' },
     { data: 'horario' },
-    { data: 'precio' },
+    {
+      data: 'precio',
+      render: function (data, type, row) {
+        return '$' + data;
+      }
+    },
     { data: 'estado' },
     {
       data: null,
