@@ -112,7 +112,6 @@
               <!--Estado-->
               <label class="font-weight-bold" for="estado">Estado</label>
               <select class="form-control" name="estado" required>
-                <option value="{{visita.estado}}" selected>{{visita.estado}}</option>
                 <option value="Pendiente" id="pendiente">Pendiente</option>
                 <option value="Finalizada" id="finalizada">Finalizada</option>
                 <option value="Cancelada" id="cancelada">Cancelada</option>
@@ -170,11 +169,11 @@
   $(document).ready(function () {
     var estadoVisita = "{{visita.estado}}";
     if (estadoVisita === "Pendiente") {
-      $("#pendiente").css("display", "none");
+      $("#pendiente").attr("selected","selected");
     } else if (estadoVisita === "Finalizada") {
-      $("#finalizada").css("display", "none");
+      $("#finalizada").attr("selected","selected");
     } else if (estadoVisita === "Cancelada") {
-      $("#cancelada").css("display", "none");
+      $("#cancelada").attr("selected","selected");
     }
   });
 </script>
