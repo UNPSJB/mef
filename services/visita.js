@@ -90,7 +90,7 @@ module.exports = {
       ],
     });
   },
-  createVisita(ExhibicionId, ClienteId, GuiumId, cantidadDePersonas, fechaVisita, horario, precio) {
+  createVisita(ExhibicionId, ClienteId, GuiumId, cantidadDePersonas, fechaVisita, horario, precio, estado) {
     return models.Visita.create({
       ExhibicionId,
       ClienteId,
@@ -99,10 +99,11 @@ module.exports = {
       fechaVisita,
       horario,
       precio,
+      estado,
       cancelada: false,
     });
   },
-  updateVisita(
+  async updateVisita(
     id,
     ExhibicionId,
     ClienteId,
@@ -111,24 +112,20 @@ module.exports = {
     fechaVisita,
     horario,
     precio,
+    estado,
     cancelada = false
   ) {
-    return models.Visita.findByPk(id).then(visit => {
-      return visit.update({
-        ExhibicionId,
-        ClienteId,
-        GuiumId,
-        cantidadDePersonas,
-        fechaVisita,
-        horario,
-        precio,
-        cancelada,
-      });
-    });
-  },
-  deleteVisita(id) {
-    return models.Visita.findByPk(id).then(visita => {
-      visita.destroy();
+    const visita = await models.Visita.findByPk(id)
+    return visita.update({
+      ExhibicionId,
+      ClienteId,
+      GuiumId,
+      cantidadDePersonas,
+      fechaVisita,
+      horario,
+      precio,
+      estado,
+      cancelada,
     });
   },
 };
