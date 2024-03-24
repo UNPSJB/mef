@@ -68,7 +68,12 @@
       }
     },
     { data: 'estado' },
-    { data: 'observacion' },
+    {
+      data: 'observacion',
+      render: function (data, type, row) {
+        return data ? data : 'Particular';
+      }
+    },
     {
       data: null,
       render: function (data, type, row) {
