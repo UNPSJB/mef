@@ -161,11 +161,11 @@
   $(document).ready(function () {
     var estadoVisita = "{{visita.estado}}";
     if (estadoVisita === "Pendiente") {
-      $("#pendiente").css("display", "none");
+      $("#pendiente").attr("selected","selected");
     } else if (estadoVisita === "Finalizada") {
-      $("#finalizada").css("display", "none");
+      $("#finalizada").attr("selected","selected");
     } else if (estadoVisita === "Cancelada") {
-      $("#cancelada").css("display", "none");
+      $("#cancelada").attr("selected","selected");
     }
   });
 </script>
