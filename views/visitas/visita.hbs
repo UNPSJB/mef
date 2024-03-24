@@ -67,7 +67,12 @@
         return '$' + data;
       }
     },
-    { data: 'estado' },
+    {
+      data: 'estado',
+      render: function (data, type, row) {
+        return data ? data : 'Pendiente';
+      }
+    },
     {
       data: 'observacion',
       render: function (data, type, row) {
