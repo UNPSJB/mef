@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         horario: DataTypes.STRING,
         precio: DataTypes.FLOAT,
         estado: DataTypes.STRING,
+        observacion: DataTypes.STRING,
         cancelada: {
             type: DataTypes.BOOLEAN,
             allowNull: false,

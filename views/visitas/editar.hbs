@@ -121,6 +121,14 @@
           </div>
           <br>
 
+          <!--Observación-->
+          <label class="font-weight-bold" for="estado">Observación</label>
+          <textarea class="form-control"
+            placeholder="Si la visita no es particular, ingrese la escuela, universidad u organización solicitante."
+            name="observacion" rows="5">{{visita.observacion}}</textarea>
+          <small class="form-text-muted text-muted">Organización que solicita la visita guiada.</small><br>
+          <br>
+
           <!--Botón de Guardar--->
           <div class="row justify-content-center">
             <div class="col-6 text-center">
@@ -161,11 +169,11 @@
   $(document).ready(function () {
     var estadoVisita = "{{visita.estado}}";
     if (estadoVisita === "Pendiente") {
-      $("#pendiente").attr("selected","selected");
+      $("#pendiente").attr("selected", "selected");
     } else if (estadoVisita === "Finalizada") {
-      $("#finalizada").attr("selected","selected");
+      $("#finalizada").attr("selected", "selected");
     } else if (estadoVisita === "Cancelada") {
-      $("#cancelada").attr("selected","selected");
+      $("#cancelada").attr("selected", "selected");
     }
   });
 </script>
