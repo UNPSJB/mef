@@ -90,7 +90,7 @@ module.exports = {
       ],
     });
   },
-  createVisita(ExhibicionId, ClienteId, GuiumId, cantidadDePersonas, fechaVisita, horario, precio, estado) {
+  createVisita(ExhibicionId, ClienteId, GuiumId, cantidadDePersonas, fechaVisita, horario, precio, estado, observacion) {
     return models.Visita.create({
       ExhibicionId,
       ClienteId,
@@ -100,6 +100,7 @@ module.exports = {
       horario,
       precio,
       estado,
+      observacion,
       cancelada: false,
     });
   },
@@ -113,6 +114,7 @@ module.exports = {
     horario,
     precio,
     estado,
+    observacion,
     cancelada = false
   ) {
     return models.Visita.findByPk(id).then(visit => {
@@ -125,6 +127,7 @@ module.exports = {
         horario,
         precio,
         estado,
+        observacion,
         cancelada,
       });
     });
