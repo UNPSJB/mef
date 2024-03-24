@@ -103,7 +103,7 @@ module.exports = {
       cancelada: false,
     });
   },
-  updateVisita(
+  async updateVisita(
     id,
     ExhibicionId,
     ClienteId,
@@ -115,18 +115,17 @@ module.exports = {
     estado,
     cancelada = false
   ) {
-    return models.Visita.findByPk(id).then(visit => {
-      return visit.update({
-        ExhibicionId,
-        ClienteId,
-        GuiumId,
-        cantidadDePersonas,
-        fechaVisita,
-        horario,
-        precio,
-        estado,
-        cancelada,
-      });
+    const visita = await models.Visita.findByPk(id)
+    return visita.update({
+      ExhibicionId,
+      ClienteId,
+      GuiumId,
+      cantidadDePersonas,
+      fechaVisita,
+      horario,
+      precio,
+      estado,
+      cancelada,
     });
   },
 };
