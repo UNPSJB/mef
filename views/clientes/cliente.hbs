@@ -16,8 +16,8 @@
     <thead>
       <th>#</th>
       <th>Documento</th>
-      <th>Nombre</th>
       <th>Apellido</th>
+      <th>Nombre</th>
       <th>Tipo</th>
       <th>Dirección</th>
       <th>Localidad</th>
@@ -35,62 +35,62 @@
   $(document).ready(function () {
     $('#clientesTable').DataTable({
       dom: 'Bfrtip',
-       serverSide: true, // Indica que el procesamiento de datos se realiza en el servidor
-        ajax: {
-            url: '/clientes/list', // URL del endpoint que devuelve los datos de clientes
-            type: 'GET', // Tipo de petición HTTP
-            {{> paginacion/data}}
+      serverSide: true, // Indica que el procesamiento de datos se realiza en el servidor
+      ajax: {
+        url: '/clientes/list', // URL del endpoint que devuelve los datos de clientes
+        type: 'GET', // Tipo de petición HTTP
+            {{> paginacion / data}}
         },
-        columns: [
-            { data: 'id' }, // Columna de ID
-            { data: 'Persona.identificacion' }, // Columna de Documento
-            { data: 'Persona.nombre' }, // Columna de Nombre
-            { data: 'Persona.apellido' }, // Columna de Apellido
-            { data: 'tipo' }, // Columna de Tipo
-            { data: 'Persona.direccion' }, // Columna de Dirección
-            { data: 'Persona.localidad' }, // Columna de Localidad
-            { data: 'Persona.email' }, // Columna de Correo Electrónico
-            { data: 'Persona.fecha_nacimiento' }, // Columna de Fecha de Nacimiento
-            { data: 'Persona.telefono' }, // Columna de Teléfono
-            { // Columna de Acciones
-                data: null,
-                render: function (data, type, row) {
-                    return '<a href="/clientes/editar/' + data.id + '"><span class="material-icons">edit</span></a>' +
-                        '<a href="/clientes/eliminar/' + data.id + '"><span style="color:red" class="material-icons">delete</span></a>';
-                }
-            }
-        ],
-      buttons: [
-        'pdf', 'excel', 'csv'
-      ],
-      searching: true,
-      ordering: true,
-      processing: true,
-      language: {
-        processing: "Buscando...",
-        search: "Buscar:",
-        lengthMenu: "Mostrando _MENU_",
-        info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
-        infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
-        infoFiltered: "(de un total de _MAX_)",
-        infoPostFix: "",
-        loadingRecords: "Cargando...",
-        zeroRecords: "No hay coincidencias.",
-        emptyTable: "No hay clientes.",
-        paginate: {
-          first: "Primero",
-          previous: "Anterior",
-          next: "Siguiente",
-          last: "Último"
-        },
-        aria: {
-          sortAscending: ": Ordenar ascendente",
-          sortDescending: ": Ordenar descendente"
-        }
-      },
-      columnDefs: [
-        { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
-      ]
+    columns: [
+    { data: 'id' }, // Columna de ID
+    { data: 'Persona.identificacion' }, // Columna de Documento
+    { data: 'Persona.apellido' }, // Columna de Apellido
+    { data: 'Persona.nombre' }, // Columna de Nombre
+    { data: 'tipo' }, // Columna de Tipo
+    { data: 'Persona.direccion' }, // Columna de Dirección
+    { data: 'Persona.localidad' }, // Columna de Localidad
+    { data: 'Persona.email' }, // Columna de Correo Electrónico
+    { data: 'Persona.fecha_nacimiento' }, // Columna de Fecha de Nacimiento
+    { data: 'Persona.telefono' }, // Columna de Teléfono
+    { // Columna de Acciones
+      data: null,
+      render: function (data, type, row) {
+        return '<a href="/clientes/editar/' + data.id + '"><span class="material-icons">edit</span></a>' +
+          '<a href="/clientes/eliminar/' + data.id + '"><span style="color:red" class="material-icons">delete</span></a>';
+      }
+    }
+  ],
+    buttons: [
+    'pdf', 'excel', 'csv'
+  ],
+    searching: true,
+    ordering: true,
+    processing: true,
+    language: {
+    processing: "Buscando...",
+    search: "Buscar:",
+    lengthMenu: "Mostrando _MENU_",
+    info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+    infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
+    infoFiltered: "(de un total de _MAX_)",
+    infoPostFix: "",
+    loadingRecords: "Cargando...",
+    zeroRecords: "No hay coincidencias.",
+    emptyTable: "No hay clientes.",
+    paginate: {
+      first: "Primero",
+      previous: "Anterior",
+      next: "Siguiente",
+      last: "Último"
+    },
+    aria: {
+      sortAscending: ": Ordenar ascendente",
+      sortDescending: ": Ordenar descendente"
+    }
+  },
+    columnDefs: [
+    { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
+  ]
     });
   });
 </script>
