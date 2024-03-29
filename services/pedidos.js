@@ -59,34 +59,129 @@ module.exports = {
       .split('.')
       .map(name => `"${name}"`)
       .join('.');
-
+    console.log(columnOrder);
     if (search && search.length > MIN_CHARS) {
       const resultados = genericSearch(search, ['id', 'Dinosaurio.nombre']);
-      console.log(resultados);
+      //console.log(resultados);
       querySearch = {
         [Op.or]: genericSearch(search, ['id', 'createdAt', 'motivo']),
       };
     }
-    const pedidos = await models.Pedido.findAll({
-      limit: length,
-      offset: start,
-      where: querySearch,
-      include: [
-        models.Persona,
-        { model: models.Detalle, include: [{ model: models.Hueso, as: 'Hueso', include: [models.Dinosaurio] }] },
-      ],
-    });
-    const pedidosJson = JSON.parse(JSON.stringify(pedidos));
-
-    await Promise.all(
-      pedidos.map(async (pedido, index) => {
-        const estado = await pedido.estado;
-        const dinosaurio = obtenerDinosaurio(pedido.Detalles);
-        pedidosJson[index].estadoInstance = estado.constructor.name;
-        pedidosJson[index].Dinosaurio = dinosaurio;
-      })
+    const [pedidos] = await models.sequelize.query(
+      `SELECT "Pedido".*,
+    ultimo_estado.ultimo_estado,
+    dinosaurio.*,
+    "Persona"."id" AS "Persona.id",
+    "Persona"."nombre" AS "Persona_nombre",
+    "Persona"."apellido" AS "Persona_apellido"
+    FROM
+    (SELECT "Pedido"."id",
+    "Pedido"."motivo",
+    "Pedido"."createdAt",
+    "Pedido"."PersonaId"
+    FROM "Pedidos" AS "Pedido") AS "Pedido"
+    LEFT OUTER JOIN "Personas" AS "Persona" ON "Pedido"."PersonaId" = "Persona"."id"
+    AND ("Persona"."deletedAt" IS NULL)
+    LEFT JOIN (
+    SELECT CASE
+    WHEN GREATEST(CANCELADOS."createdAt",
+    CONFIRMADOS."createdAt",
+    DEMORADOS."createdAt",
+    ENTREGADOS."createdAt",
+    FABRICANDOS."createdAt",
+    FACTURADOS."createdAt",
+    FINALIZADOS."createdAt",
+    PRESUPUESTADOS."createdAt") = CANCELADOS."createdAt" THEN 'Cancelado'
+    
+    WHEN GREATEST(CANCELADOS."createdAt",
+    CONFIRMADOS."createdAt",
+    DEMORADOS."createdAt",
+    ENTREGADOS."createdAt",
+    FABRICANDOS."createdAt",
+    FACTURADOS."createdAt",
+    FINALIZADOS."createdAt",
+    PRESUPUESTADOS."createdAt") = CONFIRMADOS."createdAt" THEN 'Confirmado'
+    
+    WHEN GREATEST(CANCELADOS."createdAt",
+    CONFIRMADOS."createdAt",
+    DEMORADOS."createdAt",
+    ENTREGADOS."createdAt",
+    FABRICANDOS."createdAt",
+    FACTURADOS."createdAt",
+    FINALIZADOS."createdAt",
+    PRESUPUESTADOS."createdAt") = DEMORADOS."createdAt" THEN 'Demorado'
+    
+    WHEN GREATEST(CANCELADOS."createdAt",
+    CONFIRMADOS."createdAt",
+    DEMORADOS."createdAt",
+    ENTREGADOS."createdAt",
+    FABRICANDOS."createdAt",
+    FACTURADOS."createdAt",
+    FINALIZADOS."createdAt",
+    PRESUPUESTADOS."createdAt") = ENTREGADOS."createdAt" THEN 'Entregado'
+    
+    WHEN GREATEST(CANCELADOS."createdAt",
+    CONFIRMADOS."createdAt",
+    DEMORADOS."createdAt",
+    ENTREGADOS."createdAt",
+    FABRICANDOS."createdAt",
+    FACTURADOS."createdAt",
+    FINALIZADOS."createdAt",
+    PRESUPUESTADOS."createdAt") = FABRICANDOS."createdAt" THEN 'Fabricando'
+    
+    WHEN GREATEST(CANCELADOS."createdAt",
+    CONFIRMADOS."createdAt",
+    DEMORADOS."createdAt",
+    ENTREGADOS."createdAt",
+    FABRICANDOS."createdAt",
+    FACTURADOS."createdAt",
+    FINALIZADOS."createdAt",
+    PRESUPUESTADOS."createdAt") = FACTURADOS."createdAt" THEN 'Facturado'
+    
+    WHEN GREATEST(CANCELADOS."createdAt",
+    CONFIRMADOS."createdAt",
+    DEMORADOS."createdAt",
+    ENTREGADOS."createdAt",
+    FABRICANDOS."createdAt",
+    FACTURADOS."createdAt",
+    FINALIZADOS."createdAt",
+    PRESUPUESTADOS."createdAt") = FINALIZADOS."createdAt" THEN 'Finalizado'
+    
+    WHEN GREATEST(CANCELADOS."createdAt",
+    CONFIRMADOS."createdAt",
+    DEMORADOS."createdAt",
+    ENTREGADOS."createdAt",
+    FABRICANDOS."createdAt",
+    FACTURADOS."createdAt",
+    FINALIZADOS."createdAt",
+    PRESUPUESTADOS."createdAt") = PRESUPUESTADOS."createdAt" THEN 'Presupuestado'
+    END ultimo_estado, p.id as pedido_id
+    FROM "Pedidos" as p
+    LEFT JOIN "Cancelados" AS CANCELADOS ON CANCELADOS."PedidoId" = "p"."id"
+    LEFT JOIN "Confirmados" AS CONFIRMADOS ON CONFIRMADOS."PedidoId" = "p"."id"
+    LEFT JOIN "Demorados" AS DEMORADOS ON DEMORADOS."PedidoId" = "p"."id"
+    LEFT JOIN "Entregados" AS ENTREGADOS ON ENTREGADOS."PedidoId" = "p"."id"
+    LEFT JOIN "Fabricandos" AS FABRICANDOS ON FABRICANDOS."PedidoId" = "p"."id"
+    LEFT JOIN "Facturados" AS FACTURADOS ON FACTURADOS."PedidoId" = "p"."id"
+    LEFT JOIN "Finalizados" AS FINALIZADOS ON FINALIZADOS."PedidoId" = "p"."id"
+    LEFT JOIN "Presupuestados" AS PRESUPUESTADOS ON PRESUPUESTADOS."PedidoId" = "p"."id"
+    ) as ultimo_estado on ultimo_estado.pedido_id = "Pedido"."id"
+    LEFT JOIN (
+    SELECT pedido."id" as pedido_id,
+    "Detalles->Hueso->Dinosaurio"."nombre" AS "Dinosaurio_nombre"
+    FROM "Pedidos" as pedido
+    LEFT JOIN (
+    SELECT *, ROW_NUMBER() OVER (PARTITION BY "PedidoId" ORDER BY (SELECT NULL)) AS RowNum FROM "Detalles"
+    ) as detalle ON pedido."id" = detalle."PedidoId" and RowNum = 1
+    AND (detalle."deletedAt" IS NULL)
+    LEFT OUTER JOIN "Huesos" AS "Detalles->Hueso" ON detalle."HuesoId" = "Detalles->Hueso"."id"
+    AND ("Detalles->Hueso"."deletedAt" IS NULL)
+    LEFT OUTER JOIN "Dinosaurios" AS "Detalles->Hueso->Dinosaurio" ON "Detalles->Hueso"."DinosaurioId" = "Detalles->Hueso->Dinosaurio"."id"
+    AND ("Detalles->Hueso->Dinosaurio"."deletedAt" IS NULL) WHERE (pedido."deletedAt" IS NULL)
+    ) as dinosaurio on dinosaurio.pedido_id = "Pedido"."id" ORDER BY ${columnOrder} ${orderValue.dir} LIMIT :limit  OFFSET :offset;`,
+      { raw: true, replacements: { limit: length, offset: start } }
     );
-    return pedidosJson;
+    return pedidos;
   },
   getPedido(args) {
     return models.Pedido.findOne({

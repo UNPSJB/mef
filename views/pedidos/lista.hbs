@@ -5,11 +5,14 @@
     +
   </a>
   {{/if}}
+  <a href="http://localhost:4001/docs/sections/gestiones/exhibicion.html#pedidos" class="btn btn-info ml-auto">
+    Manual
+  </a>
 </h1>
 
 <table class="table" id="pedidos">
   <thead>
-    <th>#</th> 
+    <th>#</th>
     <th>Dinosaurio</th>
     <th>Estado</th>
     <th>Cliente</th>
@@ -24,51 +27,19 @@
   $(document).ready(function () {
     $('#pedidos').DataTable({
       dom: 'Bfrtip',
-      serverSide:true,
-      ajax:{
-        url:'/pedidos/list',
-        type:'GET',
-        data: function (d) {
-          d.start = d.start;
-          d.length = d.length;
-          d.search = d.search.value;
-          d.order = d.order;
-          d.columns = d.columns;
-        },
-      },  
-        columns: [
-        { data: 'id'},
-        { data: 'Dinosaurio.nombre'},
-        { data: 'estadoInstance' },
-        { data: function (row) { 
-          if (row.Persona){
-            return row.Persona.nombre + ' ' + row.Persona.apellido
-          }
-          return "Interno"
-        }, 
-        },
-        {data:'createdAt'},
-        //TODO agregar valor por defecto no hay descripcion
-        {data:'motivo'},
-        //TODO agregar acciones
-        {render: function (d) {    
-          return 'Hello'
-        }
-        }
-        /*
-            <th>#</th>
-            <th>Dinosaurio</th>
-            <th>Estado</th>
-            <th>Cliente</th>
-             <th>Inicio Pedido</th>
-             <th>Descripción</th>
-        
-        */
-      ],
       buttons: ['pdf', 'excel', 'csv'],
       searching: true,
       ordering: true,
-      order: [[3, 'desc']],
+      serverSide: true,
+      ajax: '/pedidos/list',
+      columns: [
+        { data: 'id' },
+        { data: 'Dinosaurio_nombre' },
+        { data: 'ultimo_estado' },
+        { data: 'Persona_apellido' },
+        { data: 'createdAt' },
+        { data: 'motivo' },
+      ],
       language: {
         processing: "Buscando...",
         search: "Buscar:",
