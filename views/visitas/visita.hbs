@@ -43,7 +43,10 @@
     {
       data: null,
       render: function (data, type, row) {
-        return row.Exhibicion.tematica + ' | ' + row.Exhibicion.nombre;
+        if (!row?.Exhibicion) {
+          return "No hay Exhibición."
+        }
+        return row?.Exhibicion?.tematica + ' | ' + row?.Exhibicion?.nombre;
       }
     },
     {
