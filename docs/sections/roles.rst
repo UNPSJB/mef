@@ -19,7 +19,7 @@ interno y Confirmar pedido. Y por último (además de la ya mencionada confirmac
 * **Jefe de Recursos Humanos** 
 Este jefe se encarga de administrar a los empleados del museo, los cuales se dividen en **Empleados** estándar 
 (aquellos que trabajan haciendo las réplicas en el taller) y los **Guías**. Estas tareas consisten en Agregar, 
-Editar, Eliminar y Mostrar el listado de los **Empleados** y Agregar, Editar, Eliminar y Mostrar el listado de los 
+Editar, Eliminar y Mostrar el listado de los **Empleados de Taller** y Agregar, Editar, Eliminar y Mostrar el listado de los 
 **Guías**.
 
 * **Secretaria** 

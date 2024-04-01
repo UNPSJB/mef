@@ -2,29 +2,20 @@
 <span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
 
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
-
   <label for="fecha_envio" class="col-form-label">Fecha de Envío</label>
   <input class="form-control" type="date" name="fecha_envio" id="InputFechaEnvio" required>
-
   <label for="fecha_entrega" class="col-form-label">Fecha de Entrega</label>
   <input class="form-control" type="date" name="fecha_entrega" id="InputFechaEntrega" required>
-
   <button type="button" class="btn btn-info my-4" data-toggle="modal" data-target="#myModal">
     Ver Detalle
   </button>
-
-  <!-- Botones de Confirmar y Volver -->
-  <div class="row mt-4">
-    <div class="col-6">
-      <a href="/pedidos" class="btn btn-danger btn-block">Volver</a>
-    </div>
-    <div class="col-6">
-      <button type="submit" class="btn btn-success btn-block">Confirmar</button>
+  <br>
+  <!-- Botón de Entregar -->
+  <div class="row justify-content-center">
+    <div class="col-6 text-center">
+      <button type="submit" class="btn btn-success btn-lg">Entregar</button>
     </div>
   </div>
-  <!--********************************-->
-
-
 </form>
 
 <div class="modal fade" id="myModal">
@@ -42,31 +33,26 @@
   </div>
 </div>
 
-
 <script>
-  // setea la fecha actual como mínima de "Fecha Envío"
+  //Setea la fecha actual como mínima de "Fecha Envío"
   $(document).ready(function () {
     var hoy = formatDate(new Date());
     document.getElementById("InputFechaEnvio").setAttribute("min", hoy);
     $("#InputFechaEnvio").attr("min", hoy);
-
   })
-  //setea la fecha de inicio como mínima de la "Fecha Fin" 
+  //Setea la fecha de inicio como mínima de la "Fecha Fin" 
   $("#InputFechaEnvio").change(function () {
     document.getElementById("InputFechaEntrega").setAttribute("min", this.value);
   })
-
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
-
     if (month.length < 2)
       month = '0' + month;
     if (day.length < 2)
       day = '0' + day;
-
     return [year, month, day].join('-');
   }
 </script>

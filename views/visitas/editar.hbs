@@ -8,9 +8,12 @@
         <div class="container">
           <div class="row">
             <div class="col-6 pb-2">
+
+              <!--Lista de exhibiciones-->
               <label class="font-weight-bold" for="exhibicionId">Exhibición</label>
               <select class="form-control" name="exhibicionId" placeholder="Ingrese Exhibición" required>
-                <option value="{{visita.ExhibicionId}}" selected> {{visita.Exhibicion.tematica}} | {{visita.Exhibicion.nombre}}</option>
+                <option value="{{visita.ExhibicionId}}" selected> {{visita.Exhibicion.tematica}} |
+                  {{visita.Exhibicion.nombre}}</option>
                 {{#each exhibiciones}}
                 <option value="{{this.id}}">{{this.tematica}} | {{this.nombre}}</option>
                 {{else}}
@@ -18,124 +21,208 @@
                 {{/each}}
               </select>
               <small class="form-text-muted text-muted">Exhibición elegida.</small><br>
-              
+
+              <!--Lista de Clientes-->
               <label class="font-weight-bold" for="clienteId">Cliente</label>
               <select class="form-control" name="clienteId" placeholder="Ingrese Cliente" required>
-                <option value="{{visita.ClienteId}}">{{visita.Cliente.Persona.identificacion}} | {{visita.Cliente.Persona.nombre}} {{visita.Cliente.Persona.apellido}}</option>
+                <option value="{{visita.ClienteId}}">{{visita.Cliente.Persona.identificacion}} |
+                  {{visita.Cliente.Persona.nombre}} {{visita.Cliente.Persona.apellido}}</option>
                 {{#each clientes}}
-                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}} {{this.Persona.apellido}}</option>
+                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}}
+                  {{this.Persona.apellido}}</option>
                 {{else}}
                 <option value="">No hay clientes disponibles</option>
                 {{/each}}
               </select>
               <small class="form-text-muted text-muted">Cliente que solicita la visita.</small><br>
 
+              <!--Lista de Guías-->
               <label class="font-weight-bold" for="guiaId">Guía</label>
               <select class="form-control" name="guiaId" placeholder="Ingrese Guia" required>
-                <option value="{{visita.GuiumId}}" selected>{{visita.Guium.Persona.identificacion}} | {{visita.Guium.Persona.nombre}} {{visita.Guium.Persona.apellido}}</option>
+                <option value="{{visita.GuiumId}}" selected>{{visita.Guium.Persona.identificacion}} |
+                  {{visita.Guium.Persona.nombre}} {{visita.Guium.Persona.apellido}}</option>
                 {{#each guias}}
-                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}} {{this.Persona.apellido}}</option>
+                <option value="{{this.id}}">{{this.Persona.identificacion}} | {{this.Persona.nombre}}
+                  {{this.Persona.apellido}}</option>
                 {{else}}
-                <option value="">No hay guías disponibles</option>               
+                <option value="">No hay guías disponibles</option>
                 {{/each}}
               </select>
               <small class="form-text-muted text-muted">Guía encargado de la visita.</small><br>
 
+              <!--Cantidad de personas-->
               <label class="font-weight-bold" for="cantidadPersonas">Cantidad de Personas</label>
-              <input type="number" class="form-control" name="cantidadPersonas" min="1" max="300" placeholder="Ingrese Cantidad de Personas" value="{{visita.cantidadDePersonas}}" required>
+              <input type="number" class="form-control" name="cantidadPersonas" min="1" max="300"
+                placeholder="Ingrese Cantidad de Personas" value="{{visita.cantidadDePersonas}}" required>
               <small class="form-text-muted text-muted">Mínimo 1 persona. Máximo 300.</small>
-
             </div>
             <div class="col-6">
+
+              <!--Fecha-->
               <label class="font-weight-bold" for="fecha">Fecha</label>
-              <input type="date" class="form-control" id="fechaVisita" name="fecha" placeholder="Ingrese Fecha" value="{{visita.fechaVisita}}" required>
-              <small class="form-text-muted text-muted">Fecha de la visita guiada. La visita debe ser igual o posterior a hoy</small><br>
-            
+              <input type="date" class="form-control" id="fechaVisita" name="fecha" placeholder="Ingrese Fecha"
+                value="{{visita.fechaVisita}}" required>
+              <small class="form-text-muted text-muted">Fecha de la visita guiada. La visita debe ser igual o posterior
+                a hoy</small><br>
+
+              <!--Horario-->
               <label class="font-weight-bold" for="email">Horario</label>
-              <select class= "form-control" name="horario" >
-                <option value="{{visita.horario}}" selected>{{visita.horario}}:00 hs</option>
-                <option value="9">
-                  09:00hs
+              <select class="form-control" name="horario">
+                <option value="{{visita.horario}}" selected>{{visita.horario}}</option>
+                <option value="9:00hs">
+                  9:00hs
                 </option>
-                <option  value="10">
+                <option value="10:00hs">
                   10:00hs
                 </option>
-                <option  value="11">
+                <option value="11:00hs">
                   11:00hs
                 </option>
-                <option  value="12">
+                <option value="12:00hs">
                   12:00hs
                 </option>
-                <option  value="13">
+                <option value="13:00hs">
                   13:00hs
                 </option>
-                <option  value="14">
+                <option value="14:00hs">
                   14:00hs
                 </option>
-                <option  value="15">
+                <option value="15:00hs">
                   15:00hs
                 </option>
-                <option  value="16">
+                <option value="16:00hs">
                   16:00hs
                 </option>
-                <option  value="17">
+                <option value="17:00hs">
                   17:00hs
                 </option>
-                <option  value="18">
+                <option value="18:00hs">
                   18:00hs
                 </option>
-
               </select>
               <small class="form-text-muted text-muted">Horario de la visita guiada.</small><br>
-              
-              <label class="font-weight-bold" for="precio">Precio</label>
-              <input class="form-control" type="number" name="precio" min="1" max="3000000" value="{{visita.precio}}" placeholder="Ingrese el Precio de la Visita Guiada" required>
-              <small class="form-text-muted text-muted">Mínimo $1. Máximo $3.000.000 (Pesos Argentinos)</small>
 
+              <!--Precio-->
+              <label class="font-weight-bold" for="precio">Precio</label>
+              <input class="form-control" type="number" name="precio" min="1" max="3000000" value="{{visita.precio}}"
+                placeholder="Ingrese el Precio de la Visita Guiada" required>
+              <small class="form-text-muted text-muted">Mínimo $1. Máximo $3.000.000 (Pesos Argentinos)</small>
+              <br>
+
+              <!--Estado-->
+              <label class="font-weight-bold" for="estado">Estado</label>
+              <select class="form-control" name="estado" required>
+                <option value="Pendiente" id="pendiente">Pendiente</option>
+                <option value="Finalizada" id="finalizada">Finalizada</option>
+                <option value="Cancelada" id="cancelada">Cancelada</option>
+              </select>
+              <small class="form-text-muted text-muted">Estado de la visita guiada.</small><br>
             </div>
           </div>
+          <br>
 
+          <!--Observación-->
+          <label class="font-weight-bold" for="estado">Observación</label>
+          <textarea class="form-control"
+            placeholder="Si la visita no es particular, ingrese la escuela, universidad u organización solicitante."
+            name="observacion" rows="5">{{visita.observacion}}</textarea>
+          <small class="form-text-muted text-muted">Organización que solicita la visita guiada.</small><br>
+          <br>
 
-
-          <!--Botones de Guardar y Cancelar--->
-            <div class="form-group">
-              <div class="row">
-                <input type="hidden" name="id" value="{{visita.id}}">
-                <div class="col-6">
-                  <a href="/visitas" class="btn btn-danger btn-sm btn-block">Cancelar</a>
-                </div>
-                <div class="col-6">
-                  <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
-                </div>
-              </div>
+          <!--Botón de Guardar--->
+          <div class="row justify-content-center">
+            <div class="col-6 text-center">
+              <input type="hidden" name="id" value="{{visita.id}}">
+              <button type="submit" class="btn btn-success btn-sm btn-block">Editar Visita</button>
             </div>
-            <!--****************************--->
-
-
+          </div>
         </div>
       </div>
+    </div>
   </form>
 </div>
 
+
+<!--Setea la fecha actual como la fecha mínima de "encontrado".-->
 <script>
-  // setea la fecha actual como la fecha minima de "encontrado".
   $(document).ready(function () {
     var hoy = formatDate(new Date());
     document.getElementById("fechaVisita").setAttribute("min", hoy);
   })
-
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
-
     if (month.length < 2)
       month = '0' + month;
     if (day.length < 2)
       day = '0' + day;
-
     return [year, month, day].join('-');
   }
+</script>
 
+
+<!--Script que oculta el ESTADO actual de la visita para que no se vea repetido entre las opciones.-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    var estadoVisita = "{{visita.estado}}";
+    if (estadoVisita === "Pendiente") {
+      $("#pendiente").attr("selected", "selected");
+    } else if (estadoVisita === "Finalizada") {
+      $("#finalizada").attr("selected", "selected");
+    } else if (estadoVisita === "Cancelada") {
+      $("#cancelada").attr("selected", "selected");
+    }
+  });
+</script>
+
+
+<!--Script que oculta la EXHIBICIÓN actual de la visita para que no se vea repetido entre las opciones.-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Mostrar todas las opciones
+    $("select[name='exhibicionId'] option").css("display", "");
+
+    // Ocultar la opción seleccionada
+    $("select[name='exhibicionId'] option:selected").css("display", "none");
+  });
+</script>
+
+<!--Script que oculta al CLIENTE actual de la visita para que no se vea repetido entre las opciones.-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Mostrar todas las opciones
+    $("select[name='clienteId'] option").css("display", "");
+
+    // Ocultar la opción seleccionada
+    $("select[name='clienteId'] option:selected").css("display", "none");
+  });
+</script>
+
+<!--Script que oculta al GUÍA actual de la visita para que no se vea repetido entre las opciones.-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Mostrar todas las opciones
+    $("select[name='guiaId'] option").css("display", "");
+
+    // Ocultar la opción seleccionada
+    $("select[name='guiaId'] option:selected").css("display", "none");
+  });
+</script>
+
+<!--Script que oculta al HORARIO actual de la visita para que no se vea repetido entre las opciones.-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Mostrar todas las opciones
+    $("select[name='horario'] option").css("display", "");
+
+    // Ocultar la opción seleccionada
+    $("select[name='horario'] option:selected").css("display", "none");
+  });
 </script>

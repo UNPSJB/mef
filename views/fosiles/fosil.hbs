@@ -31,13 +31,7 @@
       ajax: {
         url: '/fosiles/list',
         type: 'GET',
-        data: function (d) {
-          d.start = d.start;
-          d.length = d.length;
-          d.search = d.search.value;
-          d.order = d.order;
-          d.columns = d.columns;
-        }
+        {{> paginacion/data}}
       },
       columns: [
         { data: 'id' },

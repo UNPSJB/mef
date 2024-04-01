@@ -5,14 +5,16 @@
         <h3>Eliminar Exhibición</h3>
       </div>
       <div class="card-body">
-       Seguro que desea eliminar la exhibición llamada "<b>{{exh.nombre}}</b>"?
+        Seguro que desea eliminar la exhibición <b>#{{exh.id}} "{{exh.nombre}}</b>"?
       </div>
-      <div class="card-footer">
-        <input type="hidden" name="id" value="{{id}}" hidden>
-      <button type="submit" class="btn btn-danger">Eliminar Exhibición</button>
-      <a href="/exhibiciones" class="btn btn-secondary col-2">Cancelar</a>
+      <br>
+      <!--Botón de Eliminar Exhibición -->
+      <div class="row justify-content-center">
+        <div class="col-6 text-center">
+          <input type="hidden" name="id" value="{{id}}" hidden>
+          <button type="submit" class="btn btn-danger">Eliminar Exhibición</button>
+        </div>
       </div>
     </div>
-</div>
-</form>
+  </form>
 </div>

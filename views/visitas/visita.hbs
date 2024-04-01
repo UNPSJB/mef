@@ -14,70 +14,103 @@
     <th scope='col'>Cantidad de personas</th>
     <th scope='col'>Fecha de visita</th>
     <th scope='col'>Horario</th>
-    <th scope='col'>Precio</th>
-    <th scope='col' data-orderable='false'>Acciones</th> <!-- data-orderable='false' desactiva el ordenamiento en esta columna -->
+    <th scope='col'>Precio (ARS)</th>
+    <th scope='col'>Estado</th>
+    <th scope='col'>Observación</th>
+    <th scope='col' data-orderable='false'>Acciones</th>
+    <!-- data-orderable='false' desactiva el ordenamiento en esta columna -->
   </thead>
   <tbody>
-    {{#each visitas}}
-      <tr>
-        <td>{{this.id}}</td>
-        <td>{{this.Exhibicion.tematica}} | {{this.Exhibicion.nombre}}</td>
-        <td>{{this.Cliente.Persona.identificacion}}
-          |
-          {{this.Cliente.Persona.nombre}}
-          {{this.Cliente.Persona.apellido}}</td>
-        <td>{{this.Guium.Persona.identificacion}} | {{this.Guium.Persona.nombre}} {{this.Guium.Persona.apellido}} </td>
-        <td>{{this.cantidadDePersonas}}</td>
-        <td>{{this.fechaVisita}}</td>
-        <td>{{this.horario}} hs</td>
-        <td>${{this.precio}}</td>
-        <td>
-          <a href='/visitas/editar/{{this.id}}'><span class='material-icons'>edit</span></a>
-          <a href='/visitas/eliminar/{{this.id}}'><span style='color:red' class='material-icons'>delete</span></a>
-        </td>
-      </tr>
-    {{/each}}
   </tbody>
 </table>
 
 <script type='text/javascript' charset='utf8' src='https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js'></script>
 <script>
-  $(document).ready( function () { 
-    $('#visitas').DataTable({ 
-      dom: 'Bfrtip', 
-      buttons: ['pdf', 'excel', 'csv'], 
-      searching: true, 
-      ordering: true, 
-      language: { 
-        processing:"Buscando...", 
-        search:"Buscar:", 
-        lengthMenu:"Mostrando _MENU_", 
-        info:"Mostrando _START_ de _END_ de un total de _TOTAL_ ", 
-        infoEmpty:"Mostrando 0 de 0 de un total de 0 ", 
-        infoFiltered: "(de un total de _MAX_)", 
-        infoPostFix: "", 
-        loadingRecords:"Cargando...", 
-        zeroRecords:"No hay coincidencias.", 
-        emptyTable:"No hay visitas.", 
-        paginate:{ first:"Primero", previous:"Anterior", next:"Siguiente", last:"Último" }, 
-        aria: { sortAscending: ": Ordenar ascendente", sortDescending: ": Ordenar descendente" } 
-      }, 
-      columnDefs: [
-        { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
-      ]
+  $(document).ready(function () {
+    $('#visitas').DataTable({
+      dom: 'Bfrtip',
+      buttons: ['pdf', 'excel', 'csv'],
+      searching: true,
+      ordering: true,
+      serverSide: true, // Indica que el procesamiento de datos se realiza en el servidor
+      ajax: {
+        url: '/visitas/list', // URL del endpoint que devuelve los datos de visitas
+        type: 'GET', // Tipo de petición HTTP
+        {{> paginacion / data}}
+      },
+    columns: [
+    { data: 'id' },
+    {
+      data: null,
+      render: function (data, type, row) {
+        return row.Exhibicion.tematica + ' | ' + row.Exhibicion.nombre;
+      }
+    },
+    {
+      data: 'Cliente.Persona.identificacion',
+      render: function (data, type, row) {
+        return data + ' | ' + row.Cliente.Persona.nombre + ' ' + row.Cliente.Persona.apellido;
+      }
+    },
+    {
+      data: 'Guium.Persona.identificacion',
+      render: function (data, type, row) {
+        return data + ' | ' + row.Guium.Persona.nombre + ' ' + row.Guium.Persona.apellido;
+      }
+    },
+    { data: 'cantidadDePersonas' },
+    { data: 'fechaVisita' },
+    { data: 'horario' },
+    {
+      data: 'precio',
+      render: function (data, type, row) {
+        return '$' + data;
+      }
+    },
+    {
+      data: 'estado',
+      render: function (data, type, row) {
+        return data ? data : 'Pendiente';
+      }
+    },
+    {
+      data: 'observacion',
+      render: function (data, type, row) {
+        return data ? data : 'Particular';
+      }
+    },
+    {
+      data: null,
+      render: function (data, type, row) {
+        return '<a href="/visitas/editar/' + data.id + '"><span class="material-icons">edit</span></a>';
+      }
+    }
+  ],
+    language: {
+    processing: "Buscando...",
+    search: "Buscar:",
+    lengthMenu: "Mostrando _MENU_",
+    info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+    infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
+    infoFiltered: "(de un total de _MAX_)",
+    infoPostFix: "",
+    loadingRecords: "Cargando...",
+    zeroRecords: "No hay coincidencias.",
+    emptyTable: "No hay visitas.",
+    paginate: { first: "Primero", previous: "Anterior", next: "Siguiente", last: "Último" },
+    aria: { sortAscending: ": Ordenar ascendente", sortDescending: ": Ordenar descendente" }
+  },
+    columnDefs: [
+    { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
+  ]
     }); 
   });
 </script>
 
-<link
-  rel='stylesheet'
-  type='text/css'
-  href='https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.css'
-/>
+<link rel='stylesheet' type='text/css'
+  href='https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.css' />
 
 <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js'></script>
 <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js'></script>
-<script
-  type='text/javascript'
-  src='https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.js'
-></script>
+<script type='text/javascript'
+  src='https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.js'></script>

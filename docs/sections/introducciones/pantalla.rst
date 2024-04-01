@@ -10,7 +10,7 @@ iniciado sesión. Estos son los diferentes roles disponibles:
     * Réplicas
 
 **Recursos Humanos (RRHH)**
-    * Empleados
+    * Empleados de Taller
     * Guías
 
 **Exhibición**

@@ -11,7 +11,10 @@
   <label for="presupuesto">Valor Presupuestado</label>
   <input class="form-control" type="number" name="presupuesto" value="{{estado.dataValues.monto}}" readonly>
   <label for="Moneda"><b>Moneda:</b></label>{{estado.dataValues.moneda}}
-  <button type="submit" class="btn btn-success btn-block">Facturar</button>
-  <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
-
+  <!-- Botón Facturar -->
+  <div class="row justify-content-center">
+    <div class="col-6 text-center">
+      <button type="submit" class="btn btn-success btn-lg">Facturar</button>
+    </div>
+  </div>
 </form>

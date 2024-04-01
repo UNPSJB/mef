@@ -10,12 +10,10 @@
           <input {{#with nombre}} value="{{this}}" {{/with}} type="text" minlength="4" maxlength="50" name="nombre"
             class="form-control" placeholder="Nombre de la exhibición" required>
           <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
-
           <label for="tematica">Temática:</label>
           <input {{#with tematica}} value="{{this}}" {{/with}} type="text" minlength="4" maxlength="50" name="tematica"
             class="form-control" placeholder="Tematica de la exhibición" required>
           <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
-
           <label for="duracion">Duración: <i>Cantidad de meses</i></label>
           <input {{#with duracion}} value="{{this}}" {{/with}} type="number" name="duracion" min="1" max="40"
             class="form-control" placeholder="Duración de la exhibición. Ej: 2 meses, 4 meses" required>
@@ -53,23 +51,13 @@
           </div>
         </div>
       </div>
-
-
-      <!-- Botones de Agregar y Cancelar -->
-      <div class="form-group">
-        <div class="row">
-          <div class="col-6">
-            <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Exhibición</button>
-          </div>
-          <div class="col-6">
-            <a href="/exhibiciones" class="btn btn-danger btn-sm btn-block">Cancelar</a>
-          </div>
+      <br>
+      <!-- Botón de Agregar Exhibición-->
+      <div class="row justify-content-center">
+        <div class="col-6 text-center">
+          <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Exhibición</button>
         </div>
       </div>
-      <!--********************************-->
-
-
     </div>
-</div>
-</form>
+  </form>
 </div>
