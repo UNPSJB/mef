@@ -27,17 +27,27 @@
     $('#dinosTable').DataTable({
       dom: 'Bfrtip',
       serverSide: true,
-      ajax:'/dinosaurios/list',
+      ajax: '/dinosaurios/list',
       columns: [
         { data: 'id' },
         { data: 'nombre' },
         { data: 'alimentacion' },
         { data: 'periodo' },
-        { data: 'SubClase.descripcion' }, 
-        { data: 'descubrimiento'},
-        { 
+        { data: 'SubClase.descripcion' },
+        {
+          data: 'descubrimiento',
+          render: function (data, type, row) {
+            const fecha = new Date(data);
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1;
+            const anio = fecha.getFullYear();
+            const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+            return fechaFormateada;
+          }
+        },
+        {
           data: null,
-          render: function(data, type, row) {
+          render: function (data, type, row) {
             const id = data.id;
             let editLink = '';
             if (row.req && row.req.coleccion) {
@@ -46,14 +56,14 @@
             return `${editLink}<a href="/dinosaurios/moldes/${id}" class="no-export"><span style="font-size: 17px;vertical-align:text-bottom;line-height: 2;">🦴</span></a>`;
           }
         }
-      
+
       ],
       buttons: [
         'pdf', 'excel', 'csv'
       ],
       searching: true,
       ordering: true,
-      processing:true,
+      processing: true,
       language: {
         processing: "Buscando...",
         search: "Buscar:",
