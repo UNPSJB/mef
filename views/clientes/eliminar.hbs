@@ -19,7 +19,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{cliente.Persona.id}}</td>
+                    <td>{{cliente.id}}</td>
                     <td>{{cliente.Persona.identificacion}}</td>
                     <td>{{cliente.Persona.nombre}}</td>
                     <td>{{cliente.Persona.apellido}}</td>
@@ -33,9 +33,13 @@
             </tbody>
         </table>
     </div>
-    <!--Botón de Eliminar -->
-    <form action="/clientes?_method=DELETE" method="POST">
-        <input name="id" type="number" value="{{cliente.id}}" hidden required>
-        <button type="submit" class="btn btn-danger">Eliminar Cliente</button>
-    </form>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-6 text-center">
+            <form action="/clientes?_method=DELETE" method="POST">
+                <input name="id" type="number" value="{{cliente.id}}" hidden required>
+                <button type="submit" class="btn btn-danger">Eliminar Cliente</button>
+            </form>
+        </div>
+    </div>
 </div>

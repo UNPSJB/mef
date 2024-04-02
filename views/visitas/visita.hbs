@@ -14,7 +14,9 @@
     <th scope='col'>Cantidad de personas</th>
     <th scope='col'>Fecha de visita</th>
     <th scope='col'>Horario</th>
-    <th scope='col'>Precio</th>
+    <th scope='col'>Precio (ARS)</th>
+    <th scope='col'>Estado</th>
+    <th scope='col'>Observación</th>
     <th scope='col' data-orderable='false'>Acciones</th>
     <!-- data-orderable='false' desactiva el ordenamiento en esta columna -->
   </thead>
@@ -34,73 +36,78 @@
       ajax: {
         url: '/visitas/list', // URL del endpoint que devuelve los datos de visitas
         type: 'GET', // Tipo de petición HTTP
-        data: function (d) {
-          // Parámetros de la solicitud
-          d.start = d.start;
-          d.length = d.length;
-          d.search = d.search.value;
-          d.order = d.order;
-          d.columns = d.columns;
-        }
+        {{> paginacion / data}}
       },
-      columns: [
-        { data: 'id' },
-        {
-          data: null,
-          render: function (data, type, row) {
-            return row.Exhibicion.tematica + ' | ' + row.Exhibicion.nombre;
-          }
-        },
-        {
-          data: 'Cliente.Persona.identificacion',
-          render: function (data, type, row) {
-            return data + ' | ' + row.Cliente.Persona.nombre + ' ' + row.Cliente.Persona.apellido;
-          }
-        },
-        {
-          data: 'Guium.Persona.identificacion',
-          render: function (data, type, row) {
-            return data + ' | ' + row.Guium.Persona.nombre + ' ' + row.Guium.Persona.apellido;
-          }
-        },
-        { data: 'cantidadDePersonas' },
-        {
-          data: 'fechaVisita',
-          render: function (data, type, row) {
-            const fecha = new Date(data);
-            const dia = fecha.getDate();
-            const mes = fecha.getMonth() + 1;
-            const anio = fecha.getFullYear();
-            const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
-            return fechaFormateada;
-          }
-        },
-        { data: 'horario' },
-        { data: 'precio' },
-        {
-          data: null,
-          render: function (data, type, row) {
-            return '<a href="/visitas/editar/' + data.id + '"><span class="material-icons">edit</span></a>';
-          }
-        }
-      ],
-      language: {
-        processing: "Buscando...",
-        search: "Buscar:",
-        lengthMenu: "Mostrando _MENU_",
-        info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
-        infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
-        infoFiltered: "(de un total de _MAX_)",
-        infoPostFix: "",
-        loadingRecords: "Cargando...",
-        zeroRecords: "No hay coincidencias.",
-        emptyTable: "No hay visitas.",
-        paginate: { first: "Primero", previous: "Anterior", next: "Siguiente", last: "Último" },
-        aria: { sortAscending: ": Ordenar ascendente", sortDescending: ": Ordenar descendente" }
-      },
-      columnDefs: [
-        { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
-      ]
+    columns: [
+    { data: 'id' },
+    {
+      data: null,
+      render: function (data, type, row) {
+        return row.Exhibicion.tematica + ' | ' + row.Exhibicion.nombre;
+      }
+    },
+    {
+      data: 'Cliente.Persona.identificacion',
+      render: function (data, type, row) {
+        return data + ' | ' + row.Cliente.Persona.nombre + ' ' + row.Cliente.Persona.apellido;
+      }
+    },
+    {
+      data: 'Guium.Persona.identificacion',
+      render: function (data, type, row) {
+        return data + ' | ' + row.Guium.Persona.nombre + ' ' + row.Guium.Persona.apellido;
+      }
+    },
+    { data: 'cantidadDePersonas' },
+    {
+      data: 'fechaVisita',
+      render: function (data, type, row) {
+        const fecha = new Date(data);
+        const dia = fecha.getDate();
+        const mes = fecha.getMonth() + 1;
+        const anio = fecha.getFullYear();
+        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+        return fechaFormateada;
+      }
+    },
+    { data: 'horario' },
+    { data: 'precio' },
+    {
+      data: 'estado',
+      render: function (data, type, row) {
+        return data ? data : 'Pendiente';
+      }
+    },
+    {
+      data: 'observacion',
+      render: function (data, type, row) {
+        return data ? data : 'Particular';
+      }
+    },
+    {
+      data: null,
+      render: function (data, type, row) {
+        return '<a href="/visitas/editar/' + data.id + '"><span class="material-icons">edit</span></a>';
+      }
+    }
+  ],
+    language: {
+    processing: "Buscando...",
+    search: "Buscar:",
+    lengthMenu: "Mostrando _MENU_",
+    info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+    infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
+    infoFiltered: "(de un total de _MAX_)",
+    infoPostFix: "",
+    loadingRecords: "Cargando...",
+    zeroRecords: "No hay coincidencias.",
+    emptyTable: "No hay visitas.",
+    paginate: { first: "Primero", previous: "Anterior", next: "Siguiente", last: "Último" },
+    aria: { sortAscending: ": Ordenar ascendente", sortDescending: ": Ordenar descendente" }
+  },
+    columnDefs: [
+    { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
+  ]
     });
   });
 </script>

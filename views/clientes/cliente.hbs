@@ -5,14 +5,19 @@
     <a href="/clientes/agregar" class="btn btn-success btn-primary border border-light" rel="noopener noreferrer">
       +
     </a>
+    <a href="http://localhost:4001/docs/sections/gestiones/exhibicion.html#clientes" class="btn btn-info ml-auto">
+      Manual
+    </a>
     {{/if}}
   </h1>
-  <table style="table-layout: fixed; word-wrap: break-word;" class="table table-striped table-bordered" id="clientesTable">
+
+  <table style="table-layout: fixed; word-wrap: break-word;" class="table table-striped table-bordered"
+    id="clientesTable">
     <thead>
       <th>#</th>
       <th>Documento</th>
-      <th>Nombre</th>
       <th>Apellido</th>
+      <th>Nombre</th>
       <th>Tipo</th>
       <th>Dirección</th>
       <th>Localidad</th>
@@ -30,75 +35,80 @@
   $(document).ready(function () {
     $('#clientesTable').DataTable({
       dom: 'Bfrtip',
-       serverSide: true, // Indica que el procesamiento de datos se realiza en el servidor
-        ajax: {
-            url: '/clientes/list', // URL del endpoint que devuelve los datos de clientes
-            type: 'GET', // Tipo de petición HTTP
-            data: function (d) {
-                // Parámetros de la solicitud
-                d.start = d.start;
-                d.length = d.length;
-                d.search = d.search.value;
-                d.order = d.order;
-                d.columns = d.columns;
-            }
+      serverSide: true, // Indica que el procesamiento de datos se realiza en el servidor
+      ajax: {
+        url: '/clientes/list', // URL del endpoint que devuelve los datos de clientes
+        type: 'GET', // Tipo de petición HTTP
+            {{> paginacion / data}}
         },
-        columns: [
-            { data: 'id' }, // Columna de ID
-            { data: 'Persona.identificacion' }, // Columna de Documento
-            { data: 'Persona.nombre' }, // Columna de Nombre
-            { data: 'Persona.apellido' }, // Columna de Apellido
-            { data: 'tipo' }, // Columna de Tipo
-            { data: 'Persona.direccion' }, // Columna de Dirección
-            { data: 'Persona.localidad' }, // Columna de Localidad
-            { data: 'Persona.email' }, // Columna de Correo Electrónico
-            { data: 'Persona.fecha_nacimiento' }, // Columna de Fecha de Nacimiento
-            { data: 'Persona.telefono' }, // Columna de Teléfono
-            { // Columna de Acciones
-                data: null,
-                render: function (data, type, row) {
-                    return '<a href="/clientes/editar/' + data.id + '"><span class="material-icons">edit</span></a>' +
-                        '<a href="/clientes/eliminar/' + data.id + '"><span style="color:red" class="material-icons">delete</span></a>';
-                }
-            }
-        ],
-      buttons: [
-        'pdf', 'excel', 'csv'
-      ],
-      searching: true,
-      ordering: true,
-      processing: true,
-      language: {
-        processing: "Buscando...",
-        search: "Buscar:",
-        lengthMenu: "Mostrando _MENU_",
-        info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
-        infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
-        infoFiltered: "(de un total de _MAX_)",
-        infoPostFix: "",
-        loadingRecords: "Cargando...",
-        zeroRecords: "No hay coincidencias.",
-        emptyTable: "No hay clientes.",
-        paginate: {
-          first: "Primero",
-          previous: "Anterior",
-          next: "Siguiente",
-          last: "Último"
-        },
-        aria: {
-          sortAscending: ": Ordenar ascendente",
-          sortDescending: ": Ordenar descendente"
-        }
-      },
-      columnDefs: [
-        { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
-      ]
+    columns: [
+    { data: 'id' }, // Columna de ID
+    { data: 'Persona.identificacion' }, // Columna de Documento
+    { data: 'Persona.apellido' }, // Columna de Apellido
+    { data: 'Persona.nombre' }, // Columna de Nombre
+    { data: 'tipo' }, // Columna de Tipo
+    { data: 'Persona.direccion' }, // Columna de Dirección
+    { data: 'Persona.localidad' }, // Columna de Localidad
+    { data: 'Persona.email' }, // Columna de Correo Electrónico
+    {
+      data: 'Persona.fecha_nacimiento',
+      render: function (data, type, row) {
+        const fecha = new Date(data);
+        const dia = fecha.getDate();
+        const mes = fecha.getMonth() + 1;
+        const anio = fecha.getFullYear();
+        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+        return fechaFormateada;
+      }
+    },
+    { data: 'Persona.telefono' }, // Columna de Teléfono
+    { // Columna de Acciones
+      data: null,
+      render: function (data, type, row) {
+        return '<a href="/clientes/editar/' + data.id + '"><span class="material-icons">edit</span></a>' +
+          '<a href="/clientes/eliminar/' + data.id + '"><span style="color:red" class="material-icons">delete</span></a>';
+      }
+    }
+  ],
+    buttons: [
+    'pdf', 'excel', 'csv'
+  ],
+    searching: true,
+    ordering: true,
+    processing: true,
+    language: {
+    processing: "Buscando...",
+    search: "Buscar:",
+    lengthMenu: "Mostrando _MENU_",
+    info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+    infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
+    infoFiltered: "(de un total de _MAX_)",
+    infoPostFix: "",
+    loadingRecords: "Cargando...",
+    zeroRecords: "No hay coincidencias.",
+    emptyTable: "No hay clientes.",
+    paginate: {
+      first: "Primero",
+      previous: "Anterior",
+      next: "Siguiente",
+      last: "Último"
+    },
+    aria: {
+      sortAscending: ": Ordenar ascendente",
+      sortDescending: ": Ordenar descendente"
+    }
+  },
+    columnDefs: [
+    { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
+  ]
     });
   });
 </script>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.css" />
+<link rel="stylesheet" type="text/css"
+  href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.css" />
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.js"></script>
+<script type="text/javascript"
+  src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.js"></script>

@@ -1,4 +1,4 @@
-<h1>Eliminar Guia</h1>
+<h1>Eliminar Guía</h1>
 <div class="alert alert-danger mt-4">¿Seguro que desea borrar esto?</div>
 <table class="table">
     <thead>
@@ -28,9 +28,13 @@
         </tr>
     </tbody>
 </table>
-
-<!---Botón de Eliminar -->
-<form action="/guias?_method=DELETE" method="POST">
-    <input name="id" type="number" value="{{guia.id}}" hidden required>
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-</form>
+<br>
+<!---Botón de Eliminar Guía -->
+<div class="row justify-content-center">
+    <div class="col-6 text-center">
+        <form action="/guias?_method=DELETE" method="POST">
+            <input name="id" type="number" value="{{guia.id}}" hidden required>
+            <button type="submit" class="btn btn-danger">Eliminar Guía</button>
+        </form>
+    </div>
+</div>

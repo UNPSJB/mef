@@ -39,7 +39,8 @@
               <label class="font-weight-bold" for="fechaNacimiento">Fecha Nacimiento</label>
               <input type="date" class="form-guia form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
                 required {{#if guia}} value="{{guia.Persona.fecha_nacimiento}}" {{/if}}>
-              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>              <label class="font-weight-bold" for="InputTelefono">Telefono</label>
+              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br> <label
+                class="font-weight-bold" for="InputTelefono">Telefono</label>
               <input type="tel" class="form-guia form-control" name="telefono" id="InputTelefono"
                 placeholder="Ingrese Teléfono" required {{#if guia}} value="{{guia.Persona.telefono}}" {{/if}}>
               <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>
@@ -109,16 +110,16 @@
               </div>
             </div>
           </div>
-          <!-- Botón de Guardar -->
-          <div class="form-group">
-            <div class="row justify-content-end">
-              <div class="col-6">
-                <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
-              </div>
+          <br>
+          <!-- Botón de Editar Guía-->
+          <div class="row justify-content-center">
+            <div class="col-6 text-center">
+              <button type="submit" class="btn btn-success btn-sm btn-block">Editar Guía</button>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </form>
 </div>
 

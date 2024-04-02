@@ -1,5 +1,5 @@
 <div class="container">
-  <form action="/pedidos" method="post">
+  <form action="/pedidos" method="post" id="form">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarReplicaModalLabel">
         <h1>Crear pedido de replicación</h1>
@@ -29,7 +29,7 @@
                   <br>
                   <label class="font-weight-bold" for="monto">Monto:</label>
                   <br>
-                  <input type="radio" name="moneda" value="Pesos Argentinos">Pesos Argentinos
+                  <input required type="radio" name="moneda" value="Pesos Argentinos">Pesos Argentinos
                   <br>
                   <input type="radio" name="moneda" value="Dolares">Dolares Americanos
                   <br>
@@ -77,12 +77,12 @@
               </div>
             </div>
           </div>
-          <!-- Botón de Agregar -->
-          <div class="form-group">
-            <div class="row justify-content-end">
-              <div class="col-6">
-                <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Pedido de Replicación</button>
-              </div>
+          <br>
+          <!-- Botón de Crear Pedido de Replicación-->
+          <div class="row justify-content-center">
+            <div class="col-6 text-center">
+              <button type="submit" class="btn btn-success btn-sm btn-block" disabled>Crear Pedido de
+                Replicación</button>
             </div>
           </div>
         </div>
@@ -93,6 +93,18 @@
 
 <script>
   $(document).ready(() => {
+    function controlarSubmit() {
+      const MIN_CANT_HUESOS = 1
+      const huesosSeleccionados = $('input:checkbox:checked').length;
+      if (huesosSeleccionados < MIN_CANT_HUESOS) {
+        return $(':submit').prop('disabled', true);
+      }
+      return $(':submit').prop('disabled', false);
+    }
+    $("#form").change(function (event) {
+      controlarSubmit()
+
+    })
     // Función para manejar cambios en el cliente
     function handleClienteChange() {
       // Desseleccionar la moneda cuando el cliente vuelve a ser interno
@@ -119,7 +131,19 @@
     $('#listadoClientes').change(function () {
       handleClienteChange();
     });
-    // ... (Otros scripts)
+    //https://stackoverflow.com/questions/386281/how-to-implement-select-all-check-box-in-html
+    $("#total").click(function (ev) {
+      $("[name='hueso']").each(function () {
+        this.checked = true
+      })
+      controlarSubmit()
+    })
+    $("#resetear").click(function (ev) {
+      $("[name='hueso']").each(function () {
+        this.checked = false
+      })
+      controlarSubmit()
+    })
   });
 </script>
 
@@ -151,20 +175,6 @@
   function generateCheckbox(id, nombre, numero) {
     return `<input type="checkbox" name="hueso" value="${id}">${nombre} #${numero} <br>`;
   }
-</script>
-
-<script>
-  //https://stackoverflow.com/questions/386281/how-to-implement-select-all-check-box-in-html
-  $("#total").click(function (ev) {
-    $("[name='hueso']").each(function () {
-      this.checked = true
-    })
-  })
-  $("#resetear").click(function (ev) {
-    $("[name='hueso']").each(function () {
-      this.checked = false
-    })
-  })
 </script>
 
 <script>

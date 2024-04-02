@@ -54,30 +54,25 @@
               </label>
             </div>
           </div>
-          <!--Botón de Guardar--->
-          <div class="form-group">
-            <div class="row justify-content-end">
-              <div class="col-6">
-                <button type="submit" class="btn btn-success btn-sm btn-block">Guardar cambios</button>
-              </div>
+          <!--Botón de Editar Empleado de Taller--->
+          <div class="row justify-content-center">
+            <div class="col-6 text-center">
+              <button type="submit" class="btn btn-success btn-sm btn-block">Editar Empleado de Taller</button>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </form>
 </div>
 
 <script>
-
   // setea la fecha actual
-
-
   $(document).ready(function () {
     var hoy = formatDate(new Date());
     document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
     $("#InputFechaNacimiento").attr("max", hoy);
   })
-
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
@@ -88,7 +83,6 @@
       month = '0' + month;
     if (day.length < 2)
       day = '0' + day;
-
     return [year, month, day].join('-');
   }
 </script>

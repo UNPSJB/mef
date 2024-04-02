@@ -2,24 +2,25 @@
 <span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
   <div class="card-body">
-   
-    <p class="card-text">Ingrese Observación:</p>
 
+    <!--Observación-->
+    <p class="card-text">Ingrese Observación:</p>
     <textarea class="form-control" placeholder="Ingrese Observación" name="observacion" rows="5"></textarea>
     <br>
+
+    <!--Botón Ver Detalle-->
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
       Ver Detalle
     </button>
     <div class="modal fade" id="myModal">
       <div class="modal-dialog modal-xl">
         <div class="modal-content modal-xl">
-
           <!-- Modal body -->
           <div class="modal-body">
             {{> replica/detalle detalles}}
           </div>
 
-          <!-- Modal footer -->
+          <!-- Botón Cerrar -->
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
           </div>
@@ -27,7 +28,12 @@
       </div>
     </div>
   </div>
+  <br>
 
-  <button type="submit" class="btn btn-success btn-block">Confirmar</button>
-  <a href="/pedidos" class="btn btn-secondary btn-block">Volver</a>
+  <!--Botón de Cancelar Replicación-->
+  <div class="row justify-content-center">
+    <div class="col-6 text-center">
+      <button type="submit" class="btn btn-success btn-block">Cancelar Replicación</button>
+    </div>
+  </div>
 </form>

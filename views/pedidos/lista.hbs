@@ -5,6 +5,9 @@
     +
   </a>
   {{/if}}
+  <a href="http://localhost:4001/docs/sections/gestiones/exhibicion.html#pedidos" class="btn btn-info ml-auto">
+    Manual
+  </a>
 </h1>
 
 <table class="table" id="pedidos">
@@ -31,7 +34,7 @@
       <td>{{this.estadoInstance}}</td>
       <td class="cliente">
         {{#with this.Persona as |Cliente|}}
-        {{Cliente.nombre}} {{Cliente.apellido}}
+        {{Cliente.apellido}}, {{Cliente.nombre}}
         {{else}}
         <i>Interno</i>
         {{/with}}
