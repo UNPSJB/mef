@@ -50,7 +50,6 @@ services:
       - './docs:/docs'
       - ./public/docs:/public/docs
     command: "sphinx-build -b html /docs /public/docs"
-    restart: always
 
 networks:
   mefnetwork:
