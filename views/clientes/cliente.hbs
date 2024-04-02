@@ -50,7 +50,17 @@
     { data: 'Persona.direccion' }, // Columna de Dirección
     { data: 'Persona.localidad' }, // Columna de Localidad
     { data: 'Persona.email' }, // Columna de Correo Electrónico
-    { data: 'Persona.fecha_nacimiento' }, // Columna de Fecha de Nacimiento
+    {
+      data: 'Persona.fecha_nacimiento',
+      render: function (data, type, row) {
+        const fecha = new Date(data);
+        const dia = fecha.getDate();
+        const mes = fecha.getMonth() + 1;
+        const anio = fecha.getFullYear();
+        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+        return fechaFormateada;
+      }
+    },
     { data: 'Persona.telefono' }, // Columna de Teléfono
     { // Columna de Acciones
       data: null,
