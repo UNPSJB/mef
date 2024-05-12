@@ -1,4 +1,4 @@
-Gestión de Jefe de Recursos Humanos (Terminado)
+Gestión de Jefe de Recursos Humanos
 ===================================
 
 Bienvenido a la Gestión de Recursos Humanos. En esta sección usted podrá ver, crear, editar y eliminar a los guías y empleados del museo.

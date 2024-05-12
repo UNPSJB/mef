@@ -1,4 +1,4 @@
-Gestón del Jefe de Taller (Terminado hasta donde se pudo con el software funcionando)
+Gestón del Jefe de Taller
 =========================
 
 Bienvenido a la Gestión de Taller. En esta sección usted podrá ver y editar el listado de Dinosaurios;
