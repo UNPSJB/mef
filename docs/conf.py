@@ -1,5 +1,5 @@
 # -- Project information -----------------------------------------------------
-project = 'My Project'
+project = 'Manual MEF'
 version = '1.0'
 release = '1.0.0'
 
