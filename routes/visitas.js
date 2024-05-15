@@ -21,7 +21,8 @@ router.get('/list', async (req, res) => {
     const total = await visitaService.countVisitas();
     const { start, length, draw, search, columns, order } = req.query;
     const visitas = await visitaService.getVisitasDataTable({ start, length, search, columns, order });
-    res.json({ draw, data: visitas, recordsTotal: total, recordsFiltered: total });
+    const totalVisitasFiltrados = visitas.length;
+    res.json({ draw, data: visitas, recordsTotal: total, recordsFiltered: totalVisitasFiltrados });
   } catch (error) {
     res.redirect('/404');
   }
@@ -52,7 +53,17 @@ router.post('/', async (req, res) => {
   const { exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion } = req.body;
   /** @TODO agregar try catch y la vista de agregar visita */
   try {
-    await visitaService.createVisita(exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion);
+    await visitaService.createVisita(
+      exhibicionId,
+      clienteId,
+      guiaId,
+      cantidadPersonas,
+      fecha,
+      horario,
+      precio,
+      estado,
+      observacion
+    );
     res.redirect('/visitas');
   } catch (error) {
     res.render('visitas/agregar', { req });
@@ -60,7 +71,8 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/', async (req, res) => {
-  const { id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion } = req.body;
+  const { id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion } =
+    req.body;
   /** agregar async await, try catch, render con visitas, request, error */
   return visitaService
     .updateVisita(id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion)

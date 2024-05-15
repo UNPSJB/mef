@@ -25,7 +25,8 @@ router.get('/list', async (req, res) => {
     const total = await clienteService.countClientes();
     const { start, length, draw, search, columns, order } = req.query;
     const clientes = await clienteService.getClientesDataTable({ start, length, search, columns, order });
-    res.json({ draw, data: clientes, recordsTotal: total, recordsFiltered: total });
+    const totalClientesFiltrados = clientes.length;
+    res.json({ draw, data: clientes, recordsTotal: total, recordsFiltered: totalClientesFiltrados });
   } catch (error) {
     res.redirect('/404');
   }
