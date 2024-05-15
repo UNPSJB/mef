@@ -19,7 +19,8 @@ router.get('/list', async (req, res) => {
     const total = await empleadoService.countEmpleados();
     const { start, length, draw, search, columns, order } = req.query;
     const empleados = await empleadoService.getEmpleadosDataTable({ start, length, search, columns, order });
-    res.json({ draw, data: empleados, recordsTotal: total, recordsFiltered: total });
+    const totalEmpladosFiltrados = empleados.length;
+    res.json({ draw, data: empleados, recordsTotal: total, recordsFiltered: totalEmpladosFiltrados });
   } catch (error) {
     res.redirect('/404');
   }
