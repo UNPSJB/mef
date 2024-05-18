@@ -158,8 +158,10 @@ module.exports = {
         ) AS "Persona"
         INNER JOIN "Guia" ON "Persona"."id" = "Guia"."PersonaId"
         WHERE "Guia"."deletedAt" IS NULL
+        ORDER BY ${columnOrder} ${orderValue.dir}
         LIMIT :limit
-        OFFSET :offset`,
+        OFFSET :offset
+        `,
 
       {
         replacements,
