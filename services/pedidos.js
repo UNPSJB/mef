@@ -48,25 +48,27 @@ module.exports = {
       where: {
         ...args,
       },
-      order: [['createdAt', 'DE9SC']],
+      order: [['createdAt', 'DESC']],
       ...paginateModel({ page, pageSize }),
     });
   },
   async getPedidosDataTable({ start, length, search, order, columns }) {
     let querySearch = undefined;
     const [orderValue] = order;
+    let replacements = { limit: length, offset: start };
+    //@TODO:En el caso de fechas ordena por string  en vez de por fecha(date)
     const columnOrder = columns[parseInt(orderValue.column)].data
       .split('.')
       .map(name => `"${name}"`)
       .join('.');
-    console.log(columnOrder);
-    if (search && search.length > MIN_CHARS) {
-      const resultados = genericSearch(search, ['id', 'Dinosaurio.nombre']);
-      //console.log(resultados);
+    console.log('Soy una tetera', search);
+    if (search.value && search.value.length > MIN_CHARS) {
+      replacements.searchTerm = `%${search.value}%`;
       querySearch = {
-        [Op.or]: genericSearch(search, ['id', 'createdAt', 'motivo']),
+        [Op.or]: genericSearch(search, ['id', 'createdAt', 'motivo', 'Dinosaurio.nombre']),
       };
     }
+    console.log('La query', querySearch);
     const [pedidos] = await models.sequelize.query(
       `SELECT "Pedido".*,
     ultimo_estado.ultimo_estado,
@@ -178,8 +180,18 @@ module.exports = {
     AND ("Detalles->Hueso"."deletedAt" IS NULL)
     LEFT OUTER JOIN "Dinosaurios" AS "Detalles->Hueso->Dinosaurio" ON "Detalles->Hueso"."DinosaurioId" = "Detalles->Hueso->Dinosaurio"."id"
     AND ("Detalles->Hueso->Dinosaurio"."deletedAt" IS NULL) WHERE (pedido."deletedAt" IS NULL)
-    ) as dinosaurio on dinosaurio.pedido_id = "Pedido"."id" ORDER BY ${columnOrder} ${orderValue.dir} LIMIT :limit  OFFSET :offset;`,
-      { raw: true, replacements: { limit: length, offset: start } }
+    ) as dinosaurio on dinosaurio.pedido_id = "Pedido"."id"
+    ${
+      replacements.searchTerm && replacements.searchTerm.length
+        ? `WHERE "Pedido"."id"::text ILIKE :searchTerm 
+   
+    OR TO_CHAR("Pedido"."createdAt", 'YYYY-MM-DD') LIKE :searchTerm
+    `
+        : ''
+    }
+    
+    ORDER BY ${columnOrder} ${orderValue.dir} LIMIT :limit  OFFSET :offset;`,
+      { raw: true, replacements }
     );
     return pedidos;
   },
