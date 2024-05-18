@@ -49,7 +49,21 @@ module.exports = {
         ]),
       };
     }
-    return models.Visita.findAll({
+
+    // Contar el número de registros filtrados
+    const recordsFiltered = await models.Visita.count({
+      where: querySearch,
+      include: [
+        { model: models.Cliente, include: models.Persona },
+        { model: models.Guia, include: models.Persona },
+        { model: models.Exhibicion },
+      ],
+    });
+
+    // Imprimir la cantidad de registros filtrados en la consola
+    console.log(`Número de registros filtrados: ${recordsFiltered}`);
+
+    const visitas = await models.Visita.findAll({
       limit: length,
       offset: start,
       where: querySearch,
@@ -60,6 +74,8 @@ module.exports = {
         { model: models.Exhibicion },
       ],
     });
+
+    return { visitas, recordsFiltered };
   },
   countVisitas() {
     return models.Visita.count();
@@ -90,7 +106,17 @@ module.exports = {
       ],
     });
   },
-  createVisita(ExhibicionId, ClienteId, GuiumId, cantidadDePersonas, fechaVisita, horario, precio, estado, observacion) {
+  createVisita(
+    ExhibicionId,
+    ClienteId,
+    GuiumId,
+    cantidadDePersonas,
+    fechaVisita,
+    horario,
+    precio,
+    estado,
+    observacion
+  ) {
     return models.Visita.create({
       ExhibicionId,
       ClienteId,
@@ -117,7 +143,7 @@ module.exports = {
     observacion,
     cancelada = false
   ) {
-    const visita = await models.Visita.findByPk(id)
+    const visita = await models.Visita.findByPk(id);
     return visita.update({
       ExhibicionId,
       ClienteId,
@@ -128,7 +154,7 @@ module.exports = {
       precio,
       estado,
       observacion,
-      cancelada
+      cancelada,
     });
   },
 };

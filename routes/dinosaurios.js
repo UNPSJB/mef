@@ -19,11 +19,16 @@ router.get('/', async (req, res) => {
 
 router.get('/list', async (req, res) => {
   try {
-    const total = await dinoService.countDinosaurios();
+    const total = await dinosaurioService.countDinosaurios();
     const { start, length, draw, search, columns, order } = req.query;
-    const dinosaurios = await dinoService.getDinosauriosDataTable({ start, length, search, columns, order });
-    const totalDinosauriosFiltrados = dinosaurios.length;
-    res.json({ draw, data: dinosaurios, recordsTotal: total, recordsFiltered: totalDinosauriosFiltrados });
+    const { dinosaurios, recordsFiltered } = await dinosaurioService.getDinosauriosDataTable({
+      start,
+      length,
+      search,
+      columns,
+      order,
+    });
+    res.json({ draw, data: dinosaurios, recordsTotal: total, recordsFiltered });
   } catch (error) {
     res.redirect('/404');
   }

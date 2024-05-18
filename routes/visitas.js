@@ -19,10 +19,15 @@ router.get('/', async (req, res) => {
 router.get('/list', async (req, res) => {
   try {
     const total = await visitaService.countVisitas();
-    const { start, length, draw, search, columns, order } = req.query;
-    const visitas = await visitaService.getVisitasDataTable({ start, length, search, columns, order });
-    const totalVisitasFiltrados = visitas.length;
-    res.json({ draw, data: visitas, recordsTotal: total, recordsFiltered: totalVisitasFiltrados });
+    const { start, length, draw, search, order, columns } = req.query;
+    const { visitas, recordsFiltered } = await visitaService.getVisitasDataTable({
+      start,
+      length,
+      search,
+      order,
+      columns,
+    });
+    res.json({ draw, data: visitas, recordsTotal: total, recordsFiltered: recordsFiltered });
   } catch (error) {
     res.redirect('/404');
   }

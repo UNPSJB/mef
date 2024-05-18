@@ -21,9 +21,14 @@ router.get('/', async (req, res) => {
     try {
       const total = await fosilService.countFosiles();
       const { start, length, draw, search, columns, order } = req.query;
-      const fosiles = await fosilService.getFosilesDataTable({ start, length, search, columns, order });
-      const totalFosilesFiltrados = fosiles.length;
-      res.json({ draw, data: fosiles, recordsTotal: total, recordsFiltered: totalFosilesFiltrados });
+      const { fosiles, recordsFiltered } = await fosilService.getFosilesDataTable({
+        start,
+        length,
+        search,
+        columns,
+        order,
+      });
+      res.json({ draw, data: fosiles, recordsTotal: total, recordsFiltered: recordsFiltered });
     } catch (error) {
       res.redirect('/404');
     }
