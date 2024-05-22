@@ -51,13 +51,25 @@ module.exports = {
         ]),
       };
     }
-    return models.Empleado.findAll({
-      limit: length,
-      offset: start,
+
+    // Contar el número de registros filtrados
+    const recordsFiltered = await models.Empleado.count({
+      where: querySearch,
+      include: [models.Persona],
+    });
+
+    // Imprimir la cantidad de registros filtrados en la consola
+    console.log(`Número de registros filtrados: ${recordsFiltered}`);
+
+    const empleados = await models.Empleado.findAll({
+      limit: parseInt(length),
+      offset: parseInt(start),
       where: querySearch,
       order: literal(`${columnOrder} ${orderValue.dir}`),
       include: [models.Persona],
     });
+
+    return { empleados, recordsFiltered };
   },
   getEmpleados(page = 0, pageSize = 10, args) {
     //{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo empleado

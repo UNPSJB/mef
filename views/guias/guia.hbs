@@ -20,67 +20,70 @@
     <th scope="col" data-orderable="false">Acciones</th> <!-- Desactiva el ordenamiento en esta columna -->
   </thead>
   <tbody>
-    {{#each results}}
-    <tr>
-      <td>{{this.Persona.id}}</td>
-      <td>{{this.Persona.identificacion}}</td>
-      <td>{{this.Persona.nombre}}</td>
-      <td>{{this.Persona.apellido}}</td>
-      <td>{{this.Persona.direccion}}</td>
-      <td>{{this.Persona.localidad}}</td>
-      <td>{{this.Persona.email}}</td>
-      <td>{{this.Persona.fecha_nacimiento}}</td>
-      <td>{{this.Persona.telefono}}</td>
-      <td>{{#each Idiomas}}{{this.nombre}}<br />{{/each}}</td>
-      <!-- acciones aca -->
-      <td>
-        <a href="/guias/editar/{{this.id}}"><span class="material-icons">edit</span></a>
-        <!--editar-->
-        <a href="/guias/eliminar/{{this.id}}"><span style="color:red" class="material-icons">delete</span></a>
-        {{!-- otras acciones mas --}}
-      </td>
-    </tr>
-    {{/each}}
   </tbody>
 </table>
-
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
 <script>
   $(document).ready(function () {
     $('#guias').DataTable({
       dom: 'Bfrtip',
-      buttons: [
-        'pdf', 'excel', 'csv'
-      ],
-      searching: true,
-      ordering: true,
-      language: {
-        processing: "Buscando...",
-        search: "Buscar:",
-        lengthMenu: "Mostrando _MENU_",
-        info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
-        infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
-        infoFiltered: "(de un total de _MAX_)",
-        infoPostFix: "",
-        loadingRecords: "Cargando...",
-        zeroRecords: "No hay coincidencias.",
-        emptyTable: "No hay guías.",
-        paginate: {
-          first: "Primero",
-          previous: "Anterior",
-          next: "Siguiente",
-          last: "Último"
-        },
-        aria: {
-          sortAscending: ": Ordenar ascendente",
-          sortDescending: ": Ordenar descendente"
-        }
+      serverSide: true,
+      ajax: {
+        url: '/guias/list', // URL del endpoint que devuelve los datos de guías
+        type: 'GET', // Tipo de petición HTTP
+         {{> paginacion / data}}
+      },
+    columns: [
+    { data: 'id' }, // Columna de ID
+    { data: 'identificacion' }, // Columna de Documento
+    { data: 'nombre' }, // Columna de Nombre
+    { data: 'apellido' }, // Columna de Apellido
+    { data: 'direccion' }, // Columna de Dirección
+    { data: 'localidad' }, // Columna de Localidad
+    { data: 'email' }, // Columna de Correo Electrónico
+    { data: 'fecha_nacimiento' }, // Columna de Fecha de Nacimiento
+    { data: 'telefono' }, // Columna de Teléfono
+    { data: 'idiomas' }, // Columna de Idiomas
+    { // Columna de Acciones
+      data: null,
+      render: function (data, type, row) {
+        return '<a href="/guias/editar/' + data.id + '"><span class="material-icons">edit</span></a>' +
+          '<a href="/guias/eliminar/' + data.id + '"><span style="color:red" class="material-icons">delete</span></a>';
       }
+    }
+  ],
+    buttons: [
+    'pdf', 'excel', 'csv'
+  ],
+    searching: true,
+    ordering: true,
+    processing: true,
+    language: {
+    processing: "Buscando...",
+    search: "Buscar:",
+    lengthMenu: "Mostrando _MENU_",
+    info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+    infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
+    infoFiltered: "(de un total de _MAX_)",
+    infoPostFix: "",
+    loadingRecords: "Cargando...",
+    zeroRecords: "No hay coincidencias.",
+    emptyTable: "No hay guías.",
+    paginate: {
+      first: "Primero",
+      previous: "Anterior",
+      next: "Siguiente",
+      last: "Último"
+    },
+    aria: {
+      sortAscending: ": Ordenar ascendente",
+      sortDescending: ": Ordenar descendente"
+    }
+  }
     });
   });
 </script>
-
 <link rel="stylesheet" type="text/css"
   href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-flash-1.6.2/b-html5-1.6.2/datatables.min.css" />
 

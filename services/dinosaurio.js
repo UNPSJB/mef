@@ -22,7 +22,7 @@ module.exports = {
     });
   },
 
-  getDinosauriosDataTable({ start, length, search, order, columns }) {
+  async getDinosauriosDataTable({ start, length, search, order, columns }) {
     let querySearch = undefined;
     const [orderValue] = order;
     const columnOrder = columns[parseInt(orderValue.column)].data
@@ -43,13 +43,24 @@ module.exports = {
       };
     }
 
-    return models.Dinosaurio.findAll({
+    // Contar el número de registros filtrados
+    const recordsFiltered = await models.Dinosaurio.count({
+      where: querySearch,
+      include: [models.SubClase],
+    });
+
+    // Imprimir la cantidad de registros filtrados en la consola
+    console.log(`Número de registros filtrados: ${recordsFiltered}`);
+
+    const dinosaurios = await models.Dinosaurio.findAll({
       limit: length,
       offset: start,
       where: querySearch,
       order: literal(`${columnOrder} ${orderValue.dir}`),
       include: [models.SubClase],
     });
+
+    return { dinosaurios, recordsFiltered };
   },
   countDinosaurios() {
     return models.Dinosaurio.count();

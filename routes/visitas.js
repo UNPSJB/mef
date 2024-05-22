@@ -19,9 +19,15 @@ router.get('/', async (req, res) => {
 router.get('/list', async (req, res) => {
   try {
     const total = await visitaService.countVisitas();
-    const { start, length, draw, search, columns, order } = req.query;
-    const visitas = await visitaService.getVisitasDataTable({ start, length, search, columns, order });
-    res.json({ draw, data: visitas, recordsTotal: total, recordsFiltered: total });
+    const { start, length, draw, search, order, columns } = req.query;
+    const { visitas, recordsFiltered } = await visitaService.getVisitasDataTable({
+      start,
+      length,
+      search,
+      order,
+      columns,
+    });
+    res.json({ draw, data: visitas, recordsTotal: total, recordsFiltered: recordsFiltered });
   } catch (error) {
     res.redirect('/404');
   }
@@ -32,7 +38,20 @@ router.get('/agregar', async (req, res) => {
   const guias = await guiaService.getAllGuias();
   res.render('visitas/agregar', { exhibiciones, clientes, guias, req });
 });
-
+router.get('/validar', async (req, res) => {
+  const { fecha } = req.query;
+  if (!fecha) {
+    return res.status(400).send('Fecha no proporcionada');
+  }
+  try {
+    const horariosDisponibles = await visitaService.verificarVisitas(fecha);
+    console.log(horariosDisponibles);
+    res.json(horariosDisponibles);
+  } catch (error) {
+    console.error('Error al validar horarios:', error);
+    res.status(500).send('Error al validar horarios');
+  }
+});
 router.get('/editar/:id', async (req, res) => {
   const { id } = req.params;
   const exhibiciones = await exhibicionService.getAllExhibiciones({}, { raw: true, nest: true });
@@ -52,7 +71,17 @@ router.post('/', async (req, res) => {
   const { exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion } = req.body;
   /** @TODO agregar try catch y la vista de agregar visita */
   try {
-    await visitaService.createVisita(exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion);
+    await visitaService.createVisita(
+      exhibicionId,
+      clienteId,
+      guiaId,
+      cantidadPersonas,
+      fecha,
+      horario,
+      precio,
+      estado,
+      observacion
+    );
     res.redirect('/visitas');
   } catch (error) {
     res.render('visitas/agregar', { req });
@@ -60,7 +89,8 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/', async (req, res) => {
-  const { id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion } = req.body;
+  const { id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion } =
+    req.body;
   /** agregar async await, try catch, render con visitas, request, error */
   return visitaService
     .updateVisita(id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion)

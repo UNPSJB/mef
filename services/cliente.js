@@ -55,15 +55,26 @@ module.exports = {
         ]),
       };
     }
-    return models.Cliente.findAll({
-      limit: length,
-      offset: start,
+
+    // Contar el número de registros filtrados
+    const recordsFiltered = await models.Cliente.count({
+      where: querySearch,
+      include: [{ model: models.Persona, as: 'Persona' }],
+    });
+
+    // Imprimir la cantidad de registros filtrados en la consola
+    console.log(`Número de registros filtrados: ${recordsFiltered}`);
+
+    const clientes = await models.Cliente.findAll({
+      limit: parseInt(length),
+      offset: parseInt(start),
       where: querySearch,
       order: literal(`${columnOrder} ${orderValue.dir}`),
       include: [{ model: models.Persona, as: 'Persona' }],
     });
-  },
 
+    return { clientes, recordsFiltered };
+  },
   countClientes() {
     return models.Cliente.count();
   },
