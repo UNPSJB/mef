@@ -38,7 +38,20 @@ router.get('/agregar', async (req, res) => {
   const guias = await guiaService.getAllGuias();
   res.render('visitas/agregar', { exhibiciones, clientes, guias, req });
 });
-
+router.get('/validar', async (req, res) => {
+  const { fecha } = req.query;
+  if (!fecha) {
+    return res.status(400).send('Fecha no proporcionada');
+  }
+  try {
+    const horariosDisponibles = await visitaService.verificarVisitas(fecha);
+    console.log(horariosDisponibles);
+    res.json(horariosDisponibles);
+  } catch (error) {
+    console.error('Error al validar horarios:', error);
+    res.status(500).send('Error al validar horarios');
+  }
+});
 router.get('/editar/:id', async (req, res) => {
   const { id } = req.params;
   const exhibiciones = await exhibicionService.getAllExhibiciones({}, { raw: true, nest: true });
