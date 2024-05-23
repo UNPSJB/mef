@@ -19,7 +19,7 @@ async function obtenerDetallesPedido(pedido) {
       include: [
         {
           model: models.Hueso,
-          include: [models.Dinosaurio] 
+          include: [models.Dinosaurio]
         }
       ]
     });
@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
       const _pedido = JSON.parse(JSON.stringify(pedido.dataValues));
       _pedidos.push({ ..._pedido, estadoActual, estadoInstance, detallesPedido });
     }
-    res.render('pedidos/lista', { pedidos: _pedidos, req});
+    res.render('pedidos/lista', { pedidos: _pedidos, req });
   } catch (error) {
     console.error(error);
     res.redirect('/404');
@@ -66,7 +66,7 @@ router.get('/agregar',
     }
   })
 
-router.get('/:id/empleados/', async (req, res) => {
+router.get('/:id/empleados/', async (req, res) => { //Según Carlos, acá hay que cambiar el código
   const { id } = req.params
   const pedido = await pedidosService.getPedido({ id })
   const trabajando = await pedido.getEmpleados({ include: [models.Persona] })
@@ -100,7 +100,7 @@ router.get('/detalle/:id', async (req, res) => {
     let estados = []
     estadosPedido.forEach(estado => {
       estado.estadoInstance = estado.constructor.name
-      estados.push({...estado.dataValues, estadoInstance: estado.constructor.name})
+      estados.push({ ...estado.dataValues, estadoInstance: estado.constructor.name })
     })
     const estadoInstance = estado.constructor.name
     const hueso = await huesoService.getHueso(detalles[0].HuesoId)
@@ -151,12 +151,12 @@ router.post('/:nuevoEstado/:id', async (req, res) => {
   }
 })
 router.put('/', async (req, res) => {
-  try{
-  const { idPedido, empleado } = req.body
-  const pedido = await pedidosService.getPedido({ id: idPedido })
-  await pedido.setEmpleados(empleado)
-  res.redirect('/pedidos')
-  }catch(e){
+  try {
+    const { idPedido, empleado } = req.body
+    const pedido = await pedidosService.getPedido({ id: idPedido })
+    await pedido.setEmpleados(empleado)
+    res.redirect('/pedidos')
+  } catch (e) {
     console.error(e)
   }
 })
