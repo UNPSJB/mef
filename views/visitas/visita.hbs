@@ -59,7 +59,17 @@
       }
     },
     { data: 'cantidadDePersonas' },
-    { data: 'fechaVisita' },
+    {
+      data: 'fechaVisita',
+      render: function (data, type, row) {
+        // Asegurarse de que la fecha se interprete correctamente sin desajustes de zona horaria
+        const fecha = new Date(data.split('T')[0] + 'T00:00:00');
+        const dia = ('0' + fecha.getDate()).slice(-2);
+        const mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
+        const año = fecha.getFullYear();
+        return dia + '/' + mes + '/' + año;
+      }
+    },
     { data: 'horario' },
     {
       data: 'precio',
