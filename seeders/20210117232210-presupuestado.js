@@ -6,7 +6,7 @@ module.exports = {
     let presupuestadoArr = []
 
     const generarMoneda = () => {
-      const moneda = ['Pesos Argentinos', 'Dolares','Euros']
+      const moneda = ['Pesos Argentinos', 'Dólares', 'Euros']
       return moneda[Math.round(Math.random() * 2)]
     }
     for (let index = 1; index <= MAX; index++) {
@@ -14,7 +14,7 @@ module.exports = {
         descripcion: 'Presupuestado',
         fecha: new Date(),
         cantidad_huesos: 43,
-        monto: Math.round(Math.random() * 20000)+1000,
+        monto: Math.round(Math.random() * 20000) + 1000,
         moneda: generarMoneda(),
         // TODO fijarse si ponemos fechas vencidas o en el futuro
         fecha_fin_oferta: new Date(),

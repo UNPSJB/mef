@@ -91,7 +91,7 @@ Consiste en poder modificar:
 
 Esta es la sección dedicada a eliminar empleados.
 
-Seleccione al empelado que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará al empleado, si cancela, no se eliminará y volverá al listado de empleados.
+Seleccione al empleado que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará al empleado, si cancela, no se eliminará y volverá al listado de empleados.
 
 .. image:: ../images/rrhh/empleados/EliminarEmpleado.jpg
    :width: 800
