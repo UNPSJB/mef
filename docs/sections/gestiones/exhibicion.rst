@@ -98,8 +98,6 @@ El pedido de Replicación de pedidos Internos consiste en pedidos hechos por y p
 
 La gestión de Exhibición solo puede hacer estos dos pasajes de estados y solo si el pedido es externo.
 
-**Cancelar Pedido de Replicación (Necesito el software andando para hacer esta parte)**
-
 **Facturar Pedido de Replicación**
 La Facturación del Pedido consiste en ver los detalles de lo huesos que se replicarán.
 El usuario lo único que podrá editar es, si se realizará un tipo de pago en Efectivo o Cheque.
@@ -108,6 +106,19 @@ Al final, al hacer click en "Facturar", el estado del pedido pasará a "Confirma
 volverá al listado de Pedidos.
 
 .. image:: ../images/exhibicion/pedidos/FacturarPedido
+   :width: 800
+
+**Cancelar Pedido de Replicación**
+En caso de que el cliente lo desee, la gestión de exhibición podrá cancelar el pedido de replicación siempre y 
+cuando este no haya sido Facturado. Una vez facturado, no se podrá cancelar y se procederá a producir.
+
+**(Imagen del Cancelar)**
+
+Antes de cancelar, se podrá ver un detalle del pedido con todos los huesos a replicar y se podrá añadir
+una observación (no obligatoria) que se verá en el detalle del estado "Cancelado" dentro del historial de 
+cambios de Estado.
+
+.. image:: ../images/exhibicion/pedidos/DetalleCancelado
    :width: 800
 
 **Algunas imágenes ilustrativas:**
