@@ -71,6 +71,41 @@ a eliminar. Si no desea eliminarla, deberá retroceder desde su navegador a la p
 Pedidos
 _______
 
+Esta es la sección de Pedidos de réplicas.
+
+Los pedidos de fabricación se dividen en Externos e Internos; dependiendo el tipo de pedidos, será
+la secuencia de cambios de estado.
+
+Si el pedido es interno:
+
+* El pedido se creará (en la gestión de Exhibición) con el estado "Confirmado" y solo se podrá pasar a los siguientes estados desde la gestión de taller.
+
+* La gestión de taller podrá pasar el pedido de "Confirmado" a "Fabricando", cuando se empiece a fabricar.
+
+* El taller podrá pasarlo al Estado "Demorado", en caso de demora; y viceversa, en caso de reanudación.
+
+* Aunque no es un cambio de estado, vale aclarar que, también se podrá cambiar la asignación de empleados de taller encargados de ese pedido cuando estemos en el estado "Fabricando".
+
+* Por último se podrá pasar al estado "Finalizado" cuando se termine de hacer el pedido.
+
+Si el pedido es externo:
+
+* El pedido se creará (en la gestión de Exhibición) con el estado "Presupuestado".
+
+* El pedido se podrá pasar al estado "Cancelado", en caso de que el cliente desee hacerlo.
+
+* Si el pedido se factura, se pasará al estado "Confirmado". A partir de acá, todos los demás cambios de estado solo podrá hacerlos la gestión de taller.
+
+* El taller pasará el pedido a "Fabricando" cuando este empiece a estar en producción.
+
+* También podrá pasarlo al Estado "Demorado", en caso de demora; y viceversa, en caso de reanudación.
+
+* Aunque no es un cambio de estado, vale aclarar que, también se podrá cambiar la asignación de empleados de taller encargados de ese pedido cuando estemos en el estado "Fabricando".
+
+* Se podrá pasar al estado "Finalizado" cuando se termine de hacer el pedido.
+
+* Por último, el taller pasará el pedido al estado "Entregado" cuando le haya llegado el pedido al cliente.
+
 **Pantalla Principal / Listado**
 
 Bienvenido al listado de Pedidos. 
@@ -78,6 +113,64 @@ El presente listado le presentará en detalle todos los pedidos de replicación 
 
 .. image:: ../images/taller/pedidos/ListadoPedidos
    :width: 800
+
+La gestión de Taller solo puede hacer la siguientes transiciones de estado:
+
+**Fabricar Pedido de Replicación**
+
+En la fabricación del pedido, asignaermos a los empleados que trabajarán en el mismo. Mínimo deben ser 3.
+Luego debemos agregar la fecha de inicio de replicación y la fecha estimada de finalización.
+
+.. image:: ../images/taller/pedidos/Fabricar
+   :width: 800
+
+**Demorar Pedido de Replicación**
+
+En caso de algún imprevisto que deba demorar la producción de réplicas, existe la opción de notificarlo en el sistema
+a través de una estado llamado "Demorado". Hay tres motivos predefinidos (Presupuestario, Falta de  Material, Falta
+de Personal), pero en caso de que ningúno de estos sea el motivo del cliente, tenemos la opcion de "Otros" y la opción (no obligatoria)
+de poner una aclaración en la observación.
+
+.. image:: ../images/taller/pedidos/Demorar
+   :width: 800
+
+**Reanudar Pedido de Replicación**
+
+Cuando la producción de réplicas esté lista para reanudarse, hacemos click en la opción de "Reanudar" que se
+encontrará en el pedido demorado y luego nos aparecerá un detalle con todos los huesos del pedido a replicar.
+Solo deberemos hacer click en "Reanudar".
+
+.. image:: ../images/taller/pedidos/Reanudar
+   :width: 800
+
+**Finalizar Pedido de Replicación**
+
+Cuando se finaliza la creación de réplicas, se deberá poner una fecha de finalizado igual o menor a la fecha actual
+y hacer click en "Finalizar" como última transición de estado del pedido (si fue interno, si fue externo se debe entregar).
+
+.. image:: ../images/taller/pedidos/Finalizar
+   :width: 800
+
+**Asignación de Empleados.**
+
+La asignación de empleados no es una transición de estados propiamente dicha, pero es una opción que nos da el
+sistema para agregar o eliminar empleados a la producción de réplicas, en caso de que, por distintas razones
+se deban/puedan asignar más empleados o los actuales no puedan seguir trabajando.
+
+.. image:: ../images/taller/pedidos/Empleados
+   :width: 800
+
+**El siguiente estado solo existe si el pedido de replicación es Externo:**
+
+**Entregar Pedido de Replicación**
+
+Cuando se termina la creación de réplicas (y si el pedido fue hecho por un agente externo al museo), se deberá
+poner una fecha de envío y una estiamda de llegada para el pedido al cliente.
+Se hace click en "Entregar" y termina el ciclo de producción de la réplica.
+
+.. image:: ../images/taller/pedidos/Entregar
+   :width: 800
+
 
 **Detalle del Pedido de Replicación**
 
@@ -91,14 +184,30 @@ correspondiente y la opción de ver los detalles de cada estado.
 .. image:: ../images/taller/pedidos/DetallePedido
    :width: 800
 
-**Fabricar Pedido de Replicación**
+**Vista del historial de cambios de Estado en un pedido:**
 
-**Demorar Pedido de Replicación**
+.. image:: ../images/exhibicion/pedidos/CambiosDeEstado
+   :width: 800
 
-**Reanudar Pedido de Replicación**
+**Detalles de los distintos Estados del pedido visto desde el historial:**
 
-**Cancelar Pedido de Replicación**
+.. image:: ../images/exhibicion/pedidos/Presupuestado
+   :width: 800
 
-**Cancelar Pedido de Replicación**
+.. image:: ../images/exhibicion/pedidos/Facturado
+   :width: 800
 
-**Agregar o Eliminar Empleados del Pedido de Replicación**
+.. image:: ../images/exhibicion/pedidos/Confirmado
+   :width: 800
+
+.. image:: ../images/exhibicion/pedidos/Demorado
+   :width: 800
+
+.. image:: ../images/exhibicion/pedidos/Fabricando
+   :width: 800
+
+.. image:: ../images/exhibicion/pedidos/Finalizado
+   :width: 800
+
+.. image:: ../images/exhibicion/pedidos/Entregado
+   :width: 800

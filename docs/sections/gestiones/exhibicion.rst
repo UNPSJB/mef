@@ -211,9 +211,10 @@ El Editar Exhibición consiste en poder editarle a la misma:
 
 Esta es la sección dedicada a eliminar exhibiciones.
 
-Seleccione la exhibición que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará la exhibición, si cancela, no se eliminará y volverá al listado de exhibiciones.
+Seleccione la exhibición que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará la exhibición.
 
-(Acá iría la imagen pero falta el "Cancelar" de la pantalla de eliminación)
+.. image:: ../images/exhibicion/exhibiciones/EliminarExhibicion
+   :width: 800
 
 Clientes
 ________
