@@ -85,7 +85,7 @@ El pedido de Replicación de pedidos Externos consiste en pedidos hechos por age
 Estos pueden ser Clientes Particulaes (personas) o Clientes Institucionales (instituciones).
 En cualquiera de los dos casos se carga al cliente en base a su DNI (si es particular) o CUE (si es institucional) de una lista precargada.
 
-.. image:: ../images/exhibicion/pedidos/AgregarPedidoInterno
+.. image:: ../images/exhibicion/pedidos/AgregarPedidoExterno
    :width: 800
 
 **Crear Pedido de Replicación para Clientes Internos**
@@ -96,7 +96,7 @@ El pedido de Replicación de pedidos Internos consiste en pedidos hechos por y p
    :width: 800
 
 
-La gestión de Exhibición solo puede hacer estos dos pasajes de estados y solo si el pedido es externo.
+La gestión de Exhibición solo puede hacer estos dos pasajes de estados y solo si el pedido es externo:
 
 **Facturar Pedido de Replicación**
 La Facturación del Pedido consiste en ver los detalles de lo huesos que se replicarán.
@@ -112,7 +112,8 @@ volverá al listado de Pedidos.
 En caso de que el cliente lo desee, la gestión de exhibición podrá cancelar el pedido de replicación siempre y 
 cuando este no haya sido Facturado. Una vez facturado, no se podrá cancelar y se procederá a producir.
 
-**(Imagen del Cancelar)**
+.. image:: ../images/exhibicion/pedidos/CancelarPedido
+   :width: 800
 
 Antes de cancelar, se podrá ver un detalle del pedido con todos los huesos a replicar y se podrá añadir
 una observación (no obligatoria) que se verá en el detalle del estado "Cancelado" dentro del historial de 
@@ -121,32 +122,39 @@ cambios de Estado.
 .. image:: ../images/exhibicion/pedidos/DetalleCancelado
    :width: 800
 
-**Algunas imágenes ilustrativas:**
 
-Vista del detalle de un pedido confirmado (es decir, creado como Interno):
+**Vista del detalle de un pedido (confirmado):**
 
 .. image:: ../images/exhibicion/pedidos/DetalleDePedidoConfirmado
    :width: 800
 
-Vista del historial de cambios de Estado en un pedido:
+**Vista del historial de cambios de Estado en un pedido:**
 
 .. image:: ../images/exhibicion/pedidos/CambiosDeEstado
    :width: 800
 
-Detalles de los distintos Estados del pedido visto desde el historial:
+**Detalles de los distintos Estados del pedido visto desde el historial:**
+
+.. image:: ../images/exhibicion/pedidos/Presupuestado
+   :width: 800
 
 .. image:: ../images/exhibicion/pedidos/Facturado
    :width: 800
 
-.. image:: ../images/exhibicion/pedidos/Entregado
+.. image:: ../images/exhibicion/pedidos/Confirmado
    :width: 800
 
-   **(después poner las demás imágenes)**
-   
+.. image:: ../images/exhibicion/pedidos/Demorado
+   :width: 800
 
+.. image:: ../images/exhibicion/pedidos/Fabricando
+   :width: 800
 
-**Vistas de Detalles de los Pedidos (Necesito el software andando para hacer esta parte)**
+.. image:: ../images/exhibicion/pedidos/Finalizado
+   :width: 800
 
+.. image:: ../images/exhibicion/pedidos/Entregado
+   :width: 800
 
 
 Exhibiciones
@@ -270,7 +278,7 @@ Todos los campos son obligatorios.
    :width: 800
 
 
-* **Eliminar Clientes (Necesito el software andando para hacer esta parte)**
+* **Eliminar Clientes**
 Esta es la sección dedicada a eliminar clientes.
 
 Seleccione al cliente que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará al cliente.
