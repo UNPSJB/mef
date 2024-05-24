@@ -96,21 +96,42 @@ El pedido de Replicación de pedidos Internos consiste en pedidos hechos por y p
    :width: 800
 
 
-La gestión de Exhibición solo hacer estos dos pasajes de estados y solo si el pedido es externo.
+La gestión de Exhibición solo puede hacer estos dos pasajes de estados y solo si el pedido es externo.
 
 **Cancelar Pedido de Replicación (Necesito el software andando para hacer esta parte)**
 
-**Facturar Pedido de Replicación (Necesito el software andando para hacer esta parte)**
+**Facturar Pedido de Replicación**
 La Facturación del Pedido consiste en ver los detalles de lo huesos que se replicarán.
 El usuario lo único que podrá editar es, si se realizará un tipo de pago en Efectivo o Cheque.
 El valor presupuestado también es ineditable.
-Al final, al hacer click en "Facturar", el estado del pedido pasará a "Facturado" y el navegador
+Al final, al hacer click en "Facturar", el estado del pedido pasará a "Confirmado" y el navegador
 volverá al listado de Pedidos.
 
-Algunas imágnes ilustrativas:
+.. image:: ../images/exhibicion/pedidos/FacturarPedido
+   :width: 800
 
+**Algunas imágenes ilustrativas:**
 
+Vista del detalle de un pedido confirmado (es decir, creado como Interno):
 
+.. image:: ../images/exhibicion/pedidos/DetalleDePedidoConfirmado
+   :width: 800
+
+Vista del historial de cambios de Estado en un pedido:
+
+.. image:: ../images/exhibicion/pedidos/CambiosDeEstado
+   :width: 800
+
+Detalles de los distintos Estados del pedido visto desde el historial:
+
+.. image:: ../images/exhibicion/pedidos/Facturado
+   :width: 800
+
+.. image:: ../images/exhibicion/pedidos/Entregado
+   :width: 800
+
+   **(después poner las demás imágenes)**
+   
 
 
 **Vistas de Detalles de los Pedidos (Necesito el software andando para hacer esta parte)**
