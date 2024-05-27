@@ -217,6 +217,37 @@
     let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
     return `<a id='${accion}' class='btn btn-primary' href='/pedidos/${accion}/${id}'>${capitlizado}</a>`;
   }
+  // Actualizar la columna con el estado del pedido
+  const rows = document.querySelectorAll('#pedidos tbody tr');
+  rows.forEach(function (row) {
+    const estado = row.querySelector('td:nth-child(3)').textContent.trim(); // Obtener el estado del pedido
+    const fechaInicioText = row.querySelector('.shortDateFormat').textContent.trim(); // Obtener la fecha de inicio del pedido
+    if (estado === 'Finalizado') {
+      row.querySelector('.shortDateFormat').textContent = 'Pedido finalizado';
+    } else {
+      const fechaSinHora = fechaInicioText.replace(/T.*/, ''); // Eliminar la "T" y todo lo que viene después
+      const fechaInicio = new Date(fechaSinHora); // Convertir la fecha sin hora a objeto Date
+      const fechaActual = new Date(); // Obtener la fecha actual
+      const mesesTranscurridos = calcularMesesTranscurridos(fechaInicio, fechaActual);
+      row.querySelector('.shortDateFormat').textContent = `Han pasado ${mesesTranscurridos} meses`;
+    }
+  });
+
+  function calcularMesesTranscurridos(fechaInicio, fechaActual) {
+    const añoInicio = fechaInicio.getFullYear();
+    const mesInicio = fechaInicio.getMonth();
+    const añoActual = fechaActual.getFullYear();
+    const mesActual = fechaActual.getMonth();
+
+    let diferenciaMeses = (añoActual - añoInicio) * 12 + (mesActual - mesInicio);
+
+    // Manejar caso donde la fecha actual es antes que la fecha de inicio
+    if (diferenciaMeses < 0) {
+      diferenciaMeses = 0;
+    }
+
+    return diferenciaMeses;
+  }
 </script>
 
 
