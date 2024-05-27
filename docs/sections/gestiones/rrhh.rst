@@ -3,7 +3,7 @@ Gestión de Jefe de Recursos Humanos
 
 Bienvenido a la Gestión de Recursos Humanos. En esta sección usted podrá ver, crear, editar y eliminar a los guías y empleados del museo.
 
-.. image:: ../images/rrhh/empleados/Bienvenido.jpg
+.. image:: ../images/rrhh/Bienvenido
    :width: 800
 
 Puede seleccionar el símbolo 'lápiz' para poder editar su información general.
