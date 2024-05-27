@@ -171,7 +171,8 @@ El presente listado le presentará un detalle de todas las exhibiciones con sus 
 .. image:: ../images/exhibicion/exhibiciones/ListadoExhibiciones
    :width: 800
 
-**Alta Exhibición**
+**Agregar Exhibición**
+**Hay un bug acá. Esperar a mergear los cambios con Master a ver si se arregló.**
 
 El Alta de Exhibición consiste en asignarle a la misma:
 

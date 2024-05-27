@@ -31,11 +31,12 @@ Si desea ver el listado de huesos de un dinosaurio en particular, solo tendrá q
 .. image:: ../images/hueso
    :width: 50
 
-Al hacer click en "hueso" se desplegará el siguiente listado que contiene el listado de huesos. 
+Al hacer click en "hueso" se desplegará el siguiente listado que contiene los huesos. 
 En este listado usted podrá ver y editar qué huesos tienen (o no tienen) molde. El listado se divide en
 en las secciones principales del cuerpo del dinosaurio: Cráneo, Tórax, Vertebral, Pelvis, Brazo, Manos, Piernas y Pies.
 Si desea, puede colapsar el listado haciendo click en el nombre de la sección del cuerpo (ejemplo, "Cráneo") y podrá
-ocultar el listado de huesos de esas sección para tener un vista más organizada.  
+ocultar el listado de huesos de esas sección para tener un vista más organizada.
+También tendrá la opción de seleccionar todos los moldes o deshabilitarlos con opción de "Habilitar/Deshabilitar todos los moldes".
 
 .. image:: ../images/taller/dinosaurios/ListadoHuesos
    :width: 800
