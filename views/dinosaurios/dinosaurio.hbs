@@ -2,7 +2,7 @@
 <h1 class="bg-secondary text-center text-white rounded p-2">
   Dinosaurios
   {{#if req.coleccion}}
-  <a href="/dinosaurios/agregar" class="btn  btn-success btn-primary border border-light" rel="noopener noreferrer">
+  <a href="/dinosaurios/agregar" class="btn btn-success btn-primary border border-light" rel="noopener noreferrer">
     +
   </a>
   {{/if}}
@@ -37,12 +37,14 @@
         {
           data: 'descubrimiento',
           render: function (data, type, row) {
-            const fecha = new Date(data);
-            const dia = fecha.getDate();
-            const mes = fecha.getMonth() + 1;
-            const anio = fecha.getFullYear();
-            const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
-            return fechaFormateada;
+            if (type === 'display' || type === 'filter') {
+              const fecha = new Date(data);
+              const dia = ('0' + fecha.getDate()).slice(-2);
+              const mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
+              const anio = fecha.getFullYear();
+              return `${dia}/${mes}/${anio}`;
+            }
+            return data;
           }
         },
         {
@@ -56,7 +58,6 @@
             return `${editLink}<a href="/dinosaurios/moldes/${id}" class="no-export"><span style="font-size: 17px;vertical-align:text-bottom;line-height: 2;">🦴</span></a>`;
           }
         }
-
       ],
       buttons: [
         'pdf', 'excel', 'csv'
