@@ -106,7 +106,8 @@ router.post('/', async (req, res) => {
       if (message === "Un Cliente con este DNI ya se encontraba registrado.") {
         mostrarAltaLogica = true;
       }
-      res.render('clientes/agregar', { errores: message, cliente: req.body, req, mostrarAltaLogica });
+      console.log("BODY!", req.body);
+      res.render('clientes/agregar', { errores: message, cliente: req.body, institucional: req.body.tipo == "Institucional", particular: req.body.tipo == "Particular", req, mostrarAltaLogica });
     }
   }
 });
