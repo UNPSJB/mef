@@ -95,10 +95,8 @@ router.post('/', async (req, res) => {
     } catch (error) {
       /** @TODO agregar objeto persona y cliente */
       const { message, value } = error.errors[0];
-      console.log("ALTA LÓGICA:", altaLogica, altaLogica === true);
       if (altaLogica === "on") {
         const [cliente] = await clienteService.getClientes(undefined, undefined, { PersonaId: value })
-        console.log("VALUE!!:", value, "Cliente!:", cliente);
         await cliente.restore()
         return res.redirect('/clientes');
       }
@@ -106,7 +104,6 @@ router.post('/', async (req, res) => {
       if (message === "Un Cliente con este DNI ya se encontraba registrado.") {
         mostrarAltaLogica = true;
       }
-      console.log("BODY!", req.body);
       res.render('clientes/agregar', { errores: message, cliente: req.body, institucional: req.body.tipo == "Institucional", particular: req.body.tipo == "Particular", req, mostrarAltaLogica });
     }
   }
