@@ -47,38 +47,38 @@
     <div class="row">
       <div class="col-12 px-0">
         <div class="alert alert-danger">Error: {{ errores }} {{#with mostrarAltaLogica}}<a
+            style="text-decoration: underline; cursor: pointer;"
             onclick="document.getElementById('altaLogica').checked=true;document.getElementById('alta').submit();">Darlo
             de alta
             nuevamente.</a>{{/with}}</div>
       </div>
-    </div>
-    {{/if}}
-    {{#if success }}
-    <div class="row">
-      <div class="col-12 px-0">
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          {{ success }}
+      {{/if}}
+      {{#if success }}
+      <div class="row">
+        <div class="col-12 px-0">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ success }}
+          </div>
+        </div>
+      </div>
+      {{/if}}
+      <div class="row justify-content-center flex-grow-1 pb-auto">
+        <aside class="col-2 px-0">
+          {{> sidebar req}}
+        </aside>
+        <div class="col-10 px-4">
+          {{{body}}}
         </div>
       </div>
     </div>
-    {{/if}}
-    <div class="row justify-content-center flex-grow-1 pb-auto">
-      <aside class="col-2 px-0">
-        {{> sidebar req}}
-      </aside>
-      <div class="col-10 px-4">
-        {{{body}}}
-      </div>
-    </div>
-  </div>
 
-  <style>
-    body,
-    html,
-    .container-fluid {
-      height: 100vh;
-    }
-  </style>
+    <style>
+      body,
+      html,
+      .container-fluid {
+        height: 100vh;
+      }
+    </style>
 </body>
 {{!-- https://stackoverflow.com/questions/11677886/twitter-bootstrap-div-in-container-with-100-height --}}
 
