@@ -27,7 +27,12 @@ router.get('/list', async (req, res) => {
   const total = await pedidosService.countPedidos();
   const { start, length, draw, search, columns, order } = req.query;
   const pedidos = await pedidosService.getPedidosDataTable({ start, length, search, columns, order });
-  res.json({ draw, data: pedidos, recordsTotal: total, recordsFiltered: total });
+  let totalpedidosFiltrados = 0;
+  if (pedidos && pedidos.length && pedidos[0].recordfilterd) {
+    totalpedidosFiltrados = pedidos[0].recordfilterd;
+  }
+
+  res.json({ draw, data: pedidos, recordsTotal: total, recordsFiltered: totalpedidosFiltrados });
 });
 
 router.get('/agregar', async (req, res) => {

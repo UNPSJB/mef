@@ -71,6 +71,7 @@ module.exports = {
     console.log('La query', querySearch);
     const [pedidos] = await models.sequelize.query(
       `SELECT "Pedido".*,
+    COUNT("Pedido"."id") OVER() As recordfilterd,
     ultimo_estado.ultimo_estado,
     dinosaurio.*,
     "Persona"."id" AS "Persona.id",
@@ -186,6 +187,7 @@ module.exports = {
         ? `WHERE "Pedido"."id"::text ILIKE :searchTerm 
    
     OR TO_CHAR("Pedido"."createdAt", 'YYYY-MM-DD') LIKE :searchTerm
+    OR  ultimo_estado.ultimo_estado LIKE :searchTerm
     `
         : ''
     }
