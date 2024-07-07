@@ -1,22 +1,6 @@
 'use strict';
-const Sequelize = require('sequelize');
-
 module.exports = (sequelize, DataTypes) => {
-  class Empleado extends Sequelize.Model {
-    asignarAPedido(pedidoId, empleadoId) {
-      return sequelize.models.Pedido.findByPk(pedidoId).then(pedidoNuevo => {
-        return sequelize.models.Empleado.findByPk(empleadoId).then(
-          empleado => {
-            return empleado.getPedidos().then(pedidosTrabajando => {
-              pedidosTrabajando.push(pedidoNuevo);
-              return empleado.setPedidos(pedidosTrabajando);
-            });
-          }
-        );
-      });
-    }
-  }
-  Empleado.init({
+  const Empleado = sequelize.define('Empleado', {
     PersonaId: {
       type: DataTypes.INTEGER,
       references: {
@@ -25,16 +9,26 @@ module.exports = (sequelize, DataTypes) => {
       },
       unique: {
         args: true,
-        msg: "Ya existe un Empleado con ese Documento"
+        msg: "Ya existe un Empleado con ese Documento."
       },
       allowNull: {
-        args:false,
-        msg:'El Empleado debe estar asociado a una Persona.'
+        args: false,
+        msg: 'El Empleado debe estar asociado a una Persona.'
       }
     }
   }, {
-    sequelize,
     paranoid: true
   });
+
+  // Método de instancia para asignar pedidos a empleados
+  Empleado.prototype.asignarAPedido = function (pedidoId) {
+    return sequelize.models.Pedido.findByPk(pedidoId).then(pedidoNuevo => {
+      return this.getPedidos().then(pedidosTrabajando => {
+        pedidosTrabajando.push(pedidoNuevo);
+        return this.setPedidos(pedidosTrabajando);
+      });
+    });
+  };
+
   return Empleado;
-}
+};
