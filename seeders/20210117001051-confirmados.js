@@ -1,43 +1,40 @@
 'use strict';
 const MAX = 300;
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-
-    let confirmadoArr = [];
-
-    for (let index = 1; index <= MAX; index++) {
-      let confirmadoObj = {
-        descripcion: "Confirmado",
-        fecha: new Date(),
-        PedidoId: index,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        deletedAt: null,
+  up: async (queryInterface, Sequelize) => {
+    const Pedido = queryInterface.sequelize.define(
+      'Pedido',
+      {
+        createdAt: {
+          type: Sequelize.DATE,
+        },
+      },
+      {
+        tableName: 'Pedidos',
+        timestamps: false,
       }
-      confirmadoArr.push(confirmadoObj)
+    );
 
+    const pedidos = await Pedido.findAll({
+      attributes: ['id', 'createdAt'],
+      where: {
+        id: {
+          [Sequelize.Op.lte]: MAX,
+        },
+      },
+    });
 
-    }
-    return queryInterface.bulkInsert('Confirmados', confirmadoArr, {})
-    /*
-      Add {
-        descripcion : {
-            type: DataTypes.STRING,
-            defaultValue: "Confirmado"
-        },
-        fecha:{
-            type: DataTypes.DATE,
-            defaultValue: new Date(),
-            allowNull:false
-        },
-        PedidoId:{
-            type:DataTypes.INTEGER,
-            references:{
-                model:'Pedidos',
-                key:'id'
-            }
-        }
-    */
+    let confirmadoArr = pedidos.map(pedido => ({
+      descripcion: 'Confirmado',
+      fecha: new Date(),
+      PedidoId: pedido.id,
+      createdAt: pedido.createdAt,
+      updatedAt: new Date(),
+      deletedAt: null,
+    }));
+
+    return queryInterface.bulkInsert('Confirmados', confirmadoArr, {});
   },
 
   down: (queryInterface, Sequelize) => {
@@ -48,5 +45,5 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-  }
+  },
 };
