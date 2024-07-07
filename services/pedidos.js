@@ -14,7 +14,7 @@ const genericSearch = (search, fields) => {
     }
     if (field === 'createdAt') {
       // Si el campo es fecha_nacimiento, comparamos solo por año, mes o día utilizando LIKE
-      return literal(`TO_CHAR("Pedido"."createdAt", 'YYYY-MM-DD') LIKE '%${search}%'`);
+      return literal(`TO_CHAR("Pedido"."createdAt", 'DD-MM-YYYY') LIKE '%${search}%'`);
     }
     return literal(`"Pedido"."${field}"::text ILIKE '%${search}%'`);
   });
@@ -65,7 +65,7 @@ module.exports = {
     if (search.value && search.value.length > MIN_CHARS) {
       replacements.searchTerm = `%${search.value}%`;
       querySearch = {
-        [Op.or]: genericSearch(search, ['id', 'createdAt', 'motivo', 'Dinosaurio.nombre']),
+        [Op.or]: genericSearch(search, ['id', 'createdAt', 'motivo', 'Dinosaurio.nombre', '']),
       };
     }
     console.log('La query', querySearch);
@@ -185,9 +185,9 @@ module.exports = {
     ${
       replacements.searchTerm && replacements.searchTerm.length
         ? `WHERE "Pedido"."id"::text ILIKE :searchTerm 
-   
-    OR TO_CHAR("Pedido"."createdAt", 'YYYY-MM-DD') LIKE :searchTerm
-    OR  ultimo_estado.ultimo_estado LIKE :searchTerm
+        OR TO_CHAR("Pedido"."createdAt", 'DD-MM-YYYY') LIKE :searchTerm
+        OR  ultimo_estado.ultimo_estado LIKE :searchTerm
+        OR (("Persona"."nombre" || ' ' || "Persona"."apellido") ILIKE :searchTerm)
     `
         : ''
     }

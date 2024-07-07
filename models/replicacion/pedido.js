@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   const Finalizado = require('../estado/finalizado')(sequelize, DataTypes);
   const Pago = require('../estado/pago')(sequelize, DataTypes);
   const Presupuestado = require('../estado/presupuestado')(sequelize, DataTypes);
+  const Hueso = require('../dinosaurio/hueso')(sequelize, DataTypes);
+  const Dinosaurio = require('../dinosaurio/dinosaurio')(sequelize, DataTypes);
 
   class Pedido extends Sequelize.Model {
     async cambiarEstado(nuevoEstado, datos) {
@@ -123,6 +125,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   Pedido.hasMany(Detalle);
+  Detalle.belongsTo(Pedido);
   Pedido.hasMany(Demorado);
   Pedido.hasOne(Confirmado);
   Pedido.hasOne(Entregado);
@@ -141,6 +144,9 @@ module.exports = (sequelize, DataTypes) => {
   sequelize.models.Empleado.belongsToMany(Pedido, {
     through: PedidoEmpleado,
   });
-
+  //Dinosaurio.hasMany(Hueso, { foreignKey: 'DinosaurioId' });
+  //Hueso.belongsTo(Dinosaurio);
+  Hueso.hasMany(Detalle, { foreignKey: 'HuesoId' });
+  Detalle.belongsTo(Hueso);
   return Pedido;
 };

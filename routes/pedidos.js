@@ -101,7 +101,8 @@ router.get('/detalle/:id', async (req, res) => {
       req,
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    res.redirect('/pedidos');
   }
 });
 // models.Dinosaurio
@@ -114,7 +115,8 @@ router.get('/:accion/:id', permisos.permisosParaEstado(), async (req, res) => {
     res.render(`pedidos/${accion}`, { accion, id, detalles, pedido, estado, req });
   } catch (e) {
     //@TODO que hacer
-    res.redirect('/404');
+    console.log(e);
+    res.redirect('/pedidos');
   }
 });
 
@@ -131,6 +133,8 @@ router.post('/:nuevoEstado/:id', async (req, res) => {
   const { nuevoEstado, id } = req.params;
   try {
     const pedido = await pedidosService.getPedido({ id });
+    console.log('MI PEDIDO', pedido.cambiarEstado);
+
     // transicion a nuevo estado
     await pedido.cambiarEstado(nuevoEstado, req.body);
     res.redirect('/pedidos');
@@ -138,7 +142,7 @@ router.post('/:nuevoEstado/:id', async (req, res) => {
     /**
      * @TODO agregar una vista de que no se puede hacer
      */
-    console.log('log error::::::', error);
+    console.log('log error::::::', error, nuevoEstado, id);
     res.redirect('/404');
   }
 });

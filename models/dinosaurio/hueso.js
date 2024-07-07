@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   const manos = ['Metacarpianos', 'Dedos Mano'];
   const vertebras = ['Hemales', 'Vertebras Cervicales', 'Vertebras Dorsales', 'Vertebras Sacras', 'Vertebras Caudales'];
   const torso = ['Costillas Cervicales', 'Costillas Dorsales'];
-
+  const Detalle = require('../replicacion/detalle')(sequelize, DataTypes);
   const Hueso = sequelize.define(
     'Hueso',
     {
@@ -131,9 +131,10 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  Hueso.associate = models => {
-    models.Hueso.belongsTo(models.Dinosaurio);
-    models.Hueso.hasMany(models.Detalle, { as: 'Hueso', foreignKey: 'HuesoId' });
-  };
+  //Hueso.associate = models => {
+  //models.Hueso.belongsTo(models.Dinosaurio);
+  // Hueso.hasMany(Detalle, { as: 'Hueso', foreignKey: 'HuesoId' });
+  //Detalle.belongsTo(Hueso, { as: 'Hueso' });
+  // };
   return Hueso;
 };

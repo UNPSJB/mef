@@ -24,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       paranoid: true,
     }
   );
-  Detalle.associate = models => {
-    Detalle.belongsTo(models.Pedido);
-    Detalle.belongsTo(models.Hueso, { as: 'Hueso', foreignKey: 'HuesoId' });
-  };
+  //Detalle.associate = models => {
+  //Detalle.belongsTo(models.Pedido);
+  //Detalle.belongsTo(models.Hueso, { as: 'Hueso', foreignKey: 'HuesoId' });
+  //};
   return Detalle;
 };
