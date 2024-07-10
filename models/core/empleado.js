@@ -20,15 +20,5 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true
   });
 
-  // Método de instancia para asignar pedidos a empleados
-  Empleado.prototype.asignarAPedido = function (pedidoId) {
-    return sequelize.models.Pedido.findByPk(pedidoId).then(pedidoNuevo => {
-      return this.getPedidos().then(pedidosTrabajando => {
-        pedidosTrabajando.push(pedidoNuevo);
-        return this.setPedidos(pedidosTrabajando);
-      });
-    });
-  };
-
   return Empleado;
 };

@@ -61,14 +61,14 @@ module.exports = {
   },
   getEmpleados(page = 0, pageSize = 10, args) {
     //{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo empleado
-    return models.Empleado.findAndCountAll({
+    return models.Empleado.findAll({
       include: [models.Persona],
       where: {
         ...args,
       },
-      ...paginateModel({ page, pageSize }),
-      order: [['updatedAt', 'DESC']],
+      paranoid: false
     });
+
   },
   countEmpleados() {
     return models.Empleado.count();

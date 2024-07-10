@@ -59,53 +59,39 @@ router.get('/eliminar/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const {
-    identificacion,
-    nombre,
-    apellido,
-    direccion,
-    localidad,
-    email,
-    fecha_nacimiento,
-    telefono,
-    tipoCliente,
-    PersonaId,
-    tipo,
-    altaLogica
-  } = req.body;
-
+  const { tipo, identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, altaLogica } = req.body;
   try {
-    const persona = await personaService.createPersona(
-      identificacion,
-      nombre,
-      apellido,
-      direccion,
-      localidad,
-      email,
-      fecha_nacimiento,
-      telefono
-    );
-    const cliente = await clienteService.createClienteExiste(tipoCliente, persona.id);
+    let personaId;
+    const persona = await personaService.getPersonaArgs({ identificacion });
+    if (!persona) {
+      const nuevaPersona = await personaService.createPersona(
+        identificacion,
+        nombre,
+        apellido,
+        direccion,
+        localidad,
+        email,
+        fecha_nacimiento,
+        telefono
+      );
+      personaId = nuevaPersona.id;
+    } else {
+      personaId = persona.id;
+    }
+    await clienteService.createCliente(tipo, personaId);
     res.redirect('/clientes');
   } catch (error) {
-    try {
-      const persona = await personaService.getPersonaArgs({ identificacion });
-      await clienteService.createClienteExiste(tipoCliente, persona.id);
-      res.redirect('/clientes');
-    } catch (error) {
-      /** @TODO agregar objeto persona y cliente */
-      const { message, value } = error.errors[0];
-      if (altaLogica === "on") {
-        const [cliente] = await clienteService.getClientes(undefined, undefined, { PersonaId: value })
-        await cliente.restore()
-        return res.redirect('/clientes');
-      }
-      let mostrarAltaLogica = false;
-      if (message === "Un Cliente con este DNI ya se encontraba registrado.") {
-        mostrarAltaLogica = true;
-      }
-      res.render('clientes/agregar', { errores: message, cliente: req.body, institucional: req.body.tipo == "Institucional", particular: req.body.tipo == "Particular", req, mostrarAltaLogica });
+    const { message, value } = error.errors[0];
+    if (altaLogica === "on") {
+      const [cliente] = await clienteService.getClientes(undefined, undefined, { PersonaId: value });
+      await cliente.restore();
+      return res.redirect('/clientes');
     }
+    let mostrarAltaLogica = false;
+    if (message === "Un Cliente con este DNI ya se encontraba registrado.") {
+      mostrarAltaLogica = true;
+    }
+    res.render('clientes/agregar', { errores: message, cliente: req.body, req, mostrarAltaLogica });
   }
 });
 
