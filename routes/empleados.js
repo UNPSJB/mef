@@ -83,7 +83,7 @@ router.post('/', async (req, res) => {
         return res.redirect('/empleados');
       }
       let mostrarAltaLogica = false;
-      if (message === "Ya existe un Empleado con ese Documento.") {
+      if (message === "Ya existía un empleado cargado con ese Documento.") {
         mostrarAltaLogica = true;
       }
       res.render('empleados/agregar', { errores: message, empleado: req.body, req, mostrarAltaLogica });

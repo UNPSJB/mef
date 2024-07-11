@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       unique: {
         args: true,
-        msg: "Ya existe un Empleado con ese Documento."
+        msg: "Ya existía un empleado cargado con ese Documento."
       },
       allowNull: {
         args: false,
