@@ -1,5 +1,5 @@
 <div class="container">
-  <form action="/clientes" method="POST">
+  <form id="alta" action="/clientes" method="POST">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white">
         <h1>Agregar cliente</h1>
@@ -18,6 +18,7 @@
             <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off" required>
             Institucional
           </label>
+          <input id="altaLogica" name="altaLogica" type="checkbox" hidden>
         </div>
         <br>
         <!-- Botón de Agregar -->

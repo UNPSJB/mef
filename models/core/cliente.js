@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     tipo: {
       type: DataTypes.ENUM,
       allowNull: {
-        args:false,
-        msg:'El Cliente debe tener un tipo.'
+        args: false,
+        msg: 'El Cliente debe tener un tipo.'
       },
       values: ['Particular', 'Institucional']
     },
@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       unique: {
         args: true,
-        msg: "Ya existe un Cliente con ese Documento"
+        msg: "Un Cliente con este DNI ya se encontraba registrado."
       },
       allowNull: {
-        args:false,
-        msg:'El Cliente debe estar asociado a una Persona.'
+        args: false,
+        msg: 'El Cliente debe estar asociado a una Persona.'
       }
     }
   }, {

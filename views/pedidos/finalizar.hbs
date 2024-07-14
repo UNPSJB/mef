@@ -36,6 +36,8 @@
     var hoy = formatDate(new Date());
     document.getElementById("InputFechaFinalizacion").setAttribute("max", hoy);
     $("#InputFechaFinalizacion").attr("max", hoy);
+    const pedido = "{{{pedido}}}";
+    console.log("FECHA DE INICIOO:", pedido)
   })
   function formatDate(date) {
     var d = new Date(date),

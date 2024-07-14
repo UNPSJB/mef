@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="pt-3" action="/empleados" method="POST">
+  <form id="alta" class="pt-3" action="/empleados" method="POST">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarEmpleadoModalLabel">
         <h1>Agregar Empleado de Taller</h1>
@@ -54,6 +54,7 @@
             </div>
           </div>
           <br>
+          <input id="altaLogica" name="altaLogica" type="checkbox" hidden>
           <!-- Botón de Agregar Empleado de Taller-->
           <div class="row justify-content-center">
             <div class="col-6 text-center">

@@ -69,18 +69,18 @@ module.exports = {
   },
   getClientes(page = 0, pageSize = 10, args) {
     //{ tags }//aca se pide datos a la BD        //Cambia ya que no existe rol solo cliente
-    return models.Cliente.findAndCountAll({
+    return models.Cliente.findAll({
       include: [models.Persona],
       where: {
         ...args,
       },
-      ...paginateModel({ page, pageSize }),
+      paranoid: false
     });
   },
   getCliente(id, opts = {}) {
     return models.Cliente.findByPk(id, { include: [models.Persona], ...opts });
   },
-  createClienteExiste(tipo, PersonaId) {
+  createCliente(tipo, PersonaId) {
     return models.Cliente.create({
       tipo,
       PersonaId,
