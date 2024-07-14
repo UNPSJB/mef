@@ -147,10 +147,10 @@ module.exports = {
                 "Persona"."telefono"
             FROM "Personas" AS "Persona"
             INNER JOIN "Guia" AS "Guia" ON "Persona"."id" = "Guia"."PersonaId"
-            WHERE ${
+            ${
               querySearch
-                ? `"Persona"."identificacion" ILIKE :searchTerm OR EXISTS (SELECT 1 FROM "IdiomaGuia" AS "IG" JOIN "Idiomas" AS "I" ON "IG"."IdiomaId" = "I"."id" WHERE "IG"."GuiumId" = "Guia"."id" AND "I"."nombre" ILIKE :searchTerm)`
-                : '1=1'
+                ? `"WHERE Persona"."identificacion" ILIKE :searchTerm OR EXISTS (SELECT 1 FROM "IdiomaGuia" AS "IG" JOIN "Idiomas" AS "I" ON "IG"."IdiomaId" = "I"."id" WHERE "IG"."GuiumId" = "Guia"."id" AND "I"."nombre" ILIKE :searchTerm)`
+                : ''
             }
             AND "Guia"."id" IS NOT NULL  -- Esta línea asegura que solo se devuelvan las personas que tienen un ID correspondiente en la tabla de guías
             AND "Persona"."deletedAt" IS NULL
