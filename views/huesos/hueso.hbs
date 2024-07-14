@@ -1,9 +1,14 @@
 <div class="text-center">
   <h4 class="pt-2" style="color: #000000; font-weight: bold;">
-    <span style="text-decoration: underline;">Dinosaurio #{{dino.id}}:</span>  {{dino.nombre}}, {{dino.periodo}},
+    <span style="text-decoration: underline;">Dinosaurio #{{dino.id}}:</span> {{dino.nombre}}, {{dino.periodo}},
     {{dino.alimentacion}},
   </h4>
 </div>
+
+
+<!-- Toggle global -->
+<input type="checkbox" id="toggleGlobal" onchange="toggleGlobal(this.checked)">
+<label for="toggleGlobal">Habilitar/Deshabilitar todos los moldes</label>
 
 
 {{#each huesosAgrupados }}
@@ -38,8 +43,9 @@
               <td>
                 <form action="/dinosaurios/moldes/toggle" method="PATCH">
                   <label class="switch">
-                    <input type="checkbox" onchange="toggleMolde('{{this.huesos.id}}')" {{#if
-                      this.huesos.disponible}}checked{{/if}}>
+                    <!-- Agrega un atributo de datos para identificar el checkbox individual -->
+                    <input type="checkbox" data-id="{{this.huesos.id}}" onchange="toggleMolde('{{this.huesos.id}}')"
+                      {{#if this.huesos.disponible}}checked{{/if}}>
                     <span class="slider round"></span>
                   </label>
                 </form>
@@ -55,6 +61,18 @@
 {{/each}}
 
 <script>
+  function toggleGlobal(checked) {
+    // Selecciona todos los checkboxes individuales
+    var checkboxes = document.querySelectorAll('input[type="checkbox"][data-id]');
+
+    // Itera sobre los checkboxes y actualiza su estado
+    checkboxes.forEach(function (checkbox) {
+      checkbox.checked = checked;
+      // Llama a la función para manejar el cambio de disponibilidad
+      toggleMolde(checkbox.getAttribute('data-id'));
+    });
+  }
+
   function toggleDisponible(id) {
     console.log("Toggle Disponible called with ID:", id);
     // Obtén la referencia al checkbox
@@ -88,6 +106,7 @@
       });
   }
 </script>
+
 
 <style>
   /* The switch - the box around the slider */

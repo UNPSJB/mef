@@ -31,7 +31,7 @@
                   <br>
                   <input required type="radio" name="moneda" value="Pesos Argentinos">Pesos Argentinos
                   <br>
-                  <input type="radio" name="moneda" value="Dolares">Dolares Americanos
+                  <input type="radio" name="moneda" value="Dólares">Dólares Americanos
                   <br>
                   <input type="radio" name="moneda" value="Euros">Euros
                   <br>
@@ -81,7 +81,8 @@
           <!-- Botón de Crear Pedido de Replicación-->
           <div class="row justify-content-center">
             <div class="col-6 text-center">
-              <button type="submit" class="btn btn-success btn-sm btn-block">Crear Pedido de Replicación</button>
+              <button type="submit" class="btn btn-success btn-sm btn-block" disabled>Crear Pedido de
+                Replicación</button>
             </div>
           </div>
         </div>
@@ -92,13 +93,17 @@
 
 <script>
   $(document).ready(() => {
-    $("#form").change(function (event) {
+    function controlarSubmit() {
       const MIN_CANT_HUESOS = 1
       const huesosSeleccionados = $('input:checkbox:checked').length;
       if (huesosSeleccionados < MIN_CANT_HUESOS) {
         return $(':submit').prop('disabled', true);
       }
       return $(':submit').prop('disabled', false);
+    }
+    $("#form").change(function (event) {
+      controlarSubmit()
+
     })
     // Función para manejar cambios en el cliente
     function handleClienteChange() {
@@ -126,7 +131,19 @@
     $('#listadoClientes').change(function () {
       handleClienteChange();
     });
-    // ... (Otros scripts)
+    //https://stackoverflow.com/questions/386281/how-to-implement-select-all-check-box-in-html
+    $("#total").click(function (ev) {
+      $("[name='hueso']").each(function () {
+        this.checked = true
+      })
+      controlarSubmit()
+    })
+    $("#resetear").click(function (ev) {
+      $("[name='hueso']").each(function () {
+        this.checked = false
+      })
+      controlarSubmit()
+    })
   });
 </script>
 
@@ -158,20 +175,6 @@
   function generateCheckbox(id, nombre, numero) {
     return `<input type="checkbox" name="hueso" value="${id}">${nombre} #${numero} <br>`;
   }
-</script>
-
-<script>
-  //https://stackoverflow.com/questions/386281/how-to-implement-select-all-check-box-in-html
-  $("#total").click(function (ev) {
-    $("[name='hueso']").each(function () {
-      this.checked = true
-    })
-  })
-  $("#resetear").click(function (ev) {
-    $("[name='hueso']").each(function () {
-      this.checked = false
-    })
-  })
 </script>
 
 <script>

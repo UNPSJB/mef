@@ -13,45 +13,26 @@ const schedule = require('node-schedule');
 
 const { generatePagination } = require('../services/utils');
 const paginate = require('../middlewares/paginate');
-async function obtenerDetallesPedido(pedido) {
-  try {
-    const detalles = await pedido.getDetalles({
-      include: [
-        {
-          model: models.Hueso,
-          include: [models.Dinosaurio],
-        },
-      ],
-    });
-    return detalles.map(detalle => {
-      const nombreDinosaurio = detalle.Hueso.Dinosaurio.nombre;
-      return {
-        nombreDinosaurio,
-      };
-    });
-  } catch (error) {
-    console.error('Error al obtener los detalles del pedido:', error);
-    return [];
-  }
-}
 
 router.get('/', async (req, res) => {
   try {
-    const pedidos = await pedidosService.getAllPedidos();
-    const _pedidos = [];
-    for (const pedido of pedidos) {
-      const estadoActual = await pedido.estado;
-      const estadoInstance = estadoActual.constructor.name;
-      // Obtener detalles del pedido con información del hueso y dinosaurio
-      const detallesPedido = await obtenerDetallesPedido(pedido);
-      const _pedido = JSON.parse(JSON.stringify(pedido.dataValues));
-      _pedidos.push({ ..._pedido, estadoActual, estadoInstance, detallesPedido });
-    }
-    res.render('pedidos/lista', { pedidos: _pedidos, req });
+    res.render('pedidos/lista', { req });
   } catch (error) {
     console.error(error);
     res.redirect('/404');
   }
+});
+
+router.get('/list', async (req, res) => {
+  const total = await pedidosService.countPedidos();
+  const { start, length, draw, search, columns, order } = req.query;
+  const pedidos = await pedidosService.getPedidosDataTable({ start, length, search, columns, order });
+  let totalpedidosFiltrados = 0;
+  if (pedidos && pedidos.length && pedidos[0].recordfilterd) {
+    totalpedidosFiltrados = pedidos[0].recordfilterd;
+  }
+
+  res.json({ draw, data: pedidos, recordsTotal: total, recordsFiltered: totalpedidosFiltrados });
 });
 
 router.get('/agregar', async (req, res) => {
@@ -69,7 +50,6 @@ router.get('/:id/empleados/', async (req, res) => {
   const { id } = req.params;
   const pedido = await pedidosService.getPedido({ id });
   const trabajando = await pedido.getEmpleados({ include: [models.Persona] });
-  console.log(trabajando.length);
   res.send(JSON.stringify(trabajando, null, 4));
 });
 
@@ -87,8 +67,6 @@ router.get('/detalle/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const pedido = await pedidosService.getPedido({ id });
-    const trabajando = await pedido.getEmpleados({ include: [models.Persona] });
-    const cantidadEmpleados = trabajando.length;
     const estado = await pedido.estado;
     const estadosPedido = await pedido.estados;
     const detalles = await pedido.getDetalles({
@@ -111,8 +89,6 @@ router.get('/detalle/:id', async (req, res) => {
     const estadoInstance = estado.constructor.name;
     const hueso = await huesoService.getHueso(detalles[0].HuesoId);
     const dinosaurio = JSON.parse(JSON.stringify(hueso.Dinosaurio));
-    // Almacenar cantidadEmpleados en res.locals
-    res.locals.cantidadEmpleados = cantidadEmpleados;
     res.render('pedidos/detalle', {
       id,
       estadoInstance,
@@ -125,7 +101,8 @@ router.get('/detalle/:id', async (req, res) => {
       req,
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    res.redirect('/pedidos');
   }
 });
 // models.Dinosaurio
@@ -138,7 +115,8 @@ router.get('/:accion/:id', permisos.permisosParaEstado(), async (req, res) => {
     res.render(`pedidos/${accion}`, { accion, id, detalles, pedido, estado, req });
   } catch (e) {
     //@TODO que hacer
-    res.redirect('/404');
+    console.log(e);
+    res.redirect('/pedidos');
   }
 });
 
@@ -155,6 +133,8 @@ router.post('/:nuevoEstado/:id', async (req, res) => {
   const { nuevoEstado, id } = req.params;
   try {
     const pedido = await pedidosService.getPedido({ id });
+    console.log('MI PEDIDO', pedido.cambiarEstado);
+
     // transicion a nuevo estado
     await pedido.cambiarEstado(nuevoEstado, req.body);
     res.redirect('/pedidos');
@@ -162,7 +142,7 @@ router.post('/:nuevoEstado/:id', async (req, res) => {
     /**
      * @TODO agregar una vista de que no se puede hacer
      */
-    console.log('log error::::::', error);
+    console.log('log error::::::', error, nuevoEstado, id);
     res.redirect('/404');
   }
 });

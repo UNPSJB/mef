@@ -4,7 +4,6 @@ const { Op, literal } = require('sequelize');
 const MIN_CHARS = 1;
 const genericSearch = (search, fields) => {
   return fields.map(field => {
-    console.log(field);
     if (field === 'Dinosaurio.nombre') {
       return literal(`"Dinosaurio"."nombre" ILIKE '%${search}%'`);
     }

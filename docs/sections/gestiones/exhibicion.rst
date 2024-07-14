@@ -1,4 +1,4 @@
-Jefe de Exhibición (Terminado hasta donde se pudo con el software funcionando)
+Jefe de Exhibición
 ==================
 
 Bienvenido a la Gestión de Exhibición. En esta sección usted podrá administrar todo lo referido a:
@@ -36,8 +36,39 @@ Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Exce
 Pedidos
 _______
 Esta es la sección de Pedidos de réplicas.
-Acá se podrán ver agregar, editar o eliminar los pedidos de replicación de fósiles.
 
+Los pedidos de fabricación se dividen en Externos e Internos; dependiendo el tipo de pedidos, será
+la secuencia de cambios de estado.
+
+Si el pedido es interno:
+
+* El pedido se creará con el estado "Confirmado" y solo se podrá pasar a los siguientes estados desde la gestión de taller.
+
+* La gestión de taller podrá pasar el pedido de "Confirmado" a "Fabricando", cuando se empiece a fabricar.
+
+* El taller podrá pasarlo al Estado "Demorado", en caso de demora; y viceversa, en caso de reanudación.
+
+* Aunque no es un cambio de estado, vale aclarar que, también se podrá cambiar la asignación de empleados de taller encargados de ese pedido cuando estemos en el estado "Fabricando".
+
+* Por último se podrá pasar al estado "Finalizado" cuando se termine de hacer el pedido.
+
+Si el pedido es externo:
+
+* El pedido se creará con el estado "Presupuestado".
+
+* El pedido se podrá pasar al estado "Cancelado", en caso de que el cliente desee hacerlo.
+
+* Si el pedido se factura, se pasará al estado "Confirmado". A partir de acá, todos los demás cambios de estado solo podrá hacerlos la gestión de taller.
+
+* El taller pasará el pedido a "Fabricando" cuando este empiece a estar en producción.
+
+* También podrá pasarlo al Estado "Demorado", en caso de demora; y viceversa, en caso de reanudación.
+
+* Aunque no es un cambio de estado, vale aclarar que, también se podrá cambiar la asignación de empleados de taller encargados de ese pedido cuando estemos en el estado "Fabricando".
+
+* Se podrá pasar al estado "Finalizado" cuando se termine de hacer el pedido.
+
+* Por último, el taller pasará el pedido al estado "Entregado" cuando le haya llegado el pedido al cliente.
 
 **Pantalla Principal / Listado de Pedidos**
 
@@ -54,26 +85,76 @@ El pedido de Replicación de pedidos Externos consiste en pedidos hechos por age
 Estos pueden ser Clientes Particulaes (personas) o Clientes Institucionales (instituciones).
 En cualquiera de los dos casos se carga al cliente en base a su DNI (si es particular) o CUE (si es institucional) de una lista precargada.
 
-.. image:: ../images/exhibicion/pedidos/AgregarPedidoInterno
+.. image:: ../images/exhibicion/pedidos/AgregarPedidoExterno
    :width: 800
 
 **Crear Pedido de Replicación para Clientes Internos**
 
-El pedido de Replicación de pedidos Internos consiste en pedidos hechos por y para el museo. Por lo que no son necesarios datos del cliente.
+El pedido de Replicación de pedidos Internos consiste en pedidos hechos por y para el museo. Por lo que no son necesarios los datos del cliente.
 
 .. image:: ../images/exhibicion/pedidos/AgregarPedidoInterno
    :width: 800
 
-**Facturar Pedido de Replicación (Necesito el software andando para hacer esta parte)**
+
+La gestión de Exhibición solo puede hacer estos dos pasajes de estados y solo si el pedido es externo:
+
+**Facturar Pedido de Replicación**
+La Facturación del Pedido consiste en ver los detalles de lo huesos que se replicarán.
+El usuario lo único que podrá editar es, si se realizará un tipo de pago en Efectivo o Cheque.
+El valor presupuestado también es ineditable.
+Al final, al hacer click en "Facturar", el estado del pedido pasará a "Confirmado" y el navegador
+volverá al listado de Pedidos.
+
+.. image:: ../images/exhibicion/pedidos/FacturarPedido
+   :width: 800
+
+**Cancelar Pedido de Replicación**
+En caso de que el cliente lo desee, la gestión de exhibición podrá cancelar el pedido de replicación siempre y 
+cuando este no haya sido Facturado. Una vez facturado, no se podrá cancelar y se procederá a producir.
+
+.. image:: ../images/exhibicion/pedidos/CancelarPedido
+   :width: 800
+
+Antes de cancelar, se podrá ver un detalle del pedido con todos los huesos a replicar y se podrá añadir
+una observación (no obligatoria) que se verá en el detalle del estado "Cancelado" dentro del historial de 
+cambios de Estado.
+
+.. image:: ../images/exhibicion/pedidos/DetalleCancelado
+   :width: 800
 
 
+**Vista del detalle de un pedido (confirmado):**
 
-**Confirmar Pedido de Replicación (Necesito el software andando para hacer esta parte)**
+.. image:: ../images/exhibicion/pedidos/DetalleDePedidoConfirmado
+   :width: 800
 
+**Vista del historial de cambios de Estado en un pedido:**
 
+.. image:: ../images/exhibicion/pedidos/CambiosDeEstado
+   :width: 800
 
-**Vistas de Detalles de los Pedidos (Necesito el software andando para hacer esta parte)**
+**Detalles de los distintos Estados del pedido visto desde el historial:**
 
+.. image:: ../images/exhibicion/pedidos/Presupuestado
+   :width: 800
+
+.. image:: ../images/exhibicion/pedidos/Facturado
+   :width: 800
+
+.. image:: ../images/exhibicion/pedidos/Confirmado
+   :width: 800
+
+.. image:: ../images/exhibicion/pedidos/Demorado
+   :width: 800
+
+.. image:: ../images/exhibicion/pedidos/Fabricando
+   :width: 800
+
+.. image:: ../images/exhibicion/pedidos/Finalizado
+   :width: 800
+
+.. image:: ../images/exhibicion/pedidos/Entregado
+   :width: 800
 
 
 Exhibiciones
@@ -90,7 +171,8 @@ El presente listado le presentará un detalle de todas las exhibiciones con sus 
 .. image:: ../images/exhibicion/exhibiciones/ListadoExhibiciones
    :width: 800
 
-**Alta Exhibición**
+**Agregar Exhibición**
+**Hay un bug acá. Esperar a mergear los cambios con Master a ver si se arregló.**
 
 El Alta de Exhibición consiste en asignarle a la misma:
 
@@ -130,9 +212,10 @@ El Editar Exhibición consiste en poder editarle a la misma:
 
 Esta es la sección dedicada a eliminar exhibiciones.
 
-Seleccione la exhibición que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará la exhibición, si cancela, no se eliminará y volverá al listado de exhibiciones.
+Seleccione la exhibición que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará la exhibición.
 
-(Acá iría la imagen pero falta el "Cancelar" de la pantalla de eliminación)
+.. image:: ../images/exhibicion/exhibiciones/EliminarExhibicion
+   :width: 800
 
 Clientes
 ________
@@ -171,10 +254,36 @@ Los datos a cargar sobre el cliente serán:
 .. image:: ../images/exhibicion/clientes/AgregarCliente
    :width: 800
 
-* **Editar Clientes (Necesito el software andando para hacer esta parte)**
+* **Editar Clientes**
+
+En esta sección podremos editar los datos del Cliente, tales como:
+
+*  Número de documento (solo números)
+
+*  Nombre (entre 1 y 50 caracteres)
+
+*  Apellido (entre 1 y 50 caracteres)
+
+*  Dirección (Entre 5 y 140 caracteres)
+
+*  Localidad (entre 4 y 50 caracteres)
+
+*  Fecha de Nacimiento (el calendario está programado de forma que el cliente tenga 18 o más años)
+
+*  Número de teléfono (entre 6 y 50 caracteres)
+
+*  Si es un cliente Particular o Institucional.
+
+Todos los campos son obligatorios.
+
+.. image:: ../images/exhibicion/clientes/EditarCliente
+   :width: 800
 
 
+* **Eliminar Clientes**
+Esta es la sección dedicada a eliminar clientes.
 
+Seleccione al cliente que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará al cliente.
 
-* **Eliminar Clientes (Necesito el software andando para hacer esta parte)**
-
+.. image:: ../images/exhibicion/clientes/EliminarCliente
+   :width: 800

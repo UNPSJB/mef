@@ -1,9 +1,9 @@
-Gestión de Jefe de Recursos Humanos (Terminado)
+Gestión de Jefe de Recursos Humanos
 ===================================
 
 Bienvenido a la Gestión de Recursos Humanos. En esta sección usted podrá ver, crear, editar y eliminar a los guías y empleados del museo.
 
-.. image:: ../images/rrhh/empleados/Bienvenido.jpg
+.. image:: ../images/rrhh/Bienvenido
    :width: 800
 
 Puede seleccionar el símbolo 'lápiz' para poder editar su información general.
@@ -91,7 +91,7 @@ Consiste en poder modificar:
 
 Esta es la sección dedicada a eliminar empleados.
 
-Seleccione al empelado que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará al empleado, si cancela, no se eliminará y volverá al listado de empleados.
+Seleccione al empleado que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará al empleado, si cancela, no se eliminará y volverá al listado de empleados.
 
 .. image:: ../images/rrhh/empleados/EliminarEmpleado.jpg
    :width: 800
