@@ -1,4 +1,4 @@
-Jefe de Secretaria (Terminado)
+Jefe de Secretaria
 ==================
 
 Bienvenido a la Gestión de Secretaría. En esta sección usted podrá ver y editar las Visitas Guiadas del Mueso.

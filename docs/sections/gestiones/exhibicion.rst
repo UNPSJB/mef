@@ -1,4 +1,4 @@
-Jefe de Exhibición (Terminado hasta donde se pudo con el software funcionando)
+Jefe de Exhibición
 ==================
 
 Bienvenido a la Gestión de Exhibición. En esta sección usted podrá administrar todo lo referido a:
