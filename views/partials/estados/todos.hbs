@@ -12,8 +12,6 @@
       <div class="modal-body">
         <table class="table table-striped table-bordered">
           <thead>
-            {{#with this.motivo_demora}}<th>Motivo Demora</th>{{/with}}
-
             {{#with this.descripcion}}<th>Descripción</th>{{/with}}
             {{#with this.fecha}}<th>Fecha de oferta</th>{{/with}}
             {{#with this.fecha_fin_oferta}}<th>Fecha de fin de oferta</th>{{/with}}
@@ -41,9 +39,6 @@
             {{!-- ^ campos de demorado --}}
           </thead>
           <tbody>
-            {{#with this.motivo_demora}}<td>{{ this }}</td>{{/with}}
-            {{!-- ^ campos de demorado --}}
-
             {{#with this.descripcion}}<td>{{ this }}</td>{{/with}}
             {{#with this.fecha}}<td class="shortDateFormat">{{ this }}</td>{{/with}}
             {{#with this.fecha_fin_oferta}}<td class="shortDateFormat">{{ this }}</td>{{/with}}
@@ -108,17 +103,16 @@
       }
     });
 
-});
+  });
 
-// Función para actualizar el contenido del modal de detalle de fabricando
-function actualizarDetalleFabricando() {
+  // Función para actualizar el contenido del modal de detalle de fabricando
+  function actualizarDetalleFabricando() {
     // Actualizar el contenido del modal con los datos actuales sin hacer una solicitud AJAX
     $('#detalle-fabricando-modal .modal-body').load(window.location.href + ' #detalle-fabricando-modal .modal-body');
-}
+  }
 
-// Llamar a la función de actualización al cargar la página
-$(document).ready(function() {
+  // Llamar a la función de actualización al cargar la página
+  $(document).ready(function () {
     actualizarDetalleFabricando(); // Llamar a la función de actualización al cargar la página
-});
+  });
 </script>
-

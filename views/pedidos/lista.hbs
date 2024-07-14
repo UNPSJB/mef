@@ -5,7 +5,7 @@
     +
   </a>
   {{/if}}
-  <a href="http://localhost:4001/docs/sections/gestiones/exhibicion.html#pedidos" class="btn btn-info ml-auto">
+  <a href="/docs/sections/gestiones/exhibicion.html#pedidos" class="btn btn-info ml-auto">
     Manual
   </a>
 </h1>
@@ -21,36 +21,6 @@
     <th scope="col" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
-    {{#each pedidos}}
-    <tr class="{{this.estadoInstance}} {{req.exhibicion}} {{req.taller}}">
-      <td class="id">{{this.id}}</td>
-      <td>
-        {{#if this.detallesPedido.length}} <!-- Verificar si hay detalles -->
-        {{this.detallesPedido.[0].nombreDinosaurio}} <!-- Mostrar el nombre del primer dinosaurio en detalles -->
-        {{else}}
-        <i>No hay Dino</i> <!-- Mostrar el mensaje si no hay detalles -->
-        {{/if}}
-      </td>
-      <td>{{this.estadoInstance}}</td>
-      <td class="cliente">
-        {{#with this.Persona as |Cliente|}}
-        {{Cliente.apellido}}, {{Cliente.nombre}}
-        {{else}}
-        <i>Interno</i>
-        {{/with}}
-      </td>
-      <td class="shortDateFormat">
-        {{this.createdAt}}
-      </td>
-      <td>
-        {{#with this.motivo}}
-        {{this}}
-        {{else}}
-        <i>No hay Descripción</i>
-        {{/with}}
-      </td>
-    </tr>
-    {{/each}}
   </tbody>
 </table>
 <script>
@@ -60,7 +30,113 @@
       buttons: ['pdf', 'excel', 'csv'],
       searching: true,
       ordering: true,
-      order: [[3, 'desc']],
+      serverSide: true,
+        
+      ajax: '/pedidos/list',
+      columns: [
+        { data: 'id' },
+        { data: 'Dinosaurio_nombre' },
+        { data: 'ultimo_estado' },
+        {
+          data: null,
+          render: function (data, type, row) {
+            if (data.Persona_nombre && data.Persona_apellido) {
+              return data.Persona_nombre + ' ' + data.Persona_apellido;
+            } else {
+              return 'Interno';
+            }
+          }
+        },
+        {
+          data: 'createdAt',
+          render: function (data, type, row) {
+            const fecha = new Date(data);
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1;
+            const anio = fecha.getFullYear();
+            const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+            return fechaFormateada;
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            if (data.motivo && data.motivo.trim().length > 0) {
+              return data.motivo;
+            } else {
+              return 'Sin descripción';
+            }
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            const taller = "{{req.taller}}"
+            const exhibicion = "{{req.exhibicion}}"
+
+            const { ultimo_estado, id, PersonaId } = data;
+
+            const detalle = 'Detalle'
+            const fabricar = 'Fabricando'
+            const empleados = 'Empleados'
+            const demorar = 'Demorado'
+            const finalizar = 'Finalizado'
+            const entregar = 'Entregado'
+
+            const presupuestar = 'Presupuestado'
+            const cancelar = 'Cancelado'
+            const facturar = 'Facturado'
+            const confirmar = 'Confirmado'
+
+            const EXHIBICION_ESTADOS = {
+              presupuestar,
+              cancelar,
+              facturar,
+              confirmar,
+            }
+            const TALLER_ESTADOS = {
+              fabricar,
+              demorar,
+              finalizar,
+              entregar,
+            }
+            let estados = { detalle };
+
+            if (taller) {
+              if (ultimo_estado === confirmar) {
+                estados = { fabricar, ...estados };
+              }
+              if (ultimo_estado === fabricar) {
+                estados = { finalizar, demorar, empleados, ...estados };
+              }
+              if (ultimo_estado === demorar) {
+                estados = { demorar, ...estados }
+              }
+              if (ultimo_estado === finalizar) {
+                if (!PersonaId) {
+                  estados = { entregar, ...estados }
+                }
+              }
+            }
+            if (exhibicion) {
+              if (ultimo_estado === presupuestar) {
+                estados = { facturar, cancelar, ...estados }
+              }
+              if (ultimo_estado === facturar) {
+                estados = { confirmar, ...estados }
+              }
+            }
+
+            const botones = Object.keys(estados).reduce((acc, estado, index) => {
+              const estadoTexto = estados[estado]
+              acc += `<a  class='btn btn-primary' href='/pedidos/${estado}/${id}'>${estadoTexto}</a>`
+              return acc
+            }, '')
+            return botones
+          }
+        }
+
+      ],
       language: {
         processing: "Buscando...",
         search: "Buscar:",
@@ -94,130 +170,6 @@
 </script>
 
 
-<script>
-  const FABRICAR = 'Fabricando'
-  const DEMORAR = 'Demorado'
-  const FINALIZAR = 'Finalizado'
-  const ENTREGAR = 'Entregado'
-
-  const PRESUPUESTAR = 'Presupuestado'
-  const CANCELAR = 'Cancelado'
-  const FACTURAR = 'Facturado'
-  const CONFIRMAR = 'Confirmado'
-
-  const EXHIBICION_ESTADOS = {
-    PRESUPUESTAR,
-    CANCELAR,
-    FACTURAR,
-    CONFIRMAR,
-  }
-  const TALLER_ESTADOS = {
-    FABRICAR,
-    DEMORAR,
-    FINALIZAR,
-    ENTREGAR,
-  }
-  const taller = "{{req.taller}}"
-  const exhibicion = "{{req.exhibicion}}"
-  if (taller) {
-    $(".Presupuestado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>");
-    })
-    $(".Facturado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
-    })
-    $(".Confirmado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +
-        fabricar("fabricar", $(this).find('.id')[0].innerText) + "</td>")
-    })
-    $(".Fabricando").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +
-        fabricar("finalizar", $(this).find('.id')[0].innerText) +
-        fabricar("demorar", $(this).find('.id')[0].innerText) +
-        fabricar("empleados", $(this).find('.id')[0].innerText) + "</td>")
-    })
-    $(".Demorado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +
-        fabricar("reanudar", $(this).find('.id')[0].innerText) + "</td>")
-    })
-    $(".Finalizado").each(function () {
-      let cliente = $(this).find('.cliente')[0].innerText;
-      if (cliente === 'Interno') {
-        $(this).append("<td>" +
-          fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
-      } else {
-        $(this).append("<td>" +
-          fabricar("detalle", $(this).find('.id')[0].innerText) +
-          fabricar("entregar", $(this).find('.id')[0].innerText) + "</td>")
-      }
-    })
-    $(".Entregado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
-    })
-    $(".Cancelado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
-    })
-  }
-
-
-  if (exhibicion) {
-    $(".Presupuestado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +
-        fabricar("facturar", $(this).find('.id')[0].innerText) +
-        fabricar("cancelar", $(this).find('.id')[0].innerText) + "</td>");
-    })
-    $(".Facturado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) +
-        fabricar("confirmar", $(this).find('.id')[0].innerText) + "</td>")
-    })
-    $(".Confirmado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
-    })
-    $(".Fabricando").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
-    })
-    $(".Demorado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
-    })
-    $(".Finalizado").each(function () {
-      let cliente = $(this).find('.cliente')[0].innerText;
-      if (cliente === 'Interno') {
-        $(this).append("<td>" +
-          fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
-      } else {
-        $(this).append("<td>" +
-          fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
-      }
-    })
-    $(".Entregado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
-    })
-    $(".Cancelado").each(function () {
-      $(this).append("<td>" +
-        fabricar("detalle", $(this).find('.id')[0].innerText) + "</td>")
-    })
-
-  }
-
-
-  function fabricar(accion, id) {
-    let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
-    return `<a id='${accion}' class='btn btn-primary' href='/pedidos/${accion}/${id}'>${capitlizado}</a>`;
-  }
-</script>
 
 
 
