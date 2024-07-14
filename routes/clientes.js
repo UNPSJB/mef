@@ -81,6 +81,7 @@ router.post('/', async (req, res) => {
     await clienteService.createCliente(tipo, personaId);
     res.redirect('/clientes');
   } catch (error) {
+    console.log(error)
     const { message, value } = error.errors[0];
     if (altaLogica === "on") {
       const [cliente] = await clienteService.getClientes(undefined, undefined, { PersonaId: value });

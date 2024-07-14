@@ -38,20 +38,19 @@ module.exports = {
       order: [["updatedAt", "DESC"]],
     });
   },
-  getGuia(id,options={}) {
-    return models.Guia.findByPk(id, { include: [models.Persona],...options });
+  getGuia(id, options = {}) {
+    return models.Guia.findByPk(id, { include: [models.Persona], ...options });
   },
   // CREATE para Existentes
-  createGuia(dias_trabaja, fecha_alta, horario_trabaja, idiomas, PersonaId) {
-    var idiomas = [...idiomas];
-    return models.Guia.create({
+  async createGuia(dias_trabaja, fecha_alta, horario_trabaja, idiomas, PersonaId) {
+    const idiomas = [...idiomas];
+    const guia = await models.Guia.create({
       dias_trabaja,
       fecha_alta,
       horario_trabaja,
       PersonaId,
-    }).then((guia) => {
-      guia.setIdiomas(idiomas);
-    });
+    })
+    return guia.setIdiomas(idiomas);
   },
 
   // CREATE para Nuevos
@@ -90,20 +89,19 @@ module.exports = {
         );
       });
   },
-  getIdiomas(args,options={}) {
+  getIdiomas(args, options = {}) {
     return models.Idioma.findAll({
       where: {
         ...args
-      },...options
+      }, ...options
     });
   },
   updateGuia(guiaReq) {
     return models.Guia.upsert(guiaReq);
   },
 
-  deleteGuia(id) {
-    return models.Guia.findByPk(id).then((guiaEncontrado) => {
-      guiaEncontrado.destroy(guiaEncontrado);
-    });
+  async deleteGuia(id) {
+    const guiaEncontrado = await models.Guia.findByPk(id);
+    return guiaEncontrado.destroy(guiaEncontrado);
   },
 };

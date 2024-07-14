@@ -80,7 +80,7 @@ module.exports = {
   getCliente(id, opts = {}) {
     return models.Cliente.findByPk(id, { include: [models.Persona], ...opts });
   },
-  createClienteExiste(tipo, PersonaId) {
+  createCliente(tipo, PersonaId) {
     return models.Cliente.create({
       tipo,
       PersonaId,
