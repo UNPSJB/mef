@@ -57,7 +57,7 @@ module.exports = {
   },
 
   // CREATE para Nuevos
-  createGuias(
+  async createGuias(
     dias_trabaja,
     fecha_alta,
     horario_trabaja,

@@ -101,9 +101,6 @@ module.exports = {
       ],
     });
 
-    // Imprimir la cantidad de registros filtrados en la consola
-    console.log(`Número de registros filtrados: ${recordsFiltered}`);
-
     const visitas = await models.Visita.findAll({
       limit: length,
       offset: start,

@@ -50,9 +50,6 @@ module.exports = {
       include: [{ model: models.Dinosaurio, as: 'Dinosaurio' }],
     });
 
-    // Imprimir la cantidad de registros filtrados en la consola
-    console.log(`Número de registros filtrados: ${recordsFiltered}`);
-
     const fosiles = await models.Fosil.findAll({
       limit: parseInt(length),
       offset: parseInt(start),
