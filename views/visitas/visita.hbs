@@ -43,7 +43,10 @@
     {
       data: null,
       render: function (data, type, row) {
-        return row.Exhibicion.tematica + ' | ' + row.Exhibicion.nombre;
+        if (!row?.Exhibicion) {
+          return "No hay Exhibición."
+        }
+        return row?.Exhibicion?.tematica + ' | ' + row?.Exhibicion?.nombre;
       }
     },
     {
@@ -59,19 +62,14 @@
       }
     },
     { data: 'cantidadDePersonas' },
+    { data: 'fechaVisita' },
+    { data: 'horario' },
     {
-      data: 'fechaVisita',
+      data: 'precio',
       render: function (data, type, row) {
-        const fecha = new Date(data);
-        const dia = fecha.getDate();
-        const mes = fecha.getMonth() + 1;
-        const anio = fecha.getFullYear();
-        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
-        return fechaFormateada;
+        return '$' + data;
       }
     },
-    { data: 'horario' },
-    { data: 'precio' },
     {
       data: 'estado',
       render: function (data, type, row) {
@@ -108,7 +106,7 @@
     columnDefs: [
     { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
   ]
-    });
+    }); 
   });
 </script>
 
