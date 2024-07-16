@@ -31,7 +31,7 @@
       searching: true,
       ordering: true,
       serverSide: true,
-        
+
       ajax: '/pedidos/list',
       columns: [
         { data: 'id' },
@@ -129,7 +129,10 @@
 
             const botones = Object.keys(estados).reduce((acc, estado, index) => {
               const estadoTexto = estados[estado]
-              acc += `<a  class='btn btn-primary' href='/pedidos/${estado}/${id}'>${estadoTexto}</a>`
+              if (estado === 'entregar' && (!data.Persona_nombre && !data.Persona_apellido)) {
+                return acc; // No agregar el botón entregar si el cliente es 'Interno'
+              }
+              acc += `<a class='btn btn-primary' href='/pedidos/${estado}/${id}'>${estadoTexto}</a>`
               return acc
             }, '')
             return botones
