@@ -143,12 +143,18 @@
 </div>
 
 
-<!--Setea la fecha actual como la fecha mínima de "encontrado".-->
 <script>
+  //Ponemos fecha mínima "mañana" porque si ponemos "hoy" puede haber problemas en el horario, si ponemos una hora de "hoy" que ya pasó. 
   $(document).ready(function () {
-    var hoy = formatDate(new Date());
-    document.getElementById("fechaVisita").setAttribute("min", hoy);
+    const manana = calcularFechaManana();
+    document.getElementById("fechaVisita").setAttribute("min", manana);
   })
+  // Setea la fecha de mañana como la fecha mínima de la visita.
+  function calcularFechaManana() {
+    const mañana = new Date();
+    mañana.setDate(mañana.getDate() + 1);
+    return formatDate(mañana);
+  }
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
