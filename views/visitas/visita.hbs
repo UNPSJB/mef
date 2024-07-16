@@ -62,16 +62,21 @@
     {
       data: 'fechaVisita',
       render: function (data, type, row) {
-        const fecha = new Date(data);
-        const dia = fecha.getDate();
-        const mes = fecha.getMonth() + 1;
-        const anio = fecha.getFullYear();
-        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
-        return fechaFormateada;
+        // Asegurarse de que la fecha se interprete correctamente sin desajustes de zona horaria
+        const fecha = new Date(data.split('T')[0] + 'T00:00:00');
+        const dia = ('0' + fecha.getDate()).slice(-2);
+        const mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
+        const año = fecha.getFullYear();
+        return dia + '/' + mes + '/' + año;
       }
     },
     { data: 'horario' },
-    { data: 'precio' },
+    {
+      data: 'precio',
+      render: function (data, type, row) {
+        return '$' + data;
+      }
+    },
     {
       data: 'estado',
       render: function (data, type, row) {
@@ -108,7 +113,7 @@
     columnDefs: [
     { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
   ]
-    });
+    }); 
   });
 </script>
 
