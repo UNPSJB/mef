@@ -100,6 +100,7 @@ Guías
 _____
 
 **Pantalla Principal / Listado**
+
 Bienvenido al listado de Guías. 
 El presente listado le presentará un detalle de todos los guías en la base de datos con sus detalles.
 

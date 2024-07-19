@@ -1,7 +1,10 @@
 Jefe de Secretaria
 ==================
 
-Bienvenido a la Gestión de Secretaría. En esta sección usted podrá ver y editar las Visitas Guiadas del Mueso.
+Bienvenido a la Gestión de Secretaría. En esta sección usted podrá ver y editar las Visitas Guiadas del Museo.
+
+Visitas Guiadas
+___________________
 
 **Pantalla Principal / Listado**
 
@@ -31,8 +34,7 @@ Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Exce
 .. image:: ../images/exportar
    :width: 200
 
-Agregar Visita Guiada
-_______________________
+**Agregar Visita Guiada**
 
 Esta es la sección dedicada al alta de las visitas guiadas.
 
@@ -55,8 +57,7 @@ Consiste en asignarle:
 .. image:: ../images/secretaria/AgregarVisita
    :width: 800
 
-Editar Visita Guiada 
-______________________
+**Editar Visita Guiada**
 
 Esta es la sección dedicada a la edición de las visitas guiadas.
 
