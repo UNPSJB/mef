@@ -2,7 +2,7 @@
   <form action="/visitas?_method=PUT" method="POST">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarVisitaModalLabel">
-        <h1>Editar Visita #{{visita.id}}</h1>
+        <h1>Editar Visita</h1>
       </div>
       <div class="card-body">
         <div class="container">
@@ -143,12 +143,18 @@
 </div>
 
 
-<!--Setea la fecha actual como la fecha mínima de "encontrado".-->
 <script>
+  //Ponemos fecha mínima "mañana" porque si ponemos "hoy" puede haber problemas en el horario, si ponemos una hora de "hoy" que ya pasó. 
   $(document).ready(function () {
-    var hoy = formatDate(new Date());
-    document.getElementById("fechaVisita").setAttribute("min", hoy);
+    const manana = calcularFechaManana();
+    document.getElementById("fechaVisita").setAttribute("min", manana);
   })
+  // Setea la fecha de mañana como la fecha mínima de la visita.
+  function calcularFechaManana() {
+    const mañana = new Date();
+    mañana.setDate(mañana.getDate() + 1);
+    return formatDate(mañana);
+  }
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
