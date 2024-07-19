@@ -35,6 +35,7 @@ Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Exce
 
 Pedidos
 _______
+
 Esta es la sección de Pedidos de réplicas.
 
 Los pedidos de fabricación se dividen en Externos e Internos; dependiendo el tipo de pedidos, será
@@ -74,6 +75,10 @@ Si el pedido es externo:
 
 Bienvenido al listado de Pedidos. 
 El presente listado le presentará un detalle de todos los pedidos de réplica en la base de datos con sus detalles.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá buscar el pedido de acuerdo 
+al dinosaurio, cliente, id, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/exhibicion/pedidos/ListadoPedidos
    :width: 800
@@ -167,6 +172,10 @@ Acá se podrán ver las exhibiciones programadas para el museo.
 
 Bienvenido al listado de Exhibiciones. 
 El presente listado le presentará un detalle de todas las exhibiciones con sus respectivos Nombres, Temática, Duración  y la posibilidad  de ver sus Detalles; también tendrá la posibilidad de eliminar o de editar las mismas.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá buscar la exhibición de acuerdo 
+a la temática, nombre de la exhibición, id, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/exhibicion/exhibiciones/ListadoExhibiciones
    :width: 800
@@ -225,6 +234,10 @@ Esta es la sección de Cliente. Aquí podrá Agregar, Editar o Eliminar a los cl
 
 Este es el listado de Clientes. Aquí podrá ver el listado de todos los clientes cargados en el sistema con sus detalles, 
 con la posibilidad de editarlos o eliminarlos.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá buscar el cliente de acuerdo 
+a su nombre, documento, Localidad, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/exhibicion/clientes/ListadoClientes
    :width: 800

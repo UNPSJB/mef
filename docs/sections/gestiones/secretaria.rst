@@ -10,6 +10,10 @@ ___________________
 
 Bienvenido al listado de Visitas Guiadas. 
 El presente listado le presentará un detalle de todas las Visitas Guiadas del Museo.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá filtrar la búsqueda de visitas de acuerdo 
+a Estado, Guía, Cliente, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/secretaria/ListadoVisitas
    :width: 800
