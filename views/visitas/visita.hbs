@@ -24,7 +24,6 @@
   </tbody>
 </table>
 
-<script type='text/javascript' charset='utf8' src='https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js'></script>
 <script>
   $(document).ready(function () {
     $('#visitas').DataTable({
@@ -62,7 +61,6 @@
     {
       data: 'fechaVisita',
       render: function (data, type, row) {
-        // Asegurarse de que la fecha se interprete correctamente sin desajustes de zona horaria
         const fecha = new Date(data.split('T')[0] + 'T00:00:00');
         const dia = ('0' + fecha.getDate()).slice(-2);
         const mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
@@ -92,6 +90,9 @@
     {
       data: null,
       render: function (data, type, row) {
+        if (row.estado === "Cancelada" || row.estado === "Finalizada") {
+          return '';
+        }
         return '<a href="/visitas/editar/' + data.id + '"><span class="material-icons">edit</span></a>';
       }
     }
