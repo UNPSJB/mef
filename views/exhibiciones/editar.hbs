@@ -12,41 +12,51 @@
           <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
           <label for="tematica">Temática:</label>
           <input type="text" name="tematica" minlength="4" maxlength="50" class="form-control"
-            placeholder="Tematica de la tematica" {{#with exh }} value="{{tematica}}" {{/with}}>
+            placeholder="Tematica de la exhibición" {{#with exh }} value="{{tematica}}" {{/with}}>
           <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
           <label for="duracion">Duración:</label>
-          <input type="text" name="duracion" min="1" max="40" class="form-control"
-            placeholder="Duracion de la exhibicion" {{#with exh }} value="{{duracion}}" {{/with}}>
+          <input type="number" name="duracion" min="1" max="40" class="form-control"
+            placeholder="Duración de la exhibición" {{#with exh }} value="{{duracion}}" {{/with}}>
           <small class="form-text-muted text-muted">Mínimo 1. Máximo 40. Solo números</small><br>
         </div>
         <div class="form-group container">
           <div class="row">
             <div class="col-6" style="padding-left:0px">
               <label for="fosiles">Listado de fósiles disponibles:</label>
+              <div>
+                <input type="checkbox" id="toggle-fosiles"> Seleccionar todos los fósiles
+              </div>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar fosiles --}}
                 {{#each fosiles_propios}}
-                <input type="checkbox" name="fosiles" value="{{this.id}}" checked> {{this.huesos}} |
+                <input type="checkbox" class="fosil-checkbox" name="fosiles" value="{{this.id}}" checked>
+                {{this.huesos}} |
                 {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
                 {{#each fosiles}}
-                <input type="checkbox" name="fosiles" value="{{this.id}}">{{this.huesos}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" class="fosil-checkbox" name="fosiles" value="{{this.id}}">{{this.huesos}} |
+                {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
               </div>
-              <small class="form-text-muted text-muted">Se puede agregar fósiles luego de crear la exhibicion.</small>
+              <small class="form-text-muted text-muted">Se puede agregar fósiles luego de crear la exhibición.</small>
             </div>
             <div class="col-6">
               <label for="replicas">Listado de réplicas disponibles:</label>
+              <div>
+                <input type="checkbox" id="toggle-replicas"> Seleccionar todas las réplicas
+              </div>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{#each replicas_propias}}
-                <input type="checkbox" name="replicas" value="{{this.id}}" checked>{{this.Hueso.nombre}} |
+                <input type="checkbox" class="replica-checkbox" name="replicas" value="{{this.id}}"
+                  checked>{{this.Hueso.nombre}} |
                 {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
                 {{#each replicas}}
-                <input type="checkbox" name="replicas" value="{{this.id}}">{{this.Hueso.nombre}} |
+                <input type="checkbox" class="replica-checkbox" name="replicas"
+                  value="{{this.id}}">{{this.Hueso.nombre}} |
                 {{this.Dinosaurio.nombre}}
                 <br>
                 {{/each}}
@@ -56,7 +66,7 @@
           </div>
         </div>
       </div>
-      <!--Botón de Editar Exhibición -->
+      <!-- Botón de Editar Exhibición -->
       <div class="row justify-content-center">
         <div class="col-6 text-center">
           <input type="hidden" name="id" value="{{exh.id}}" hidden>
@@ -66,3 +76,19 @@
     </div>
   </form>
 </div>
+
+<script>
+  document.getElementById('toggle-fosiles').addEventListener('change', function () {
+    const checkboxes = document.querySelectorAll('.fosil-checkbox');
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = this.checked;
+    });
+  });
+
+  document.getElementById('toggle-replicas').addEventListener('change', function () {
+    const checkboxes = document.querySelectorAll('.replica-checkbox');
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = this.checked;
+    });
+  });
+</script>
