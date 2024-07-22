@@ -126,4 +126,23 @@
       day = '0' + day;
     return [year, month, day].join('-');
   }
+  // Verificar horarios disponibles para una fecha
+  function verificarHorarios(fecha) {
+    $.ajax({
+      url: '/visitas/validar',
+      type: 'GET',
+      data: { fecha: fecha },
+      success: function (response) {
+        // Actualiza el selector de horarios según la respuesta del servidor
+        const selectHorarios = $('select[name="horario"]');
+        selectHorarios.empty();
+        response.forEach(horario => {
+          selectHorarios.append(`<option value="${horario}">${horario}</option>`);
+        });
+      },
+      error: function (error) {
+        console.error('Error al verificar horarios:', error);
+      }
+    });
+  }
 </script>
