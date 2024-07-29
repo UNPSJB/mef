@@ -1,154 +1,200 @@
-<div class="container">
-  <form action="/dinosaurios" method="POST">
-    <div class="card mt-4">
-      <div class="card-header text-center bg-secondary text-white" id="agregarDinoModalLabel">
-        <h3>Agregar Dinosaurio</h3>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-6">
-            <div class="form-group">
-              <label class="font-weight-bold pt-2 pb-2 border-top btn-block" for="InputNombreCientifico">Nombre
-                científico</label>
-              <input type="text" class="form-control" name="nombre" id="InputNombreCientifico"
-                placeholder="Ingrese Nombre Científico" maxlength="30" required {{#if dino}} value="{{dino.nombre}}"
-                {{/if}}>
-              <small class="form-text-muted text-muted">Máximo 30 caracteres</small>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Incluye Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <form id="createDinoForm" class="pt-3" action="/dinosaurios" method="post" onsubmit="handleAddDino(event)">
+      <div class="card mt-4">
+        <div class="card-header text-center bg-secondary text-white" id="agregarDinoModalLabel">
+          <h3>Agregar Dinosaurio</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label class="font-weight-bold pt-2 pb-2 border-top btn-block" for="InputNombreCientifico">Nombre
+                  científico</label>
+                <input type="text" class="form-control" name="nombre" id="InputNombreCientifico"
+                  placeholder="Ingrese Nombre Científico" maxlength="30" required {{#if dino}} value="{{dino.nombre}}"
+                  {{/if}}>
+                <small class="form-text-muted text-muted">Máximo 30 caracteres</small>
+              </div>
+              {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
+              <label class="font-weight-bold pt-1 btn-block">Alimentación</label>
+              <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+                <label class="btn btn-secondary form-check-label active">
+                  <input type="radio" name="alimentacion" value="Carnivoro" autocomplete="off" checked required>
+                  CARNÍVORO
+                </label>
+                <label class="btn btn-secondary form-check-label">
+                  <input type="radio" name="alimentacion" value="Herbivoro" autocomplete="off"> HERBÍVORO
+                </label>
+                <label class="btn btn-secondary form-check-label">
+                  <input type="radio" name="alimentacion" id="option3" value="Omnivoro" autocomplete="off"> OMNÍVORO
+                </label>
+              </div>
+              <label class="font-weight-bold pt-1 btn-block">Periodo</label>
+              <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                  <input class="form-check-input" type="radio" name="periodo" value="Cretacico" autocomplete="off"
+                    checked required> CRETÁCICO
+                </label>
+                <label class="btn btn-secondary">
+                  <input class="form-check-input" type="radio" name="periodo" value="Jurasico" autocomplete="off">
+                  JURÁSICO
+                </label>
+                <label class="btn btn-secondary">
+                  <input class="form-check-input" type="radio" name="periodo" value="Triasico" id="option3"
+                    autocomplete="off"> TRIÁSICO
+                </label>
+              </div>
+              <div class="form-group pt-5">
+                <label class="font-weight-bold pr-4" for="InputFechaDescubrimiento">Fecha Descubrimiento</label>
+                <input class="text-center" type="date" name="descubrimiento" min="1800-01-01"
+                  id="InputFechaDescubrimiento" required {{#if dino}} value="{{dino.descubrimiento}}" {{/if}}>
+              </div>
+              <div class="form-group-vertical">
+                <label class="font-weight-bold pt-4" for="exampleFormControlSelect1">Subclase</label>
+                <select class="form-control" style="height: 50px;" name="idsubclase" id="exampleFormControlSelect1"
+                  autocomplete="off" required>
+                  {{#each subclases}}
+                  <option value="{{this.id}}">{{this.descripcion}}</option>
+                  {{/each}}
+                </select>
+              </div>
             </div>
-            {{#if dino}}<input name="id" type="number" value="{{dino.id}}" hidden> {{/if}}
-            <label class="font-weight-bold pt-1 btn-block">
-              Alimentación
-            </label>
-            <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
-              <label class="btn btn-secondary form-check-label active">
-                <input type="radio" name="alimentacion" value="Carnivoro" autocomplete="off" checked required>
-                CARNÍVORO
-              </label>
-              <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="alimentacion" value="Herbivoro" autocomplete="off"> HERBÍVORO
-              </label>
-              <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="alimentacion" id="option3" value="Omnivoro" autocomplete="off"> OMNÍVORO
-              </label>
-            </div>
-            <label class="font-weight-bold pt-1 btn-block">
-              Periodo
-            </label>
-            <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
-              <label class="btn btn-secondary  active">
-                <input class="form-check-input" type="radio" name="periodo" value="Cretacico" autocomplete="off" checked
-                  required> CRETÁCICO
-              </label>
-              <label class="btn btn-secondary">
-                <input class="form-check-input" type="radio" name="periodo" value="Jurasico" autocomplete="off">
-                JURÁSICO
-              </label>
-              <label class="btn btn-secondary">
-                <input class="form-check-input" type="radio" name="periodo" value="Triasico" id="option3"
-                  autocomplete="off">
-                TRIÁSICO
-              </label>
-            </div>
-            <div class="form-group pt-5">
-              <label class="font-weight-bold pr-4" for="InputFechaDescubrimiento">Fecha Descubrimiento</label>
-              <input class="text-center" type="date" name="descubrimiento" min="1800-01-01"
-                id="InputFechaDescubrimiento" required {{#if dino}} value="{{dino.descubrimiento}}" {{/if}}>
-            </div>
-            <div class="form-group-vertical">
-              <label class="font-weight-bold pt-4" for="exampleFormControlSelect1">Subclase</label>
-              <select class="form-control" style="height: 50px;" name="idsubclase" id="exampleFormControlSelect1"
-                autocomplete="off" required>
-                {{#each subclases}}
-                <option value="{{this.id}}">{{this.descripcion}}</option>
-                {{/each}}
-              </select>
-            </div>
-          </div>
-          <table class="table table-striped col-6 border-bottom">
-            <thead>
-              <tr class="row">
-                <th class="col-md-20">
-                  <h2>Listado de huesos</h2>
-                </th>
-              </tr>
-              <tr>
-                <th scope="col">Nombre de Hueso</th>
-                <th scope="col">Cantidad</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Vértebras Cervicales</td>
-                <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
-                    name="cant_cervicales" value="7" placeholder="cantidad de huesos" required></td>
-              </tr>
-              <tr>
-                <td>Vértebras Dorsales</td>
-                <td><input class="text-right border border-0 radio" type="number" min="1" max="100" name="cant_dorsales"
-                    value="10" placeholder="cantidad de huesos" required></td>
-              </tr>
-              <tr>
-                <td>Vértebras Caudales</td>
-                <td><input class="text-right border border-0 radio" type="number" min="1" max="100" name="cant_caudales"
-                    value="20" placeholder="cantidad de huesos" required></td>
-              </tr>
-              <tr>
-                <td>Vértebras Sacras</td>
-                <td><input class="text-right border border-0 radio" type="number" min="1" max="100" name="cant_sacras"
-                    value="4" placeholder="cantidad de huesos" required></td>
-              </tr>
-              <tr>
-                <td>Costillas Cervicales</td>
-                <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
-                    name="cant_cos_cervicales" value="7" placeholder="cantidad de huesos" required></td>
-              </tr>
-              <tr>
-                <td>Costillas Dorsales</td>
-                <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
-                    name="cant_cos_dorsales" value="10" placeholder="cantidad de huesos" required></td>
-              </tr>
-              <tr>
-                <td>Hemales</td>
-                <td><input class="text-right border border-0 radio" type="number" min="1" max="100" name="cant_hemales"
-                    value="15" placeholder="cantidad de huesos" required></td>
-              </tr>
-              <tr>
-                <td>Cantidad de metacarpianos</td>
-                <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
-                    name="cant_metacarpianos" value="3" ceholder="cantidad de huesos" required></td>
-              </tr>
-              <tr>
-                <td>Cantidad de dedos manos</td>
-                <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
-                    name="cant_dedos_mano" value="3" placeholder="cantidad de huesos" required></td>
-              </tr>
-              <tr>
-                <td>Cantidad de dedos pies</td>
-                <td><input class="text-right border border-0 radio radio" type="number" min="1" max="100"
-                    name="cant_dedos_pie" value="4" placeholder="cantidad de huesos" required></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="container">
-            <div class="row">
-              <div class="col-6"></div>
-              <div class="col-6">
-                <i>*Existen huesos que se cargaran por defecto ya que no están sujetos a que cambie su cantidad.</i>
+            <table class="table table-striped col-6 border-bottom">
+              <thead>
+                <tr class="row">
+                  <th class="col-md-20">
+                    <h2>Listado de huesos</h2>
+                  </th>
+                </tr>
+                <tr>
+                  <th scope="col">Nombre de Hueso</th>
+                  <th scope="col">Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Vértebras Cervicales</td>
+                  <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
+                      name="cant_cervicales" value="7" placeholder="cantidad de huesos" required></td>
+                </tr>
+                <tr>
+                  <td>Vértebras Dorsales</td>
+                  <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
+                      name="cant_dorsales" value="10" placeholder="cantidad de huesos" required></td>
+                </tr>
+                <tr>
+                  <td>Vértebras Caudales</td>
+                  <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
+                      name="cant_caudales" value="20" placeholder="cantidad de huesos" required></td>
+                </tr>
+                <tr>
+                  <td>Vértebras Sacras</td>
+                  <td><input class="text-right border border-0 radio" type="number" min="1" max="100" name="cant_sacras"
+                      value="4" placeholder="cantidad de huesos" required></td>
+                </tr>
+                <tr>
+                  <td>Costillas Cervicales</td>
+                  <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
+                      name="cant_cos_cervicales" value="7" placeholder="cantidad de huesos" required></td>
+                </tr>
+                <tr>
+                  <td>Costillas Dorsales</td>
+                  <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
+                      name="cant_cos_dorsales" value="10" placeholder="cantidad de huesos" required></td>
+                </tr>
+                <tr>
+                  <td>Hemales</td>
+                  <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
+                      name="cant_hemales" value="15" placeholder="cantidad de huesos" required></td>
+                </tr>
+                <tr>
+                  <td>Cantidad de metacarpianos</td>
+                  <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
+                      name="cant_metacarpianos" value="3" placeholder="cantidad de huesos" required></td>
+                </tr>
+                <tr>
+                  <td>Cantidad de dedos manos</td>
+                  <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
+                      name="cant_dedos_mano" value="3" placeholder="cantidad de huesos" required></td>
+                </tr>
+                <tr>
+                  <td>Cantidad de dedos pies</td>
+                  <td><input class="text-right border border-0 radio" type="number" min="1" max="100"
+                      name="cant_dedos_pie" value="4" placeholder="cantidad de huesos" required></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="container">
+              <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6">
+                  <i>*Existen huesos que se cargarán por defecto ya que no están sujetos a que cambie su cantidad.</i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <br>
-        <!-- Botón de Agregar Dinosaurio  -->
-        <div class="row justify-content-center">
-          <div class="col-6 text-center">
-            <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Dinosaurio</button>
+          <br>
+          <!-- Botón de Agregar Dinosaurio -->
+          <div class="row justify-content-center">
+            <div class="col-6 text-center">
+              <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Dinosaurio</button>
+            </div>
           </div>
         </div>
       </div>
+    </form>
+  </div>
+
+  <!-- Modal para el mensaje emergente -->
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alertModalLabel">Agregado</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          El dinosaurio fue agregado exitosamente.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="redirectToList()">Aceptar</button>
+        </div>
+      </div>
     </div>
-  </form>
-</div>
+  </div>
+
+  <!-- Incluye jQuery y Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    function handleAddDino(event) {
+      event.preventDefault();
+      // Aquí puedes hacer una llamada AJAX para agregar el dinosaurio
+      // Si la llamada es exitosa, muestra el modal
+      $('#alertModal').modal('show');
+    }
+
+    function redirectToList() {
+      window.location.href = '/dinosaurios';
+    }
+  </script>
+</body>
+
+</html>
 
 <script>
   // setea la fecha actual como fecha máxima de "descubrimiento"
