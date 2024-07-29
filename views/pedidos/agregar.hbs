@@ -1,95 +1,165 @@
-<div class="container">
-  <form action="/pedidos" method="post" id="form">
-    <div class="card mt-4">
-      <div class="card-header text-center bg-secondary text-white" id="agregarReplicaModalLabel">
-        <h1>Crear pedido de replicación</h1>
-      </div>
-      <div class="card-body">
-        {{!-- BARRA DE NAVEGACION --}}
-        <div class="container">
-          <div class="row">
-            <div class="col" class="tab-content" id="myTabContent">
-              {{!-- tab contenido --}}
-              <div class="" id="externo">
-                <label class="col form-group" id="Example">
-                  <label class="font-weight-bold" for="cliente">Cliente:</label>
-                  <select name="cliente" id="listadoClientes" class="form-control">
-                    <option value="Interno"><i>Interno</i></option>
-                    {{#each clientes}}
-                    <option value="{{this.Persona.id}}"> {{ this.Persona.nombre }}
-                      {{this.Persona.apellido}} {{this.Persona.identificacion}} </option>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Incluye Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <form id="createOrderForm" action="/pedidos" method="post" onsubmit="handleAdd(event)">
+      <div class="card mt-4">
+        <div class="card-header text-center bg-secondary text-white" id="agregarReplicaModalLabel">
+          <h1>Crear pedido de replicación</h1>
+        </div>
+        <div class="card-body">
+          {{!-- BARRA DE NAVEGACION --}}
+          <div class="container">
+            <div class="row">
+              <div class="col" class="tab-content" id="myTabContent">
+                {{!-- tab contenido --}}
+                <div class="" id="externo">
+                  <label class="col form-group" id="Example">
+                    <label class="font-weight-bold" for="cliente">Cliente:</label>
+                    <select name="cliente" id="listadoClientes" class="form-control">
+                      <option value="Interno"><i>Interno</i></option>
+                      {{#each clientes}}
+                      <option value="{{this.Persona.id}}"> {{ this.Persona.nombre }}
+                        {{this.Persona.apellido}} {{this.Persona.identificacion}} </option>
+                      {{/each}}
+                    </select>
+                    <label class="font-weight-bold" for="descripcion">Descripción:</label>
+                    <input disabled class="cliente form-control" type="text" name="descripcion"
+                      placeholder="Solamente necesario para pedidos con clientes" />
+                    <label for="monto">Monto:</label>
+                    <input disabled class="cliente form-control" type="number" name="monto"
+                      placeholder="Solamente necesario para pedidos con clientes" min="0" />
+                    <br>
+                    <label class="font-weight-bold" for="monto">Monto:</label>
+                    <br>
+                    <input required type="radio" name="moneda" value="Pesos Argentinos">Pesos Argentinos
+                    <br>
+                    <input type="radio" name="moneda" value="Dólares">Dólares Americanos
+                    <br>
+                    <input type="radio" name="moneda" value="Euros">Euros
+                    <br>
+                    <br>
+                    <label class="font-weight-bold" for="finoferta">Fin De Oferta: <i>solamente requerido para pedidos
+                        con
+                        cliente</i></label>
+                    <input disabled class="cliente form-control {{#if isInterno}}interno{{/if}}" type="date"
+                      name="finoferta" id="InpuFinOferta" {{#if isInterno}}required{{/if}} />
+                  </label>
+                </div>
+              </div>
+              <div class="col-6 pb-3">
+                {{!-- Dinosaurio --}}
+                <div class="form-group">
+                  <h3>Seleccione Dinosaurio</h3>
+                  <select class="form-control" name="dinosaurio" onchange="buscarHuesos()" id="selectHueso" required>
+                    {{!-- @TODO traer dinos --}}
+                    <option value="" selected aria-required="true">Seleccione un Dinosaurio
+                    </option>
+                    {{#each dinosaurios}}
+                    <option value="{{ this.id }}">{{ this.nombre }}</option>
                     {{/each}}
                   </select>
-                  <label class="font-weight-bold" for="descripcion">Descripción:</label>
-                  <input disabled class="cliente form-control" type="text" name="descripcion"
-                    placeholder="Solamente necesario para pedidos con clientes" />
-                  <label for="monto">Monto:</label>
-                  <input disabled class="cliente form-control" type="number" name="monto"
-                    placeholder="Solamente necesario para pedidos con clientes" min="0" />
-                  <br>
-                  <label class="font-weight-bold" for="monto">Monto:</label>
-                  <br>
-                  <input required type="radio" name="moneda" value="Pesos Argentinos">Pesos Argentinos
-                  <br>
-                  <input type="radio" name="moneda" value="Dólares">Dólares Americanos
-                  <br>
-                  <input type="radio" name="moneda" value="Euros">Euros
-                  <br>
-                  <br>
-                  <label class="font-weight-bold" for="finoferta">Fin De Oferta: <i>solamente requerido para pedidos con
-                      cliente</i></label>
-                  <input disabled class="cliente form-control {{#if isInterno}}interno{{/if}}" type="date"
-                    name="finoferta" id="InpuFinOferta" {{#if isInterno}}required{{/if}} />
-                </label>
-              </div>
-            </div>
-            <div class="col-6 pb-3">
-              {{!-- Dinosaurio --}}
-              <div class="form-group">
-                <h3>Seleccione Dinosaurio</h3>
-                <select class="form-control" name="dinosaurio" onchange="buscarHuesos()" id="selectHueso" required>
-                  {{!-- @TODO traer dinos --}}
-                  <option value="" selected aria-required="true">Seleccione un Dinosaurio
-                  </option>
-                  {{#each dinosaurios}}
-                  <option value="{{ this.id }}">{{ this.nombre }}</option>
-                  {{/each}}
-                </select>
-              </div>
-              <div class="form-group">
-                <h3>Seleccione huesos</h3>
-                <label for="Total">
-                  <button type="button" class="btn btn-primary" id="total">
-                    Seleccionar Todo
-                  </button>
-                  <button type="button" class="btn btn-danger" id="resetear">
-                    Reset
-                  </button>
-                </label>
-                <div class="container border">
-                  <div class="row">
-                    <div class="col-sm border" style="height: 21vh; overflow: auto">
-                      <label for="huesos" id="listaHuesos">
-                      </label>
+                </div>
+                <div class="form-group">
+                  <h3>Seleccione huesos</h3>
+                  <label for="Total">
+                    <button type="button" class="btn btn-primary" id="total">
+                      Seleccionar Todo
+                    </button>
+                    <button type="button" class="btn btn-danger" id="resetear">
+                      Reset
+                    </button>
+                  </label>
+                  <div class="container border">
+                    <div class="row">
+                      <div class="col-sm border" style="height: 21vh; overflow: auto">
+                        <label for="huesos" id="listaHuesos">
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <br>
-          <!-- Botón de Crear Pedido de Replicación-->
-          <div class="row justify-content-center">
-            <div class="col-6 text-center">
-              <button type="submit" class="btn btn-success btn-sm btn-block" disabled>Crear Pedido de
-                Replicación</button>
+            <br>
+            <!-- Botón de Crear Pedido de Replicación-->
+            <div class="row justify-content-center">
+              <div class="col-6 text-center">
+                <button type="submit" class="btn btn-success btn-sm btn-block">Crear Pedido de
+                  Replicación</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </form>
+  </div>
+
+  <!-- Modal para el mensaje emergente -->
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alertModalLabel">Agregado</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          El pedido de replicación fue creado exitosamente.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
     </div>
-  </form>
-</div>
+  </div>
+
+  <!-- Incluye jQuery y Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function handleAdd(event) {
+      event.preventDefault();
+
+      // Realiza la petición POST usando Fetch API
+      fetch(event.target.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(new FormData(event.target))
+      }).then(response => {
+        if (response.ok) {
+          // Abre el modal
+          $('#alertModal').modal('show');
+
+          // Redirige al listado de pedidos después de cerrar el modal
+          $('#alertModal').on('hidden.bs.modal', function () {
+            window.location.href = '/pedidos'; // Redirige a la URL específica
+          });
+        } else {
+          // Maneja el error si la petición falla
+          alert('Error al crear el pedido.');
+        }
+      }).catch(error => {
+        // Maneja errores de la petición
+        console.error('Error:', error);
+        alert('Ocurrió un error.');
+      });
+    }
+  </script>
+</body>
+
+</html>
 
 <script>
   $(document).ready(() => {
