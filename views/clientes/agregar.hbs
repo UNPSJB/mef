@@ -1,31 +1,101 @@
-<div class="container">
-  <form action="/clientes" method="POST">
-    <div class="card mt-4">
-      <div class="card-header text-center bg-secondary text-white">
-        <h1>Agregar cliente</h1>
-      </div>
-      <div class="card-body">
-        <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
-          {{>persona/cliente cliente}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Incluye Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <form id="addClientForm" action="/clientes" method="POST" onsubmit="handleAdd(event)">
+      <div class="card mt-4">
+        <div class="card-header text-center bg-secondary text-white">
+          <h1>Agregar cliente</h1>
         </div>
-        <br>
-        <div class="row justify-content-center p-3x">
-          <label class="btn btn-secondary form-check-label mr-3">
-            <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required>
-            Particular
-          </label>
-          <label class="btn btn-secondary form-check-label ">
-            <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off" required>
-            Institucional
-          </label>
-        </div>
-        <br>
-        <!-- Botón de Agregar -->
-        <div class="row justify-content-center">
-          <div class="col-6 text-center">
-            <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Cliente</button>
+        <div class="card-body">
+          <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
+            {{>persona/cliente cliente}}
+          </div>
+          <br>
+          <div class="row justify-content-center p-3x">
+            <label class="btn btn-secondary form-check-label mr-3">
+              <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required>
+              Particular
+            </label>
+            <label class="btn btn-secondary form-check-label ">
+              <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off" required>
+              Institucional
+            </label>
+          </div>
+          <br>
+          <!-- Botón de Agregar -->
+          <div class="row justify-content-center">
+            <div class="col-6 text-center">
+              <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Cliente</button>
+            </div>
           </div>
         </div>
       </div>
-  </form>
-</div>
+    </form>
+  </div>
+
+  <!-- Modal para el mensaje emergente -->
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alertModalLabel">Agregado</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          El cliente fue agregado exitosamente.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Incluye jQuery y Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function handleAdd(event) {
+      event.preventDefault();
+
+      // Realiza la petición POST usando Fetch API
+      fetch(event.target.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(new FormData(event.target))
+      }).then(response => {
+        if (response.ok) {
+          // Abre el modal
+          $('#alertModal').modal('show');
+
+          // Redirige al listado de clientes después de cerrar el modal
+          $('#alertModal').on('hidden.bs.modal', function () {
+            window.location.href = '/clientes'; // Redirige a la URL específica
+          });
+        } else {
+          // Maneja el error si la petición falla
+          alert('Error al agregar el cliente.');
+        }
+      }).catch(error => {
+        // Maneja errores de la petición
+        console.error('Error:', error);
+        alert('Ocurrió un error.');
+      });
+    }
+  </script>
+</body>
+
+</html>
