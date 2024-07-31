@@ -24,7 +24,7 @@ function getRandomDateWithinFourMonths() {
 }
 
 function generarMoneda() {
-  const monedas = ['Pesos Argentinos', 'Dolares', 'Euros'];
+  const monedas = ['Pesos Argentinos', 'Dólares', 'Euros'];
   return monedas[Math.floor(Math.random() * monedas.length)];
 }
 
