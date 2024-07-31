@@ -1,132 +1,181 @@
-<div class="container mt-4">
-  <form action="/fosiles?_method=PUT" method="POST">
-    <div class="card mx-auto mt-4">
-      <div class="card-header bg-secondary text-white text-center">
-        <h3>Editar Fosil #{{fosil.id}} </h3>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="font-weight-bold" for="dinosaurio">Seleccionar Dinosaurio</label>
-              {{!-- Esto es el desplegable de Dinosaurio --}}
-              <select class="form-control" name="DinosaurioId" id="dinosaurioId">
-                <option value="{{dinosaurio.id}}" selected>{{dinosaurio.nombre}}</option>
-                {{#each dinosaurios}}
-                <option value="{{this.id}}">{{this.nombre}}</option>
-                {{/each}}
-              </select>
-              <small class="form-text-muted text-muted">Dinosaurio de referencia</small>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="font-weight-bold" for="hueso">Seleccionar Hueso</label>
-              {{!-- Este es el desplegable de huesitos --}}
-              <select class="form-control" name="huesos" id="huesoId">
-                <option value="{{fosil.huesos}}" selected>{{fosil.huesos}}</option>
-                {{#each bones}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
-              </select>
-              <small class="form-text-muted text-muted">Hueso de referencia</small>
-            </div>
-          </div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Incluye Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container mt-4">
+    <form id="editFosilForm" action="/fosiles?_method=PUT" method="POST" onsubmit="handleEdit(event)">
+      <div class="card mx-auto mt-4">
+        <div class="card-header bg-secondary text-white text-center">
+          <h3>Editar Fósil #{{fosil.id}}</h3>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="font-weight-bold" for="InputNumeroColeccion">Código de Colección</label>
-              {{#if fosil}}
-              <input type="text" class="form-control" maxlength="30" name="numero_coleccion" id="InputNumeroColeccion"
-                placeholder="Ingrese Numero de Coleccion" required value="{{fosil.numero_coleccion}}">
-              {{/if}}
-              <small class="form-text-muted text-muted">Máximo 30 caracteres. Se puede repetir el código.</small>
+        <div class="card-body">
+          <!-- Contenido del formulario -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="font-weight-bold" for="dinosaurio">Seleccionar Dinosaurio</label>
+                <select class="form-control" name="DinosaurioId" id="dinosaurioId">
+                  <option value="{{dinosaurio.id}}" selected>{{dinosaurio.nombre}}</option>
+                  {{#each dinosaurios}}
+                  <option value="{{this.id}}">{{this.nombre}}</option>
+                  {{/each}}
+                </select>
+                <small class="form-text-muted text-muted">Dinosaurio de referencia</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="font-weight-bold" for="hueso">Seleccionar Hueso</label>
+                <select class="form-control" name="huesos" id="huesoId">
+                  <option value="{{fosil.huesos}}" selected>{{fosil.huesos}}</option>
+                  {{#each bones}}
+                  <option value="{{this}}">{{this}}</option>
+                  {{/each}}
+                </select>
+                <small class="form-text-muted text-muted">Hueso de referencia</small>
+              </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="font-weight-bold" for="InputPeso">Peso (Kg)</label>
-              {{#if fosil}}
-              <input type="number" class="form-control" min="1" max="2000" name="peso" id="InputPeso"
-                placeholder="Ingrese Peso de Fosil." required value="{{fosil.peso}}">
-              {{/if}}
-              <small class="form-text-muted text-muted">Mínimo 1 kg y Máximo 2000 kg</small>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="font-weight-bold" for="InputNumeroColeccion">Código de Colección</label>
+                <input type="text" class="form-control" maxlength="30" name="numero_coleccion" id="InputNumeroColeccion"
+                  placeholder="Ingrese Numero de Coleccion" required value="{{fosil.numero_coleccion}}">
+                <small class="form-text-muted text-muted">Máximo 30 caracteres. Se puede repetir el código.</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="font-weight-bold" for="InputPeso">Peso (Kg)</label>
+                <input type="number" class="form-control" min="1" max="2000" name="peso" id="InputPeso"
+                  placeholder="Ingrese Peso de Fosil." required value="{{fosil.peso}}">
+                <small class="form-text-muted text-muted">Mínimo 1 kg y Máximo 2000 kg</small>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="fecha_encontrado" class="col-form font-weight-bold">Fecha Encontrado</label>
-              <div>
-                {{#if fosil}}
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="fecha_encontrado" class="col-form font-weight-bold">Fecha Encontrado</label>
                 <input required class="form-control" type="date" name="fecha_encontrado" id="InputFechaDescubrimiento"
                   value="{{fosil.fecha_encontrado}}">
-                {{/if}}
+                <label class="pt-3 text-center font-weight-bold">Disponible para exhibición:</label>
+                <br>
+                <label class="btn btn-secondary form-check-label">
+                  <input type="radio" name="disponible" value="true" autocomplete="off" required {{#if
+                    fosil.disponible}}checked{{/if}}>
+                  Sí
+                </label>
+                <label class="btn btn-secondary form-check-label">
+                  <input type="radio" name="disponible" value="false" autocomplete="off" {{#unless
+                    fosil.disponible}}checked{{/unless}}>
+                  No
+                </label>
+                <small class="form-text-muted text-muted">Indique si el fósil está disponible para exhibición.</small>
               </div>
-              <label class="pt-3 text-center font-weight-bold">Disponible para exhibición:</label>
-              <br>
-              {{#if fosil.disponible}}
-              <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="disponible" value="true" autocomplete="off" required checked>
-                Sí
-              </label>
-              <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="disponible" value="false" autocomplete="off">
-                No
-              </label>
-              {{else}}
-              <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="disponible" value="true" autocomplete="off">
-                Sí
-              </label>
-              <label class="btn btn-secondary form-check-label">
-                <input type="radio" name="disponible" value="true" autocomplete="off" required checked>
-                No
-              </label>
-              {{/if}}
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="font-weight-bold" for="observacion">Observaciones</label>
+                <textarea class="form-control" maxlength="140" name="observacion" cols="number" rows="5"
+                  placeholder="Ingrese observaciones">{{fosil.observacion}}</textarea>
+                <small class="form-text-muted text-muted">Opcional, Máximo 140 caracteres</small>
+              </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="font-weight-bold" for="observacion">Observaciones</label><br>
-              {{#if fosil}}
-              <textarea class="form-control" maxlength="140" name="observacion" maxlength="100" cols="number" rows="5"
-                placeholder="Ingrese observaciones">{{fosil.observacion}}</textarea>
-              {{/if}}
-              <small class="form-text-muted text-muted">Opcional, Máximo 140 caracteres</small>
+          <!--Botón de Editar Fósil -->
+          <div class="row justify-content-center">
+            <div class="col-6 text-center">
+              <input type="hidden" name="id" value="{{fosil.id}}">
+              <button type="submit" class="btn btn-success btn-sm btn-block">Editar Fósil</button>
             </div>
           </div>
         </div>
-        <!--Botón de Editar Fósil -->
-        <div class="row justify-content-center">
-          <div class="col-6 text-center">
-            <input type="numbrer" name="id" value="{{fosil.id}}" hidden>
-            <button type="submit" class="btn btn-success btn-sm btn-block">Editar Fósil</button>
-          </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal para el mensaje emergente -->
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alertModalLabel">Editado</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          El Fósil fue editado exitosamente.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
-  </form>
-</div>
+  </div>
 
-<!-- Setea la fecha actual como fecha máxima de "encontrado" -->
-<script>
-  $(document).ready(function () {
-    var hoy = formatDate(new Date());
-    document.getElementById("InputFechaDescubrimiento").setAttribute("max", hoy);
-    $("#InputFechaDescubrimiento").attr("max", hoy);
-  })
-  function formatDate(date) {
-    var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-    if (month.length < 2)
-      month = '0' + month;
-    if (day.length < 2)
-      day = '0' + day;
-    return [year, month, day].join('-');
-  }
-</script>
+  <!-- Incluye jQuery y Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function handleEdit(event) {
+      event.preventDefault();
+
+      // Realiza la petición PUT usando Fetch API
+      fetch(event.target.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(new FormData(event.target))
+      }).then(response => {
+        if (response.ok) {
+          // Abre el modal
+          $('#alertModal').modal('show');
+
+          // Redirige al listado de fósiles después de cerrar el modal
+          $('#alertModal').on('hidden.bs.modal', function () {
+            window.location.href = '/fosiles'; // Redirige a la URL específica
+          });
+        } else {
+          // Maneja el error si la petición falla
+          alert('Error al editar el fósil.');
+        }
+      }).catch(error => {
+        // Maneja errores de la petición
+        console.error('Error:', error);
+        alert('Ocurrió un error.');
+      });
+    }
+
+    // Setea la fecha actual como fecha máxima de "encontrado"
+    $(document).ready(function () {
+      var hoy = formatDate(new Date());
+      document.getElementById("InputFechaDescubrimiento").setAttribute("max", hoy);
+      $("#InputFechaDescubrimiento").attr("max", hoy);
+    });
+
+    function formatDate(date) {
+      var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+      if (month.length < 2)
+        month = '0' + month;
+      if (day.length < 2)
+        day = '0' + day;
+      return [year, month, day].join('-');
+    }
+  </script>
+</body>
+
+</html>
