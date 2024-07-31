@@ -22,6 +22,10 @@ ______________________
 El siguiente es un listado de todos los Dinosaurios en la base de datos del museo.
 Este listado contiene un detalle: Nombre, Alimentación, Período en que vivió, subclase a la que pertenece
 y fecha de descubrimiento.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá filtrar la búsqueda de dinosaurios de acuerdo 
+a su nombre, período, alimentación, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/taller/dinosaurios/ListadoDinosaurios
    :width: 800
@@ -47,8 +51,12 @@ ________
 **Pantalla Principal / Listado**
 
 El siguiente es un listado con todas las réplicas que se encuentran en la base de datos del museo.
-Estas réplicas se dividen por número de pedido. 
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá filtrar la búsqueda de réplicas de acuerdo 
+a su ID, Hueso, dinosaurio al que corresponde, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
+Las réplicas se dividen por número de pedido.
 Por ejemplo, en la imagen de abajo se pueden ver 
 las réplicas correspondientes al pedido Nº 320 y en el mismo podemos ver, por cada réplica: su número,
 el hueso y dinosaurio al que corresponde, la fecha de inicio y finalización de su fabricación, si se
@@ -111,6 +119,10 @@ Si el pedido es externo:
 
 Bienvenido al listado de Pedidos. 
 El presente listado le presentará en detalle todos los pedidos de replicación de fósiles del Museo.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá buscar el pedido de acuerdo 
+al dinosaurio, cliente, id, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/taller/pedidos/ListadoPedidos
    :width: 800

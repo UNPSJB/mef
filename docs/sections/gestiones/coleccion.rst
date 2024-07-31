@@ -12,12 +12,16 @@ ___________
 Bienvenido al listado de Dinoasurios. 
 El presente listado le presentará un detalle de todos los dinosaurios en
 la base de datos con sus detalles.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá filtrar la búsqueda de dinosaurios de acuerdo 
+a su nombre, período, alimentación, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/coleccion/dinosaurio/ListaDinosaurios
    :width: 800
 
 Puede seleccionar el simbolo 'hueso' para ver en detalles todos los huesos
-del dinosaurio. 
+del dinosaurio.
 
 .. image:: ../images/hueso
    :width: 50
@@ -94,6 +98,10 @@ ________
 
 Bienvenido al listado de Fósiles. 
 El presente listado le presentará un detalle de todos los fósiles en la base de datos con sus detalles.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá filtrar la búsqueda de fósiles de acuerdo 
+a su código de colección, dinosaurio al que pertenece, peso, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/coleccion/fosiles/ListadoFosiles
    :width: 800

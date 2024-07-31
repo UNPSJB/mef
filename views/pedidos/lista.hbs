@@ -4,10 +4,16 @@
   <a class="btn btn-success btn-primary border border-light" href="/pedidos/agregar" role="button">
     +
   </a>
-  {{/if}}
-  <a href="/docs/sections/gestiones/exhibicion.html#pedidos" class="btn btn-info ml-auto">
+  <a href="/docs/sections/gestiones/exhibicion.html#pedidos" class="btn btn-info ml-auto" target="_blank">
     Manual
   </a>
+  {{/if}}
+  {{#if req.taller}}
+  <a href="http://localhost:4001/docs/sections/gestiones/taller.html#pedidos" class="btn btn-info ml-auto"
+    target="_blank">
+    Manual
+  </a>
+  {{/if}}
 </h1>
 
 <table class="table" id="pedidos">
@@ -31,7 +37,7 @@
       searching: true,
       ordering: true,
       serverSide: true,
-        
+
       ajax: '/pedidos/list',
       columns: [
         { data: 'id' },
