@@ -1,144 +1,209 @@
-<div class="container">
-  <form class="pt-3" action="/guias?_method=PUT" method="POST">
-    <div class="card mt-4">
-      <div class="card-header text-center bg-secondary text-white" id="agregarGuiaModalLabel">
-        <h1>Editar Guia #{{guia.Persona.id}}</h1>
-      </div>
-      <div class="card-body">
-        <div class="container">
-          <div class="row">
-            <div class="col-6 pb-2">
-              <label class="font-weight-bold" for="identificacion">Documento</label>
-              <input type="number" class="form-guia form-control" name="identificacion" id="InputIdentificacion"
-                placeholder="Ingrese su documento." required {{#if guia}} value="{{guia.Persona.identificacion}}"
-                {{/if}}>
-              <small class="form-text-muted text-muted">Sólo números</small><br>
-              <label class="font-weight-bold" for="nombre">Nombre</label>
-              <input type="text" class="form-guia form-control" name="nombre" id="InputNombre"
-                placeholder="Ingrese Nombre" required {{#if guia}} value="{{guia.Persona.nombre}}" {{/if}}>
-              <small class="form-text-muted text-muted">Mínimo 1 caracter. Máximo 50 caracteres</small><br>
-              <label class="font-weight-bold" for="apellido">Apellido</label>
-              <input type="text" class="form-guia form-control" name="apellido" id="InputApellido"
-                placeholder="Ingrese Apellido." required {{#if guia}} value="{{guia.Persona.apellido}}" {{/if}}>
-              <small class="form-text-muted text-muted">Mínimo 1 carácter. Máximo 50 caracteres.</small><br>
-              <label class="font-weight-bold" for="direccion">Direccion</label>
-              <input type="text" class="form-guia form-control" name="direccion" id="InputDireccion"
-                placeholder="Ingrese Dirección." required {{#if guia}} value="{{guia.Persona.direccion}}" {{/if}}>
-              <small class="form-text-muted text-muted">Dirección completa. Mínimo 5 caracteres. Máximo 140
-                caracteres.</small><br>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Incluye Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <form id="editGuiaForm" class="pt-3" action="/guias?_method=PUT" method="POST" onsubmit="handleEdit(event)">
+      <div class="card mt-4">
+        <div class="card-header text-center bg-secondary text-white" id="agregarGuiaModalLabel">
+          <h1>Editar Guia #{{guia.Persona.id}}</h1>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-6 pb-2">
+                <label class="font-weight-bold" for="identificacion">Documento</label>
+                <input type="number" class="form-guia form-control" name="identificacion" id="InputIdentificacion"
+                  placeholder="Ingrese su documento." required {{#if guia}} value="{{guia.Persona.identificacion}}"
+                  {{/if}}>
+                <small class="form-text-muted text-muted">Sólo números</small><br>
+                <label class="font-weight-bold" for="nombre">Nombre</label>
+                <input type="text" class="form-guia form-control" name="nombre" id="InputNombre"
+                  placeholder="Ingrese Nombre" required {{#if guia}} value="{{guia.Persona.nombre}}" {{/if}}>
+                <small class="form-text-muted text-muted">Mínimo 1 caracter. Máximo 50 caracteres</small><br>
+                <label class="font-weight-bold" for="apellido">Apellido</label>
+                <input type="text" class="form-guia form-control" name="apellido" id="InputApellido"
+                  placeholder="Ingrese Apellido." required {{#if guia}} value="{{guia.Persona.apellido}}" {{/if}}>
+                <small class="form-text-muted text-muted">Mínimo 1 carácter. Máximo 50 caracteres.</small><br>
+                <label class="font-weight-bold" for="direccion">Direccion</label>
+                <input type="text" class="form-guia form-control" name="direccion" id="InputDireccion"
+                  placeholder="Ingrese Dirección." required {{#if guia}} value="{{guia.Persona.direccion}}" {{/if}}>
+                <small class="form-text-muted text-muted">Dirección completa. Mínimo 5 caracteres. Máximo 140
+                  caracteres.</small><br>
+              </div>
+              <div class="col-6">
+                <label class="font-weight-bold" for="localidad">Localidad</label>
+                <input type="text" class="form-guia form-control" name="localidad" id="InputLocalidad"
+                  placeholder="Ingrese Localidad." required {{#if guia}} value="{{guia.Persona.localidad}}" {{/if}}>
+                <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
+                <label class="font-weight-bold" for="email">Email</label>
+                <input type="email" class="form-guia form-control" name="email" id="InputEmail"
+                  placeholder="Ingrese Email." required {{#if guia}} value="{{guia.Persona.email}}" {{/if}}>
+                <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>
+                <label class="font-weight-bold" for="fechaNacimiento">Fecha Nacimiento</label>
+                <input type="date" class="form-guia form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
+                  required {{#if guia}} value="{{guia.Persona.fecha_nacimiento}}" {{/if}}>
+                <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br> <label
+                  class="font-weight-bold" for="InputTelefono">Telefono</label>
+                <input type="tel" class="form-guia form-control" name="telefono" id="InputTelefono"
+                  placeholder="Ingrese Teléfono" required {{#if guia}} value="{{guia.Persona.telefono}}" {{/if}}>
+                <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>
+                {{#if guia}} <input name="idGuia" type="number" value="{{guia.id}}" hidden> {{/if}}
+                {{#if guia}}<input name="idPersona" type="number" value="{{guia.Persona.id}}" hidden> {{/if}}
+                </label>
+              </div>
             </div>
-            <div class="col-6">
-              <label class="font-weight-bold" for="localidad">Localidad</label>
-              <input type="text" class="form-guia form-control" name="localidad" id="InputLocalidad"
-                placeholder="Ingrese Localidad." required {{#if guia}} value="{{guia.Persona.localidad}}" {{/if}}>
-              <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
-              <label class="font-weight-bold" for="email">Email</label>
-              <input type="email" class="form-guia form-control" name="email" id="InputEmail"
-                placeholder="Ingrese Email." required {{#if guia}} value="{{guia.Persona.email}}" {{/if}}>
-              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>
-              <label class="font-weight-bold" for="fechaNacimiento">Fecha Nacimiento</label>
-              <input type="date" class="form-guia form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
-                required {{#if guia}} value="{{guia.Persona.fecha_nacimiento}}" {{/if}}>
-              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br> <label
-                class="font-weight-bold" for="InputTelefono">Telefono</label>
-              <input type="tel" class="form-guia form-control" name="telefono" id="InputTelefono"
-                placeholder="Ingrese Teléfono" required {{#if guia}} value="{{guia.Persona.telefono}}" {{/if}}>
-              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>
-              {{#if guia}} <input name="idGuia" type="number" value="{{guia.id}}" hidden> {{/if}}
-              {{#if guia}}<input name="idPersona" type="number" value="{{guia.Persona.id}}" hidden> {{/if}}
+            <div class="row">
+              <div class="col">
+                <div class="row py-2 text-center mx-auto">
+                  <span class="font-weight-bold pt-1">
+                    Horario Laboral:
+                  </span>
+                  <div class="pl-2" data-toggle="buttons">
+                    <label class="btn btn-secondary form-check-label">
+                      <input type="radio" name="horario_trabaja" value="Diurno" autocomplete="off" required {{#if
+                        diurno}} checked {{/if}}>
+                      Diurno
+                    </label>
+                    <label class="btn btn-secondary form-check-label">
+                      <input type="radio" name="horario_trabaja" value="Nocturno" autocomplete="off" {{#if nocturno}}
+                        checked {{/if}}>
+                      Nocturno
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="row py-2 text-center mx-auto">
+                  <span class="font-weight-bold pt-1">
+                    Días Laborales:
+                  </span>
+                  <div class="pl-2" data-toggle="buttons">
+                    <label class="btn btn-secondary form-check-label">
+                      <input type="radio" name="dias_trabaja" value="Normal" autocomplete="off" required {{#if normal}}
+                        checked {{/if}}>
+                      Normal (Lun-Vie)
+                    </label>
+                    <label class="btn btn-secondary form-check-label">
+                      <input type="radio" name="dias_trabaja" value="Franquero" autocomplete="off" {{#if franquero}}
+                        checked {{/if}}>
+                      Franquero
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Cuadro de idiomas--->
+            <div class="row text-center pb-4">
+              <label class="font-weight-bold pt-1 btn-block" for="idiomas">
+                Idiomas:
               </label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="row py-2 text-center mx-auto">
-                <span class="font-weight-bold pt-1">
-                  Horario Laboral:
-                </span>
-                <div class="pl-2" data-toggle="buttons">
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="horario_trabaja" value="Diurno" autocomplete="off" required {{#if diurno}}
-                      checked {{/if}}>
-                    Diurno
-                  </label>
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="horario_trabaja" value="Nocturno" autocomplete="off" {{#if nocturno}}
-                      checked {{/if}}>
-                    Nocturno
-                  </label>
+              <!-- Agregamos un contenedor con scroll vertical -->
+              <div class="col-12" style="max-height: 200px; overflow-y: auto;">
+                <div class="form-check text-left">
+                  {{#each idiomasGuia }}
+                  <input class="form-check-input" type="checkbox" name="idiomas[]" value="{{ this.id }}" checked>
+                  <label class="form-check-label">{{this.nombre}}</label>
+                  <br> <!-- Agregar un salto de línea después de cada idioma -->
+                  {{/each}}
+                  {{#each idioma }}
+                  <input class="form-check-input" type="checkbox" name="idiomas[]" value="{{ this.id }}">
+                  <label class="form-check-label">{{this.nombre}}</label>
+                  <br> <!-- Agregar un salto de línea después de cada idioma -->
+                  {{/each}}
                 </div>
               </div>
             </div>
-            <div class="col">
-              <div class="row py-2 text-center mx-auto">
-                <span class="font-weight-bold pt-1">
-                  Días Laborales:
-                </span>
-                <div class="pl-2" data-toggle="buttons">
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="dias_trabaja" value="Normal" autocomplete="off" required {{#if normal}}
-                      checked {{/if}}>
-                    Normal (Lun-Vie)
-                  </label>
-                  <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="dias_trabaja" value="Franquero" autocomplete="off" {{#if franquero}}
-                      checked {{/if}}>
-                    Franquero
-                  </label>
-                </div>
+            <br>
+            <!-- Botón de Editar Guía-->
+            <div class="row justify-content-center">
+              <div class="col-6 text-center">
+                <button type="submit" class="btn btn-success btn-sm btn-block">Editar Guía</button>
               </div>
-            </div>
-          </div>
-          <!--Cuadro de idiomas--->
-          <div class="row text-center pb-4">
-            <label class="font-weight-bold pt-1 btn-block" for="idiomas">
-              Idiomas:
-            </label>
-            <!-- Agregamos un contenedor con scroll vertical -->
-            <div class="col-12" style="max-height: 200px; overflow-y: auto;">
-              <div class="form-check text-left">
-                {{#each idiomasGuia }}
-                <input class="form-check-input" type="checkbox" name="idiomas[]" value="{{ this.id }}" checked>
-                <label class="form-check-label">{{this.nombre}}</label>
-                <br> <!-- Agregar un salto de línea después de cada idioma -->
-                {{/each}}
-                {{#each idioma }}
-                <input class="form-check-input" type="checkbox" name="idiomas[]" value="{{ this.id }}">
-                <label class="form-check-label">{{this.nombre}}</label>
-                <br> <!-- Agregar un salto de línea después de cada idioma -->
-                {{/each}}
-              </div>
-            </div>
-          </div>
-          <br>
-          <!-- Botón de Editar Guía-->
-          <div class="row justify-content-center">
-            <div class="col-6 text-center">
-              <button type="submit" class="btn btn-success btn-sm btn-block">Editar Guía</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 
-<!-- Setea la fecha actual -->
-<script>
-  $(document).ready(function () {
-    var hoy = formatDate(new Date());
-    document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
-    $("#InputFechaNacimiento").attr("max", hoy);
-  })
-  function formatDate(date) {
-    var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear() - 18;// Los empleados deben tener 18 años o más
-    if (month.length < 2)
-      month = '0' + month;
-    if (day.length < 2)
-      day = '0' + day;
-    return [year, month, day].join('-');
-  }
-</script>
+  <!-- Modal para el mensaje emergente -->
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alertModalLabel">Editado</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          El Guía fue editado exitosamente.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    function handleEdit(event) {
+      event.preventDefault();
+
+      // Realiza la petición PUT usando Fetch API
+      fetch(event.target.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(new FormData(event.target))
+      }).then(response => {
+        if (response.ok) {
+          // Abre el modal
+          $('#alertModal').modal('show');
+
+          // Redirige al listado de guías después de cerrar el modal
+          $('#alertModal').on('hidden.bs.modal', function () {
+            window.location.href = '/guias'; // Redirige a la URL específica
+          });
+        } else {
+          // Maneja el error si la petición falla
+          alert('Error al editar la guía.');
+        }
+      }).catch(error => {
+        // Maneja errores de la petición
+        console.error('Error:', error);
+        alert('Ocurrió un error.');
+      });
+    }
+
+    // Setea la fecha actual
+    $(document).ready(function () {
+      var hoy = formatDate(new Date());
+      document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
+      $("#InputFechaNacimiento").attr("max", hoy);
+    });
+
+    function formatDate(date) {
+      var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear() - 18; // Los guías deben tener 18 años o más
+      if (month.length < 2)
+        month = '0' + month;
+      if (day.length < 2)
+        day = '0' + day;
+      return [year, month, day].join('-');
+    }
+  </script>
+</body>
+
+</html>
