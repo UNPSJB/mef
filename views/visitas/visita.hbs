@@ -12,7 +12,7 @@
     <th scope='col'>Cliente</th>
     <th scope='col'>Guía</th>
     <th scope='col'>Cantidad de personas</th>
-    <th scope='col'>Fecha de visita</th>
+    <th scope='col'>Fecha de visita - dd/mm/aaaa</th>
     <th scope='col'>Horario</th>
     <th scope='col'>Precio (ARS)</th>
     <th scope='col'>Estado</th>
@@ -63,10 +63,11 @@
       data: 'fechaVisita',
       render: function (data, type, row) {
         const fecha = new Date(data);
+        fecha.setDate(fecha.getDate() + 1); // Añadir un día a la fecha
         const dia = fecha.getDate();
         const mes = fecha.getMonth() + 1;
         const anio = fecha.getFullYear();
-        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}/${mes < 10 ? '0' + mes : mes}/${anio}`;
         return fechaFormateada;
       }
     },
