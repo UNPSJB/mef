@@ -14,7 +14,7 @@
       <th scope="col">Dirección</th>
       <th scope="col">Localidad</th>
       <th scope="col">Correo Electrónico</th>
-      <th scope="col">Fecha de Nacimiento</th>
+      <th scope="col">Fecha de Nacimiento - dd/mm/aaaa</th>
       <th scope="col">Teléfono</th>
       <th scope="col" data-orderable="false">Acciones</th> <!-- Desactiva el ordenamiento en esta columna -->
     </thead>
@@ -46,12 +46,15 @@
     {
       data: 'Persona.fecha_nacimiento',
       render: function (data, type, row) {
-        const fecha = new Date(data);
-        const dia = fecha.getDate();
-        const mes = fecha.getMonth() + 1;
-        const anio = fecha.getFullYear();
-        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
-        return fechaFormateada;
+        if (data) {
+          const date = new Date(data);
+          date.setDate(date.getDate() + 1); // Sumar 1 día para que coincida con la bd
+          const day = String(date.getDate()).padStart(2, '0');
+          const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11
+          const year = date.getFullYear();
+          return `${day}/${month}/${year}`;
+        }
+        return '';
       }
     },
     { data: 'Persona.telefono' },
