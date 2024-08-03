@@ -1,7 +1,7 @@
 <div class="text-center">
     <h4 class="pt-2" style="color: #000000; font-weight: bold;">
-    <span style="text-decoration: underline;">Detalle del Pedido #{{id}}:</span>
-    {{dinosaurio.nombre}}
+        <span style="text-decoration: underline;">Detalle del Pedido #{{id}}:</span>
+        {{dinosaurio.nombre}}
     </h4>
 </div>
 
@@ -74,7 +74,7 @@
                         {{#each estados}}
                         <tr>
                             <td>{{ estadoInstance }}</td>
-                            <td class="shortDateFormat">{{ fecha}}</td>
+                            <td class="shortDateFormat">{{formatDate fecha}}</td>
                             <td>
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#{{estadoInstance}}"
                                     id="mostrar-{{estadoInstance}}">Detalles</button>
