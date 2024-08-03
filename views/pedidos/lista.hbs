@@ -16,7 +16,7 @@
     <th>Dinosaurio</th>
     <th>Estado</th>
     <th>Cliente</th>
-    <th>Inicio Pedido</th>
+    <th>Inicio Pedido - dd/mm/aaaa</th>
     <th>Descripción</th>
     <th scope="col" data-orderable="false">Acciones</th>
   </thead>
@@ -40,7 +40,7 @@
         {{/with}}
       </td>
       <td class="shortDateFormat">
-        {{this.createdAt}}
+        {{formatDate this.createdAt}}
       </td>
       <td>
         {{#with this.motivo}}

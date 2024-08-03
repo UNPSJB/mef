@@ -4,29 +4,38 @@ const EXTERNO = 'Externo';
 const CONFIRMADO = 'Confirmado';
 const PRESUPUESTADO = 'Presupuestado';
 const { paginateModel } = require('./utils')
+const Handlebars = require('handlebars');
+
+Handlebars.registerHelper('formatDate', function (dateString) {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+});
 
 module.exports = {
-  getAllPedidos(args, opts = {}){
+  getAllPedidos(args, opts = {}) {
     return models.Pedido.findAll({
       include: [models.Persona],
-      where:{
+      where: {
         ...args
       },
-      order:[
+      order: [
         ['createdAt', 'DESC']
       ]
-    })    
+    })
   },
-  countPedidos(){
+  countPedidos() {
     return models.Pedido.count()
   },
   getPedidos(page = 0, pageSize = 10, args) {
     return models.Pedido.findAll({
       include: [models.Persona],
-      where:{
+      where: {
         ...args
       },
-      order:[
+      order: [
         ['createdAt', 'DESC']
       ],
       ...paginateModel({ page, pageSize })
@@ -34,32 +43,32 @@ module.exports = {
   },
   getPedido(args) {
     return models.Pedido.findOne({
-      where : {
+      where: {
         ...args
       },
-      include: [models.Persona,{
+      include: [models.Persona, {
         model: models.Empleado, include: models.Persona
       }, {
         model: models.Detalle,
       }]
     })
   },
-  obtenerPedido(id){
-    return models.Pedido.findByPk(id, {include:[persona]});
+  obtenerPedido(id) {
+    return models.Pedido.findByPk(id, { include: [persona] });
   },
-  getPresupuestados(){
+  getPresupuestados() {
     return models.Pedido.findAll({
-      where:{
-        tipo:'Externo',
+      where: {
+        tipo: 'Externo',
         autorizacion: false
       }
     })
   },
-  solicitar(huesos){
+  solicitar(huesos) {
     return models.Pedido.create({
-      autorizacion:true,
-      tipo:INTERNO,
-    }).then(pedido=>{
+      autorizacion: true,
+      tipo: INTERNO,
+    }).then(pedido => {
       pedido.crearDetalles(huesos)
     })
   },
@@ -73,17 +82,17 @@ module.exports = {
   ) {
     //crea el pedido y sus detalles
     return models.Pedido.create({
-        tipo:EXTERNO,
-        PersonaId:cliente, //@TODO aca va cliente
-        motivo:descripcion
-      })
+      tipo: EXTERNO,
+      PersonaId: cliente, //@TODO aca va cliente
+      motivo: descripcion
+    })
       .then(async pedido => {
         //una vez que hayas creado el presupuesto
         //agregarle todos sus ddetalles
         pedido.crearDetalles(huesos);
         const estado = await pedido.estado;
         await estado.update({
-          cantidad_huesos:huesos.length,
+          cantidad_huesos: huesos.length,
           monto,
           fecha_fin_oferta,
           moneda
@@ -93,12 +102,12 @@ module.exports = {
   updatePedido(pedido) {
     return models.Pedido.upsert(pedido);
   },
-  getReplicas(args, options = {}){
+  getReplicas(args, options = {}) {
     return models.Replica.findAll({
-      where:{
+      where: {
         ...args
       },
-      include:[models.Hueso, models.Dinosaurio],
+      include: [models.Hueso, models.Dinosaurio],
       ...options
     })
   }
