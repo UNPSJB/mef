@@ -11,8 +11,8 @@
         <th scope="col">#</th>
         <th scope="col">Hueso</th>
         <th scope="col">Dinosaurio</th>
-        <th scope="col">Fecha de inicio</th>
-        <th scope="col">Fecha de finalización</th>
+        <th scope="col">Fecha de inicio - dd/mm/aaaa</th>
+        <th scope="col">Fecha de finalización - dd/mm/aaaa</th>
         <th scope="col" data-orderable="false">Disponible</th>
         <th scope="col" data-orderable="false">Acciones</th>
       </tr>
@@ -92,6 +92,7 @@
           render: function (data, type, row) {
             if (type === 'display' || type === 'filter') {
               var date = new Date(data);
+              date.setDate(date.getDate() + 1); // Suma 1 día para que coincida con el valor de la BD
               var day = ('0' + date.getDate()).slice(-2);
               var month = ('0' + (date.getMonth() + 1)).slice(-2);
               var year = date.getFullYear();
