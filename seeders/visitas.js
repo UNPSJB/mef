@@ -121,7 +121,7 @@ module.exports = {
 
       do {
         visitaFecha = generateRandomDate(startDate, today);
-        visitaEstado = faker.random.arrayElement(['Pendiente', 'Cancelada', 'Completada']);
+        visitaEstado = faker.random.arrayElement(['Pendiente', 'Cancelada', 'Finalizada']);
       } while (
         visitaEstado === 'Pendiente' &&
         visitasArr.some(v => v.fechaVisita.toDateString() === visitaFecha.toDateString() && v.estado === 'Pendiente')
