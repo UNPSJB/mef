@@ -11,16 +11,17 @@
         <br>
         <div class="row justify-content-center p-3x">
           <label class="btn btn-secondary form-check-label mr-3">
-            <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required>
+            <input type="radio" name="tipoCliente" value="Particular" autocomplete="off" required {{#if
+              particular}}checked{{/if}}>
             Particular
           </label>
           <label class="btn btn-secondary form-check-label ">
-            <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off" required>
+            <input type="radio" name="tipoCliente" value="Institucional" autocomplete="off" required {{#if
+              institucional}}checked{{/if}}>
             Institucional
           </label>
           {{#if cliente}}<input name="idCliente" type="number" value="{{cliente.id}}" hidden> {{/if}}
           {{#if cliente}}<input name="idPersona" type="number" value="{{cliente.Persona.id}}" hidden> {{/if}}
-          </label>
         </div>
         <br>
         <!--Botón de Guardar -->
