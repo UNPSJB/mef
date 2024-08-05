@@ -16,7 +16,7 @@
     <th scope="col">Dinosaurio</th>
     <th scope="col">Disponible para exhibición</th>
     <th scope="col">Peso</th>
-    <th scope="col">Fecha Encontrado</th>
+    <th scope="col">Fecha Encontrado - dd/mm/aaaa</th>
     <th scope="col">Hueso Referencia</th>
     <th scope="col">Observaciones</th>
     <th class="no-export" data-orderable="false">Acciones</th>
@@ -51,10 +51,11 @@
       data: 'fecha_encontrado',
       render: function (data, type, row) {
         const fecha = new Date(data);
+        fecha.setDate(fecha.getDate() + 1); // Agrega un día a la fecha para que coincida con la fecha de la BD.
         const dia = fecha.getDate();
         const mes = fecha.getMonth() + 1;
         const anio = fecha.getFullYear();
-        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}/${mes < 10 ? '0' + mes : mes}/${anio}`;
         return fechaFormateada;
       }
     },
