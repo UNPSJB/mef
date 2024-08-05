@@ -4,7 +4,7 @@
   <a href="/guias/agregar" class="btn btn-success btn-primary border border-light" rel="noopener noreferrer">
     +
   </a>
-  <a href="http://localhost:4001/docs/sections/gestiones/rrhh.html#guias" class="btn btn-info ml-auto" target="_blank">
+  <a href="docs/sections/gestiones/rrhh.html#guias" class="btn btn-info ml-auto" target="_blank">
     Manual
   </a>
 </h1>
@@ -20,7 +20,7 @@
     <th>Fecha de Nacimiento</th>
     <th>Telefono</th>
     <th>Idiomas</th>
-    <th scope="col" data-orderable="false">Acciones</th> <!-- Desactiva el ordenamiento en esta columna -->
+    <th class="no-export" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
   </tbody>
@@ -57,8 +57,27 @@
     }
   ],
     buttons: [
-    'pdf', 'excel', 'csv'
+    {
+      extend: 'pdf',
+      orientation: 'landscape',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    },
+    {
+      extend: 'excel',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    },
+    {
+      extend: 'csv',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    }
   ],
+
     searching: true,
     ordering: true,
     processing: true,

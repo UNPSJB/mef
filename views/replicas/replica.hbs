@@ -3,8 +3,7 @@
   {{#each pedidos}}
   <h1 class="bg-secondary text-center text-white rounded p-2">
     Réplicas - {{this.dataValues.dino.nombre}} {{this.dataValues.tipo}} (ID: {{this.dataValues.id}})
-    <a href="http://localhost:4001/docs/sections/gestiones/taller.html#replicas" class="btn btn-info ml-auto"
-      target="_blank">
+    <a href="docs/sections/gestiones/taller.html#replicas" class="btn btn-info ml-auto" target="_blank">
       Manual
     </a>
   </h1>
@@ -17,7 +16,7 @@
         <th scope="col">Fecha de inicio</th>
         <th scope="col">Fecha de finalización</th>
         <th scope="col" data-orderable="false">Disponible</th>
-        <th scope="col" data-orderable="false">Acciones</th>
+        <th class="no-export" data-orderable="false">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -62,7 +61,25 @@
     $('.replicas').DataTable({
       dom: 'Bfrtip',
       buttons: [
-        'pdf', 'excel', 'csv'
+        {
+          extend: 'pdf',
+          orientation: 'landscape',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'excel',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'csv',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        }
       ],
       searching: true,
       ordering: true,
