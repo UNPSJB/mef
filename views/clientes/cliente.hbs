@@ -5,8 +5,7 @@
     <a href="/clientes/agregar" class="btn btn-success btn-primary border border-light" rel="noopener noreferrer">
       +
     </a>
-    <a href="http://localhost:4001/docs/sections/gestiones/exhibicion.html#clientes" class="btn btn-info ml-auto"
-      target="_blank">
+    <a href="docs/sections/gestiones/exhibicion.html#clientes" class="btn btn-info ml-auto" target="_blank">
       Manual
     </a>
     {{/if}}
@@ -26,7 +25,7 @@
       <th>Correo Electrónico</th>
       <th>Fecha de Nacimiento</th>
       <th>Teléfono</th>
-      <th data-orderable="false">Acciones</th> <!-- Se añade data-orderable="false" para desactivar el ordenamiento -->
+      <th class="no-export" data-orderable="false">Acciones</th>
     </thead>
     <tbody>
     </tbody>
@@ -73,7 +72,25 @@
     }
   ],
     buttons: [
-    'pdf', 'excel', 'csv'
+    {
+      extend: 'pdf',
+      orientation: 'landscape',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    },
+    {
+      extend: 'excel',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    },
+    {
+      extend: 'csv',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    }
   ],
     searching: true,
     ordering: true,

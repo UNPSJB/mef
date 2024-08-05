@@ -4,8 +4,7 @@
   <a href="/fosiles/agregar" class="btn btn-success btn-primary border border-light" rel="noopener noreferrer">
     +
   </a>
-  <a href="http://localhost:4001/docs/sections/gestiones/coleccion.html#fosiles" class="btn btn-info ml-auto"
-    target="_blank">
+  <a href="docs/sections/gestiones/coleccion.html#fosiles" class="btn btn-info ml-auto" target="_blank">
     Manual
   </a>
 </h1>
@@ -20,7 +19,7 @@
     <th scope="col">Fecha Encontrado</th>
     <th scope="col">Hueso Referencia</th>
     <th scope="col">Observaciones</th>
-    <th scope="col">Acciones</th>
+    <th class="no-export" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
   </tbody>
@@ -68,7 +67,6 @@
     },
     {
       data: null,
-      className: 'no-export', // Agregar clase "no-export" a la columna de acciones
       render: function (data, type, row) {
         return '<a href="/fosiles/editar/' + data.id + '"><span class="material-icons">edit</span></a>';
       }
@@ -76,40 +74,22 @@
   ],
     buttons: [
     {
-      extend: 'pdfHtml5',
+      extend: 'pdf',
+      orientation: 'landscape',
       exportOptions: {
-        modifier: {
-          page: 'all' // Exportar todos los datos, no solo los de la página actual
-
-        },
-        columns: ':not(.no-export)' // Exportar todas las columnas excepto las que tienen la clase "no-export"
-      },
-      customize: function (doc) {
-        // Establecer ancho de columna fijo
-        doc.content[1].table.widths = ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'];
-        // Ajustar el estilo de los títulos de las columnas
-        for (var i = 0; i < doc.content[1].table.body[0].length; i++) {
-          doc.content[1].table.body[0][i].alignment = 'center';
-        }
+        columns: ':not(.no-export)'
       }
     },
     {
-      extend: 'excelHtml5',
+      extend: 'excel',
       exportOptions: {
-        modifier: {
-          page: 'all' // Exportar todos los datos, no solo los de la página actual
-        },
-        columns: ':not(.no-export)' // Exportar todas las columnas excepto las que tienen la clase "no-export"
-      },
-      customize: function (xlsx) {
-        // Establecer ancho de columna fijo
-        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+        columns: ':not(.no-export)'
       }
     },
     {
       extend: 'csv',
       exportOptions: {
-        columns: ':not(.no-export)' // Exportar todas las columnas excepto las que tienen la clase "no-export"
+        columns: ':not(.no-export)'
       }
     }
   ],
