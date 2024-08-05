@@ -48,9 +48,14 @@
   <hr style="border-top: 3px solid #000; margin: 50px 0;">
   {{/each}}
   {{else}}
-  <h1 class="bg-secondary text-center text-white rounded p-2">
-    Réplicas - No Hay Pedidos De Replicas
-  </h1>
+  <div class="empty-state text-center"
+    style="padding: 50px; background-color: #f8f9fa; border-radius: 10px; border: 1px solid #dee2e6;">
+    <h1 class="bg-secondary text-center text-white rounded p-2">
+      Réplicas
+    </h1>
+    <p style="font-size: 1.5em; color: #6c757d;">No hay réplicas.</p>
+    <i class="material-icons" style="font-size: 4em; color: #6c757d;">inbox</i>
+  </div>
   {{/if}}
 </div>
 
