@@ -20,7 +20,7 @@
     <th>#</th>
     <th>Dinosaurio</th>
     <th>Estado</th>
-    <th>Cliente</th>
+    <th data-column="nombreApellido">Cliente</th>
     <th>Inicio Pedido</th>
     <th>Descripción</th>
     <th class="no-export" data-orderable="false">Acciones</th>
@@ -64,13 +64,15 @@
         { data: 'ultimo_estado' },
         {
           data: null,
+          dataSrc: 'nombreApellido',
           render: function (data, type, row) {
             if (data.Persona_nombre && data.Persona_apellido) {
               return data.Persona_nombre + ' ' + data.Persona_apellido;
             } else {
               return 'Interno';
             }
-          }
+          },
+          orderData: [3] // Column to sort by (index starts at 0)
         },
         {
           data: 'createdAt',
@@ -186,9 +188,13 @@
       },
       columnDefs: [
         {
-          targets: 'acciones',
-          orderable: false,
+          targets: [3, 5],
+          orderable: false
         },
+        {
+          targets: 'acciones',
+          orderable: false
+        }
       ],
     });
   });
