@@ -140,7 +140,7 @@
                 estados = { demorar, ...estados }
               }
               if (ultimo_estado === finalizar) {
-                if (!PersonaId) {
+                if (PersonaId) { // si es externo, aparece la opción de entregar
                   estados = { entregar, ...estados }
                 }
               }

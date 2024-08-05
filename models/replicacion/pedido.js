@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
   const Demorado = require('../estado/demorado')(sequelize, DataTypes);
   const Entregado = require('../estado/entregado')(sequelize, DataTypes);
   const Fabricando = require('../estado/fabricando')(sequelize, DataTypes);
-  const Facturado = require('../estado/facturado')(sequelize, DataTypes);
   const Finalizado = require('../estado/finalizado')(sequelize, DataTypes);
   const Pago = require('../estado/pago')(sequelize, DataTypes);
   const Presupuestado = require('../estado/presupuestado')(sequelize, DataTypes);
@@ -33,7 +32,6 @@ module.exports = (sequelize, DataTypes) => {
         }),
         this.getEntregado(),
         this.getFabricando(),
-        this.getFacturado(),
         this.getFinalizado(),
         this.getPresupuestado(),
       ]).then(estados => {
@@ -131,7 +129,6 @@ module.exports = (sequelize, DataTypes) => {
   Pedido.hasOne(Entregado);
   Pedido.hasOne(Cancelado);
   Pedido.hasOne(Fabricando);
-  Pedido.hasOne(Facturado);
   Pedido.hasOne(Finalizado);
   Pedido.hasOne(Pago);
   Pedido.hasOne(Presupuestado);
