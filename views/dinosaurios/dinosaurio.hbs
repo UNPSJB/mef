@@ -25,7 +25,7 @@
     <th scope="col">Alimentación</th>
     <th scope="col">Período</th>
     <th scope="col">Subclase</th>
-    <th scope="col">Descubrimiento</th>
+    <th scope="col">Descubrimiento - dd/mm/aaaa</th>
     <th scope="col" class="no-sort">Acciones</th> <!-- Agrega la clase 'no-sort' a la columna "Acciones" -->
   </thead>
   <tbody>
@@ -48,10 +48,11 @@
           data: 'descubrimiento',
           render: function (data, type, row) {
             const fecha = new Date(data);
+            fecha.setDate(fecha.getDate() + 1); // Agrega un día a la fecha para que sea consistente con la de la BD.
             const dia = fecha.getDate();
             const mes = fecha.getMonth() + 1;
             const anio = fecha.getFullYear();
-            const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+            const fechaFormateada = `${dia < 10 ? '0' + dia : dia}/${mes < 10 ? '0' + mes : mes}/${anio}`;
             return fechaFormateada;
           }
         },
