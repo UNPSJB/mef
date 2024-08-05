@@ -9,8 +9,7 @@
   </a>
   {{/if}}
   {{#if req.taller}}
-  <a href="http://localhost:4001/docs/sections/gestiones/taller.html#pedidos" class="btn btn-info ml-auto"
-    target="_blank">
+  <a href="docs/sections/gestiones/taller.html#pedidos" class="btn btn-info ml-auto" target="_blank">
     Manual
   </a>
   {{/if}}
@@ -21,10 +20,10 @@
     <th>#</th>
     <th>Dinosaurio</th>
     <th>Estado</th>
-    <th>Cliente</th>
+    <th data-column="nombreApellido">Cliente</th>
     <th>Inicio Pedido</th>
     <th>Descripción</th>
-    <th scope="col" data-orderable="false">Acciones</th>
+    <th class="no-export" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
   </tbody>
@@ -33,7 +32,27 @@
   $(document).ready(function () {
     $('#pedidos').DataTable({
       dom: 'Bfrtip',
-      buttons: ['pdf', 'excel', 'csv'],
+      buttons: [
+        {
+          extend: 'pdf',
+          orientation: 'landscape',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'excel',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'csv',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        }
+      ],
       searching: true,
       ordering: true,
       serverSide: true,
@@ -45,13 +64,15 @@
         { data: 'ultimo_estado' },
         {
           data: null,
+          dataSrc: 'nombreApellido',
           render: function (data, type, row) {
             if (data.Persona_nombre && data.Persona_apellido) {
               return data.Persona_nombre + ' ' + data.Persona_apellido;
             } else {
               return 'Interno';
             }
-          }
+          },
+          orderData: [3] // Column to sort by (index starts at 0)
         },
         {
           data: 'createdAt',
@@ -167,9 +188,13 @@
       },
       columnDefs: [
         {
-          targets: 'acciones',
-          orderable: false,
+          targets: [3, 5],
+          orderable: false
         },
+        {
+          targets: 'acciones',
+          orderable: false
+        }
       ],
     });
   });
