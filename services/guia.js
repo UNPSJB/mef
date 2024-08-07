@@ -120,6 +120,7 @@ module.exports = {
     const guias = await models.sequelize.query(
       `SELECT COUNT( "Persona".id) OVER() AS cantidad_guias,"Persona".id,
             "Persona".identificacion,
+            "Guia".id as guia_id,
             "Persona".nombre,
             "Persona".apellido,
             CONCAT(SUBSTRING("Persona".direccion FROM POSITION(' ' IN "Persona".direccion) + 1), ' ', SUBSTRING("Persona".direccion FROM 1 FOR POSITION(' ' IN "Persona".direccion) - 1)) AS direccion,
@@ -147,11 +148,10 @@ module.exports = {
                 "Persona"."telefono"
             FROM "Personas" AS "Persona"
             INNER JOIN "Guia" AS "Guia" ON "Persona"."id" = "Guia"."PersonaId"
-            ${
-              querySearch
-                ? `"WHERE Persona"."identificacion" ILIKE :searchTerm OR EXISTS (SELECT 1 FROM "IdiomaGuia" AS "IG" JOIN "Idiomas" AS "I" ON "IG"."IdiomaId" = "I"."id" WHERE "IG"."GuiumId" = "Guia"."id" AND "I"."nombre" ILIKE :searchTerm)`
-                : ''
-            }
+            ${querySearch
+        ? `"WHERE Persona"."identificacion" ILIKE :searchTerm OR EXISTS (SELECT 1 FROM "IdiomaGuia" AS "IG" JOIN "Idiomas" AS "I" ON "IG"."IdiomaId" = "I"."id" WHERE "IG"."GuiumId" = "Guia"."id" AND "I"."nombre" ILIKE :searchTerm)`
+        : ''
+      }
             AND "Guia"."id" IS NOT NULL  -- Esta línea asegura que solo se devuelvan las personas que tienen un ID correspondiente en la tabla de guías
             AND "Persona"."deletedAt" IS NULL
             ORDER BY "Persona"."id" ASC
