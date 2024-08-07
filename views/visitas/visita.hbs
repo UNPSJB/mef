@@ -4,8 +4,7 @@
   <a href='/visitas/agregar' class='btn btn-success btn-primary border border-light' rel='noopener noreferrer'>
     +
   </a>
-  <a href="http://localhost:4001/docs/sections/gestiones/secretaria.html#visitas-guiadas" class="btn btn-info ml-auto"
-    target="_blank">
+  <a href="docs/sections/gestiones/secretaria.html#visitas-guiadas" class="btn btn-info ml-auto" target="_blank">
     Manual
   </a>
 </h1>
@@ -21,19 +20,37 @@
     <th scope='col'>Precio (ARS)</th>
     <th scope='col'>Estado</th>
     <th scope='col'>Observación</th>
-    <th scope='col' data-orderable='false'>Acciones</th>
-    <!-- data-orderable='false' desactiva el ordenamiento en esta columna -->
+    <th class="no-export" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
   </tbody>
 </table>
 
-<script type='text/javascript' charset='utf8' src='https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js'></script>
 <script>
   $(document).ready(function () {
     $('#visitas').DataTable({
       dom: 'Bfrtip',
-      buttons: ['pdf', 'excel', 'csv'],
+      buttons: [
+        {
+          extend: 'pdf',
+          orientation: 'landscape',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'excel',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'csv',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        }
+      ],
       searching: true,
       ordering: true,
       serverSide: true, // Indica que el procesamiento de datos se realiza en el servidor
@@ -66,7 +83,6 @@
     {
       data: 'fechaVisita',
       render: function (data, type, row) {
-        // Asegurarse de que la fecha se interprete correctamente sin desajustes de zona horaria
         const fecha = new Date(data.split('T')[0] + 'T00:00:00');
         const dia = ('0' + fecha.getDate()).slice(-2);
         const mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
@@ -96,6 +112,9 @@
     {
       data: null,
       render: function (data, type, row) {
+        if (row.estado === "Cancelada" || row.estado === "Finalizada") {
+          return '';
+        }
         return '<a href="/visitas/editar/' + data.id + '"><span class="material-icons">edit</span></a>';
       }
     }

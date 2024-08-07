@@ -3,8 +3,7 @@
   {{#each pedidos}}
   <h1 class="bg-secondary text-center text-white rounded p-2">
     Réplicas - {{this.dataValues.dino.nombre}} {{this.dataValues.tipo}} (ID: {{this.dataValues.id}})
-    <a href="http://localhost:4001/docs/sections/gestiones/taller.html#replicas" class="btn btn-info ml-auto"
-      target="_blank">
+    <a href="docs/sections/gestiones/taller.html#replicas" class="btn btn-info ml-auto" target="_blank">
       Manual
     </a>
   </h1>
@@ -17,7 +16,7 @@
         <th scope="col">Fecha de inicio</th>
         <th scope="col">Fecha de finalización</th>
         <th scope="col" data-orderable="false">Disponible</th>
-        <th scope="col" data-orderable="false">Acciones</th>
+        <th class="no-export" data-orderable="false">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -49,9 +48,14 @@
   <hr style="border-top: 3px solid #000; margin: 50px 0;">
   {{/each}}
   {{else}}
-  <h1 class="bg-secondary text-center text-white rounded p-2">
-    Réplicas - No Hay Pedidos De Replicas
-  </h1>
+  <div class="empty-state text-center"
+    style="padding: 50px; background-color: #f8f9fa; border-radius: 10px; border: 1px solid #dee2e6;">
+    <h1 class="bg-secondary text-center text-white rounded p-2">
+      Réplicas
+    </h1>
+    <p style="font-size: 1.5em; color: #6c757d;">No hay réplicas.</p>
+    <i class="material-icons" style="font-size: 4em; color: #6c757d;">inbox</i>
+  </div>
   {{/if}}
 </div>
 
@@ -62,7 +66,25 @@
     $('.replicas').DataTable({
       dom: 'Bfrtip',
       buttons: [
-        'pdf', 'excel', 'csv'
+        {
+          extend: 'pdf',
+          orientation: 'landscape',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'excel',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'csv',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        }
       ],
       searching: true,
       ordering: true,

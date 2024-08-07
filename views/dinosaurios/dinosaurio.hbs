@@ -5,14 +5,12 @@
   <a href="/dinosaurios/agregar" class="btn  btn-success btn-primary border border-light" rel="noopener noreferrer">
     +
   </a>
-  <a href="http://localhost:4001/docs/sections/gestiones/coleccion.html#dinosaurios" class="btn btn-info ml-auto"
-    target="_blank">
+  <a href="docs/sections/gestiones/coleccion.html#dinosaurios" class="btn btn-info ml-auto" target="_blank">
     Manual
   </a>
   {{/if}}
   {{#if req.taller}}
-  <a href="http://localhost:4001/docs/sections/gestiones/taller.html#dinosaurios" class="btn btn-info ml-auto"
-    target="_blank">
+  <a href="docs/sections/gestiones/taller.html#dinosaurios" class="btn btn-info ml-auto" target="_blank">
     Manual
   </a>
   {{/if}}
@@ -25,8 +23,8 @@
     <th scope="col">Alimentación</th>
     <th scope="col">Período</th>
     <th scope="col">Subclase</th>
-    <th scope="col">Descubrimiento</th>
-    <th scope="col" class="no-sort">Acciones</th> <!-- Agrega la clase 'no-sort' a la columna "Acciones" -->
+    <th scope="col">Descubrimiento - dd/mm/aaaa</th>
+    <th scope="col" class="no-export" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
   </tbody>
@@ -48,10 +46,11 @@
           data: 'descubrimiento',
           render: function (data, type, row) {
             const fecha = new Date(data);
+            fecha.setDate(fecha.getDate() + 1); // Agrega un día a la fecha para que sea consistente con la de la BD.
             const dia = fecha.getDate();
             const mes = fecha.getMonth() + 1;
             const anio = fecha.getFullYear();
-            const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+            const fechaFormateada = `${dia < 10 ? '0' + dia : dia}/${mes < 10 ? '0' + mes : mes}/${anio}`;
             return fechaFormateada;
           }
         },
@@ -69,7 +68,25 @@
 
       ],
       buttons: [
-        'pdf', 'excel', 'csv'
+        {
+          extend: 'pdf',
+          orientation: 'landscape',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'excel',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'csv',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        }
       ],
       searching: true,
       ordering: true,
