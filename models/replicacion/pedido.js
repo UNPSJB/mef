@@ -32,7 +32,9 @@ module.exports = (sequelize, DataTypes) => {
           return ultimo.pop();
         }),
         this.getEntregado(),
-        this.getFabricando(),
+        this.getFabricandos().then(ultimo => {
+          return ultimo.pop();
+        }),
         this.getFacturado(),
         this.getFinalizado(),
         this.getPresupuestado(),
@@ -130,7 +132,8 @@ module.exports = (sequelize, DataTypes) => {
   Pedido.hasOne(Confirmado);
   Pedido.hasOne(Entregado);
   Pedido.hasOne(Cancelado);
-  Pedido.hasOne(Fabricando);
+  Pedido.hasMany(Fabricando);
+  Fabricando.belongsTo(Pedido);
   Pedido.hasOne(Facturado);
   Pedido.hasOne(Finalizado);
   Pedido.hasOne(Pago);

@@ -170,7 +170,9 @@ module.exports = {
       LEFT JOIN "Confirmados" AS CONFIRMADOS ON CONFIRMADOS."PedidoId" = "p"."id"
       LEFT JOIN "Demorados" AS DEMORADOS ON DEMORADOS."PedidoId" = "p"."id"
       LEFT JOIN "Entregados" AS ENTREGADOS ON ENTREGADOS."PedidoId" = "p"."id"
-      LEFT JOIN "Fabricandos" AS FABRICANDOS ON FABRICANDOS."PedidoId" = "p"."id"
+      LEFT JOIN (SELECT * FROM "Fabricandos" 
+      ORDER BY "Fabricandos"."createdAt" DESC
+      ) AS FABRICANDOS ON FABRICANDOS."PedidoId" = "p"."id"
       LEFT JOIN "Facturados" AS FACTURADOS ON FACTURADOS."PedidoId" = "p"."id"
       LEFT JOIN "Finalizados" AS FINALIZADOS ON FINALIZADOS."PedidoId" = "p"."id"
       LEFT JOIN "Presupuestados" AS PRESUPUESTADOS ON PRESUPUESTADOS."PedidoId" = "p"."id"
@@ -188,14 +190,13 @@ module.exports = {
       LEFT OUTER JOIN "Dinosaurios" AS "Detalles->Hueso->Dinosaurio" ON "Detalles->Hueso"."DinosaurioId" = "Detalles->Hueso->Dinosaurio"."id"
       AND ("Detalles->Hueso->Dinosaurio"."deletedAt" IS NULL) WHERE (pedido."deletedAt" IS NULL)
       ) as dinosaurio on dinosaurio.pedido_id = "Pedido"."id"
-      ${
-        replacements.searchTerm && replacements.searchTerm.length
-          ? `WHERE "Pedido"."id"::text ILIKE :searchTerm 
+      ${replacements.searchTerm && replacements.searchTerm.length
+        ? `WHERE "Pedido"."id"::text ILIKE :searchTerm 
             OR TO_CHAR("Pedido"."createdAt", 'DD-MM-YYYY') LIKE :searchTerm
             OR "Dinosaurio_nombre" ILIKE :searchTerm
             OR ultimo_estado.ultimo_estado LIKE :searchTerm
             OR (("Persona"."nombre" || ' ' || "Persona"."apellido") ILIKE :searchTerm)`
-          : ''
+        : ''
       }
       ORDER BY ${columnOrder} ${orderValue.dir}
       
