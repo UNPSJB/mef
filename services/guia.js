@@ -149,7 +149,22 @@ module.exports = {
             FROM "Personas" AS "Persona"
             INNER JOIN "Guia" AS "Guia" ON "Persona"."id" = "Guia"."PersonaId"
             ${querySearch
-        ? `"WHERE Persona"."identificacion" ILIKE :searchTerm OR EXISTS (SELECT 1 FROM "IdiomaGuia" AS "IG" JOIN "Idiomas" AS "I" ON "IG"."IdiomaId" = "I"."id" WHERE "IG"."GuiumId" = "Guia"."id" AND "I"."nombre" ILIKE :searchTerm)`
+        ? `WHERE "Persona"."id"::text ILIKE :searchTerm
+        OR "Persona"."identificacion" ILIKE :searchTerm
+        OR "Persona"."nombre" ILIKE :searchTerm
+        OR "Persona"."apellido" ILIKE :searchTerm
+        OR "Persona"."direccion" ILIKE :searchTerm
+        OR "Persona"."localidad" ILIKE :searchTerm
+        OR "Persona"."email" ILIKE :searchTerm
+        OR TO_CHAR("Persona"."fecha_nacimiento", 'DD/MM/YYYY') LIKE :searchTerm
+        
+        OR "Persona"."telefono" ILIKE :searchTerm
+        OR EXISTS (
+          SELECT 1 FROM "IdiomaGuia" AS "IG"
+          JOIN "Idiomas" AS "I" ON "IG"."IdiomaId" = "I"."id"
+          WHERE "IG"."GuiumId" = "Guia"."id"
+          AND "I"."nombre" ILIKE :searchTerm
+          )`
         : ''
       }
             AND "Guia"."id" IS NOT NULL  -- Esta línea asegura que solo se devuelvan las personas que tienen un ID correspondiente en la tabla de guías
