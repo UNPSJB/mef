@@ -1,43 +1,42 @@
 'use strict'
 const Sequelize = require('sequelize');
-module.exports = (sequelize, DataTypes) =>{
-    class Demorado extends Sequelize.Model{
-        async reanudar(pedido,args){                
+module.exports = (sequelize, DataTypes) => {
+    class Demorado extends Sequelize.Model {
+        async reanudar(pedido, args) {
             let fabricando = await pedido.getFabricando();
-            return fabricando.update({
-                fecha: new Date()
-            })
+            return sequelize.query(`update "Fabricandos" set "createdAt" = NOW()
+                where id=${fabricando.id}`)
         }
 
-        demorar(pedido,args){
-            console.log('No se puede realizar esa accion');
+        demorar(pedido, args) {
+            console.log(' Estado demorado: intentando demorar. No se puede realizar esa accion.');
         }
     }
     Demorado.init({
-        fecha:{
+        fecha: {
             type: DataTypes.DATE,
             defaultValue: new Date(),
-            allowNull:false
+            allowNull: false
         },
-        descripcion : {
-            type:DataTypes.STRING,
-            defaultValue:'Demorado',
-            allowNull:false  
-        } ,
-        motivo_demora:{
-            type:DataTypes.STRING,
-            defaultValue:'Otros' 
+        descripcion: {
+            type: DataTypes.STRING,
+            defaultValue: 'Demorado',
+            allowNull: false
         },
-        
-        PedidoId:{
-            type:DataTypes.INTEGER,
-            references:{
-                model:'Pedidos',
-                key:'id'
+        motivo_demora: {
+            type: DataTypes.STRING,
+            defaultValue: 'Otros'
+        },
+
+        PedidoId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'Pedidos',
+                key: 'id'
             }
         }
     }, {
-        paranoid:true,
+        paranoid: true,
         sequelize
     });
     return Demorado;
