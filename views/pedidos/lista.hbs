@@ -109,6 +109,7 @@
             const demorar = 'Demorado'
             const finalizar = 'Finalizado'
             const entregar = 'Entregado'
+            const reanudar = "Reanudar"
 
             const presupuestar = 'Presupuestado'
             const cancelar = 'Cancelado'
@@ -126,6 +127,7 @@
               demorar,
               finalizar,
               entregar,
+              reanudar,
             }
             let estados = { detalle };
 
@@ -137,10 +139,10 @@
                 estados = { finalizar, demorar, empleados, ...estados };
               }
               if (ultimo_estado === demorar) {
-                estados = { demorar, ...estados }
+                estados = { reanudar, ...estados }
               }
               if (ultimo_estado === finalizar) {
-                if (!PersonaId) {
+                if (PersonaId) {
                   estados = { entregar, ...estados }
                 }
               }
