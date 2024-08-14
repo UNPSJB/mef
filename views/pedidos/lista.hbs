@@ -21,7 +21,7 @@
     <th>Dinosaurio</th>
     <th>Estado</th>
     <th data-column="nombreApellido">Cliente</th>
-    <th>Inicio Pedido</th>
+    <th>Inicio Pedido - dd/mm/aaaa</th>
     <th>Descripción</th>
     <th class="no-export" data-orderable="false">Acciones</th>
   </thead>
@@ -81,7 +81,7 @@
             const dia = fecha.getDate();
             const mes = fecha.getMonth() + 1;
             const anio = fecha.getFullYear();
-            const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+            const fechaFormateada = `${dia < 10 ? '0' + dia : dia}/${mes < 10 ? '0' + mes : mes}/${anio}`;
             return fechaFormateada;
           }
         },
