@@ -62,21 +62,21 @@
     columns: [
     { data: 'id' },
     {
-      data: null,
+      data: 'Exhibicion.nombre',
       render: function (data, type, row) {
-        return row.Exhibicion.tematica + ' | ' + row.Exhibicion.nombre;
+        return row.Exhibicion.nombre + ' | ' + row.Exhibicion.tematica;
       }
     },
     {
-      data: 'Cliente.Persona.identificacion',
+      data: 'Cliente->Persona.identificacion',
       render: function (data, type, row) {
-        return data + ' | ' + row.Cliente.Persona.nombre + ' ' + row.Cliente.Persona.apellido;
+        return row.Cliente.Persona.identificacion + ' | ' + row.Cliente.Persona.nombre + ' ' + row.Cliente.Persona.apellido;
       }
     },
     {
-      data: 'Guium.Persona.identificacion',
+      data: 'Guium->Persona.identificacion',
       render: function (data, type, row) {
-        return data + ' | ' + row.Guium.Persona.nombre + ' ' + row.Guium.Persona.apellido;
+        return row.Guium.Persona.identificacion + ' | ' + row.Guium.Persona.nombre + ' ' + row.Guium.Persona.apellido;
       }
     },
     { data: 'cantidadDePersonas' },
