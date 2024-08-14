@@ -25,8 +25,8 @@
         <td>{{this.dataValues.Hueso.dataValues.id}}</td>
         <td>{{this.dataValues.Hueso.dataValues.nombre}}</td>
         <td>{{this.dataValues.Dinosaurio.dataValues.nombre}}</td>
-        <td>{{this.dataValues.fecha_inicio}}</td>
-        <td>{{this.dataValues.fecha_fin}}</td>
+        <td class="fecha_inicio">{{this.dataValues.fecha_inicio}}</td>
+        <td class="fecha_fin">{{this.dataValues.fecha_fin}}</td>
         <td>
           <form action="/replicas/disponibilidad?_method=PATCH" method="POST">
             <label class="switch">
@@ -59,6 +59,27 @@
   {{/if}}
 </div>
 
+<!-- Script para formatear las fechas -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    function formatDate(fecha) {
+      const date = new Date(fecha);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript empiezan desde 0
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+
+    // Seleccionamos todas las celdas que contienen las fechas
+    document.querySelectorAll('.fecha_inicio').forEach(function (cell) {
+      cell.textContent = formatDate(cell.textContent);
+    });
+
+    document.querySelectorAll('.fecha_fin').forEach(function (cell) {
+      cell.textContent = formatDate(cell.textContent);
+    });
+  });
+</script>
 
 
 <script>
