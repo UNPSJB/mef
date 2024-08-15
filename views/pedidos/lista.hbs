@@ -64,10 +64,9 @@
         { data: 'ultimo_estado' },
         {
           data: null,
-          dataSrc: 'nombreApellido',
           render: function (data, type, row) {
             if (data.Persona_nombre && data.Persona_apellido) {
-              return data.Persona_nombre + ' ' + data.Persona_apellido;
+              return data.Persona_apellido + ' ' + data.Persona_nombre;
             } else {
               return 'Interno';
             }
@@ -86,7 +85,7 @@
           }
         },
         {
-          data: null,
+          data: 'motivo',
           render: function (data, type, row) {
             if (data.motivo && data.motivo.trim().length > 0) {
               return data.motivo;
@@ -190,7 +189,7 @@
       },
       columnDefs: [
         {
-          targets: [3, 5],
+          targets: [3],
           orderable: false
         },
         {
