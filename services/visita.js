@@ -40,7 +40,7 @@ module.exports = {
       const visitas = await models.Visita.findAll({
         where: {
           fechaVisita: fechaISO,
-          cancelada: false,
+          estado: 'Pendiente',
         },
       });
 
@@ -182,6 +182,7 @@ module.exports = {
     cancelada = false
   ) {
     const visita = await models.Visita.findByPk(id);
+
     return visita.update({
       ExhibicionId,
       ClienteId,
