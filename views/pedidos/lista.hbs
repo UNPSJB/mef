@@ -63,10 +63,10 @@
         { data: 'Dinosaurio_nombre' },
         { data: 'ultimo_estado' },
         {
-          data: 'Persona_apellido',
+          data: 'Persona_nombre',
           render: function (data, type, row) {
             if (row.Persona_nombre && row.Persona_apellido) {
-              return row.Persona_apellido + ' ' + row.Persona_nombre;
+              return row.Persona_nombre + ' ' + row.Persona_apellido;
             } else {
               return 'Interno';
             }
