@@ -63,11 +63,10 @@
         { data: 'Dinosaurio_nombre' },
         { data: 'ultimo_estado' },
         {
-          data: null,
-          dataSrc: 'nombreApellido',
+          data: 'Persona_nombre',
           render: function (data, type, row) {
-            if (data.Persona_nombre && data.Persona_apellido) {
-              return data.Persona_nombre + ' ' + data.Persona_apellido;
+            if (row.Persona_nombre && row.Persona_apellido) {
+              return row.Persona_nombre + ' ' + row.Persona_apellido;
             } else {
               return 'Interno';
             }
@@ -86,7 +85,7 @@
           }
         },
         {
-          data: null,
+          data: 'motivo',
           render: function (data, type, row) {
             if (data.motivo && data.motivo.trim().length > 0) {
               return data.motivo;
@@ -189,10 +188,6 @@
         }
       },
       columnDefs: [
-        {
-          targets: [3, 5],
-          orderable: false
-        },
         {
           targets: 'acciones',
           orderable: false
