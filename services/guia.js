@@ -159,6 +159,8 @@ module.exports = {
         OR "Persona"."direccion" ILIKE :searchTerm
         OR "Persona"."localidad" ILIKE :searchTerm
         OR "Persona"."email" ILIKE :searchTerm
+        OR "Guia".dias_trabaja::text ILIKE:searchTerm
+        OR "Guia".horario_trabaja::text ILIKE:searchTerm
         OR TO_CHAR("Persona"."fecha_nacimiento", 'DD/MM/YYYY') LIKE :searchTerm
         
         OR "Persona"."telefono" ILIKE :searchTerm
