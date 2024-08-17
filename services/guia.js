@@ -121,6 +121,8 @@ module.exports = {
       `SELECT COUNT( "Persona".id) OVER() AS cantidad_guias,"Persona".id,
             "Persona".identificacion,
             "Guia".id as guia_id,
+            "Guia".dias_trabaja,
+            "Guia".horario_trabaja,
             "Persona".nombre,
             "Persona".apellido,
             CONCAT(SUBSTRING("Persona".direccion FROM POSITION(' ' IN "Persona".direccion) + 1), ' ', SUBSTRING("Persona".direccion FROM 1 FOR POSITION(' ' IN "Persona".direccion) - 1)) AS direccion,
@@ -148,8 +150,9 @@ module.exports = {
                 "Persona"."telefono"
             FROM "Personas" AS "Persona"
             INNER JOIN "Guia" AS "Guia" ON "Persona"."id" = "Guia"."PersonaId"
-            ${querySearch
-        ? `WHERE "Persona"."id"::text ILIKE :searchTerm
+            ${
+              querySearch
+                ? `WHERE "Persona"."id"::text ILIKE :searchTerm
         OR "Persona"."identificacion" ILIKE :searchTerm
         OR "Persona"."nombre" ILIKE :searchTerm
         OR "Persona"."apellido" ILIKE :searchTerm
@@ -165,8 +168,8 @@ module.exports = {
           WHERE "IG"."GuiumId" = "Guia"."id"
           AND "I"."nombre" ILIKE :searchTerm
           )`
-        : ''
-      }
+                : ''
+            }
             AND "Guia"."id" IS NOT NULL  -- Esta línea asegura que solo se devuelvan las personas que tienen un ID correspondiente en la tabla de guías
             AND "Persona"."deletedAt" IS NULL
             ORDER BY "Persona"."id" ASC
