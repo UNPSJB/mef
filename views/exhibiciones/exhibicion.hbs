@@ -5,7 +5,7 @@
   <a href="/exhibiciones/agregar" class="btn btn-success btn-primary border border-light" rel="noopener noreferrer">
     +
   </a>
-  <a href="http://localhost:4001/docs/sections/gestiones/exhibicion.html#exhibiciones" class="btn btn-info ml-auto">
+  <a href="docs/sections/gestiones/exhibicion.html#exhibiciones" class="btn btn-info ml-auto" target="_blank">
     Manual
   </a>
 </h1>
@@ -17,7 +17,7 @@
     <th scope="col">Temática</th>
     <th scope="col">Duración</th>
     <th scope="col">Detalle</th>
-    <th scope="col">Acciones</th>
+    <th class="no-export" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
     {{#each exhibiciones}}
@@ -45,8 +45,27 @@
     $('#exhibiciones').DataTable({
       dom: 'Bfrtip',
       buttons: [
-        'pdf', 'excel', 'csv'
+        {
+          extend: 'pdf',
+          orientation: 'landscape',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'excel',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'csv',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        }
       ],
+
       searching: true,
       ordering: true,
       language: {

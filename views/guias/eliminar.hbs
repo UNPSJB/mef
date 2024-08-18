@@ -1,40 +1,109 @@
-<h1>Eliminar Guía</h1>
-<div class="alert alert-danger mt-4">¿Seguro que desea borrar esto?</div>
-<table class="table">
-    <thead>
-        <th scope="col">#</th>
-        <th scope="col">Documento</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Apellido</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Direccion</th>
-        <th scope="col">Localidad</th>
-        <th scope="col">Email</th>
-        <th scope="col">Fecha de Nacimiento</th>
-        <th scope="col">Telefono</th>
-    </thead>
-    <tbody>
-        <tr>
-            <th>{{guia.Persona.id}}</th>
-            <th>{{guia.Persona.identificacion}}</th>
-            <th>{{guia.Persona.nombre}}</th>
-            <th>{{guia.Persona.apellido}}</th>
-            <th>{{guia.tipo}}</th>
-            <th>{{guia.Persona.direccion}}</th>
-            <th>{{guia.Persona.localidad}}</th>
-            <th>{{guia.Persona.email}}</th>
-            <th>{{guia.Persona.fecha_nacimiento}}</th>
-            <th>{{guia.Persona.telefono}}</th>
-        </tr>
-    </tbody>
-</table>
-<br>
-<!---Botón de Eliminar Guía -->
-<div class="row justify-content-center">
-    <div class="col-6 text-center">
-        <form action="/guias?_method=DELETE" method="POST">
-            <input name="id" type="number" value="{{guia.id}}" hidden required>
-            <button type="submit" class="btn btn-danger">Eliminar Guía</button>
-        </form>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Incluye Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Eliminar Guía</h1>
+    <div class="alert alert-danger mt-4">¿Seguro que desea borrar esto?</div>
+    <table class="table">
+        <thead>
+            <th scope="col">#</th>
+            <th scope="col">Documento</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Localidad</th>
+            <th scope="col">Email</th>
+            <th scope="col">Fecha de Nacimiento</th>
+            <th scope="col">Telefono</th>
+        </thead>
+        <tbody>
+            <tr>
+                <th>{{guia.id}}</th>
+                <th>{{guia.Persona.identificacion}}</th>
+                <th>{{guia.Persona.nombre}}</th>
+                <th>{{guia.Persona.apellido}}</th>
+                <th>{{guia.tipo}}</th>
+                <th>{{guia.Persona.direccion}}</th>
+                <th>{{guia.Persona.localidad}}</th>
+                <th>{{guia.Persona.email}}</th>
+                <th>{{guia.Persona.fecha_nacimiento}}</th>
+                <th>{{guia.Persona.telefono}}</th>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <!-- Botón de Eliminar Guía -->
+    <div class="row justify-content-center">
+        <div class="col-6 text-center">
+            <form id="deleteForm" action="/guias?_method=DELETE" method="POST" onsubmit="handleDelete(event)">
+                <input name="id" type="number" value="{{guia.id}}" hidden required>
+                <button type="submit" class="btn btn-danger">Eliminar Guía</button>
+            </form>
+        </div>
     </div>
-</div>
+
+    <!-- Modal para el mensaje emergente -->
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alertModalLabel">Mensaje de eliminación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    El guía fue eliminado exitosamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluye jQuery y Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function handleDelete(event) {
+            event.preventDefault();
+
+            // Realiza la petición DELETE usando Fetch API
+            fetch(event.target.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(new FormData(event.target))
+            }).then(response => {
+                if (response.ok) {
+                    // Abre el modal
+                    $('#alertModal').modal('show');
+
+                    // Redirige al listado de guías después de cerrar el modal
+                    $('#alertModal').on('hidden.bs.modal', function () {
+                        window.location.href = '/guias'; // Redirige a la URL específica
+                    });
+                } else {
+                    // Maneja el error si la petición falla
+                    alert('Error al eliminar la guía.');
+                }
+            }).catch(error => {
+                // Maneja errores de la petición
+                console.error('Error:', error);
+                alert('Ocurrió un error.');
+            });
+        }
+    </script>
+</body>
+
+</html>

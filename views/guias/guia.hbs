@@ -1,8 +1,11 @@
 <div style="padding-top: 10px"></div>
 <h1 class="bg-secondary text-center text-white rounded p-2">
-  Guias
+  Guías
   <a href="/guias/agregar" class="btn btn-success btn-primary border border-light" rel="noopener noreferrer">
     +
+  </a>
+  <a href="docs/sections/gestiones/rrhh.html#guias" class="btn btn-info ml-auto" target="_blank">
+    Manual
   </a>
 </h1>
 <table style="table-layout: fixed; word-wrap: break-word;" class="table table-striped table-bordered" id="guias">
@@ -17,7 +20,9 @@
     <th>Fecha de Nacimiento</th>
     <th>Telefono</th>
     <th>Idiomas</th>
-    <th scope="col" data-orderable="false">Acciones</th> <!-- Desactiva el ordenamiento en esta columna -->
+    <th>Días Laborales</th>
+    <th>Horario Laboral</th>
+    <th class="no-export" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
   </tbody>
@@ -35,7 +40,7 @@
          {{> paginacion / data}}
       },
     columns: [
-    { data: 'id' }, // Columna de ID
+    { data: 'guia_id' }, // Columna de ID
     { data: 'identificacion' }, // Columna de Documento
     { data: 'nombre' }, // Columna de Nombre
     { data: 'apellido' }, // Columna de Apellido
@@ -45,17 +50,38 @@
     { data: 'fecha_nacimiento' }, // Columna de Fecha de Nacimiento
     { data: 'telefono' }, // Columna de Teléfono
     { data: 'idiomas' }, // Columna de Idiomas
+    { data: 'dias_trabaja' }, // Columna de Días Laborales
+    { data: 'horario_trabaja' }, // Columna de Horarios Laborales
     { // Columna de Acciones
       data: null,
       render: function (data, type, row) {
-        return '<a href="/guias/editar/' + data.id + '"><span class="material-icons">edit</span></a>' +
-          '<a href="/guias/eliminar/' + data.id + '"><span style="color:red" class="material-icons">delete</span></a>';
+        return '<a href="/guias/editar/' + data.guia_id + '"><span class="material-icons">edit</span></a>' +
+          '<a href="/guias/eliminar/' + data.guia_id + '"><span style="color:red" class="material-icons">delete</span></a>';
       }
     }
   ],
     buttons: [
-    'pdf', 'excel', 'csv'
+    {
+      extend: 'pdf',
+      orientation: 'landscape',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    },
+    {
+      extend: 'excel',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    },
+    {
+      extend: 'csv',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    }
   ],
+
     searching: true,
     ordering: true,
     processing: true,

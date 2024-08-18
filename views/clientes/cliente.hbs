@@ -5,11 +5,12 @@
     <a href="/clientes/agregar" class="btn btn-success btn-primary border border-light" rel="noopener noreferrer">
       +
     </a>
-    <a href="http://localhost:4001/docs/sections/gestiones/exhibicion.html#clientes" class="btn btn-info ml-auto">
+    <a href="docs/sections/gestiones/exhibicion.html#clientes" class="btn btn-info ml-auto" target="_blank">
       Manual
     </a>
     {{/if}}
   </h1>
+
 
   <table style="table-layout: fixed; word-wrap: break-word;" class="table table-striped table-bordered"
     id="clientesTable">
@@ -22,9 +23,9 @@
       <th>Dirección</th>
       <th>Localidad</th>
       <th>Correo Electrónico</th>
-      <th>Fecha de Nacimiento</th>
+      <th>Fecha de Nacimiento - dd/mm/aaaa</th>
       <th>Teléfono</th>
-      <th data-orderable="false">Acciones</th> <!-- Se añade data-orderable="false" para desactivar el ordenamiento -->
+      <th class="no-export" data-orderable="false">Acciones</th>
     </thead>
     <tbody>
     </tbody>
@@ -54,10 +55,11 @@
       data: 'Persona.fecha_nacimiento',
       render: function (data, type, row) {
         const fecha = new Date(data);
+        fecha.setDate(fecha.getDate() + 1); // Agrega un día a la fecha para que sea consistente con la fecha en la BD.
         const dia = fecha.getDate();
         const mes = fecha.getMonth() + 1;
         const anio = fecha.getFullYear();
-        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+        const fechaFormateada = `${dia < 10 ? '0' + dia : dia}/${mes < 10 ? '0' + mes : mes}/${anio}`;
         return fechaFormateada;
       }
     },
@@ -71,7 +73,25 @@
     }
   ],
     buttons: [
-    'pdf', 'excel', 'csv'
+    {
+      extend: 'pdf',
+      orientation: 'landscape',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    },
+    {
+      extend: 'excel',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    },
+    {
+      extend: 'csv',
+      exportOptions: {
+        columns: ':not(.no-export)'
+      }
+    }
   ],
     searching: true,
     ordering: true,

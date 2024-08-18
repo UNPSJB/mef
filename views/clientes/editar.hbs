@@ -48,7 +48,12 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="alertModalLabel">Editado</h5>
+          <h5 class="modal-title" id="alertModalLabel">
+          
+          
+          
+          
+          </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -62,7 +67,6 @@
       </div>
     </div>
   </div>
-
   <!-- Incluye jQuery y Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
@@ -81,7 +85,164 @@
       }).then(response => {
         if (response.ok) {
           // Abre el modal
+          $('#aler<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Incluye Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <form id="editExhibitionForm" class="pt-3" action="/exhibiciones?_method=PUT" method="POST"
+      onsubmit="handleEditExhibition(event)">
+      <div class="card mt-4">
+        <div class="card-header text-center bg-secondary text-white" id="agregarDinoModalLabel">
+          <h3>Editar Exhibición #{{exh.id}}</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" minlength="4" maxlength="50" class="form-control"
+              placeholder="Nombre de la exhibición" {{#with exh }} value="{{nombre}}" {{/with}}>
+            <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
+            <label for="tematica">Temática:</label>
+            <input type="text" name="tematica" minlength="4" maxlength="50" class="form-control"
+              placeholder="Tematica de la tematica" {{#with exh }} value="{{tematica}}" {{/with}}>
+            <small class="form-text-muted text-muted">Mínimo 4 caracteres. Máximo 50 caracteres</small><br>
+            <label for="duracion">Duración:</label>
+            <input type="text" name="duracion" min="1" max="40" class="form-control"
+              placeholder="Duracion de la exhibicion" {{#with exh }} value="{{duracion}}" {{/with}}>
+            <small class="form-text-muted text-muted">Mínimo 1. Máximo 40. Solo números</small><br>
+          </div>
+          <div class="form-group container">
+            <div class="row">
+              <div class="col-6" style="padding-left:0px">
+                <label for="fosiles">Listado de fósiles disponibles:</label>
+                <div class="col-sm border" style="height: 21vh; overflow: auto">
+                  {{!-- @TODO agregar fosiles --}}
+                  {{#each fosiles_propios}}
+                  <input type="checkbox" name="fosiles" value="{{this.id}}" checked> {{this.huesos}} |
+                  {{this.Dinosaurio.nombre}}
+                  <br>
+                  {{/each}}
+                  {{#each fosiles}}
+                  <input type="checkbox" name="fosiles" value="{{this.id}}">{{this.huesos}} | {{this.Dinosaurio.nombre}}
+                  <br>
+                  {{/each}}
+                </div>
+                <small class="form-text-muted text-muted">Se puede agregar fósiles luego de crear la exhibición.</small>
+              </div>
+              <div class="col-6">
+                <label for="replicas">Listado de réplicas disponibles:</label>
+                <div class="col-sm border" style="height: 21vh; overflow: auto">
+                  {{#each replicas_propias}}
+                  <input type="checkbox" name="replicas" value="{{this.id}}" checked>{{this.Hueso.nombre}} |
+                  {{this.Dinosaurio.nombre}}
+                  <br>
+                  {{/each}}
+                  {{#each replicas}}
+                  <input type="checkbox" name="replicas" value="{{this.id}}">{{this.Hueso.nombre}} |
+                  {{this.Dinosaurio.nombre}}
+                  <br>
+                  {{/each}}
+                </div>
+                <small class="form-text-muted text-muted">Se puede agregar réplicas luego de crear la
+                  exhibición.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Botón de Editar Exhibición -->
+        <div class="row justify-content-center">
+          <div class="col-6 text-center">
+            <input type="hidden" name="id" value="{{exh.id}}" hidden>
+            <button type="submit" class="btn btn-success btn-sm btn-block">Editar Exhibición</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal para el mensaje emergente -->
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alertModalLabel">Editada</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          La Exhibición fue editada exitosamente.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Incluye jQuery y Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function handleEditExhibition(event) {
+      event.preventDefault();
+
+      // Realiza la petición PUT usando Fetch API
+      fetch(event.target.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(new FormData(event.target))
+      }).then(response => {
+        if (response.ok) {
+          // Abre el modal
           $('#alertModal').modal('show');
+
+          // Redirige al listado de exhibiciones después de cerrar el modal
+          $('#alertModal').on('hidden.bs.modal', function () {
+            window.location.href = '/exhibiciones'; // Redirige a la URL específica
+          });
+        } else {
+          // Maneja el error si la petición falla
+          alert('Error al editar la exhibición.');
+        }
+      }).catch(error => {
+        // Maneja errores de la petición
+        console.error('Error:', error);
+        alert('Ocurrió un error.');
+      });
+    }
+
+    // Setea la fecha actual si es necesario
+    $(document).ready(function () {
+      var hoy = formatDate(new Date());
+      document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
+      $("#InputFechaNacimiento").attr("max", hoy);
+    });
+
+    function formatDate(date) {
+      var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear() - 18; // Los clientes deben tener 18 años o más
+      if (month.length < 2)
+        month = '0' + month;
+      if (day.length < 2)
+        day = '0' + day;
+      return [year, month, day].join('-');
+    }
+  </script>
+</body>
+
+</html>tModal').modal('show');
 
           // Redirige al listado de clientes después de cerrar el modal
           $('#alertModal').on('hidden.bs.modal', function () {

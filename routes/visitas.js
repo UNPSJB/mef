@@ -58,7 +58,8 @@ router.get('/editar/:id', async (req, res) => {
   const clientes = await clienteService.getAllClientes({}, { raw: true, nest: true });
   const guias = await guiaService.getAllGuias();
   const visita = await visitaService.getVisita(id, { raw: true, nest: true });
-  res.render('visitas/editar', { visita, exhibiciones, clientes, guias, req });
+  const horariosDisponibles = await visitaService.verificarVisitas(visita.fechaVisita);
+  res.render('visitas/editar', { visita, exhibiciones, clientes, guias, req, horariosDisponibles });
 });
 
 router.get('/eliminar/:id', async (req, res) => {

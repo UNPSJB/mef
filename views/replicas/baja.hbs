@@ -1,44 +1,113 @@
-<div class="alert alert-danger mt-4">¿Seguro que quiere borrar esto?</div>
-<div class="card mt-4">
-    <div class="card-header text-center bg-secondary text-white">
-        <h1>Eliminar Réplica</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Incluye Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="alert alert-danger mt-4">¿Seguro que quiere borrar esto?</div>
+    <div class="card mt-4">
+        <div class="card-header text-center bg-secondary text-white">
+            <h1>Eliminar Réplica</h1>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <th scope="col">#</th>
+                    <th scope="col">Hueso</th>
+                    <th scope="col">Dinosaurio</th>
+                    <th scope="col">Disponible</th>
+                    <th scope="col">Fecha de inicio</th>
+                    <th scope="col">Fecha de finalización</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{replica.dataValues.Hueso.dataValues.id}}</td>
+                        <td>{{replica.dataValues.Hueso.dataValues.nombre}}</td>
+                        <td>{{replica.dataValues.Dinosaurio.dataValues.nombre}}</td>
+                        <td>
+                            {{#if replica.dataValues.disponible}}
+                            Sí
+                            {{else}}
+                            No
+                            {{/if}}
+                        </td>
+                        <td>{{replica.dataValues.fecha_inicio}}</td>
+                        <td>{{replica.dataValues.fecha_fin}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="card-body">
-        <table class="table">
-            <thead>
-                <th scope="col">#</th>
-                <th scope="col">Hueso</th>
-                <th scope="col">Dinosaurio</th>
-                <th scope="col">Disponible</th>
-                <th scope="col">Fecha de inicio</th>
-                <th scope="col">Fecha de finalización</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{replica.dataValues.Hueso.dataValues.id}}</td>
-                    <td>{{replica.dataValues.Hueso.dataValues.nombre}}</td>
-                    <td>{{replica.dataValues.Dinosaurio.dataValues.nombre}}</td>
-                    <td>
-                        {{#if replica.dataValues.disponible}}
-                        Sí
-                        {{else}}
-                        No
-                        {{/if}}
-                    </td>
-                    <td>{{replica.dataValues.fecha_inicio}}</td>
-                    <td>{{replica.dataValues.fecha_fin}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <br>
+    <!-- Botón de Eliminar -->
+    <div class="row justify-content-center">
+        <div class="col-6 text-center">
+            <form id="deleteForm" action="/replicas?_method=DELETE" method="POST" onsubmit="handleDelete(event)">
+                <input type="number" name="id" value="{{replica.dataValues.id}}" hidden required>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </div>
     </div>
-</div>
-<br>
-<!-- Botón de Eliminar -->
-<div class="row justify-content-center">
-    <div class="col-6 text-center">
-        <form action="/replicas?_method=DELETE" method="POST">
-            <input type="number" name="id" value="{{replica.dataValues.id}}" hidden required>
-            <button type="submit" class="btn btn-danger">Eliminar</button>
-        </form>
+
+    <!-- Modal para el mensaje emergente -->
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alertModalLabel">Eliminación exitosa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    La réplica fue eliminada exitosamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <!-- Incluye jQuery y Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function handleDelete(event) {
+            event.preventDefault();
+
+            // Realiza la petición DELETE usando Fetch API
+            fetch(event.target.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(new FormData(event.target))
+            }).then(response => {
+                if (response.ok) {
+                    // Abre el modal
+                    $('#alertModal').modal('show');
+
+                    // Redirige al listado de réplicas después de cerrar el modal
+                    $('#alertModal').on('hidden.bs.modal', function () {
+                        window.location.href = '/pedidos/replicas'; // Redirige a la URL específica
+                    });
+                } else {
+                    // Maneja el error si la petición falla
+                    alert('Error al eliminar la réplica.');
+                }
+            }).catch(error => {
+                // Maneja errores de la petición
+                console.error('Error:', error);
+                alert('Ocurrió un error.');
+            });
+        }
+    </script>
+</body>
+
+</html>

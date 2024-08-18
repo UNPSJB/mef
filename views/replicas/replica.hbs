@@ -1,53 +1,61 @@
 <div style="padding-top: 10px">
   {{#if pedidos.length}}
-    {{#each pedidos}}
-      <h1 class="bg-secondary text-center text-white rounded p-2">
-        Réplicas - {{this.dataValues.dino.nombre}} {{this.dataValues.tipo}} (ID: {{this.dataValues.id}})
-      </h1>
+  {{#each pedidos}}
+  <h1 class="bg-secondary text-center text-white rounded p-2">
+    Réplicas - {{this.dataValues.dino.nombre}} {{this.dataValues.tipo}} (ID: {{this.dataValues.id}})
+    <a href="/docs/sections/gestiones/taller.html#replicas" class="btn btn-info ml-auto" target="_blank">
+      Manual
+    </a>
+  </h1>
+  <table class="replicas table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Hueso</th>
+        <th scope="col">Dinosaurio</th>
+        <th scope="col">Fecha de inicio</th>
+        <th scope="col">Fecha de finalización</th>
+        <th scope="col" data-orderable="false">Disponible</th>
+        <th class="no-export" data-orderable="false">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each this.dataValues.Replicas}}
+      <tr>
+        <td>{{this.dataValues.Hueso.dataValues.id}}</td>
+        <td>{{this.dataValues.Hueso.dataValues.nombre}}</td>
+        <td>{{this.dataValues.Dinosaurio.dataValues.nombre}}</td>
+        <td>{{this.dataValues.fecha_inicio}}</td>
+        <td>{{this.dataValues.fecha_fin}}</td>
+        <td>
+          <form action="/replicas/disponibilidad?_method=PATCH" method="POST">
+            <label class="switch">
+              <input onchange="toggleDisponible({{this.dataValues.id}})" type="checkbox" {{#if
+                this.dataValues.disponible}} checked {{/if}}>
+              <span class="slider round"></span>
+            </label>
+          </form>
+        </td>
+        <td>
+          <a href="/replicas/eliminar/{{this.dataValues.id}}" style="color: red;" class="material-icons">delete</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 
-      <table class="replicas table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Hueso</th>
-            <th scope="col">Dinosaurio</th>
-            <th scope="col">Fecha de inicio</th>
-            <th scope="col">Fecha de finalización</th>
-            <th scope="col" data-orderable="false">Disponible</th>
-            <th scope="col" data-orderable="false">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each this.dataValues.Replicas}}
-            <tr>
-              <td>{{this.dataValues.Hueso.dataValues.id}}</td>
-              <td>{{this.dataValues.Hueso.dataValues.nombre}}</td>
-              <td>{{this.dataValues.Dinosaurio.dataValues.nombre}}</td>
-              <td>{{this.dataValues.fecha_inicio}}</td>
-              <td>{{this.dataValues.fecha_fin}}</td>
-              <td>
-                <form action="/replicas/disponibilidad?_method=PATCH" method="POST">
-                  <label class="switch">
-                    <input onchange="toggleDisponible({{this.dataValues.id}})" type="checkbox" {{#if this.dataValues.disponible}} checked {{/if}}>
-                    <span class="slider round"></span>
-                  </label>
-                </form>
-              </td>
-              <td>
-                <a href="/replicas/eliminar/{{this.dataValues.id}}" style="color: red;" class="material-icons">delete</a>
-              </td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
-
-      <!-- Línea divisoria -->
-      <hr style="border-top: 3px solid #000; margin: 50px 0;">
-    {{/each}}
+  <!-- Línea divisoria -->
+  <hr style="border-top: 3px solid #000; margin: 50px 0;">
+  {{/each}}
   {{else}}
-     <h1 class="bg-secondary text-center text-white rounded p-2">
-      Réplicas - No Hay Pedidos De Replicas
+  <div class="empty-state text-center"
+    style="padding: 50px; background-color: #f8f9fa; border-radius: 10px; border: 1px solid #dee2e6;">
+    <h1 class="bg-secondary text-center text-white rounded p-2">
+      Réplicas
     </h1>
+    <p style="font-size: 1.5em; color: #6c757d;">No hay réplicas.</p>
+    <i class="material-icons" style="font-size: 4em; color: #6c757d;">inbox</i>
+  </div>
   {{/if}}
 </div>
 
@@ -58,7 +66,25 @@
     $('.replicas').DataTable({
       dom: 'Bfrtip',
       buttons: [
-        'pdf', 'excel', 'csv'
+        {
+          extend: 'pdf',
+          orientation: 'landscape',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'excel',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'csv',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        }
       ],
       searching: true,
       ordering: true,

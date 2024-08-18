@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
           .sort((e1, e2) => {
             // ordenamos por fecha de creacion descendente
             // quiere decir que el ultimo estado (el mas nuevo) es el primero
-            return new Date(e2.fecha) - new Date(e1.fecha);
+            return new Date(e2.createdAt) - new Date(e1.createdAt);
           });
       });
     }
