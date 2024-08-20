@@ -118,7 +118,7 @@ router.post('/',
 
         res.redirect('/guias');
       } catch (error) {
-        const { message, value } = error.errors[0];
+        const { message, value } = error.errors[0]; //acá está el error. No guarda al guía con DNI repetido en el arreglo.
         if (altaLogica === "on") {
           const [guia] = await guiaService.getGuias(undefined, undefined, { PersonaId: value });
           await guia.restore();
