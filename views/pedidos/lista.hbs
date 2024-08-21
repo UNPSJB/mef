@@ -87,8 +87,8 @@
         {
           data: 'motivo',
           render: function (data, type, row) {
-            if (data.motivo && data.motivo.trim().length > 0) {
-              return data.motivo;
+            if (row.motivo && row.motivo.trim().length > 0) {
+              return row.motivo;
             } else {
               return 'Sin descripción';
             }
