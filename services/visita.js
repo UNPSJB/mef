@@ -8,11 +8,14 @@ const genericSearch = (search, fields) => {
       return literal(`"Guium->Persona"."identificacion" ILIKE '%${search}%'`);
     } else if (field === 'Cliente.Persona.identificacion') {
       return literal(`"Cliente->Persona"."identificacion" ILIKE '%${search}%'`);
+    } else if (field === 'fechaVisita') {
+      // Buscar utilizando el formato DD/MM/YYYY
+      return literal(`TO_CHAR("Visita"."fechaVisita", 'DD/MM/YYYY') ILIKE '%${search}%'`);
+    } else if (field === 'Exhibicion.nombre') {
+      return literal(`"Exhibicion"."nombre" ILIKE '%${search}%'`);
     } else if (field !== 'id') {
-      // Calificar la referencia de columna con el nombre de la tabla apropiada
       return literal(`"Visita"."${field}"::text ILIKE '%${search}%'`);
     } else {
-      // Calificar la referencia de columna con el nombre de la tabla apropiada
       return literal(`"Visita"."id"::text ILIKE '%${search}%'`);
     }
   });
@@ -87,6 +90,11 @@ module.exports = {
           'Cliente.Persona.identificacion',
           'Guium.Persona.identificacion',
           'fechaVisita',
+          'Exhibicion.nombre',
+          'observacion',
+          'precio',
+          'horario',
+          'estado',
         ]),
       };
     }
