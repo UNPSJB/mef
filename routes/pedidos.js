@@ -67,6 +67,7 @@ router.get('/detalle/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const pedido = await pedidosService.getPedido({ id });
+    const cantidadEmpleadosAsignados = pedido.Empleados.length;
     const estado = await pedido.estado;
     const estadosPedido = await pedido.estados;
     const detalles = await pedido.getDetalles({
@@ -98,6 +99,7 @@ router.get('/detalle/:id', async (req, res) => {
       dinosaurio,
       hueso,
       detalles,
+      cantidadEmpleadosAsignados,
       req,
     });
   } catch (error) {
