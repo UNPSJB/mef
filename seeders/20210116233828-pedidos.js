@@ -2,18 +2,28 @@
 
 const MAX_PEDIDOS = 300; // Cantidad máxima de pedidos
 const MAX_DETALLES_POR_PEDIDO = 5; // Cantidad máxima de detalles por pedido
-const MAX_CONFIRMADOS = 300;
-const MAX_PRESUPUESTADOS = 150;
-const MAX_CANCELADOS = 50;
-const START_ID_CANCELADOS = 151;
-const START_ID_FABRICANDOS = 202;
-const END_ID_FABRICANDOS = 212;
-const START_ID_DEMORADOS = 213;
-const END_ID_DEMORADOS = 233;
-const START_ID_FINALIZADOS = 234;
-const END_ID_FINALIZADOS = 259;
-const START_ID_ENTREGADOS = 260;
-const END_ID_ENTREGADOS = 300;
+
+const START_ID_PRESUPUESTADOS = 1;
+const END_ID_PRESUPUESTADOS = 150;
+
+const START_ID_CANCELADOS = 1;
+const END_ID_CANCELADOS = 50;
+
+const START_ID_CONFIRMADOS = 51;
+const END_ID_CONFIRMADOS = 300;
+
+const START_ID_FABRICANDOS = 51;
+const END_ID_FABRICANDOS = 300;
+
+const START_ID_DEMORADOS = 51;
+const END_ID_DEMORADOS = 100;
+
+const START_ID_FINALIZADOS = 101;
+const END_ID_FINALIZADOS = 300;
+
+// Esto es asi porque solo los primeros 150 son presupuestados
+const START_ID_ENTREGADOS = 101;
+const END_ID_ENTREGADOS = 150;
 
 function getRandomDateWithinFourMonths() {
   const currentDate = new Date();
@@ -97,19 +107,23 @@ module.exports = {
       attributes: ['id', 'createdAt'],
       where: {
         id: {
-          [Sequelize.Op.lte]: MAX_CONFIRMADOS,
+          [Sequelize.Op.gte]: START_ID_CONFIRMADOS,
+          [Sequelize.Op.lte]: END_ID_CONFIRMADOS,
         },
       },
     });
-
-    let confirmadoArr = pedidosConfirmados.map(pedido => ({
+    
+    let confirmadoArr = pedidosConfirmados.map(pedido => {
+      const fechaPedidoMasUnDia = new Date(pedido.createdAt.getTime() + 24 * 60 * 60 * 1000 * 2); // Fecha del pedido + 2 día
+      return {
       descripcion: 'Confirmado',
-      fecha: new Date(pedido.createdAt.getTime() + 24 * 60 * 60 * 1000), // Fecha del pedido + 1 día
+      fecha: fechaPedidoMasUnDia, // Fecha del pedido + 1 día
       PedidoId: pedido.id,
-      createdAt: pedido.createdAt,
-      updatedAt: new Date(pedido.createdAt.getTime() + 24 * 60 * 60 * 1000), // Fecha del pedido + 1 día
+      createdAt: fechaPedidoMasUnDia,
+      updatedAt: fechaPedidoMasUnDia, // Fecha del pedido + 1 día
       deletedAt: null,
-    }));
+      }
+    });
 
     await queryInterface.bulkInsert('Confirmados', confirmadoArr, {});
 
@@ -118,7 +132,8 @@ module.exports = {
       attributes: ['id', 'createdAt'],
       where: {
         id: {
-          [Sequelize.Op.lte]: MAX_PRESUPUESTADOS,
+          [Sequelize.Op.gte]: START_ID_PRESUPUESTADOS,
+          [Sequelize.Op.lte]: END_ID_PRESUPUESTADOS,
         },
       },
     });
@@ -138,27 +153,29 @@ module.exports = {
 
     await queryInterface.bulkInsert('Presupuestados', presupuestadoArr, {});
 
-    // Obtener los pedidos del 151 al 200 para cancelados
+    // Cancelar los primeros 50 pedidos presupuestados
     const pedidosCancelados = await Pedido.findAll({
       attributes: ['id', 'createdAt'],
       where: {
         id: {
           [Sequelize.Op.gte]: START_ID_CANCELADOS,
-          [Sequelize.Op.lt]: START_ID_CANCELADOS + MAX_CANCELADOS,
+          [Sequelize.Op.lt]: END_ID_CANCELADOS,
         },
       },
     });
 
-    let canceladoArr = pedidosCancelados.map((pedido, index) => ({
-      fecha_baja: new Date(pedido.createdAt.getTime() + 24 * 60 * 60 * 1000), // Fecha del pedido + 1 día
+    let canceladoArr = pedidosCancelados.map((pedido, index) => {
+      const fechaPedidoMasUnDia = new Date(pedido.createdAt.getTime() + 24 * 60 * 60 * 1000); // Fecha del pedido + 1 día
+      return {
+      fecha_baja: fechaPedidoMasUnDia, // Fecha del pedido + 1 día
       obs: `Cancelado Observacion ${START_ID_CANCELADOS + index}`,
-      fecha: new Date(pedido.createdAt.getTime() + 24 * 60 * 60 * 1000), // Fecha del pedido + 1 día
+      fecha: fechaPedidoMasUnDia, // Fecha del pedido + 1 día
       descripcion: 'Cancelado',
       PedidoId: pedido.id,
-      createdAt: pedido.createdAt,
-      updatedAt: new Date(pedido.createdAt.getTime() + 24 * 60 * 60 * 1000), // Fecha del pedido + 1 día
+      createdAt: fechaPedidoMasUnDia,
+      updatedAt: fechaPedidoMasUnDia, // Fecha del pedido + 1 día
       deletedAt: null,
-    }));
+    }});
 
     await queryInterface.bulkInsert('Cancelados', canceladoArr, {});
 
@@ -174,11 +191,11 @@ module.exports = {
     });
 
     let fabricandoArr = pedidosFabricandos.map(pedido => {
-      const fechaPedidoMasDosDias = new Date(pedido.createdAt.getTime() + 2 * 24 * 60 * 60 * 1000); // Fecha del pedido + 2 días
+      const fechaPedidoMasTresDias = new Date(pedido.createdAt.getTime() + 3 * 24 * 60 * 60 * 1000); // Fecha del pedido + 3 días
       const inicioEstimada = new Date(
-        fechaPedidoMasDosDias.getFullYear(),
-        fechaPedidoMasDosDias.getMonth(),
-        fechaPedidoMasDosDias.getDate()
+        fechaPedidoMasTresDias.getFullYear(),
+        fechaPedidoMasTresDias.getMonth(),
+        fechaPedidoMasTresDias.getDate()
       );
       const finEstimada = new Date(
         inicioEstimada.getTime() + (Math.floor(Math.random() * 8) + 7) * 24 * 60 * 60 * 1000
@@ -186,13 +203,13 @@ module.exports = {
 
       return {
         descripcion: 'Fabricando',
-        fecha: fechaPedidoMasDosDias,
+        fecha: fechaPedidoMasTresDias,
         cantidad_empleados: Math.floor(Math.random() * 10) + 3, // Número aleatorio entre 3 y 12
         inicio_estimada: inicioEstimada,
         fin_estimada: finEstimada,
         PedidoId: pedido.id,
-        createdAt: pedido.createdAt,
-        updatedAt: fechaPedidoMasDosDias,
+        createdAt: fechaPedidoMasTresDias,
+        updatedAt: fechaPedidoMasTresDias,
       };
     });
 
@@ -210,15 +227,15 @@ module.exports = {
     });
 
     let demoradoArr = pedidosDemorados.map(pedido => {
-      const fechaPedidoMasTresDias = new Date(pedido.createdAt.getTime() + 3 * 24 * 60 * 60 * 1000); // Fecha del pedido + 3 días
+      const fechaPedidoMasCuatroDias = new Date(pedido.createdAt.getTime() + 4 * 24 * 60 * 60 * 1000); // Fecha del pedido + 4 días
 
       return {
         descripcion: 'Demorado',
-        fecha: fechaPedidoMasTresDias,
+        fecha: fechaPedidoMasCuatroDias,
         motivo_demora: generarMotivoDemora(),
         PedidoId: pedido.id,
-        createdAt: pedido.createdAt,
-        updatedAt: fechaPedidoMasTresDias,
+        createdAt: fechaPedidoMasCuatroDias,
+        updatedAt: fechaPedidoMasCuatroDias,
       };
     });
 
@@ -236,19 +253,19 @@ module.exports = {
     });
 
     let finalizadoArr = pedidosFinalizados.map(pedido => {
-      const fechaPedidoMasTresDias = new Date(pedido.createdAt.getTime() + 3 * 24 * 60 * 60 * 1000); // Fecha del pedido + 3 días
+      const fechaPedidoMasCincoDias = new Date(pedido.createdAt.getTime() + 5 * 24 * 60 * 60 * 1000); // Fecha del pedido + 3 días
       const finalizacion = new Date(
-        fechaPedidoMasTresDias.getFullYear(),
-        fechaPedidoMasTresDias.getMonth(),
-        fechaPedidoMasTresDias.getDate()
+        fechaPedidoMasCincoDias.getFullYear(),
+        fechaPedidoMasCincoDias.getMonth(),
+        fechaPedidoMasCincoDias.getDate()
       );
 
       return {
-        fecha: fechaPedidoMasTresDias,
+        fecha: fechaPedidoMasCincoDias,
         finalizacion: finalizacion,
         PedidoId: pedido.id,
-        createdAt: pedido.createdAt,
-        updatedAt: fechaPedidoMasTresDias,
+        createdAt: fechaPedidoMasCincoDias,
+        updatedAt: fechaPedidoMasCincoDias,
       };
     });
 
@@ -266,21 +283,21 @@ module.exports = {
     });
 
     let entregadoArr = pedidosEntregados.map(pedido => {
-      const fechaPedidoMasCuatroDias = new Date(pedido.createdAt.getTime() + 4 * 24 * 60 * 60 * 1000); // Fecha del pedido + 4 días
+      const fechaPedidoMasSeisDias = new Date(pedido.createdAt.getTime() + 6 * 24 * 60 * 60 * 1000); // Fecha del pedido + 4 días
       const fechaEnvio = new Date(
-        fechaPedidoMasCuatroDias.getFullYear(),
-        fechaPedidoMasCuatroDias.getMonth(),
-        fechaPedidoMasCuatroDias.getDate()
+        fechaPedidoMasSeisDias.getFullYear(),
+        fechaPedidoMasSeisDias.getMonth(),
+        fechaPedidoMasSeisDias.getDate()
       );
       const fechaEntrega = new Date(fechaEnvio.getTime() + (Math.floor(Math.random() * 8) + 7) * 24 * 60 * 60 * 1000); // Fecha envio + 7-14 días
 
       return {
-        fecha: fechaPedidoMasCuatroDias,
+        fecha: fechaPedidoMasSeisDias,
         fecha_envio: fechaEnvio,
         fecha_entrega: fechaEntrega,
         PedidoId: pedido.id,
-        createdAt: pedido.createdAt,
-        updatedAt: fechaPedidoMasCuatroDias,
+        createdAt: fechaPedidoMasSeisDias,
+        updatedAt: fechaPedidoMasSeisDias,
       };
     });
 
