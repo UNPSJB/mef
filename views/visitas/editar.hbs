@@ -123,6 +123,27 @@
   $(document).ready(function () {
     const manana = calcularFechaManana();
     document.getElementById("fechaVisita").setAttribute("min", manana);
+
+    // when #fechaVisita changes, update #horario options
+    $("#fechaVisita").change(function () {
+      const fecha = $(this).val();
+      console.log('fecha', fecha);  
+      $.ajax({
+        url: `/visitas/validar?fecha=${fecha}`,
+        success: function (horarios) {
+          console.log('horarios', horarios);
+          //const $horario = $("select[name='horario']");
+          //$horario.empty();
+          //if (horarios.length === 0) {
+          //  $horario.append($("<option>").attr("disabled", true).text("No hay horarios disponibles"));
+          //} else {
+          //  horarios.forEach(horario => {
+           //   $horario.append($("<option>").val(horario).text(horario));
+           // });
+          //}
+        }
+      });
+    });
   })
   // Setea la fecha de mañana como la fecha mínima de la visita.
   function calcularFechaManana() {
@@ -142,9 +163,8 @@
     return [year, month, day].join('-');
   }
 
-  <!--Script que oculta el ESTADO actual de la visita para que no se vea repetido entre las opciones.-->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+
+
     $(document).ready(function () {
     var estadoVisita = "{{ visita.estado }}";
     if (estadoVisita === "Pendiente") {
@@ -157,6 +177,7 @@
   });
 </script>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--Script que oculta la EXHIBICIÓN actual de la visita para que no se vea repetido entre las opciones.-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

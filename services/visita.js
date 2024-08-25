@@ -38,7 +38,7 @@ module.exports = {
     try {
       // Convertir la fecha al formato ISO (YYYY-MM-DD)
       const fechaISO = new Date(fecha).toISOString().split('T')[0];
-
+      console.log('Fecha ISO:', fechaISO);
       // Consultar todas las visitas no canceladas para la fecha proporcionada
       const visitas = await models.Visita.findAll({
         where: {
