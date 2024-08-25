@@ -46,8 +46,7 @@
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar replicas --}}
                 {{#each replicas}}
-                <input type="checkbox" class="replica-checkbox" name="replicas" value="{{this.id}}"
-                  min="0">
+                <input type="checkbox" class="replica-checkbox" name="replicas" value="{{this.dataValues.id}}">
                   {{this.Hueso.dataValues.nombre}} |
                 {{this.Dinosaurio.dataValues.nombre}}
                 <br>
