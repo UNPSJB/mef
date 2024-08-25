@@ -142,9 +142,6 @@
     return [year, month, day].join('-');
   }
 
-  <!--Script que oculta el ESTADO actual de la visita para que no se vea repetido entre las opciones.-->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
     $(document).ready(function () {
     var estadoVisita = "{{ visita.estado }}";
     if (estadoVisita === "Pendiente") {
@@ -157,6 +154,8 @@
   });
 </script>
 
+  <!--Script que oculta el ESTADO actual de la visita para que no se vea repetido entre las opciones.-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--Script que oculta la EXHIBICIÓN actual de la visita para que no se vea repetido entre las opciones.-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
