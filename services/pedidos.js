@@ -168,7 +168,7 @@ module.exports = {
       FROM "Pedidos" as p
       LEFT JOIN "Cancelados" AS CANCELADOS ON CANCELADOS."PedidoId" = "p"."id"
       LEFT JOIN "Confirmados" AS CONFIRMADOS ON CONFIRMADOS."PedidoId" = "p"."id"
-      LEFT JOIN "Demorados" AS DEMORADOS ON DEMORADOS."PedidoId" = "p"."id"
+      LEFT JOIN LATERAL (SELECT * FROM "Demorados" AS DEMORADOS WHERE DEMORADOS."PedidoId" = "p"."id" ORDER BY DEMORADOS."createdAt" DESC LIMIT 1) as DEMORADOS ON DEMORADOS."PedidoId" = "p"."id"
       LEFT JOIN "Entregados" AS ENTREGADOS ON ENTREGADOS."PedidoId" = "p"."id"
       LEFT JOIN "Fabricandos" AS FABRICANDOS ON FABRICANDOS."PedidoId" = "p"."id"
       LEFT JOIN "Facturados" AS FACTURADOS ON FACTURADOS."PedidoId" = "p"."id"
