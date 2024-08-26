@@ -103,6 +103,21 @@ module.exports = {
 
   async deleteExhibicion(id) {
     const exhibicion = await models.Exhibicion.findByPk(id);
+    const fosiles = await exhibicion.getFosils();
+    const replicas = await exhibicion.getReplicas();
+    await Promise.all(
+      fosiles.map(async fosil => {
+        fosil.update({
+          disponible: true,
+        });
+      }),
+      replicas.map(async replica => {
+        replica.update({
+          disponible: true,
+        });
+      })
+    );
+
     await exhibicion.setFosils([]);
     await exhibicion.setReplicas([]);
     return exhibicion.destroy();
