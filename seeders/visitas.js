@@ -131,7 +131,7 @@ module.exports = {
         cantidadDePersonas: faker.random.number({ min: 1, max: 100 }),
         fechaVisita: visitaFecha,
         horario: faker.random.arrayElement([
-          '9:00hs',
+          '09:00hs',
           '10:00hs',
           '11:00hs',
           '12:00hs',
