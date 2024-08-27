@@ -74,50 +74,6 @@ module.exports = {
       return []; // Devuelve una lista vacía en caso de error
     }
   },
-  async verificarVisitasEditar(fecha, horario) {
-    try {
-      // Convertir la fecha al formato ISO (YYYY-MM-DD)
-      const fechaISO = new Date(fecha).toISOString().split('T')[0];
-
-      // Consultar todas las visitas no canceladas para la fecha proporcionada
-      const visitas = await models.Visita.findAll({
-        where: {
-          fechaVisita: fechaISO,
-          estado: 'Pendiente',
-        },
-      });
-
-      // Horarios disponibles inicialmente de 9 a 18 hs (asumiendo horas completas)
-      const horariosDisponibles = [
-        '09:00hs',
-        '10:00hs',
-        '11:00hs',
-        '12:00hs',
-        '13:00hs',
-        '14:00hs',
-        '15:00hs',
-        '16:00hs',
-        '17:00hs',
-        '18:00hs',
-      ];
-
-      // Extraer los horarios ocupados
-      const horariosOcupados = visitas.map(visita => visita.horario);
-
-      // Filtrar los horarios disponibles para excluir los ocupados
-      const horariosFinales = horariosDisponibles.filter(horario => !horariosOcupados.includes(horario));
-      const horariosFinalesEditar = [...horariosFinales, horario];
-      const horariosOrdenados = horariosFinalesEditar.sort((a, b) => {
-        const convertirHorario = hora => parseInt(hora.replace('hs', '').replace(':', ''), 10);
-        return convertirHorario(a) - convertirHorario(b);
-      });
-
-      return horariosOrdenados;
-    } catch (error) {
-      console.error('Error al verificar visitas:', error);
-      return []; // Devuelve una lista vacía en caso de error
-    }
-  },
 
   async getVisitasDataTable({ start, length, search, order, columns }) {
     let querySearch = undefined;
