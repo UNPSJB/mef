@@ -1,0 +1,11 @@
+<h1>Reportes de Visitas Guiadas</h1>
+
+<ul>
+    {{#each reportes}}
+    <li>
+        <strong>{{this.titulo}}</strong><br>
+        <small>{{this.fecha}}</small><br>
+        <p>{{this.descripcion}}</p>
+    </li>
+    {{/each}}
+</ul>
