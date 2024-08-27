@@ -30,8 +30,8 @@
                 {{!-- @TODO agregar fosiles --}}
                 {{#each fosiles_propios}}
                 <input type="checkbox" class="fosil-checkbox" name="fosiles" value="{{this.id}}" checked>
-                {{this.huesos}} |
-                {{this.Dinosaurio.nombre}}
+                {{this.dataValues.huesos}} |
+                {{this.Dinosaurio.dataValues.nombre}}
                 <br>
                 {{/each}}
                 {{#each fosiles}}
@@ -49,9 +49,9 @@
               </div>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{#each replicas_propias}}
-                <input type="checkbox" class="replica-checkbox" name="replicas" value="{{this.id}}"
-                  checked>{{this.Hueso.nombre}} |
-                {{this.Dinosaurio.nombre}}
+                <input type="checkbox" class="replica-checkbox" name="replicas" value="{{this.dataValues.id}}"
+                  checked>{{this.Hueso.dataValues.nombre}} |
+                {{this.Dinosaurio.dataValues.nombre}}
                 <br>
                 {{/each}}
                 {{#each replicas}}

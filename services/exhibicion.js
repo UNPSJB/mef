@@ -72,6 +72,7 @@ module.exports = {
                 disponible: false,
               });
             });
+            console.log('replicas', listaDeReplicas);
             exhibicion.setReplicas(listaDeReplicas);
           }
           if (fosiles) {
@@ -88,9 +89,10 @@ module.exports = {
     });
   },
 
-  getFosiles(exhibicion_id) {
-    return models.Exhibicion.findByPk(exhibicion_id).then(exh => {
-      return exh.getFosils();
+  async getFosiles(exhibicion_id) {
+    const exhibicion = await models.Exhibicion.findByPk(exhibicion_id);
+    return exhibicion.getFosils({
+      include: [models.Dinosaurio],
     });
   },
 
