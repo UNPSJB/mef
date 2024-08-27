@@ -7,6 +7,9 @@
 </head>
 
 <body>
+    {{#with error }}
+    <div class="alert alert-danger">No se puede eliminar cliente, tiene pedidos asociados.</div>
+    {{/with}}
     <div class="container">
         <div class="alert alert-danger">¿Está seguro que desea borrar a este cliente?</div>
         <div class="card mt-4">
@@ -82,35 +85,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        function handleDelete(event) {
-            event.preventDefault();
-
-            // Realiza la petición DELETE usando Fetch API
-            fetch(event.target.action, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams(new FormData(event.target))
-            }).then(response => {
-                if (response.ok) {
-                    // Abre el modal
-                    $('#alertModal').modal('show');
-
-                    // Redirige al listado de clientes después de cerrar el modal
-                    $('#alertModal').on('hidden.bs.modal', function () {
-                        window.location.href = '/clientes'; // Redirige a la URL específica
-                    });
-                } else {
-                    // Maneja el error si la petición falla
-                    alert('Error al eliminar el cliente.');
-                }
-            }).catch(error => {
-                // Maneja errores de la petición
-                console.error('Error:', error);
-                alert('Ocurrió un error.');
-            });
-        }
+        
     </script>
 </body>
 
