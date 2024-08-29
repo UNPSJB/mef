@@ -20,13 +20,13 @@ router.get('/', async (req, res) => {
     let mensajeExito;
     let mensajeError;
     if (success === 'create') {
-      mensajeExito = 'Cliente agregado con exito';
+      mensajeExito = 'Cliente agregado con éxito';
     }
     if (success === 'edit') {
-      mensajeExito = 'Cliente editado con exito';
+      mensajeExito = 'Cliente editado con éxito';
     }
     if (success === 'delete') {
-      mensajeExito = 'Cliente eliminado con exito';
+      mensajeExito = 'Cliente eliminado con éxito';
     }
     res.render('clientes/cliente', { results: clientes, req, success: mensajeExito });
   } catch (error) {
