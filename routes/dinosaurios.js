@@ -62,34 +62,6 @@ router.get('/agregar', async (req, res) => {
 });
 
 
-router.get('/editar/:id', async (req, res) => {
-  try {
-    const dino = await dinoService.getDinosaurio(req.params.id);
-    const subclases = await subclaseService.getAllSubclases();
-    const { alimentacion, periodo } = dino;
-    const [cretacico, jurasico, triasico] = [periodo == 'Cretacico', periodo == 'Jurasico', periodo == 'Triasico'];
-    const [carnivoro, herbivoro, omnivoro] = [
-      alimentacion == 'Carnivoro',
-      alimentacion == 'Herbivoro',
-      alimentacion == 'Omnivoro',
-    ];
-    const subclaseFiltrada = subclases.filter(subClase => subClase.id != dino.SubClaseId);
-    res.render('dinosaurios/editar', {
-      dino,
-      subclases: subclaseFiltrada,
-      req,
-      cretacico,
-      jurasico,
-      triasico,
-      carnivoro,
-      herbivoro,
-      omnivoro,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-});
-
 /** HUESOS  */
 
 router.get('/moldes/:id', async (req, res) => {
