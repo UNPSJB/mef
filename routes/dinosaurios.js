@@ -10,8 +10,26 @@ const paginate = require('../middlewares/paginate');
 
 router.get('/', async (req, res) => {
   try {
-    const dinosaurio = await dinoService.getAllDinosaurios();
-    res.render('dinosaurios/dinosaurio', { dinosaurio, req });
+    const { success } = req.query; // Obtener el parámetro success
+    const dinosaurio = await dinoService.getAllDinosaurios(
+      {},
+      {
+        raw: true,
+        nest: true,
+      }
+    );
+    let mensajeCreate;
+
+    // Asignar el mensaje adecuado basado en el valor de 'success'
+    if (success === 'create') {
+      mensajeCreate = 'Dinosaurio agregado con éxito.';
+    }
+
+    res.render('dinosaurios/dinosaurio', {
+      dinosaurio,
+      req,
+      success: mensajeCreate,
+    });
   } catch (error) {
     res.redirect('/404');
   }
@@ -42,6 +60,7 @@ router.get('/agregar', async (req, res) => {
     res.render('dinosaurios/agregar', { subclases, req, errores: error });
   }
 });
+
 
 router.get('/editar/:id', async (req, res) => {
   try {
@@ -148,7 +167,7 @@ router.post('/', async (req, res) => {
       cant_dedos_mano,
       cant_dedos_pata,
     ]);
-    res.redirect('/dinosaurios');
+    res.redirect('/dinosaurios?success=create'); // redirección con mensaje de creación
   } catch (error) {
     const dino = req.body;
     /** @TODO revisar */
