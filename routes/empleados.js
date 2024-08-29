@@ -7,9 +7,32 @@ const { generatePagination } = require('../services/utils');
 
 //lista todos los empleados
 router.get('/', async (req, res) => {
+  const { success } = req.query;
   try {
-    const empleados = await empleadoService.getAllEmpleados();
-    res.render('empleados/empleado', { results: empleados, req });
+    const empleados = await empleadoService.getAllEmpleados(
+      {},
+      {
+        raw: true,
+        nest: true,
+      }
+    );
+    let mensajeCreate;
+    let mensajeEdit
+    let mensajeDelete
+    if (success === 'create') {
+      mensajeCreate = 'Empleado de Taller agregado con éxito.';
+    }
+    if (success === 'edit') {
+      mensajeEdit = 'Empleado de Taller editado con éxito.';
+    }
+    if (success === 'delete') {
+      mensajeDelete = 'Empleado de Taller eliminado con éxito.';
+    };
+    res.render('empleados/empleado', {
+      results: empleados,
+      req,
+      success: mensajeCreate || mensajeEdit || mensajeDelete, // enviar el mensaje adecuado
+    });
   } catch (error) {
     res.redirect('/404');
   }
@@ -65,14 +88,14 @@ router.post('/', async (req, res) => {
         telefono
       );
       personaId = nuevaPersona.id;
-    }
-    if (persona) {
+    } else {
       personaId = persona.id;
     }
-    await empleadoService.createEmpleado(persona.id);
-    res.redirect('/empleados');
+    await empleadoService.createEmpleado(personaId);
+    res.redirect('/empleados?success=create'); // redirección con mensaje de creación
   } catch (error) {
-    const { message } = error.errors[0];
+    console.error(error);
+    const { message } = error.errors ? error.errors[0].message : 'Error desconocido';
     res.render('empleados/agregar', { errores: message, empleado: req.body, req });
   }
 });
@@ -84,7 +107,7 @@ router.put('/', async (req, res) => {
     await persona.update({
       ...empleado,
     });
-    res.redirect('/empleados');
+    res.redirect('/empleados?success=edit'); // redirección con mensaje de edición
   } catch (error) {
     const { message } = error.errors[0];
     const empleadoDB = await empleadoService.getEmpleado(empleado.idEmpleado);
@@ -93,9 +116,15 @@ router.put('/', async (req, res) => {
 });
 
 router.delete('/', async (req, res) => {
-  const { id } = req.body;
-  await empleadoService.deleteEmpleado(id);
-  res.redirect('/empleados');
+  try {
+    const { id } = req.body;
+    await empleadoService.deleteEmpleado(id);
+    res.redirect('/empleados?success=delete');
+  } catch (error) {
+    console.error(error);
+    res.redirect('/404');
+  }
 });
+
 
 module.exports = router;
