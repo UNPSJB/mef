@@ -5,9 +5,6 @@ const exhibicionService = require('../services/exhibicion');
 const clienteService = require('../services/cliente');
 const guiaService = require('../services/guia');
 
-const paginate = require('../middlewares/paginate');
-const { generatePagination } = require('../services/utils');
-
 router.get('/', async (req, res) => {
   try {
     const visitas = await visitaService.getAllVisitas({}, { raw: true, nest: true });
@@ -66,6 +63,10 @@ router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params;
   const visita = await visitaService.getVisita(id, { raw: true, nest: true });
   res.render('visitas/eliminar', { visita, req });
+});
+
+router.get('/reportes', async (req, res) => {
+  res.render('visitas/reportes', { req });
 });
 
 router.post('/', async (req, res) => {
