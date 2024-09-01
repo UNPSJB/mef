@@ -15,8 +15,24 @@ const { generatePagination } = require('../services/utils');
 const paginate = require('../middlewares/paginate');
 
 router.get('/', async (req, res) => {
+  const { success } = req.query;
   try {
-    res.render('pedidos/lista', { req });
+    const pedidos = await pedidoService.getAllPedidos(
+      {},
+      {
+        raw: true,
+        nest: true,
+      }
+    );
+    let mensajeCreate;
+    if (success === 'create') {
+      mensajeCreate = 'Pedido agregado con éxito.';
+    }
+    res.render('pedidos/pedido', {
+      results: pedidos,
+      req,
+      success: mensajeCreate,
+    });
   } catch (error) {
     console.error(error);
     res.redirect('/404');
@@ -167,7 +183,7 @@ router.post('/', async (req, res) => {
   } else {
     await pedidosService.presupuestar(hueso, cliente, descripcion, monto, finoferta, moneda);
   }
-  res.redirect('/pedidos');
+  res.redirect('/empleados?success=create'); // redirección con mensaje de creación
 });
 /**
  * @TODO revisar esto

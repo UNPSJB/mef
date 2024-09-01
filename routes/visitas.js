@@ -9,9 +9,28 @@ const paginate = require('../middlewares/paginate');
 const { generatePagination } = require('../services/utils');
 
 router.get('/', async (req, res) => {
+  const { success } = req.query;
   try {
-    const visitas = await visitaService.getAllVisitas({}, { raw: true, nest: true });
-    res.render('visitas/visita', { visitas, req });
+    const visitas = await visitaService.getAllVisitas(
+      {},
+      {
+        raw: true,
+        nest: true
+      }
+    );
+    let mensajeCreate;
+    let mensajeEdit
+    if (success === 'create') {
+      mensajeCreate = 'Visita agregada con éxito.';
+    }
+    if (success === 'edit') {
+      mensajeEdit = 'Visita editada con éxito.';
+    }
+    res.render('visitas/visita', {
+      results: visitas,
+      req,
+      success: mensajeCreate || mensajeEdit, // enviar el mensaje adecuado
+    });
   } catch (error) {
     console.log(error);
   }
@@ -83,7 +102,7 @@ router.post('/', async (req, res) => {
       estado,
       observacion
     );
-    res.redirect('/visitas');
+    res.redirect('/visitas?success=create'); // redirección con mensaje de creación
   } catch (error) {
     res.render('visitas/agregar', { req });
   }
@@ -96,7 +115,7 @@ router.put('/', async (req, res) => {
   return visitaService
     .updateVisita(id, exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion)
     .then(visita => {
-      res.redirect('/visitas');
+      res.redirect('/visitas?success=edit'); // redirección con mensaje de edición
     });
 });
 module.exports = router;
