@@ -10,9 +10,32 @@ const { generatePagination } = require('../services/utils');
 const paginate = require('../middlewares/paginate');
 
 router.get('/', async (req, res) => {
+  const { success } = req.query;
   try {
-    const fosiles = await fosilService.getAllFosiles();
-    res.render('fosiles/fosil', { results: fosiles, req });
+    const fosiles = await fosilService.getAllFosiles(
+      {},
+      {
+        raw: true,
+        nest: true,
+      }
+    );
+    let mensajeCreate;
+    let mensajeEdit
+    let mensajeDelete
+    if (success === 'create') {
+      mensajeCreate = 'Fósil agregado con éxito.';
+    }
+    if (success === 'edit') {
+      mensajeEdit = 'Fósil editado con éxito.';
+    }
+    if (success === 'delete') {
+      mensajeDelete = 'Fósil eliminado con éxito.';
+    };
+    res.render('fosiles/fosil', {
+      results: fosiles,
+      req,
+      success: mensajeCreate || mensajeEdit || mensajeDelete, // enviar el mensaje adecuado
+    });
   } catch (error) {
     res.redirect('/404');
   }
@@ -50,7 +73,7 @@ router.get('/editar/:id', async (req, res) => {
 
 router.put('/', async (req, res) => {
   await fosilService.updateFosil(req.body);
-  res.redirect('/fosiles');
+  res.redirect('/fosiles?success=edit'); // redirección con mensaje de edición
 });
 
 router.post('/', async (req, res) => {
@@ -66,7 +89,7 @@ router.post('/', async (req, res) => {
       DinosaurioId,
       huesos
     );
-    res.redirect('/fosiles');
+    res.redirect('/fosiles?success=create'); // redirección con mensaje de creación
   } catch (error) {
     /** @TODO revisar */
     const { message } = error.errors[0];

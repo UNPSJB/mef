@@ -4,15 +4,38 @@ const permisos = require('../middlewares/permisos');
 const exhibicionService = require('../services/exhibicion');
 const fosilService = require('../services/fosil');
 const pedidoService = require('../services/pedidos');
-/**@TODO cambiar esto moverlo al service */
 const models = require('../models');
 const { generatePagination } = require('../services/utils');
 const paginate = require('../middlewares/paginate');
 
+//lista todas las exhbiciones
 router.get('/', async (req, res) => {
+  const { success } = req.query;
   try {
-    const exhibiciones = await exhibicionService.getAllExhibiciones({}, { raw: true });
-    res.render('exhibiciones/exhibicion', { exhibiciones, req });
+    const exhibiciones = await exhibicionService.getAllExhibiciones(
+      {},
+      {
+        raw: true,
+        nest: true,
+      }
+    );
+    let mensajeCreate;
+    let mensajeEdit
+    let mensajeDelete
+    if (success === 'create') {
+      mensajeCreate = 'Exhibición agregada con éxito.';
+    }
+    if (success === 'edit') {
+      mensajeEdit = 'Exhibición editada con éxito.';
+    }
+    if (success === 'delete') {
+      mensajeDelete = 'Exhibición eliminada con éxito.';
+    };
+    res.render('exhibiciones/exhibicion', {
+      results: exhibiciones, //acá hay algún error que no me deja ver las exhibiciones
+      req,
+      success: mensajeCreate || mensajeEdit || mensajeDelete, // enviar el mensaje adecuado
+    });
   } catch (error) {
     res.redirect('/404');
   }
@@ -68,7 +91,7 @@ router.post('/', async (req, res) => {
 
   try {
     await exhibicionService.createExhibicion(nombre, tematica, duracion, fosiles, replicas);
-    res.redirect('/exhibiciones');
+    res.redirect('/empleados?success=edit'); // redirección con mensaje de edición
   } catch (error) {
     const { message } = error.errors[0];
     const replicas = await pedidoService.getReplicas({ disponible: true });
@@ -82,7 +105,7 @@ router.put('/', async (req, res) => {
   console.log('logs', id, nombre, tematica, duracion, fosiles, replicas);
   try {
     await exhibicionService.updateExhibicion(id, nombre, tematica, duracion, fosiles, replicas);
-    res.redirect('/exhibiciones');
+    res.redirect('/empleados?success=edit'); // redirección con mensaje de edición
   } catch (error) {
     const { message } = error.errors[0];
 
@@ -108,7 +131,7 @@ router.delete('/', async (req, res) => {
   const { id } = req.body;
   try {
     await exhibicionService.deleteExhibicion(id);
-    res.redirect('/exhibiciones');
+    res.redirect('/empleados?success=delete');
   } catch (errores) {
     res.render('exhibiciones/eliminar', errores);
   }

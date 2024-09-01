@@ -37,6 +37,7 @@ router.get('/', async (req, res) => {
     res.redirect('/404');
   }
 });
+
 router.get('/list', async (req, res) => {
   try {
     const total = await empleadoService.countEmpleados();
