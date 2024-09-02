@@ -62,13 +62,33 @@ router.get('/:id/empleados/', async (req, res) => {
 });
 
 router.get('/replicas', async (req, res) => {
-  const dinosauriosConReplicas = await replicaService.getReplicas();
-  const pedidos = dinosauriosConReplicas.map(pedido => {
-    const dino = pedido.Replicas[0].Dinosaurio;
-    pedido.dino = dino;
-    return pedido;
-  });
-  res.render('replicas/replica', { pedidos, req });
+  const { success } = req.query;
+  try {
+    const dinosauriosConReplicas = await replicaService.getReplicas(
+      {},
+      {
+        raw: true,
+        nest: true,
+      }
+    );
+    const pedidos = dinosauriosConReplicas.map(pedido => {
+      const dino = pedido.Replicas[0].Dinosaurio;
+      pedido.dino = dino;
+      return pedido;
+    });
+    let mensajeDelete
+    if (success === 'delete') {
+      mensajeDelete = 'Réplica eliminada con éxito.';
+    };
+    //@TODO hacer el mensaje de eliminar réplica
+    res.render('replicas/replica', {
+      pedidos,
+      req,
+      success: mensajeDelete,
+    });
+  } catch (error) {
+    res.redirect('/404');
+  }
 });
 
 router.get('/detalle/:id', async (req, res) => {
