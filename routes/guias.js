@@ -8,10 +8,34 @@ const Op = Sequelize.Op;
 const paginate = require('../middlewares/paginate');
 const { generatePagination } = require('../services/utils');
 
+//lista a todos los guias
 router.get('/', paginate, async (req, res) => {
+  const { success } = req.query;
   try {
-    const guias = await guiaService.getAllGuias();
-    res.render('guias/guia', { results: guias, req });
+    const guias = await guiaService.getAllGuias(
+      {},
+      {
+        raw: true,
+        nest: true,
+      }
+    );
+    let mensajeCreate;
+    let mensajeEdit
+    let mensajeDelete
+    if (success === 'create') {
+      mensajeCreate = 'Guía agregado con éxito.';
+    }
+    if (success === 'edit') {
+      mensajeEdit = 'Guía editado con éxito.';
+    }
+    if (success === 'delete') {
+      mensajeDelete = 'Guía eliminado con éxito.';
+    };
+    res.render('guias/guia', {
+      results: guias,
+      req,
+      success: mensajeCreate || mensajeEdit || mensajeDelete, // enviar el mensaje adecuado
+    });
   } catch (error) {
     res.redirect('/404');
   }
@@ -76,11 +100,6 @@ router.get('/eliminar/:id', async (req, res) => {
   res.render('guias/eliminar', { guia, req });
 });
 
-/*
-  Script en CLIENTE
-    view Agregar
-      click en nuevo o existente
-*/
 router.post('/', async (req, res) => {
   const {
     // tipo: exitente o nuevo
@@ -116,7 +135,7 @@ router.post('/', async (req, res) => {
     );
   }
   await guiaService.createGuia(dias_trabaja, new Date(), horario_trabaja, idiomas, persona.id);
-  res.redirect('/guias');
+  res.redirect('/guias?success=create'); // redirección con mensaje de creación
 });
 
 //actualizar la lista de idiomas por separado
@@ -159,7 +178,7 @@ router.put('/', async (req, res) => {
       fecha_nacimiento,
       telefono,
     });
-    res.redirect('/guias');
+    res.redirect('/guias?success=edit'); // redirección con mensaje de edición
   } catch (error) {
     /** @todo agregar render con objeto guias, elecciones, request, error */
     console.log(error);
@@ -170,7 +189,7 @@ router.delete('/', async (req, res) => {
   const { id } = req.body;
   try {
     await guiaService.deleteGuia(id);
-    return res.redirect('/guias');
+    res.redirect('/guias?success=delete');
   } catch (error) {
     const guia = await guiaService.getGuia(id);
     res.render('guias/eliminar', { error, guia, req });

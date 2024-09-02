@@ -24,7 +24,7 @@ router.delete('/',
   async (req, res) => {
     //Le falta un Try Catch para manejar los errores.   
     await replicaService.deleteReplica(req.body.id)
-    res.redirect('/pedidos/replicas')
+    res.redirect('/pedidos/replicas?success=delete')
   })
 
 module.exports = router

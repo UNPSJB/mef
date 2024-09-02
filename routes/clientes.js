@@ -17,18 +17,23 @@ router.get('/', async (req, res) => {
         nest: true,
       }
     );
-    let mensajeExito;
-    let mensajeError;
+    let mensajeCreate;
+    let mensajeEdit
+    let mensajeDelete
     if (success === 'create') {
-      mensajeExito = 'Cliente agregado con exito';
+      mensajeCreate = 'Cliente agregado con éxito.';
     }
     if (success === 'edit') {
-      mensajeExito = 'Cliente editado con exito';
+      mensajeEdit = 'Cliente editado con éxito.';
     }
     if (success === 'delete') {
-      mensajeExito = 'Cliente eliminado con exito';
+      mensajeDelete = 'Cliente eliminado con éxito.';
     }
-    res.render('clientes/cliente', { results: clientes, req, success: mensajeExito });
+    res.render('clientes/cliente', {
+      results: clientes,
+      req,
+      success: mensajeCreate || mensajeEdit || mensajeDelete, // enviar el mensaje adecuado
+    });
   } catch (error) {
     res.redirect('/404');
   }
@@ -135,7 +140,7 @@ router.put('/', async (req, res) => {
     await personaDB.update({
       ...req.body,
     });
-    res.redirect('/clientes');
+    res.redirect('/clientes?success=edit');
   } catch (error) {
     const { message } = error.errors[0];
     const cliente = await clienteService.getCliente(idCliente);
@@ -152,7 +157,7 @@ router.delete('/', async (req, res) => {
       return res.redirect(`clientes/eliminar/${id}?error=1`);
     }
     await clienteService.deleteCliente(id);
-    return res.redirect('/clientes');
+    res.redirect('/clientes?success=delete');
   } catch (error) {
     res.redirect('/404');
   }
