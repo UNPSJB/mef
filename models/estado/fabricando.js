@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) =>{
             
             return sequelize.models.Finalizado.create({
                 PedidoId,
-                finalizacion:new Date(),
+                finalizacion: fecha_fin,
                 fecha:new Date()
             }).then(async ()=>{
                 if(pedido.tipo == 'Interno'){

@@ -1,38 +1,40 @@
-<h1>Eliminar Empleado de Taller #{{empleado.Persona.id}}</h1>
-<div class="alert alert-danger">¿Seguro que desea borrar esto?</div>
-<table class="table">
-    <thead>
-        <th scope="col">#</th>
-        <th scope="col">Documento</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Apellido</th>
-        <th scope="col">Dirección</th>
-        <th scope="col">Localidad</th>
-        <th scope="col">Correo Electrónico</th>
-        <th scope="col">Fecha de Nacimiento</th>
-        <th scope="col">Teléfono</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{empleado.Persona.id}}</td>
-            <td>{{empleado.Persona.identificacion}}</td>
-            <td>{{empleado.Persona.nombre}}</td>
-            <td>{{empleado.Persona.apellido}}</td>
-            <td>{{empleado.Persona.direccion}}</td>
-            <td>{{empleado.Persona.localidad}}</td>
-            <td>{{empleado.Persona.email}}</td>
-            <td>{{empleado.Persona.fecha_nacimiento}}</td>
-            <td>{{empleado.Persona.telefono}}</td>
-        </tr>
-    </tbody>
-</table>
-<br>
-<!---Botón de Eliminar Empleado de Taller-->
-<div class="row justify-content-center">
-    <div class="col-6 text-center">
-        <form action="/empleados?_method=DELETE" method="POST">
-            <input name="id" type="number" value="{{empleado.id}}" hidden required>
-            <button type="submit" class="btn btn-danger">Eliminar Empleado de Taller</button>
-        </form>
+<div class="container">
+    <h1>Eliminar Empleado de Taller</h1>
+    <div class="alert alert-danger">¿Seguro que desea borrar esto?</div>
+    <table class="table">
+        <thead>
+            <th scope="col">#</th>
+            <th scope="col">Documento</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Localidad</th>
+            <th scope="col">Correo Electrónico</th>
+            <th scope="col">Fecha de Nacimiento</th>
+            <th scope="col">Teléfono</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{empleado.id}}</td>
+                <td>{{empleado.Persona.identificacion}}</td>
+                <td>{{empleado.Persona.nombre}}</td>
+                <td>{{empleado.Persona.apellido}}</td>
+                <td>{{empleado.Persona.direccion}}</td>
+                <td>{{empleado.Persona.localidad}}</td>
+                <td>{{empleado.Persona.email}}</td>
+                <td>{{empleado.Persona.fecha_nacimiento}}</td>
+                <td>{{empleado.Persona.telefono}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <!-- Botón de Eliminar Empleado de Taller -->
+    <div class="row justify-content-center">
+        <div class="col-6 text-center">
+            <form id="deleteForm" action="/empleados?_method=DELETE" method="POST" onsubmit="handleDelete(event)">
+                <input name="id" type="number" value="{{empleado.id}}" hidden required>
+                <button type="submit" class="btn btn-danger">Eliminar Empleado de Taller</button>
+            </form>
+        </div>
     </div>
 </div>

@@ -1,5 +1,4 @@
-<div class="alert alert-danger mt-4">¿Seguro que quiere borrar esto?</div>
-<div class="card mt-4">
+<div class="container">
     <div class="card-header text-center bg-secondary text-white">
         <h1>Eliminar Réplica</h1>
     </div>
@@ -31,14 +30,14 @@
             </tbody>
         </table>
     </div>
-</div>
-<br>
-<!-- Botón de Eliminar -->
-<div class="row justify-content-center">
-    <div class="col-6 text-center">
-        <form action="/replicas?_method=DELETE" method="POST">
-            <input type="number" name="id" value="{{replica.dataValues.id}}" hidden required>
-            <button type="submit" class="btn btn-danger">Eliminar</button>
-        </form>
+    <br>
+    <!-- Botón de Eliminar -->
+    <div class="row justify-content-center">
+        <div class="col-6 text-center">
+            <form id="deleteForm" action="/replicas?_method=DELETE" method="POST" onsubmit="handleDelete(event)">
+                <input type="number" name="id" value="{{replica.dataValues.id}}" hidden required>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </div>
     </div>
 </div>

@@ -23,10 +23,14 @@
           <div class="row">
             <div class="col-6" style="padding-left:0px">
               <label for="fosiles">Listado de fósiles disponibles:</label>
+              <div>
+                <input type="checkbox" id="toggle-fosiles"> Seleccionar todos los fósiles
+              </div>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar fosiles --}}
                 {{#each fosiles}}
-                <input type="checkbox" name="fosiles" value="{{this.id}}">{{this.huesos}} | {{this.Dinosaurio.nombre}}
+                <input type="checkbox" class="fosil-checkbox" name="fosiles" value="{{this.id}}"> {{this.huesos}} |
+                {{this.Dinosaurio.nombre}}
                 <br>
                 {{else}}
                 <i>No hay Fósiles disponibles</i>
@@ -36,11 +40,15 @@
             </div>
             <div class="col-6">
               <label for="replicas">Listado de réplicas disponibles:</label>
+              <div>
+                <input type="checkbox" id="toggle-replicas"> Seleccionar todas las réplicas
+              </div>
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar replicas --}}
                 {{#each replicas}}
-                <input type="checkbox" name="replicas" value="{{this.id}}" min="0">{{this.Hueso.nombre}} |
-                {{this.Dinosaurio.nombre}}
+                <input type="checkbox" class="replica-checkbox" name="replicas" value="{{this.dataValues.id}}">
+                  {{this.Hueso.dataValues.nombre}} |
+                {{this.Dinosaurio.dataValues.nombre}}
                 <br>
                 {{else}}
                 <i>No hay Réplicas disponibles</i>
@@ -61,3 +69,19 @@
     </div>
   </form>
 </div>
+
+<script>
+  document.getElementById('toggle-fosiles').addEventListener('change', function () {
+    const checkboxes = document.querySelectorAll('.fosil-checkbox');
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = this.checked;
+    });
+  });
+
+  document.getElementById('toggle-replicas').addEventListener('change', function () {
+    const checkboxes = document.querySelectorAll('.replica-checkbox');
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = this.checked;
+    });
+  });
+</script>

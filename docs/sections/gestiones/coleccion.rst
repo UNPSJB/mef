@@ -12,12 +12,16 @@ ___________
 Bienvenido al listado de Dinoasurios. 
 El presente listado le presentará un detalle de todos los dinosaurios en
 la base de datos con sus detalles.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá filtrar la búsqueda de dinosaurios de acuerdo 
+a su nombre, período, alimentación, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/coleccion/dinosaurio/ListaDinosaurios
    :width: 800
 
 Puede seleccionar el simbolo 'hueso' para ver en detalles todos los huesos
-del dinosaurio. 
+del dinosaurio.
 
 .. image:: ../images/hueso
    :width: 50
@@ -60,29 +64,6 @@ Todos estos campos son obligatorios.
 .. image:: ../images/coleccion/dinosaurio/AgregarDinosaurio
    :width: 800
 
-**Editar Dinosaurio**
-
-Esta es la sección de modificación del dinosaurio.
-En esta sección podremos editar:
-
-*   El nombre científico.
-
-*   El tipo de alimentación (carnívoro, hervíboro u omnívoro).
-
-*   El período en el que existió (cretácico, jurásico o triásico).
-
-*   La fecha de descubrimiento (que, por lógica, debe ser menor a la fecha actual).
-
-*   La subclase (que se verá en una lista desplegable de clases cargadas previamente).
-
-Todos estos campos son obligatorios.
-
-No se puede editar el listado de huesos.
-
-.. image:: ../images/coleccion/dinosaurio/EditarDinosaurio
-   :width: 800
-
-
 **Listado de Huesos**
 
 Ese es el listado de huesos del dinosaurio seleccionado. No es editable.
@@ -117,6 +98,10 @@ ________
 
 Bienvenido al listado de Fósiles. 
 El presente listado le presentará un detalle de todos los fósiles en la base de datos con sus detalles.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá filtrar la búsqueda de fósiles de acuerdo 
+a su código de colección, dinosaurio al que pertenece, peso, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/coleccion/fosiles/ListadoFosiles
    :width: 800
@@ -186,60 +171,4 @@ Consiste en asignarle:
 Todos estos campos son obligatorios (menos las observaciones).
 
 .. image:: ../images/coleccion/fosiles/EditarFosil
-   :width: 800
-
-
-
-**Baja (Según la docuemntación de Ingeniería I va, pero no está en el software)**
-
-
-Subclases
-_________
-**Pantalla Principal / Listado**
-
-Bienvenido al listado de Subclases. 
-El presente listado le presentará un detalle de todas las Subclases en la base de datos con sus detalles.
-
-.. image:: ../images/coleccion/subclases/ListadoSubclases
-   :width: 800
-
-Puede seleccionar el símbolo 'lápiz' para poder editar su información general.
-
-.. image:: ../images/lapiz
-   :width: 50
-
-Si desea agregar un elemento nuevo, haga click en el símbolo '+'. 
-
-.. image:: ../images/+
-   :width: 50
-
-Si desea exportar un el presente listado puede hacerlo seleccionando entre 'Excel', 'PDF', o 'CSV'
-
-.. image:: ../images/exportar
-   :width: 200
-
-**Alta**
-
-Esta es la sección dedicada al alta de las subclases. 
-
-Consiste en asignarle:
-
-* Descripción, es decir su nombre.
-
-* Y la clase a la que pertenece (Saurisquio/Ornitisquio).
-
-.. image:: ../images/coleccion/subclases/AgregarSubclase
-   :width: 800
-
-**Editar Subclase**
-
-Esta es la sección dedicada a modificar las subclases. 
-
-Consiste en asignarle una nueva:
-
-* Descripción, es decir su nombre.
-
-* Y la clase a la que pertenece (Saurisquio/Ornitisquio).
-
-.. image:: ../images/coleccion/subclases/EditarSubclase
    :width: 800

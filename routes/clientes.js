@@ -4,9 +4,11 @@ const clienteService = require('../services/cliente');
 const personaService = require('../services/persona');
 const { generatePagination } = require('../services/utils');
 const paginate = require('../middlewares/paginate');
+const { sequelize } = require('../models');
 
 //lista todos los clientes
 router.get('/', async (req, res) => {
+  const { success } = req.query;
   try {
     const clientes = await clienteService.getAllClientes(
       {},
@@ -15,7 +17,23 @@ router.get('/', async (req, res) => {
         nest: true,
       }
     );
-    res.render('clientes/cliente', { results: clientes, req });
+    let mensajeCreate;
+    let mensajeEdit
+    let mensajeDelete
+    if (success === 'create') {
+      mensajeCreate = 'Cliente agregado con éxito.';
+    }
+    if (success === 'edit') {
+      mensajeEdit = 'Cliente editado con éxito.';
+    }
+    if (success === 'delete') {
+      mensajeDelete = 'Cliente eliminado con éxito.';
+    }
+    res.render('clientes/cliente', {
+      results: clientes,
+      req,
+      success: mensajeCreate || mensajeEdit || mensajeDelete, // enviar el mensaje adecuado
+    });
   } catch (error) {
     res.redirect('/404');
   }
@@ -24,8 +42,14 @@ router.get('/list', async (req, res) => {
   try {
     const total = await clienteService.countClientes();
     const { start, length, draw, search, columns, order } = req.query;
-    const clientes = await clienteService.getClientesDataTable({ start, length, search, columns, order });
-    res.json({ draw, data: clientes, recordsTotal: total, recordsFiltered: total });
+    const { clientes, recordsFiltered } = await clienteService.getClientesDataTable({
+      start,
+      length,
+      search,
+      columns,
+      order,
+    });
+    res.json({ draw, data: clientes, recordsTotal: total, recordsFiltered: recordsFiltered });
   } catch (error) {
     res.redirect('/404');
   }
@@ -40,7 +64,7 @@ router.get('/editar/:id', async (req, res) => {
   try {
     const cliente = await clienteService.getCliente(id, { raw: true, nest: true });
     const { tipo } = cliente;
-    const [particular, institucional] = [tipo == 'Particular', tipo == 'Institucional'];
+    const [particular, institucional] = [tipo === 'Particular', tipo === 'Institucional'];
 
     res.render('clientes/editar', { particular, institucional, cliente, req });
   } catch (error) {
@@ -50,9 +74,14 @@ router.get('/editar/:id', async (req, res) => {
 
 router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params;
+  const { error } = req.query;
   try {
     const cliente = await clienteService.getCliente(id, { raw: true, nest: true });
-    res.render('clientes/eliminar', { cliente, req });
+    let mensajeError = '';
+    if (error) {
+      mensajeError = 'No se puede eliminar el cliente ya que tiene pedidos asociados';
+    }
+    res.render('clientes/eliminar', { cliente, req, errores: mensajeError });
   } catch (error) {
     res.redirect('/404');
   }
@@ -79,7 +108,7 @@ router.post('/', async (req, res) => {
       personaId = persona.id;
     }
     await clienteService.createCliente(tipo, personaId);
-    res.redirect('/clientes');
+    res.redirect('/clientes?success=create');
   } catch (error) {
     console.log(error)
     const { message, value } = error.errors[0];
@@ -108,7 +137,7 @@ router.put('/', async (req, res) => {
     await personaDB.update({
       ...req.body,
     });
-    res.redirect('/clientes');
+    res.redirect('/clientes?success=edit');
   } catch (error) {
     const { message } = error.errors[0];
     const cliente = await clienteService.getCliente(idCliente);
@@ -119,8 +148,13 @@ router.put('/', async (req, res) => {
 router.delete('/', async (req, res) => {
   const { id } = req.body;
   try {
+    const cliente = await clienteService.getCliente(id);
+    const pedidos = await sequelize.models.Pedido.findAll({ where: { PersonaId: cliente.Persona.id } });
+    if (pedidos.length) {
+      return res.redirect(`clientes/eliminar/${id}?error=1`);
+    }
     await clienteService.deleteCliente(id);
-    res.redirect('/clientes');
+    res.redirect('/clientes?success=delete');
   } catch (error) {
     res.redirect('/404');
   }

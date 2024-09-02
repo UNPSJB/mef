@@ -52,6 +52,7 @@
 
               <!--Cantidad de personas-->
               <label class="font-weight-bold" for="cantidadPersonas">Cantidad de Personas</label>
+              <input type="hidden" name="idVisitaEditar" value="{{visita.id}}">
               <input type="number" class="form-control" name="cantidadPersonas" min="1" max="300"
                 placeholder="Ingrese Cantidad de Personas" value="{{visita.cantidadDePersonas}}" required>
               <small class="form-text-muted text-muted">Mínimo 1 persona. Máximo 300.</small>
@@ -64,44 +65,18 @@
                 value="{{visita.fechaVisita}}" required>
               <small class="form-text-muted text-muted">Fecha de la visita guiada. La visita debe ser igual o posterior
                 a hoy</small><br>
-
-              <!--Horario-->
-              <label class="font-weight-bold" for="email">Horario</label>
-              <select class="form-control" name="horario">
-                <option value="{{visita.horario}}" selected>{{visita.horario}}</option>
-                <option value="9:00hs">
-                  9:00hs
-                </option>
-                <option value="10:00hs">
-                  10:00hs
-                </option>
-                <option value="11:00hs">
-                  11:00hs
-                </option>
-                <option value="12:00hs">
-                  12:00hs
-                </option>
-                <option value="13:00hs">
-                  13:00hs
-                </option>
-                <option value="14:00hs">
-                  14:00hs
-                </option>
-                <option value="15:00hs">
-                  15:00hs
-                </option>
-                <option value="16:00hs">
-                  16:00hs
-                </option>
-                <option value="17:00hs">
-                  17:00hs
-                </option>
-                <option value="18:00hs">
-                  18:00hs
-                </option>
-              </select>
-              <small class="form-text-muted text-muted">Horario de la visita guiada.</small><br>
-
+              <div class="form-group">
+                <label class="font-weight-bold" for="horario">Horario</label>
+                <select class="form-control" name="horario">
+                  <option value="{{visita.horario}}" selected>{{visita.horario}}</option>
+                  {{#each horariosDisponibles}}
+                  <option value="{{this}}">{{this}}</option>
+                  {{else}}
+                  <option value="" disabled>No hay horarios disponibles</option>
+                  {{/each}}
+                </select>
+                <small class="form-text-muted text-muted">Horario de la visita guiada.</small>
+              </div>
               <!--Precio-->
               <label class="font-weight-bold" for="precio">Precio</label>
               <input class="form-control" type="number" name="precio" min="1" max="3000000" value="{{visita.precio}}"
@@ -143,12 +118,18 @@
 </div>
 
 
-<!--Setea la fecha actual como la fecha mínima de "encontrado".-->
 <script>
+  //Ponemos fecha mínima "mañana" porque si ponemos "hoy" puede haber problemas en el horario, si ponemos una hora de "hoy" que ya pasó. 
   $(document).ready(function () {
-    var hoy = formatDate(new Date());
-    document.getElementById("fechaVisita").setAttribute("min", hoy);
+    const manana = calcularFechaManana();
+    document.getElementById("fechaVisita").setAttribute("min", manana);
   })
+  // Setea la fecha de mañana como la fecha mínima de la visita.
+  function calcularFechaManana() {
+    const mañana = new Date();
+    mañana.setDate(mañana.getDate() + 1);
+    return formatDate(mañana);
+  }
   function formatDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
@@ -160,14 +141,9 @@
       day = '0' + day;
     return [year, month, day].join('-');
   }
-</script>
 
-
-<!--Script que oculta el ESTADO actual de la visita para que no se vea repetido entre las opciones.-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function () {
-    var estadoVisita = "{{visita.estado}}";
+    $(document).ready(function () {
+    var estadoVisita = "{{ visita.estado }}";
     if (estadoVisita === "Pendiente") {
       $("#pendiente").attr("selected", "selected");
     } else if (estadoVisita === "Finalizada") {
@@ -178,13 +154,15 @@
   });
 </script>
 
+  <!--Script que oculta el ESTADO actual de la visita para que no se vea repetido entre las opciones.-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--Script que oculta la EXHIBICIÓN actual de la visita para que no se vea repetido entre las opciones.-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function () {
-    // Mostrar todas las opciones
-    $("select[name='exhibicionId'] option").css("display", "");
+    $(document).ready(function () {
+      // Mostrar todas las opciones
+      $("select[name='exhibicionId'] option").css("display", "");
 
     // Ocultar la opción seleccionada
     $("select[name='exhibicionId'] option:selected").css("display", "none");
@@ -194,9 +172,9 @@
 <!--Script que oculta al CLIENTE actual de la visita para que no se vea repetido entre las opciones.-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function () {
-    // Mostrar todas las opciones
-    $("select[name='clienteId'] option").css("display", "");
+    $(document).ready(function () {
+      // Mostrar todas las opciones
+      $("select[name='clienteId'] option").css("display", "");
 
     // Ocultar la opción seleccionada
     $("select[name='clienteId'] option:selected").css("display", "none");
@@ -206,9 +184,9 @@
 <!--Script que oculta al GUÍA actual de la visita para que no se vea repetido entre las opciones.-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function () {
-    // Mostrar todas las opciones
-    $("select[name='guiaId'] option").css("display", "");
+    $(document).ready(function () {
+      // Mostrar todas las opciones
+      $("select[name='guiaId'] option").css("display", "");
 
     // Ocultar la opción seleccionada
     $("select[name='guiaId'] option:selected").css("display", "none");
@@ -218,9 +196,9 @@
 <!--Script que oculta al HORARIO actual de la visita para que no se vea repetido entre las opciones.-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function () {
-    // Mostrar todas las opciones
-    $("select[name='horario'] option").css("display", "");
+    $(document).ready(function () {
+      // Mostrar todas las opciones
+      $("select[name='horario'] option").css("display", "");
 
     // Ocultar la opción seleccionada
     $("select[name='horario'] option:selected").css("display", "none");

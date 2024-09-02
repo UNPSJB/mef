@@ -3,7 +3,7 @@ Gestión de Jefe de Recursos Humanos
 
 Bienvenido a la Gestión de Recursos Humanos. En esta sección usted podrá ver, crear, editar y eliminar a los guías y empleados del museo.
 
-.. image:: ../images/rrhh/empleados/Bienvenido.jpg
+.. image:: ../images/rrhh/Bienvenido
    :width: 800
 
 Puede seleccionar el símbolo 'lápiz' para poder editar su información general.
@@ -33,6 +33,10 @@ ___________________
 
 Bienvenido al listado de Empleados de Taller. 
 El presente listado le presentará un detalle de todos los emplados en la base de datos con sus detalles.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá buscar al empleado de taller de acuerdo 
+al documento del empleado, nombre o apellido, Dirección, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/rrhh/empleados/ListaEmpleados.jpg
    :width: 800
@@ -91,7 +95,7 @@ Consiste en poder modificar:
 
 Esta es la sección dedicada a eliminar empleados.
 
-Seleccione al empelado que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará al empleado, si cancela, no se eliminará y volverá al listado de empleados.
+Seleccione al empleado que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará al empleado, si cancela, no se eliminará y volverá al listado de empleados.
 
 .. image:: ../images/rrhh/empleados/EliminarEmpleado.jpg
    :width: 800
@@ -100,8 +104,13 @@ Guías
 _____
 
 **Pantalla Principal / Listado**
+
 Bienvenido al listado de Guías. 
 El presente listado le presentará un detalle de todos los guías en la base de datos con sus detalles.
+Cuenta con una herramienta de búsqueda (lupa) con la que podrá buscar al guía de acuerdo 
+a el nombre del guía, su documento, dirección, etc.
+También tiene flechas de ordenación al lado del titulo de cada columna que le permitirá ordenar los elementos 
+de acuerdo al atributo de dicha columna de forma ascendente o descendete.
 
 .. image:: ../images/rrhh/guias/ListadoGuias.jpg
    :width: 800

@@ -4,7 +4,6 @@ const { Op, literal } = require('sequelize');
 const MIN_CHARS = 1;
 const genericSearch = (search, fields) => {
   return fields.map(field => {
-    console.log(field);
     if (field === 'Dinosaurio.nombre') {
       return literal(`"Dinosaurio"."nombre" ILIKE '%${search}%'`);
     }
@@ -22,7 +21,7 @@ module.exports = {
       },
     });
   },
-  getFosilesDataTable({ start, length, search, order, columns }) {
+  async getFosilesDataTable({ start, length, search, order, columns }) {
     let querySearch = undefined;
     const [orderValue] = order;
     const columnOrder = columns[parseInt(orderValue.column)].data
@@ -44,14 +43,26 @@ module.exports = {
       };
     }
 
-    return models.Fosil.findAll({
-      limit: length,
-      offset: start,
+    // Contar el número de registros filtrados
+    const recordsFiltered = await models.Fosil.count({
+      where: querySearch,
+      include: [{ model: models.Dinosaurio, as: 'Dinosaurio' }],
+    });
+
+    // Imprimir la cantidad de registros filtrados en la consola
+    console.log(`Número de registros filtrados: ${recordsFiltered}`);
+
+    const fosiles = await models.Fosil.findAll({
+      limit: parseInt(length),
+      offset: parseInt(start),
       where: querySearch,
       order: literal(`${columnOrder} ${orderValue.dir}`),
       include: [{ model: models.Dinosaurio, as: 'Dinosaurio' }],
     });
+
+    return { fosiles, recordsFiltered };
   },
+
   countFosiles() {
     return models.Fosil.count();
   },

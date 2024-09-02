@@ -4,10 +4,15 @@
   <a class="btn btn-success btn-primary border border-light" href="/pedidos/agregar" role="button">
     +
   </a>
-  {{/if}}
-  <a href="http://localhost:4001/docs/sections/gestiones/exhibicion.html#pedidos" class="btn btn-info ml-auto">
+  <a href="/docs/sections/gestiones/exhibicion.html#pedidos" class="btn btn-info ml-auto" target="_blank">
     Manual
   </a>
+  {{/if}}
+  {{#if req.taller}}
+  <a href="docs/sections/gestiones/taller.html#pedidos" class="btn btn-info ml-auto" target="_blank">
+    Manual
+  </a>
+  {{/if}}
 </h1>
 
 <table class="table" id="pedidos">
@@ -15,52 +20,151 @@
     <th>#</th>
     <th>Dinosaurio</th>
     <th>Estado</th>
-    <th>Cliente</th>
+    <th data-column="nombreApellido">Cliente</th>
     <th>Inicio Pedido</th>
     <th>Descripción</th>
-    <th scope="col" data-orderable="false">Acciones</th>
+    <th class="no-export" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
-    {{#each pedidos}}
-    <tr class="{{this.estadoInstance}} {{req.exhibicion}} {{req.taller}}">
-      <td class="id">{{this.id}}</td>
-      <td>
-        {{#if this.detallesPedido.length}} <!-- Verificar si hay detalles -->
-        {{this.detallesPedido.[0].nombreDinosaurio}} <!-- Mostrar el nombre del primer dinosaurio en detalles -->
-        {{else}}
-        <i>No hay Dino</i> <!-- Mostrar el mensaje si no hay detalles -->
-        {{/if}}
-      </td>
-      <td>{{this.estadoInstance}}</td>
-      <td class="cliente">
-        {{#with this.Persona as |Cliente|}}
-        {{Cliente.apellido}}, {{Cliente.nombre}}
-        {{else}}
-        <i>Interno</i>
-        {{/with}}
-      </td>
-      <td class="shortDateFormat">
-        {{this.createdAt}}
-      </td>
-      <td>
-        {{#with this.motivo}}
-        {{this}}
-        {{else}}
-        <i>No hay Descripción</i>
-        {{/with}}
-      </td>
-    </tr>
-    {{/each}}
   </tbody>
 </table>
 <script>
   $(document).ready(function () {
     $('#pedidos').DataTable({
       dom: 'Bfrtip',
-      buttons: ['pdf', 'excel', 'csv'],
+      buttons: [
+        {
+          extend: 'pdf',
+          orientation: 'landscape',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'excel',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        },
+        {
+          extend: 'csv',
+          exportOptions: {
+            columns: ':not(.no-export)'
+          }
+        }
+      ],
       searching: true,
       ordering: true,
-      order: [[3, 'desc']],
+      serverSide: true,
+      order: [[0, 'desc']],
+      ajax: '/pedidos/list',
+      columns: [
+        { data: 'id' },
+        { data: 'Dinosaurio_nombre' },
+        { data: 'ultimo_estado' },
+        {
+          data: 'Persona_nombre',
+          render: function (data, type, row) {
+            if (row.Persona_nombre && row.Persona_apellido) {
+              return row.Persona_nombre + ' ' + row.Persona_apellido;
+            } else {
+              return 'Interno';
+            }
+          },
+          orderData: [3] // Column to sort by (index starts at 0)
+        },
+        {
+          data: 'createdAt',
+          render: function (data, type, row) {
+            const fecha = new Date(data);
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1;
+            const anio = fecha.getFullYear();
+            const fechaFormateada = `${dia < 10 ? '0' + dia : dia}-${mes < 10 ? '0' + mes : mes}-${anio}`;
+            return fechaFormateada;
+          }
+        },
+        {
+          data: 'motivo',
+          render: function (data, type, row) {
+            if (row.motivo && row.motivo.trim().length > 0) {
+              return row.motivo;
+            } else {
+              return 'Sin descripción';
+            }
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            const taller = "{{req.taller}}"
+            const exhibicion = "{{req.exhibicion}}"
+
+            const { ultimo_estado, id, PersonaId } = data;
+
+            const detalle = 'Detalle'
+            const fabricar = 'Fabricando'
+            const empleados = 'Empleados'
+            const demorar = 'Demorado'
+            const finalizar = 'Finalizado'
+            const entregar = 'Entregado'
+            const reanudar = "Reanudar"
+
+            const presupuestar = 'Presupuestado'
+            const cancelar = 'Cancelado'
+            const facturar = 'Facturado'
+            const confirmar = 'Confirmado'
+
+            const EXHIBICION_ESTADOS = {
+              presupuestar,
+              cancelar,
+              facturar,
+              confirmar,
+            }
+            const TALLER_ESTADOS = {
+              fabricar,
+              demorar,
+              finalizar,
+              entregar,
+              reanudar,
+            }
+            let estados = { detalle };
+
+            if (taller) {
+              if (ultimo_estado === confirmar) {
+                estados = { fabricar, ...estados };
+              }
+              if (ultimo_estado === fabricar) {
+                estados = { finalizar, demorar, empleados, ...estados };
+              }
+              if (ultimo_estado === demorar) {
+                estados = { reanudar, ...estados }
+              }
+              if (ultimo_estado === finalizar) {
+                if (PersonaId) {
+                  estados = { entregar, ...estados }
+                }
+              }
+            }
+            if (exhibicion) {
+              if (ultimo_estado === presupuestar) {
+                estados = { facturar, cancelar, ...estados }
+              }
+              if (ultimo_estado === facturar) {
+                estados = { confirmar, ...estados }
+              }
+            }
+
+            const botones = Object.keys(estados).reduce((acc, estado, index) => {
+              const estadoTexto = estados[estado]
+              acc += `<a  class='btn btn-primary' href='/pedidos/${estado}/${id}'>${estadoTexto}</a>`
+              return acc
+            }, '')
+            return botones
+          }
+        }
+
+      ],
       language: {
         processing: "Buscando...",
         search: "Buscar:",
@@ -86,13 +190,12 @@
       columnDefs: [
         {
           targets: 'acciones',
-          orderable: false,
-        },
+          orderable: false
+        }
       ],
     });
   });
 </script>
-
 
 <script>
   const FABRICAR = 'Fabricando'
@@ -211,14 +314,11 @@
     })
 
   }
-
-
   function fabricar(accion, id) {
     let capitlizado = accion.charAt(0).toUpperCase() + accion.slice(1);
     return `<a id='${accion}' class='btn btn-primary' href='/pedidos/${accion}/${id}'>${capitlizado}</a>`;
-  }
+  }   
 </script>
-
 
 
 <link rel="stylesheet" type="text/css"

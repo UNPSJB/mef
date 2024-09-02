@@ -1,10 +1,13 @@
 <div class="text-center">
     <h4 class="pt-2" style="color: #000000; font-weight: bold;">
-    <span style="text-decoration: underline;">Detalle del Pedido #{{id}}:</span>
-    {{dinosaurio.nombre}}
+        <span style="text-decoration: underline;">Detalle del Pedido #{{id}}:</span>
+        {{dinosaurio.nombre}}
     </h4>
-</div>
 
+    {{#if cantidadEmpleadosAsignados}}
+    <h5>Cantidad De Empleados Asignados: {{cantidadEmpleadosAsignados}}</h5>
+    {{/if}}
+</div>
 <div class="container">
     <div class="row border p-2">
         <div class="col">
@@ -79,6 +82,7 @@
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#{{estadoInstance}}"
                                     id="mostrar-{{estadoInstance}}">Detalles</button>
                             </td>
+
                         </tr>
                         {{/each}}
                     </tbody>
@@ -87,8 +91,9 @@
         </div>
     </div>
     {{#each estados}}
-    {{> estados/todos this}}
+    {{> estados/todos this cantidadEmpleados=cantidadEmpleados }}
     {{/each}}
+    {{> estados/todos cantidadEmpleados=cantidadEmpleados }}
 </div>
 
 <script>
@@ -121,4 +126,5 @@
             }
         });
     });
+
 </script>

@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
         monto: DataTypes.FLOAT,
         moneda: {
             type: DataTypes.ENUM,
-            values: ['Pesos Argentinos', 'Dolares', 'Euros']
+            values: ['Pesos Argentinos', 'Dólares', 'Euros']
         },
         fecha_fin_oferta: DataTypes.DATEONLY,
         PedidoId: {
