@@ -96,17 +96,6 @@ router.get('/huesos/:id', async (req, res) => {
   }
 });
 
-router.patch('/moldes/toggle', async (req, res) => {
-  try {
-    const { id } = req.query;
-    await huesoService.toggleDisponibilidadHueso(id);
-    res.sendStatus(200); // Enviar un estado de respuesta adecuado
-  } catch (error) {
-    console.error(error);
-    res.sendStatus(500); // Enviar un estado de error en caso de que ocurra un error
-  }
-});
-
 router.post('/', async (req, res) => {
   // esto llama a dino service
   const { nombre, alimentacion, periodo, descubrimiento, idsubclase } = req.body;
