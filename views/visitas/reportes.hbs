@@ -51,50 +51,50 @@
 
 <script>
   // SCRIPT PARA EL SEGUNDO GRAFICO (BARRAS APILADAS)
-const ctx2 = document.getElementById('myChart2');
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-const data2 = {
-  labels: labels,
-  datasets: [
-    {
-      label: '18 a 35 años',
-      data: [10, 15, 10],
-      backgroundColor: ['rgb(255, 99, 132)'],
-    },
-    {
-      label: '36 a 55 años ',
-      data: [20, 22, 35],
-      backgroundColor: ['rgb(255, 159, 64)'],
-    },
-    {
-      label: 'mayores de 55 años',
-      data: [2, 5, 10],
-      backgroundColor: ['rgb(255, 205, 86)'],
-    },
-  ]
-};
+  const ctx2 = document.getElementById('myChart2');
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const data2 = {
+    labels: labels,
+    datasets: [
+      {
+        label: '18 a 35 años',
+        data: [10, 15, 10],
+        backgroundColor: ['rgb(255, 99, 132)'],
+      },
+      {
+        label: '36 a 55 años ',
+        data: [20, 22, 35],
+        backgroundColor: ['rgb(255, 159, 64)'],
+      },
+      {
+        label: 'mayores de 55 años',
+        data: [2, 5, 10],
+        backgroundColor: ['rgb(255, 205, 86)'],
+      },
+    ]
+  };
 
   const config = {
-  type: 'bar',
-  data: data2,
-  options: {
-    plugins: {
-      title: {
-        display: true,
-        text: 'Chart.js Bar Chart - Stacked'
+    type: 'bar',
+    data: data2,
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Chart.js Bar Chart - Stacked'
+        },
       },
-    },
-    responsive: true,
-    scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true
+        }
       }
     }
-  }
-};
+  };
 
-  new Chart(ctx2,config);
+  new Chart(ctx2, config);
 </script>
