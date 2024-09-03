@@ -6,7 +6,7 @@ Uno de los roles más complejos y con mayor cantidad de tareas que hay en el sis
 el Listado de **Huesos** hasta todo lo relacionado a la creación de **Réplicas**. Las tareas relacionadas a la 
 creación de **Réplicas** son, fabricarlas, demorarlas en caso de algún inconveniente, asignar a los empleados 
 de taller para que trabajen sobre la misma, reanudar la replicación luego de solucionado el inconveniente, 
-finalizarla, entregarla, eliminarla, crear el molde y ver el listado de las **Réplicas**.
+finalizarla, entregarla, eliminarla y ver el listado de las **Réplicas**.
 
 * **Jefe de Exhibición**
 Es el segundo rol que más tareas posee. Esta persona administra tanto la base de datos de **Clientes**, como la

@@ -6,11 +6,6 @@
 </div>
 
 
-<!-- Toggle global -->
-<input type="checkbox" id="toggleGlobal" onchange="toggleGlobal(this.checked)">
-<label for="toggleGlobal">Habilitar/Deshabilitar todos los moldes</label>
-
-
 {{#each huesosAgrupados }}
 <div class="huesos-agrupados">
   <a class="btn btn-secondary btn-block my-2" data-toggle="collapse" href="#{{this.[0].agrupado}}" role="button"
@@ -27,9 +22,6 @@
             <th>Hueso</th>
             <th>Tipo</th>
             <th>Subtipo</th>
-            {{#if ../req.taller}}
-            <th>Tiene Molde</th>
-            {{/if}}
           </thead>
           <tbody>
             {{#each this}}
@@ -39,17 +31,6 @@
               <td>{{this.huesos.nombre}} {{this.huesos.numero}}</td>
               <td>{{this.huesos.tipohueso}}</td>
               <td>{{this.huesos.subtipohueso}}</td>
-              <!--Disponible Significa que el hueso Tiene Molde -->
-              <td>
-                <form action="/dinosaurios/moldes/toggle" method="PATCH">
-                  <label class="switch">
-                    <!-- Agrega un atributo de datos para identificar el checkbox individual -->
-                    <input type="checkbox" data-id="{{this.huesos.id}}" onchange="toggleMolde('{{this.huesos.id}}')"
-                      {{#if this.huesos.disponible}}checked{{/if}}>
-                    <span class="slider round"></span>
-                  </label>
-                </form>
-              </td>
             </tr>
             {{/each}}
           </tbody>
@@ -59,53 +40,6 @@
   </div>
 </div>
 {{/each}}
-
-<script>
-  function toggleGlobal(checked) {
-    // Selecciona todos los checkboxes individuales
-    var checkboxes = document.querySelectorAll('input[type="checkbox"][data-id]');
-
-    // Itera sobre los checkboxes y actualiza su estado
-    checkboxes.forEach(function (checkbox) {
-      checkbox.checked = checked;
-      // Llama a la función para manejar el cambio de disponibilidad
-      toggleMolde(checkbox.getAttribute('data-id'));
-    });
-  }
-
-  function toggleDisponible(id) {
-    console.log("Toggle Disponible called with ID:", id);
-    // Obtén la referencia al checkbox
-    var checkbox = document.querySelector(`input[data-id="${id}"]`);
-
-    // Actualiza el valor de 'disponible' directamente en el objeto
-    this.huesos.disponible = checkbox.checked;
-
-    // Puedes realizar otras acciones según sea necesario
-
-    console.log("Nuevo valor de Disponible:", this.huesos.disponible);
-  }
-
-  function toggleMolde(id) {
-    fetch(`/dinosaurios/moldes/toggle?id=${id}`, {
-      method: "PATCH",
-      credentials: "same-origin",
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log("Toggle Molde response:", data);
-        // Puedes realizar acciones adicionales según la respuesta del servidor, si es necesario
-      })
-      .catch(error => {
-        console.error("Toggle Molde error:", error);
-      });
-  }
-</script>
 
 
 <style>
