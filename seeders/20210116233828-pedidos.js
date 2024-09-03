@@ -1,36 +1,35 @@
-'use strict';
-
-const MAX_PEDIDOS = 300; // Cantidad máxima de pedidos
+const MAX_PEDIDOS = 3000; // Cantidad máxima de pedidos
 const MAX_DETALLES_POR_PEDIDO = 5; // Cantidad máxima de detalles por pedido
 
 const START_ID_PRESUPUESTADOS = 1;
-const END_ID_PRESUPUESTADOS = 150;
+const END_ID_PRESUPUESTADOS = 1050;
 
 const START_ID_CANCELADOS = 1;
-const END_ID_CANCELADOS = 50;
+const END_ID_CANCELADOS = 500;
 
-const START_ID_CONFIRMADOS = 51;
-const END_ID_CONFIRMADOS = 300;
+const START_ID_CONFIRMADOS = 501;
+const END_ID_CONFIRMADOS = 3000;
 
-const START_ID_FABRICANDOS = 51;
-const END_ID_FABRICANDOS = 300;
+const START_ID_FABRICANDOS = 501;
+const END_ID_FABRICANDOS = 3000;
 
-const START_ID_DEMORADOS = 51;
-const END_ID_DEMORADOS = 100;
+const START_ID_DEMORADOS = 501;
+const END_ID_DEMORADOS = 1000;
 
-const START_ID_FINALIZADOS = 101;
-const END_ID_FINALIZADOS = 300;
+const START_ID_FINALIZADOS = 1001;
+const END_ID_FINALIZADOS = 3000;
 
 // Esto es asi porque solo los primeros 150 son presupuestados
-const START_ID_ENTREGADOS = 101;
-const END_ID_ENTREGADOS = 150;
+const START_ID_ENTREGADOS = 1001;
+const END_ID_ENTREGADOS = 1500;
+const PEDIDOS_POR_PERSONA=15
 
-function getRandomDateWithinFourMonths() {
+function getRandomDateWithinFiveYears() {
   const currentDate = new Date();
-  const fourMonthsAgo = new Date();
-  fourMonthsAgo.setMonth(currentDate.getMonth() - 4);
-  const randomTime = Math.random() * (currentDate.getTime() - fourMonthsAgo.getTime());
-  return new Date(fourMonthsAgo.getTime() + randomTime);
+  const fiveYearsAgo = new Date();
+  fiveYearsAgo.setFullYear(currentDate.getFullYear() - 5);
+  const randomTime = Math.random() * (currentDate.getTime() - fiveYearsAgo.getTime());
+  return new Date(fiveYearsAgo.getTime() + randomTime);
 }
 
 function generarMoneda() {
@@ -51,12 +50,13 @@ module.exports = {
 
     // Insertar registros en la tabla 'Pedidos'
     for (let pedidoId = 1; pedidoId <= MAX_PEDIDOS; pedidoId++) {
-      const randomDate = getRandomDateWithinFourMonths();
+      const randomDate =getRandomDateWithinFiveYears();
+      const personaIndex = Math.floor((pedidoId - 1) / PEDIDOS_POR_PERSONA) + 101;
       const pedido = {
         autorizacion: true,
         motivo: '',
         tipo: pedidoId <= MAX_PEDIDOS / 2 ? 'Externo' : 'Interno',
-        PersonaId: pedidoId <= MAX_PEDIDOS / 2 ? pedidoId : null,
+        PersonaId: pedidoId <= MAX_PEDIDOS / 2 ? personaIndex : null,
         createdAt: randomDate,
         updatedAt: randomDate,
         deletedAt: null,
@@ -70,7 +70,7 @@ module.exports = {
       const numDetalles = Math.floor(Math.random() * (MAX_DETALLES_POR_PEDIDO - 2) + 2); // Número aleatorio entre 2 y 5
 
       for (let i = 0; i < numDetalles; i++) {
-        const randomDate = getRandomDateWithinFourMonths();
+        const randomDate =  getRandomDateWithinFiveYears();
         const detalle = {
           cantidad: Math.floor(Math.random() * 10) + 1,
           PedidoId: pedidoId,

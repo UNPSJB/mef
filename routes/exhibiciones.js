@@ -36,6 +36,20 @@ router.get('/detalle/:id', async (req, res) => {
     res.redirect('/404');
   }
 });
+router.get('/reportes', async (req, res) => {
+  const pedidosDemorados = await pedidoService.getPedidosDemorados();
+  const motivosDemora = {
+    faltaDePersonal: pedidosDemorados.falta_de_personal,
+    faltaDeMaterial: pedidosDemorados.falta_de_material,
+    faltaDePresupuesto: pedidosDemorados.falta_de_presupuesto,
+    otros: pedidosDemorados.otros,
+  };
+  res.render('exhibiciones/reportes', {
+    motivosDemora,
+    totalDemorados: pedidosDemorados.total_pedidos_demorados,
+    req,
+  });
+});
 
 router.get('/agregar', async (req, res) => {
   try {

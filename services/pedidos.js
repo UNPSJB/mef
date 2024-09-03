@@ -52,6 +52,42 @@ module.exports = {
       ...paginateModel({ page, pageSize }),
     });
   },
+  async buscarAnosPedidosDemorados() {
+    const [result] = await models.sequelize.query(
+      `SELECT DISTINCT EXTRACT(YEAR FROM "Demorados"."createdAt") AS year
+      FROM "Pedidos" AS "Pedido"
+      LEFT JOIN LATERAL 
+        (SELECT * FROM "Demorados" WHERE "Demorados"."PedidoId" = "Pedido"."id" ORDER BY "Demorados"."createdAt" DESC LIMIT 1) AS "Demorados"
+        ON "Pedido"."id" = "Demorados"."PedidoId"
+      WHERE "Demorados"."createdAt" IS NOT NULL
+      ORDER BY year`
+    );
+
+    return result.map(row => row.year);
+  },
+  async getPedidosDemorados() {
+    const [result] = await models.sequelize.query(
+      `SELECT
+        COUNT("Demorado"."id") AS total_pedidos_demorados,
+        SUM(CASE WHEN "Demorado"."motivo_demora" = 'Falta De Personal' THEN 1 ELSE 0 END) AS falta_de_personal,
+        SUM(CASE WHEN "Demorado"."motivo_demora" = 'Falta De Material' THEN 1 ELSE 0 END) AS falta_de_material,
+        SUM(CASE WHEN "Demorado"."motivo_demora" = 'Falta De Presupuesto' THEN 1 ELSE 0 END) AS falta_de_presupuesto,
+        SUM(CASE WHEN "Demorado"."motivo_demora" = 'Otros' THEN 1 ELSE 0 END) AS otros
+      FROM
+        "Demorados" AS "Demorado"`,
+      { raw: true }
+    );
+
+    // Extrae el primer objeto del array y convierte los valores a números
+    const data = result[0] || {};
+    return {
+      total_pedidos_demorados: parseInt(data.total_pedidos_demorados, 10),
+      falta_de_personal: parseInt(data.falta_de_personal, 10),
+      falta_de_material: parseInt(data.falta_de_material, 10),
+      falta_de_presupuesto: parseInt(data.falta_de_presupuesto, 10),
+      otros: parseInt(data.otros, 10),
+    };
+  },
   async getPedidosDataTable({ start, length, search, order, columns }) {
     let querySearch = undefined;
     const [orderValue] = order;
