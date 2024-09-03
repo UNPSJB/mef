@@ -1,8 +1,14 @@
 <h1>Pedidos Demorados</h1>
 
 <!-- Gráfico de Barras -->
-<div style="max-width: 800px; margin: auto;">
+<div style="max-width: 400px; margin: auto;">
   <canvas id="myChart"></canvas>
+  <select id="selectorAnio">
+    {{!-- @TODO nice to have, solo deberian aparecen los años que tienen datos --}}
+    <option value="2024">2024</option>
+    <option value="2023">2023</option>
+    <option value="2022">2022</option>
+  </select>
 </div>
 
 <!-- Lista de Etiquetas Debajo del Gráfico -->
@@ -12,16 +18,25 @@
 <script>
   // SCRIPT PARA EL GRAFICO (BARRAS) - Motivos de Demora
   const ctx = document.getElementById('myChart').getContext('2d');
-  const data = {
-    labels: ['Falta De Personal', 'Falta De Material', 'Falta De Presupuesto', 'Otros'],
-    datasets: [{
-      label: 'Motivos de Demora',
-      data: [
+  const dataIncial = [
         {{ motivosDemora.faltaDePersonal }},
         {{ motivosDemora.faltaDeMaterial }},
         {{ motivosDemora.faltaDePresupuesto }},
         {{ motivosDemora.otros }}
-      ],
+      ]
+
+  let dataNueva;
+
+  const defaultData = {
+      labels: ['Falta De Personal', 'Falta De Material', 'Falta De Presupuesto', 'Otros'],
+      borderWidth: 1
+  }
+
+  const data = {
+    ...defaultData,
+    datasets: [{
+      label: 'Motivos de Demora',
+      data: dataIncial,
       backgroundColor: [
         'rgb(255, 99, 132)',
         'rgb(255, 159, 64)',
@@ -34,12 +49,11 @@
         'rgb(255, 205, 86)',
         'rgb(75, 192, 192)'
       ],
-      borderWidth: 1
     }]
   };
 
-  new Chart(ctx, {
-    type: 'bar',
+  const myChart = new Chart(ctx, {
+    type: 'pie',
     data: data,
     options: {
       responsive: true,
@@ -52,24 +66,30 @@
           text: 'Motivos de Demora en Pedidos'
         }
       },
-      scales: {
-        x: {
-          beginAtZero: true
-        },
-        y: {
-          beginAtZero: true
-        }
-      }
+
     },
   });
 
-  // Crear etiquetas debajo del gráfico
-  const legendContainer = document.getElementById('legend');
-  const legendHtml = data.labels.map((label, index) => {
-    return `<div>
-      <span style="background-color: ${data.datasets[0].backgroundColor[index]}; width: 10px; height: 10px; display: inline-block; margin-right: 5px;"></span>
-      ${label}: ${data.datasets[0].data[index]}
-    </div>`;
-  }).join('');
-  legendContainer.innerHTML = legendHtml;
+
+
+
+  $("#selectorAnio").change(function(){
+    // make an fetch request to get /exhibiciones/reportes
+    // with the selected year
+    // and update the data
+    fetch(`/exhibiciones/reportes/data?anio=${this.value}`)
+      .then(response => response.json())
+      .then(data => {
+        const chartData = myChart.data.datasets;
+
+        chartData[0].data = [
+          data.falta_de_personal,
+          data.falta_de_material,
+          data.falta_de_presupuesto,
+          data.otros
+        ];
+        myChart.data.datasets = chartData;
+        myChart.update();
+      })
+  });
 </script>

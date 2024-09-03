@@ -51,6 +51,23 @@ router.get('/reportes', async (req, res) => {
   });
 });
 
+router.get('/reportes/data', async (req, res) => {
+  const { anio } = req.query;
+  if (anio) {
+    // @TODO hacer la llamada real pasandole el anio
+    // const pedidosDemorados = await pedidoService.getPedidosDemorados(anio);
+    return res.json({
+      total_pedidos_demorados: 5,
+      falta_de_personal: 6,
+      falta_de_material: 2,
+      falta_de_presupuesto: 9,
+      otros: 10,
+    });
+  }
+  const pedidosDemorados = await pedidoService.getPedidosDemorados();
+  return res.json(pedidosDemorados);
+});
+
 router.get('/agregar', async (req, res) => {
   try {
     const replicas = await pedidoService.getReplicas({ disponible: true });

@@ -75,6 +75,7 @@ module.exports = {
         SUM(CASE WHEN "Demorado"."motivo_demora" = 'Otros' THEN 1 ELSE 0 END) AS otros
       FROM
         "Demorados" AS "Demorado"`,
+      // @TODO agregar filtro por año, opcional, si no se pasa el año, se toma el año actual
       { raw: true }
     );
 
