@@ -19,20 +19,16 @@ router.get('/', async (req, res) => {
     );
     let mensajeCreate;
     let mensajeEdit
-    let mensajeDelete
     if (success === 'create') {
       mensajeCreate = 'Cliente agregado con éxito.';
     }
     if (success === 'edit') {
       mensajeEdit = 'Cliente editado con éxito.';
     }
-    if (success === 'delete') {
-      mensajeDelete = 'Cliente eliminado con éxito.';
-    }
     res.render('clientes/cliente', {
       results: clientes,
       req,
-      success: mensajeCreate || mensajeEdit || mensajeDelete, // enviar el mensaje adecuado
+      success: mensajeCreate || mensajeEdit, // enviar el mensaje adecuado
     });
   } catch (error) {
     res.redirect('/404');
@@ -67,21 +63,6 @@ router.get('/editar/:id', async (req, res) => {
     const [particular, institucional] = [tipo === 'Particular', tipo === 'Institucional'];
 
     res.render('clientes/editar', { particular, institucional, cliente, req });
-  } catch (error) {
-    res.redirect('/404');
-  }
-});
-
-router.get('/eliminar/:id', async (req, res) => {
-  const { id } = req.params;
-  const { error } = req.query;
-  try {
-    const cliente = await clienteService.getCliente(id, { raw: true, nest: true });
-    let mensajeError = '';
-    if (error) {
-      mensajeError = 'No se puede eliminar el cliente ya que tiene pedidos asociados';
-    }
-    res.render('clientes/eliminar', { cliente, req, errores: mensajeError });
   } catch (error) {
     res.redirect('/404');
   }
@@ -145,21 +126,6 @@ router.put('/', async (req, res) => {
     const { message } = error.errors[0];
     const cliente = await clienteService.getCliente(idCliente);
     res.render('clientes/editar', { errores: message, cliente, req });
-  }
-});
-
-router.delete('/', async (req, res) => {
-  const { id } = req.body;
-  try {
-    const cliente = await clienteService.getCliente(id);
-    const pedidos = await sequelize.models.Pedido.findAll({ where: { PersonaId: cliente.Persona.id } });
-    if (pedidos.length) {
-      return res.redirect(`clientes/eliminar/${id}?error=1`);
-    }
-    await clienteService.deleteCliente(id);
-    res.redirect('/clientes?success=delete');
-  } catch (error) {
-    res.redirect('/404');
   }
 });
 
