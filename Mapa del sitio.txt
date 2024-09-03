@@ -23,7 +23,6 @@ Mapa del sitio
         agregar
         editar/id
         eliminar/id
-        moldes/id
         huesos/id
 
 
