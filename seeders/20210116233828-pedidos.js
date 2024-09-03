@@ -41,7 +41,6 @@ function generarMotivoDemora() {
   const motivos = ['Falta De Material', 'Falta De Presupuesto', 'Falta De Personal', 'Otros'];
   return motivos[Math.floor(Math.random() * motivos.length)];
 }
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const pedidos = [];
@@ -50,7 +49,7 @@ module.exports = {
 
     // Insertar registros en la tabla 'Pedidos'
     for (let pedidoId = 1; pedidoId <= MAX_PEDIDOS; pedidoId++) {
-      const randomDate =getRandomDateWithinFiveYears();
+      const randomDate = getRandomDateWithinFiveYears();
       const personaIndex = Math.floor((pedidoId - 1) / PEDIDOS_POR_PERSONA) + 101;
       const pedido = {
         autorizacion: true,
@@ -64,30 +63,10 @@ module.exports = {
       pedidos.push(pedido);
       pedidosDates.push(randomDate); // Guardar la fecha generada
     }
-
-    // Insertar registros en la tabla 'Detalles' y usar los IDs generados de 'Pedidos'
-    for (let pedidoId = 1; pedidoId <= MAX_PEDIDOS; pedidoId++) {
-      const numDetalles = Math.floor(Math.random() * (MAX_DETALLES_POR_PEDIDO - 2) + 2); // Número aleatorio entre 2 y 5
-
-      for (let i = 0; i < numDetalles; i++) {
-        const randomDate =  getRandomDateWithinFiveYears();
-        const detalle = {
-          cantidad: Math.floor(Math.random() * 10) + 1,
-          PedidoId: pedidoId,
-          HuesoId: Math.floor(Math.random() * 9) + 1,
-          renglon: i + 1,
-          createdAt: randomDate,
-          updatedAt: randomDate,
-        };
-        detalles.push(detalle);
-      }
-    }
-
+    //// Ordenar los pedidos por 'createdAt' en orden ascendente
+    pedidos.sort((a, b) => a.createdAt - b.createdAt);
     // Insertar registros en la tabla 'Pedidos'
     await queryInterface.bulkInsert('Pedidos', pedidos, {});
-
-    // Insertar registros en la tabla 'Detalles'
-    await queryInterface.bulkInsert('Detalles', detalles, {});
 
     // Obtener los primeros 300 pedidos
     const Pedido = queryInterface.sequelize.define(
@@ -112,19 +91,23 @@ module.exports = {
         },
       },
     });
-    
+
+    // Ordenar por fecha
+    pedidosConfirmados.sort((a, b) => a.createdAt - b.createdAt);
+
     let confirmadoArr = pedidosConfirmados.map(pedido => {
-      const fechaPedidoMasUnDia = new Date(pedido.createdAt.getTime() + 24 * 60 * 60 * 1000 * 2); // Fecha del pedido + 2 día
+      const fechaPedidoMasUnDia = new Date(pedido.createdAt.getTime() + 24 * 60 * 60 * 1000 * 2); // Fecha del pedido + 2 días
       return {
-      descripcion: 'Confirmado',
-      fecha: fechaPedidoMasUnDia, // Fecha del pedido + 1 día
-      PedidoId: pedido.id,
-      createdAt: fechaPedidoMasUnDia,
-      updatedAt: fechaPedidoMasUnDia, // Fecha del pedido + 1 día
-      deletedAt: null,
-      }
+        descripcion: 'Confirmado',
+        fecha: fechaPedidoMasUnDia, // Fecha del pedido + 2 días
+        PedidoId: pedido.id,
+        createdAt: fechaPedidoMasUnDia,
+        updatedAt: fechaPedidoMasUnDia,
+        deletedAt: null,
+      };
     });
 
+    // Insertar registros en la tabla 'Confirmados'
     await queryInterface.bulkInsert('Confirmados', confirmadoArr, {});
 
     // Obtener los primeros 150 pedidos para presupuestados
@@ -138,6 +121,9 @@ module.exports = {
       },
     });
 
+    // Ordenar por fecha
+    pedidosPresupuestados.sort((a, b) => a.createdAt - b.createdAt);
+
     let presupuestadoArr = pedidosPresupuestados.map(pedido => ({
       descripcion: 'Presupuestado',
       fecha: pedido.createdAt, // Mismo día que el pedido
@@ -147,10 +133,11 @@ module.exports = {
       fecha_fin_oferta: new Date(),
       PedidoId: pedido.id,
       createdAt: pedido.createdAt,
-      updatedAt: pedido.createdAt, // Mismo día que el pedido
+      updatedAt: pedido.createdAt,
       deletedAt: null,
     }));
 
+    // Insertar registros en la tabla 'Presupuestados'
     await queryInterface.bulkInsert('Presupuestados', presupuestadoArr, {});
 
     // Cancelar los primeros 50 pedidos presupuestados
@@ -164,19 +151,24 @@ module.exports = {
       },
     });
 
+    // Ordenar por fecha
+    pedidosCancelados.sort((a, b) => a.createdAt - b.createdAt);
+
     let canceladoArr = pedidosCancelados.map((pedido, index) => {
       const fechaPedidoMasUnDia = new Date(pedido.createdAt.getTime() + 24 * 60 * 60 * 1000); // Fecha del pedido + 1 día
       return {
-      fecha_baja: fechaPedidoMasUnDia, // Fecha del pedido + 1 día
-      obs: `Cancelado Observacion ${START_ID_CANCELADOS + index}`,
-      fecha: fechaPedidoMasUnDia, // Fecha del pedido + 1 día
-      descripcion: 'Cancelado',
-      PedidoId: pedido.id,
-      createdAt: fechaPedidoMasUnDia,
-      updatedAt: fechaPedidoMasUnDia, // Fecha del pedido + 1 día
-      deletedAt: null,
-    }});
+        fecha_baja: fechaPedidoMasUnDia,
+        obs: `Cancelado Observacion ${START_ID_CANCELADOS + index}`,
+        fecha: fechaPedidoMasUnDia,
+        descripcion: 'Cancelado',
+        PedidoId: pedido.id,
+        createdAt: fechaPedidoMasUnDia,
+        updatedAt: fechaPedidoMasUnDia,
+        deletedAt: null,
+      };
+    });
 
+    // Insertar registros en la tabla 'Cancelados'
     await queryInterface.bulkInsert('Cancelados', canceladoArr, {});
 
     // Obtener los pedidos del 202 al 212 para fabricandos
@@ -189,6 +181,9 @@ module.exports = {
         },
       },
     });
+
+    // Ordenar por fecha
+    pedidosFabricandos.sort((a, b) => a.createdAt - b.createdAt);
 
     let fabricandoArr = pedidosFabricandos.map(pedido => {
       const fechaPedidoMasTresDias = new Date(pedido.createdAt.getTime() + 3 * 24 * 60 * 60 * 1000); // Fecha del pedido + 3 días
@@ -213,6 +208,7 @@ module.exports = {
       };
     });
 
+    // Insertar registros en la tabla 'Fabricandos'
     await queryInterface.bulkInsert('Fabricandos', fabricandoArr, {});
 
     // Obtener los pedidos del 213 al 233 para demorados
@@ -225,6 +221,9 @@ module.exports = {
         },
       },
     });
+
+    // Ordenar por fecha
+    pedidosDemorados.sort((a, b) => a.createdAt - b.createdAt);
 
     let demoradoArr = pedidosDemorados.map(pedido => {
       const fechaPedidoMasCuatroDias = new Date(pedido.createdAt.getTime() + 4 * 24 * 60 * 60 * 1000); // Fecha del pedido + 4 días
@@ -239,6 +238,7 @@ module.exports = {
       };
     });
 
+    // Insertar registros en la tabla 'Demorados'
     await queryInterface.bulkInsert('Demorados', demoradoArr, {});
 
     // Obtener los pedidos del 234 al 259 para finalizados
@@ -252,8 +252,11 @@ module.exports = {
       },
     });
 
+    // Ordenar por fecha
+    pedidosFinalizados.sort((a, b) => a.createdAt - b.createdAt);
+
     let finalizadoArr = pedidosFinalizados.map(pedido => {
-      const fechaPedidoMasCincoDias = new Date(pedido.createdAt.getTime() + 5 * 24 * 60 * 60 * 1000); // Fecha del pedido + 3 días
+      const fechaPedidoMasCincoDias = new Date(pedido.createdAt.getTime() + 5 * 24 * 60 * 60 * 1000); // Fecha del pedido + 5 días
       const finalizacion = new Date(
         fechaPedidoMasCincoDias.getFullYear(),
         fechaPedidoMasCincoDias.getMonth(),
@@ -269,6 +272,7 @@ module.exports = {
       };
     });
 
+    // Insertar registros en la tabla 'Finalizados'
     await queryInterface.bulkInsert('Finalizados', finalizadoArr, {});
 
     // Obtener los pedidos del 260 al 300 para entregados
@@ -282,25 +286,21 @@ module.exports = {
       },
     });
 
+    // Ordenar por fecha
+    pedidosEntregados.sort((a, b) => a.createdAt - b.createdAt);
+
     let entregadoArr = pedidosEntregados.map(pedido => {
-      const fechaPedidoMasSeisDias = new Date(pedido.createdAt.getTime() + 6 * 24 * 60 * 60 * 1000); // Fecha del pedido + 4 días
-      const fechaEnvio = new Date(
-        fechaPedidoMasSeisDias.getFullYear(),
-        fechaPedidoMasSeisDias.getMonth(),
-        fechaPedidoMasSeisDias.getDate()
-      );
-      const fechaEntrega = new Date(fechaEnvio.getTime() + (Math.floor(Math.random() * 8) + 7) * 24 * 60 * 60 * 1000); // Fecha envio + 7-14 días
+      const fechaPedidoMasSeisDias = new Date(pedido.createdAt.getTime() + 6 * 24 * 60 * 60 * 1000); // Fecha del pedido + 6 días
 
       return {
         fecha: fechaPedidoMasSeisDias,
-        fecha_envio: fechaEnvio,
-        fecha_entrega: fechaEntrega,
         PedidoId: pedido.id,
         createdAt: fechaPedidoMasSeisDias,
         updatedAt: fechaPedidoMasSeisDias,
       };
     });
 
+    // Insertar registros en la tabla 'Entregados'
     await queryInterface.bulkInsert('Entregados', entregadoArr, {});
   },
 };
