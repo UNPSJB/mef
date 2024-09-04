@@ -45,8 +45,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     const pedidos = [];
     const detalles = [];
-    const pedidosDates = []; // Array para guardar las fechas generadas
-
+    const pedidosDates = []; // Array para guardar las fechas generadas para los pedidos
     // Insertar registros en la tabla 'Pedidos'
     for (let pedidoId = 1; pedidoId <= MAX_PEDIDOS; pedidoId++) {
       const randomDate = getRandomDateWithinFiveYears();
@@ -61,13 +60,33 @@ module.exports = {
         deletedAt: null,
       };
       pedidos.push(pedido);
-      pedidosDates.push(randomDate); // Guardar la fecha generada
+      pedidosDates[pedidoId] = randomDate; // Guardar la fecha generada para cada pedido
     }
+        // Insertar registros en la tabla 'Detalles' y usar los IDs generados de 'Pedidos'
+    for (let pedidoId = 1; pedidoId <= MAX_PEDIDOS; pedidoId++) {
+      const numDetalles = Math.floor(Math.random() * (MAX_DETALLES_POR_PEDIDO - 2) + 2); // Número aleatorio entre 2 y 5
+
+      for (let i = 0; i < numDetalles; i++) {
+        const detalle = {
+          cantidad: Math.floor(Math.random() * 10) + 1,
+          PedidoId: pedidoId,
+          HuesoId: Math.floor(Math.random() * 9) + 1,
+          renglon: i + 1,
+          createdAt: pedidosDates[pedidoId], // Usar la fecha del pedido
+          updatedAt: pedidosDates[pedidoId], // Usar la fecha del pedido
+        };
+        detalles.push(detalle);
+      }
+    }
+
     //// Ordenar los pedidos por 'createdAt' en orden ascendente
     pedidos.sort((a, b) => a.createdAt - b.createdAt);
+    detalles.sort((a, b) => a.createdAt - b.createdAt);
     // Insertar registros en la tabla 'Pedidos'
     await queryInterface.bulkInsert('Pedidos', pedidos, {});
 
+    // Insertar registros en la tabla 'Detalles'
+    await queryInterface.bulkInsert('Detalles', detalles, {});
     // Obtener los primeros 300 pedidos
     const Pedido = queryInterface.sequelize.define(
       'Pedido',
