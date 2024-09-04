@@ -26,8 +26,12 @@ const PEDIDOS_POR_PERSONA=15
 
 function getRandomDateWithinFiveYears() {
   const currentDate = new Date();
+  // Restar 20 días a la fecha actual
+  currentDate.setDate(currentDate.getDate() - 20);
+
   const fiveYearsAgo = new Date();
   fiveYearsAgo.setFullYear(currentDate.getFullYear() - 5);
+
   const randomTime = Math.random() * (currentDate.getTime() - fiveYearsAgo.getTime());
   return new Date(fiveYearsAgo.getTime() + randomTime);
 }
