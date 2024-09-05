@@ -102,7 +102,6 @@ router.get('/eliminar/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const {
-    // tipo: exitente o nuevo
     dias_trabaja,
     horario_trabaja,
     idiomas,
@@ -114,28 +113,49 @@ router.post('/', async (req, res) => {
     email,
     fecha_nacimiento,
     telefono,
+    altaLogica
   } = req.body;
-  // IF NUEVO O EXITESTE
-  var persona = null;
+
   try {
-    persona = await personaService.getPersonaArgs({
-      where: { identificacion },
-    });
+    let persona;
+    // Buscar si la persona ya existe por su identificación
+    persona = await personaService.getPersonaArgs({ identificacion });
+
+    // Si la persona no existe, crear una nueva
+    if (!persona) {
+      persona = await personaService.createPersona(
+        identificacion,
+        nombre,
+        apellido,
+        direccion,
+        localidad,
+        email,
+        fecha_nacimiento,
+        telefono
+      );
+    }
+
+    // Crear el nuevo Guía usando la persona encontrada o creada
+    await guiaService.createGuia(dias_trabaja, new Date(), horario_trabaja, idiomas, persona.id);
+    res.redirect('/guias?success=create'); // Redirección con mensaje de éxito
+
   } catch (error) {
-    /** @TODO agregar render de agregar guia */
-    persona = await personaService.createPersona(
-      identificacion,
-      nombre,
-      apellido,
-      direccion,
-      localidad,
-      email,
-      fecha_nacimiento,
-      telefono
-    );
+    console.log(error);
+    const { message, value } = error.errors[0];
+
+    if (altaLogica === "on") {
+      const [guia] = await guiaService.getGuias(undefined, undefined, { PersonaId: value });
+      await guia.restore();
+      return res.redirect('/guias');
+    }
+
+    let mostrarAltaLogica = false;
+    if (message === "Un Guía con este DNI ya se encontraba registrado.") {
+      mostrarAltaLogica = true;
+    }
+
+    res.render('guias/agregar', { errores: message, guia: req.body, req, mostrarAltaLogica });
   }
-  await guiaService.createGuia(dias_trabaja, new Date(), horario_trabaja, idiomas, persona.id);
-  res.redirect('/guias?success=create'); // redirección con mensaje de creación
 });
 
 //actualizar la lista de idiomas por separado
