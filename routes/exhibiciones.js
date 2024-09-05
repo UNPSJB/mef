@@ -20,8 +20,8 @@ router.get('/', async (req, res) => {
       }
     );
     let mensajeCreate;
-    let mensajeEdit
-    let mensajeDelete
+    let mensajeEdit;
+    let mensajeDelete;
     if (success === 'create') {
       mensajeCreate = 'Exhibición agregada con éxito.';
     }
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
     }
     if (success === 'delete') {
       mensajeDelete = 'Exhibición eliminada con éxito.';
-    };
+    }
     res.render('exhibiciones/exhibicion', {
       exhibiciones, //acá hay algún error que no me deja ver las exhibiciones
       req,
@@ -102,7 +102,6 @@ router.post('/', async (req, res) => {
 
 router.put('/', async (req, res) => {
   const { id, nombre, tematica, duracion, fosiles, replicas } = req.body;
-  console.log('logs', id, nombre, tematica, duracion, fosiles, replicas);
   try {
     await exhibicionService.updateExhibicion(id, nombre, tematica, duracion, fosiles, replicas);
     res.redirect('/exhibiciones?success=edit'); // redirección con mensaje de edición
