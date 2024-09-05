@@ -23,7 +23,7 @@
     <th scope="col">Alimentación</th>
     <th scope="col">Período</th>
     <th scope="col">Subclase</th>
-    <th scope="col">Descubrimiento - dd/mm/aaaa</th>
+    <th scope="col">Fecha Descubrimiento - dd/mm/aaaa</th>
     <th scope="col" class="no-export" data-orderable="false">Acciones</th>
   </thead>
   <tbody>
@@ -62,7 +62,8 @@
             if (row.req && row.req.coleccion) {
               editLink = `<a href="/dinosaurios/editar/${id}" class="no-export"><span class="material-icons">edit</span></a>`;
             }
-            return `${editLink}<a href="/dinosaurios/moldes/${id}" class="no-export"><span style="font-size: 17px;vertical-align:text-bottom;line-height: 2;">🦴</span></a>`;
+            return `${editLink}<a href="/dinosaurios/moldes/${id}" class="no-export btn btn-primary";">Ver Huesos</a>`;
+
           }
         }
 
