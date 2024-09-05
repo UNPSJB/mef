@@ -1,9 +1,15 @@
 const models = require('../models');
+const { literal } = require('sequelize');
 
 module.exports = {
     getReplicas(args) {
         return models.Pedido.findAll({
             include: [{
+                attributes: [
+                    'id',
+                    [literal(`DATE_FORMAT("Replicas"."fecha_inicio", '%d/%m/%Y')`), 'fecha_inicio_formatted'],
+                    [literal(`DATE_FORMAT("Replicas"."fecha_fin", '%d/%m/%Y')`), 'fecha_fin_formatted']
+                ],
                 model: models.Replica,
                 required: true,
                 right: true,
