@@ -1,42 +1,83 @@
 <h1>Pedidos Demorados</h1>
 
-<!-- Gráfico de Barras -->
-<div style="max-width: 400px; margin: auto;">
-  <canvas id="myChart"></canvas>
-  <select id="selectorAnio">
-    {{!-- @TODO nice to have, solo deberian aparecen los años que tienen datos --}}
-    <option value="2024">2024</option>
-    <option value="2023">2023</option>
-    <option value="2022">2022</option>
-  </select>
-</div>
+<!-- Card más ancho que contiene el gráfico y la tabla -->
+<div class="card" style="max-width: 800px; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+  <!-- Selector de Año alineado a la izquierda debajo del título -->
+  <div style="margin-bottom: 20px;">
+    <label for="selectorAnio">Seleccionar Año:</label>
+    <select id="selectorAnio" class="form-control mb-3" style="width: 200px;">
+      {{#each anios}}
+        <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
 
-<!-- Lista de Etiquetas Debajo del Gráfico -->
-<div id="legend" class="mt-3 text-center"></div>
+  <!-- Gráfico de Torta (sin leyendas ni título arriba) -->
+  <div style="max-width: 400px; margin: auto;">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <!-- Tabla debajo del gráfico con bordes en toda la tabla, color primero -->
+  <div style="margin-top: 20px;">
+    <table class="table table-bordered" style="border: 1px solid #000;">
+      <thead>
+        <tr>
+          <th style="border: 1px solid #000;">Color</th>
+          <th style="border: 1px solid #000;">Motivo de Demora</th>
+          <th style="border: 1px solid #000;">Cantidad de Pedidos</th>
+        </tr>
+      </thead>
+      <tbody id="tablaDemoras">
+        <tr>
+          <td style="background-color: rgb(255, 99, 132); width: 50px; border: 1px solid #000;"></td>
+          <td style="border: 1px solid #000;">Falta de Personal</td>
+          <td id="personal" style="border: 1px solid #000;">{{ pedidosDemorados.falta_de_personal }}</td>
+        </tr>
+        <tr>
+          <td style="background-color: rgb(255, 159, 64); width: 50px; border: 1px solid #000;"></td>
+          <td style="border: 1px solid #000;">Falta de Material</td>
+          <td id="material" style="border: 1px solid #000;">{{ pedidosDemorados.falta_de_material }}</td>
+        </tr>
+        <tr>
+          <td style="background-color: rgb(255, 205, 86); width: 50px; border: 1px solid #000;"></td>
+          <td style="border: 1px solid #000;">Falta de Presupuesto</td>
+          <td id="presupuesto" style="border: 1px solid #000;">{{ pedidosDemorados.falta_de_presupuesto }}</td>
+        </tr>
+        <tr>
+          <td style="background-color: rgb(75, 192, 192); width: 50px; border: 1px solid #000;"></td>
+          <td style="border: 1px solid #000;">Otros</td>
+          <td id="otros" style="border: 1px solid #000;">{{ pedidosDemorados.otros }}</td>
+        </tr>
+        <!-- Fila para el total -->
+        <tr>
+          <td style="border: 1px solid #000;"></td>
+          <td style="border: 1px solid #000;"><strong>Total de Pedidos Demorados</strong></td>
+          <td id="totalDemorados" style="border: 1px solid #000;"><strong>{{ totalDemorados }}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // SCRIPT PARA EL GRAFICO (BARRAS) - Motivos de Demora
+  // SCRIPT PARA EL GRAFICO (TORTA) - Motivos de Demora
   const ctx = document.getElementById('myChart').getContext('2d');
-  const dataIncial = [
-        {{ motivosDemora.faltaDePersonal }},
-        {{ motivosDemora.faltaDeMaterial }},
-        {{ motivosDemora.faltaDePresupuesto }},
-        {{ motivosDemora.otros }}
-      ]
+  const dataInicial = [
+    {{ pedidosDemorados.falta_de_personal }},
+    {{ pedidosDemorados.falta_de_material }},
+    {{ pedidosDemorados.falta_de_presupuesto }},
+    {{ pedidosDemorados.otros }}
+  ];
 
-  let dataNueva;
+  // Calcular el total inicial
+  const totalInicial = dataInicial.reduce((acc, val) => acc + val, 0);
 
   const defaultData = {
-      labels: ['Falta De Personal', 'Falta De Material', 'Falta De Presupuesto', 'Otros'],
-      borderWidth: 1
-  }
-
-  const data = {
-    ...defaultData,
+    labels: ['Falta De Personal', 'Falta De Material', 'Falta De Presupuesto', 'Otros'],
     datasets: [{
       label: 'Motivos de Demora',
-      data: dataIncial,
+      data: dataInicial,
       backgroundColor: [
         'rgb(255, 99, 132)',
         'rgb(255, 159, 64)',
@@ -48,48 +89,49 @@
         'rgb(255, 159, 64)',
         'rgb(255, 205, 86)',
         'rgb(75, 192, 192)'
-      ],
+      ]
     }]
   };
 
+  // Actualizar el total inicial en la tabla
+  document.getElementById('totalDemorados').innerText = totalInicial;
+
   const myChart = new Chart(ctx, {
     type: 'pie',
-    data: data,
+    data: defaultData,
     options: {
       responsive: true,
       plugins: {
         legend: {
-          position: 'top',
-        },
-        title: {
-          display: true,
-          text: 'Motivos de Demora en Pedidos'
+          display: false // Ocultar la leyenda
         }
       },
-
     },
   });
 
-
-
-
-  $("#selectorAnio").change(function(){
-    // make an fetch request to get /exhibiciones/reportes
-    // with the selected year
-    // and update the data
+  // Actualizar gráfico, tabla y total al cambiar el año
+  $("#selectorAnio").change(function() {
     fetch(`/exhibiciones/reportes/data?anio=${this.value}`)
       .then(response => response.json())
       .then(data => {
-        const chartData = myChart.data.datasets;
-
-        chartData[0].data = [
+        // Actualizar gráfico
+        myChart.data.datasets[0].data = [
           data.falta_de_personal,
           data.falta_de_material,
           data.falta_de_presupuesto,
           data.otros
         ];
-        myChart.data.datasets = chartData;
         myChart.update();
-      })
+
+        // Actualizar tabla
+        document.getElementById('personal').innerText = data.falta_de_personal;
+        document.getElementById('material').innerText = data.falta_de_material;
+        document.getElementById('presupuesto').innerText = data.falta_de_presupuesto;
+        document.getElementById('otros').innerText = data.otros;
+
+        // Calcular y actualizar el total
+        const totalDemorados = data.falta_de_personal + data.falta_de_material + data.falta_de_presupuesto + data.otros;
+        document.getElementById('totalDemorados').innerText = totalDemorados;
+      });
   });
 </script>

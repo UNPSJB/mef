@@ -5,6 +5,12 @@ const exhibicionService = require('../services/exhibicion');
 const clienteService = require('../services/cliente');
 const guiaService = require('../services/guia');
 
+
+
+
+
+/*----------------------------------------------------------------------------------- */
+// Ruta protegida que lista las visitas
 router.get('/', async (req, res) => {
   try {
     const visitas = await visitaService.getAllVisitas({}, { raw: true, nest: true });
@@ -12,6 +18,10 @@ router.get('/', async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+// Ruta para no autenticado
+router.get('/no-autorizado', (req, res) => {
+  res.render('error/no-autorizado', { message: 'Debe estar logueado para ver esta sección.' });
 });
 router.get('/list', async (req, res) => {
   try {

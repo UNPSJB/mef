@@ -36,38 +36,21 @@ router.get('/detalle/:id', async (req, res) => {
     res.redirect('/404');
   }
 });
+
 router.get('/reportes', async (req, res) => {
-  const pedidosDemorados = await pedidoService.getPedidosDemorados();
-  const motivosDemora = {
-    faltaDePersonal: pedidosDemorados.falta_de_personal,
-    faltaDeMaterial: pedidosDemorados.falta_de_material,
-    faltaDePresupuesto: pedidosDemorados.falta_de_presupuesto,
-    otros: pedidosDemorados.otros,
-  };
+  const { anio } = req.query;
+  const pedidosDemorados = await pedidoService.getPedidosDemorados(anio);
+  const anios= await pedidoService.buscarAniosPedidosDemorados()
   res.render('exhibiciones/reportes', {
-    motivosDemora,
-    totalDemorados: pedidosDemorados.total_pedidos_demorados,
-    req,
+    anios,
+    pedidosDemorados,
   });
 });
-
 router.get('/reportes/data', async (req, res) => {
   const { anio } = req.query;
-  if (anio) {
-    // @TODO hacer la llamada real pasandole el anio
-    // const pedidosDemorados = await pedidoService.getPedidosDemorados(anio);
-    return res.json({
-      total_pedidos_demorados: 5,
-      falta_de_personal: 6,
-      falta_de_material: 2,
-      falta_de_presupuesto: 9,
-      otros: 10,
-    });
-  }
-  const pedidosDemorados = await pedidoService.getPedidosDemorados();
+  const pedidosDemorados = await pedidoService.getPedidosDemorados(anio);
   return res.json(pedidosDemorados);
 });
-
 router.get('/agregar', async (req, res) => {
   try {
     const replicas = await pedidoService.getReplicas({ disponible: true });
