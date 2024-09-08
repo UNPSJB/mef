@@ -1,5 +1,5 @@
 'use strict';
-const MAX = 300; //cantidad de personas
+const MAX = 500; //cantidad de personas
 const faker = require('faker/locale/es_MX');
 
 module.exports = {
@@ -54,7 +54,7 @@ module.exports = {
       guiaArr.push(guiaObj);
     }
     //generar clientes
-    for (let index = 100; index < 200; index++) {
+    for (let index = 101; index < 400; index++) {
       let random = Math.round(Math.random());
       let tipoCliente = random ? 'Particular' : 'Institucional';
       let clienteObj = {
@@ -65,7 +65,7 @@ module.exports = {
       };
       clientesArr.push(clienteObj);
     }
-    for (let index = 200; index <= 300; index++) {
+    for (let index = 401; index <= 500; index++) {
       const empleadoObj = {
         PersonaId: index,
         createdAt: new Date(),

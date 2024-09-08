@@ -60,6 +60,21 @@ router.get('/detalle/:id', async (req, res) => {
   }
 });
 
+router.get('/reportes', async (req, res) => {
+  const { anio } = req.query;
+  const pedidosDemorados = await pedidoService.getPedidosDemorados(anio);
+  const anios= await pedidoService.buscarAniosPedidosDemorados()
+  res.render('exhibiciones/reportes', {
+    anios,
+    pedidosDemorados,
+    req,
+  });
+});
+router.get('/reportes/data', async (req, res) => {
+  const { anio } = req.query;
+  const pedidosDemorados = await pedidoService.getPedidosDemorados(anio);
+  return res.json(pedidosDemorados);
+});
 router.get('/agregar', async (req, res) => {
   try {
     const replicas = await pedidoService.getReplicas({ disponible: true });

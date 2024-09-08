@@ -5,9 +5,12 @@ const exhibicionService = require('../services/exhibicion');
 const clienteService = require('../services/cliente');
 const guiaService = require('../services/guia');
 
-const paginate = require('../middlewares/paginate');
-const { generatePagination } = require('../services/utils');
 
+
+
+
+/*----------------------------------------------------------------------------------- */
+// Ruta protegida que lista las visitas
 router.get('/', async (req, res) => {
   const { success } = req.query;
   try {
@@ -34,6 +37,10 @@ router.get('/', async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+// Ruta para no autenticado
+router.get('/no-autorizado', (req, res) => {
+  res.render('error/no-autorizado', { message: 'Debe estar logueado para ver esta sección.' });
 });
 router.get('/list', async (req, res) => {
   try {
@@ -85,6 +92,10 @@ router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params;
   const visita = await visitaService.getVisita(id, { raw: true, nest: true });
   res.render('visitas/eliminar', { visita, req });
+});
+
+router.get('/reportes', async (req, res) => {
+  res.render('visitas/reportes', { req });
 });
 
 router.post('/', async (req, res) => {
