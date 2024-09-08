@@ -1,16 +1,15 @@
 <h1 class="mt-4">Pedido de Replicación Nº {{id}} - Finalizar Pedido</h1>
-<span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
+
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
+
+  <p>Fecha de Inicio Estimada: {{estado.dataValues.inicio_estimada}}</p><!--Faltaría darle formato dd/mm/aaaa -->
+
   <div class="my-4">Fecha Finalización de Replica</div>
   <input class="form-control" type="date" name="fecha_fin" id="InputFechaFinalizacion"
     min="{{ estado.dataValues.inicio_estimada }}" required>
-  <small class="form-text-muted text-muted">La fecha de Finalización debe ser igual o mayor a la de Inicio
+  <small>* La fecha de Finalización debe ser igual o mayor a la de Inicio
     Estimada.</small><br>
-  <button type="button" class="btn btn-info my-4" data-toggle="modal" data-target="#myModal">
-    Ver Detalle
-  </button>
   <br>
-
   <!-- Botón de Finalizar -->
   <div class="row justify-content-center">
     <div class="col-6 text-center">

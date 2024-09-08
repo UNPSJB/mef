@@ -26,6 +26,7 @@
                 </label>
             </div>
         </div>
+        <small class="form-text-muted">* Se deben agregar, al menos, 3 empleados.</small>
     </div>
     <br>
     <!-- Botón de Fabricar -->
@@ -39,15 +40,15 @@
 
 <script>
     $(document).ready(() => {
-        $("#form").change(function(event){
+        $("#form").change(function (event) {
             const MIN_CANT_EMPLEADOS = 3
             const empleadosSeleccionados = $('input:checkbox:checked').length;
-            if (empleadosSeleccionados < MIN_CANT_EMPLEADOS){
+            if (empleadosSeleccionados < MIN_CANT_EMPLEADOS) {
                 return $(':submit').prop('disabled', true);
             }
             return $(':submit').prop('disabled', false);
         })
-        
+
         fetch(`/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
             .then((res) => {
                 return res.json();
