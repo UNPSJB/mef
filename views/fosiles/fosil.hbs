@@ -16,7 +16,7 @@
     <th scope="col">Dinosaurio</th>
     <th scope="col">Disponible para exhibición</th>
     <th scope="col">Peso</th>
-    <th scope="col">Fecha Encontrado - dd/mm/aaaa</th>
+    <th scope="col">Fecha Descubrimiento - dd/mm/aaaa</th>
     <th scope="col">Hueso Referencia</th>
     <th scope="col">Observaciones</th>
     <th class="no-export" data-orderable="false">Acciones</th>
@@ -63,7 +63,7 @@
     {
       data: 'observacion',
       render: function (data) {
-        return data ? data : 'Sin observaciones';
+        return data ? data : '-';
       }
     },
     {
