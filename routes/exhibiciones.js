@@ -44,6 +44,7 @@ router.get('/reportes', async (req, res) => {
   res.render('exhibiciones/reportes', {
     anios,
     pedidosDemorados,
+    req,
   });
 });
 router.get('/reportes/data', async (req, res) => {
