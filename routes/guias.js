@@ -117,13 +117,10 @@ router.post('/', async (req, res) => {
   } = req.body;
 
   try {
-    let persona;
-    // Buscar si la persona ya existe por su identificación
+    let personaId;
     persona = await personaService.getPersonaArgs({ identificacion });
-
-    // Si la persona no existe, crear una nueva
     if (!persona) {
-      persona = await personaService.createPersona(
+      const nuevaPersona = await personaService.createPersona(
         identificacion,
         nombre,
         apellido,
@@ -133,28 +130,33 @@ router.post('/', async (req, res) => {
         fecha_nacimiento,
         telefono
       );
+      personaId = nuevaPersona.id;
+    } else {
+      personaId = persona.id;
     }
-
-    // Crear el nuevo Guía usando la persona encontrada o creada
-    await guiaService.createGuia(dias_trabaja, new Date(), horario_trabaja, idiomas, persona.id);
+    await guiaService.createGuia(dias_trabaja, new Date(), horario_trabaja, idiomas, personaId);
     res.redirect('/guias?success=create'); // Redirección con mensaje de éxito
-
   } catch (error) {
-    console.log(error);
-    const { message, value } = error.errors[0];
-
-    if (altaLogica === "on") {
-      const [guia] = await guiaService.getGuias(undefined, undefined, { PersonaId: value });
-      await guia.restore();
-      return res.redirect('/guias');
+    try {
+      const persona = await personaService.getPersonaArgs({ identificacion });
+      await guiaService.createGuia(dias_trabaja, new Date(), horario_trabaja, idiomas, persona.id);
+      return res.redirect('/guias?success=create');
+    } catch (error) {
+      console.log("ALTA LÓGICA:", altaLogica)
+      console.log("ERORR!!", error)
+      const { message, value } = error.errors[0];
+      if (altaLogica === "on") {
+        const [guia] = await guiaService.getGuias(undefined, undefined, { PersonaId: value });
+        await guia.restore();
+        return res.redirect('/guias?success=create');
+      }
+      let mostrarAltaLogica = false;
+      if (message === "Un Guía con este DNI ya se encontraba registrado.") {
+        mostrarAltaLogica = true;
+      }
+      console.log("GUIA:", req.body)
+      res.render('guias/agregar', { errores: message, this: req.body, req, mostrarAltaLogica });
     }
-
-    let mostrarAltaLogica = false;
-    if (message === "Un Guía con este DNI ya se encontraba registrado.") {
-      mostrarAltaLogica = true;
-    }
-
-    res.render('guias/agregar', { errores: message, guia: req.body, req, mostrarAltaLogica });
   }
 });
 

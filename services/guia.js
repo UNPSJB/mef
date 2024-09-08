@@ -25,7 +25,7 @@ module.exports = {
   },
   getGuias(page = 0, pageSize = 10) {
     //{ tags }//aca se pide datos a la BD
-    return models.Guia.findAndCountAll({
+    return models.Guia.findAll({
       include: [
         {
           model: models.Persona,
@@ -36,8 +36,7 @@ module.exports = {
           required: false,
         },
       ],
-      ...paginateModel({ page, pageSize }),
-      order: [['updatedAt', 'DESC']],
+      paranoid: false
     });
   },
   getGuia(id, options = {}) {
@@ -45,14 +44,14 @@ module.exports = {
   },
   // CREATE para Existentes
   async createGuia(dias_trabaja, fecha_alta, horario_trabaja, idiomas, PersonaId) {
-    const idiomas = [...idiomas];
+    const idiomas2 = [...idiomas];
     const guia = await models.Guia.create({
       dias_trabaja,
       fecha_alta,
       horario_trabaja,
       PersonaId,
     })
-    return guia.setIdiomas(idiomas);
+    return guia.setIdiomas(idiomas2);
   },
 
   // CREATE para Nuevos

@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="pt-3" action="/guias" method="POST">
+  <form id="alta" class="pt-3" action="/guias" method="POST">
     <div class="card mt-4">
       <div class="card-header text-center bg-secondary text-white" id="agregarGuiaModalLabel">
         <h1>Agregar Guía</h1>
@@ -101,6 +101,7 @@
             </div>
           </div>
           <br>
+          <input id="altaLogica" name="altaLogica" type="checkbox" hidden>
           <!-- Botón de Agregar -->
           <div class="row justify-content-center">
             <div class="col-6 text-center">

@@ -79,7 +79,17 @@ router.get('/eliminar/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono, altaLogica } = req.body;
+  const {
+    identificacion,
+    nombre,
+    apellido,
+    direccion,
+    localidad,
+    email,
+    fecha_nacimiento,
+    telefono,
+    altaLogica
+  } = req.body;
   try {
     let personaId;
     const persona = await personaService.getPersonaArgs({ identificacion });
