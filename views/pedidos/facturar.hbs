@@ -1,5 +1,5 @@
 <h1 class="mt-4">Pedido de Replicación Nº {{id}} - Facturar Pedido</h1>
-<span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
+<br>
 {{> replica/detalle detalles}}
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
   <h2>Detalles del Pago</h2>
@@ -10,7 +10,7 @@
   <br>
   <label for="presupuesto">Valor Presupuestado</label>
   <input class="form-control" type="number" name="presupuesto" value="{{estado.dataValues.monto}}" readonly>
-  <label for="Moneda"><b>Moneda:</b></label>{{estado.dataValues.moneda}}
+  <label for="Moneda"><b>Moneda:</b></label> {{estado.dataValues.moneda}}
   <!-- Botón Facturar -->
   <div class="row justify-content-center">
     <div class="col-6 text-center">
