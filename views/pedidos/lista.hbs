@@ -156,10 +156,36 @@
             }
 
             const botones = Object.keys(estados).reduce((acc, estado, index) => {
-              const estadoTexto = estados[estado]
-              acc += `<a  class='btn btn-primary' style='margin-right: 10px;' href='/pedidos/${estado}/${id}'>${estadoTexto}</a>`
-              return acc
-            }, '')
+              const estadoTexto = estados[estado];
+
+              // Inicializamos color por defecto
+              let buttonClass = 'btn-primary'; // Default button color
+
+              // Modificación: Excluimos "Empleado" y "Detalle" de la personalización de color
+              if (estadoTexto === 'Fabricando') {
+                buttonClass = 'btn-warning';  // Botón naranja para "Fabricando"
+              } else if (estadoTexto === 'Finalizado') {
+                buttonClass = 'btn-success';  // Botón verde para "Finalizado"
+              } else if (estadoTexto === 'Demorado') {
+                buttonClass = 'btn-danger';   // Botón rojo para "Demorado"
+              } else if (estadoTexto === 'Entregado') {
+                buttonClass = 'btn-secondary'; // Botón gris para "Entregado"
+              } else if (estadoTexto === 'Reanudar') {
+                buttonClass = 'btn-dark';     // Botón oscuro para "Reanudar"
+              } else if (estadoTexto === 'Presupuestado') {
+                buttonClass = 'btn-light';    // Botón claro para "Presupuestado"
+              } else if (estadoTexto === 'Cancelado') {
+                buttonClass = 'btn-dark';     // Botón oscuro para "Cancelado"
+              } else if (estadoTexto === 'Facturado') {
+                buttonClass = 'btn-warning';  // Botón naranja para "Facturado"
+              } else if (estadoTexto === 'Confirmado') {
+                buttonClass = 'btn-success';  // Botón verde para "Confirmado"
+              }
+
+              // Modificación: Usamos `buttonClass` para asignar el color
+              acc += `<a class='btn ${buttonClass}' style='margin-right: 10px;' href='/pedidos/${estado}/${id}'>${estadoTexto}</a>`
+              return acc;
+            }, '');
             return botones
           }
         }
