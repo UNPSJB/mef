@@ -135,17 +135,19 @@ router.post('/', async (req, res) => {
       personaId = persona.id;
     }
     await guiaService.createGuia(dias_trabaja, new Date(), horario_trabaja, idiomas, personaId);
-    res.redirect('/guias?success=create'); // Redirección con mensaje de éxito
+    res.redirect('/guias?success=create');
   } catch (error) {
     try {
       const persona = await personaService.getPersonaArgs({ identificacion });
       await guiaService.createGuia(dias_trabaja, new Date(), horario_trabaja, idiomas, persona.id);
       return res.redirect('/guias?success=create');
     } catch (error) {
-      console.log("ALTA LÓGICA:", altaLogica)
-      console.log("ERORR!!", error)
       const { message, value } = error.errors[0];
+      console.log("ERRORRR: ", error)
+      console.log("Alta logica 1 !!!!!!!!: ", altaLogica)
+      //acá está el error el "altaLogica" nunca pasa a valor "on" cuando hago click en "Dar de alta nuevamente."
       if (altaLogica === "on") {
+        console.log("Alta logica 2 !!!!!!!!: ", altaLogica)
         const [guia] = await guiaService.getGuias(undefined, undefined, { PersonaId: value });
         await guia.restore();
         return res.redirect('/guias?success=create');
@@ -154,8 +156,7 @@ router.post('/', async (req, res) => {
       if (message === "Un Guía con este DNI ya se encontraba registrado.") {
         mostrarAltaLogica = true;
       }
-      console.log("GUIA:", req.body)
-      res.render('guias/agregar', { errores: message, this: req.body, req, mostrarAltaLogica });
+      res.render('guias/agregar', { errores: message, guia: req.body, req, mostrarAltaLogica });
     }
   }
 });
