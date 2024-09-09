@@ -8,6 +8,9 @@ module.exports = {
         {
           attributes: [
             'id',
+            'disponible',
+            'obs',
+            'fecha_baja',
             [literal(`TO_CHAR("Replicas"."fecha_inicio", 'DD/MM/YYYY')`), 'fecha_inicio_formatted'],
             [literal(`TO_CHAR("Replicas"."fecha_fin", 'DD/MM/YYYY')`), 'fecha_fin_formatted'],
           ],
