@@ -1,76 +1,127 @@
-<div class="sidenav">
-  {{#if coleccion}}
-  {{!-- Acá van los permisos de colección LISTO--}}
-  <a class="menu-item text-white" href="/dinosaurios">
-    <i class="fas fa-dragon"></i>Dinosaurios
-  </a>
-  <a class="menu-item text-white" href="/fosiles" role="button">
-    <i class="fas fa-bone"></i>Fósiles
-  </a>
-  {{/if}}
-  {{#if exhibicion}}
-  {{!-- Acá van los permisos de exhibición LISTO--}}
-  <a class="menu-item text-white" href="/pedidos" role="button">
-    <i class="fas fa-user"></i>Pedidos
-  </a>
-  <a class="menu-item text-white" href="/exhibiciones" role="button">
-    <i class="fas fa-dragon"></i>Exhibiciones
-  </a>
-  <a class="menu-item text-white" href="/clientes" role="button">
-    <i class="fas fa-highlighter"></i>Clientes
-  </a>
-  <a class="menu-item text-white" href="exhibiciones/reportes" role="button">
-    <i class="fas fa-highlighter"></i>Reportes
-  </a>
-  {{/if}}
-  {{#if secretaria}}
-  {{!-- Acá van los permisos de secretaria LISTO--}}
-  <a class="menu-item text-white" href="/visitas" role="button">
-    <i class="fas fa-user"></i>Visitas Guiadas
-  </a>
-  <a class="menu-item text-white" href="/visitas/reportes" role="button">
-    <i class="fas fa-user"></i>Reportes
-  </a>
-  {{/if}}
-  {{#if taller}}
-  {{!-- Acá van los permisos de taller LISTO--}}
-  <a class="menu-item text-white" href="/pedidos/replicas" role="button">
-    <i class="fas fa-user"></i>Réplicas
-  </a>
-  <a class="menu-item text-white" href="/pedidos" role="button">
-    <i class="fas fa-user"></i>Pedidos
-  </a>
-  <a class="menu-item text-white" href="/dinosaurios" role="button">
-    <i class="fas fa-dragon align-top"></i>Dinosaurios
-  </a>
-  <a class="menu-item text-white" href="exhibiciones/reportes" role="button">
-    <i class="fas fa-highlighter"></i>Reportes
-  </a>
-  {{/if}}
-  {{#if rrhh}}
-  {{!-- Acá van los permisos de rrhh LISTO--}}
-  <a class="menu-item text-white" href="/empleados" role="button">
-    <i class="fas fa-user"></i>Empleados de Taller
-  </a>
-  <a class="menu-item text-white" href="/guias" role="button">
-    <i class="fas fa-user"></i>Guías
-  </a>
-  {{/if}}
-</div>
+<!DOCTYPE html>
+<html lang="en">
 
-<style>
-  .sidenav {
-    height: 100%;
-    background-color: #343a40;
-  }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      /* Asegura que el sidebar no esté desplazado por márgenes del body */
+    }
 
-  .menu-item {
-    display: block;
-    padding: 10px 10px 10px 10px;
-  }
+    .sidenav {
+      height: 1000px;
+      /* Ajusta la altura del sidebar aquí */
+      background-color: #343a40;
+      width: 250px;
+      /* Ajusta el ancho del sidebar aquí */
+      position: fixed;
+      top: 56px;
+      /* Ajusta la distancia desde la parte superior de la pantalla */
+      left: -250px;
+      /* Oculta el sidebar fuera de la pantalla por defecto */
+      transition: left 0.3s ease;
+      overflow-y: auto;
+      /* Añade scroll si el contenido excede la altura del sidebar */
+    }
 
-  .menu-item>i {
-    padding: 0 10px 0 0;
-    width: 30px;
-  }
-</style>
+    .sidenav.show {
+      left: 0;
+      /* Muestra el sidebar */
+    }
+
+    .menu-item {
+      display: block;
+      padding: 10px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .menu-item>i {
+      padding: 0 10px 0 0;
+      width: 30px;
+    }
+
+    #toggleSidebar {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 1000;
+      /* Asegura que el botón esté por encima del sidebar */
+    }
+  </style>
+</head>
+
+<body>
+  <button id="toggleSidebar" class="btn btn-primary">☰</button>
+
+  <div class="sidenav">
+    {{#if coleccion}}
+    <a class="menu-item text-white" href="/dinosaurios">
+      <i class="fas fa-dragon"></i>Dinosaurios
+    </a>
+    <a class="menu-item text-white" href="/fosiles" role="button">
+      <i class="fas fa-bone"></i>Fósiles
+    </a>
+    {{/if}}
+    {{#if exhibicion}}
+    <a class="menu-item text-white" href="/pedidos" role="button">
+      <i class="fas fa-user"></i>Pedidos
+    </a>
+    <a class="menu-item text-white" href="/exhibiciones" role="button">
+      <i class="fas fa-dragon"></i>Exhibiciones
+    </a>
+    <a class="menu-item text-white" href="/clientes" role="button">
+      <i class="fas fa-highlighter"></i>Clientes
+    </a>
+    {{/if}}
+    {{#if secretaria}}
+    <a class="menu-item text-white" href="/visitas" role="button">
+      <i class="fas fa-user"></i>Visitas Guiadas
+    </a>
+    {{/if}}
+    {{#if taller}}
+    <a class="menu-item text-white" href="/pedidos/replicas" role="button">
+      <i class="fas fa-user"></i>Réplicas
+    </a>
+    <a class="menu-item text-white" href="/pedidos" role="button">
+      <i class="fas fa-user"></i>Pedidos
+    </a>
+    <a class="menu-item text-white" href="/dinosaurios" role="button">
+      <i class="fas fa-dragon align-top"></i>Dinosaurios
+    </a>
+    {{/if}}
+    {{#if rrhh}}
+    <a class="menu-item text-white" href="/empleados" role="button">
+      <i class="fas fa-user"></i>Empleados de Taller
+    </a>
+    <a class="menu-item text-white" href="/guias" role="button">
+      <i class="fas fa-user"></i>Guías
+    </a>
+    {{/if}}
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebar = document.querySelector('.sidenav');
+      const toggleButton = document.getElementById('toggleSidebar');
+
+      // Inicialmente oculta el sidebar
+      sidebar.classList.remove('show');
+
+      toggleButton.addEventListener('click', () => {
+        // Alterna la clase 'show' para mostrar u ocultar el sidebar
+        sidebar.classList.toggle('show');
+      });
+    });
+  </script>
+</body>
+
+</html>
