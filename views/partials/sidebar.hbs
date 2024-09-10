@@ -60,9 +60,9 @@
 </head>
 
 <body>
-  <button id="toggleSidebar" class="btn btn-primary">☰</button>
+  <button id="toggleSidebar" class="btn btn-primary">Ocultar/Mostrar Sidebar</button>
 
-  <div class="sidenav">
+  <div class="sidenav show">
     {{#if coleccion}}
     <a class="menu-item text-white" href="/dinosaurios">
       <i class="fas fa-dragon"></i>Dinosaurios
@@ -114,7 +114,7 @@
       const toggleButton = document.getElementById('toggleSidebar');
 
       // Inicialmente oculta el sidebar
-      sidebar.classList.remove('show');
+      sidebar.classList.remove('hide');
 
       toggleButton.addEventListener('click', () => {
         // Alterna la clase 'show' para mostrar u ocultar el sidebar
