@@ -118,7 +118,70 @@ module.exports = {
       return []; // Devuelve una lista vacía en caso de error
     }
   },
-
+  async getAniosVisitas() {
+    const [result] = await models.sequelize.query(
+      `SELECT DISTINCT EXTRACT(YEAR FROM "Visita"."fechaVisita") AS year
+       FROM "Visita"
+       WHERE EXTRACT(YEAR FROM "Visita"."fechaVisita") < EXTRACT(YEAR FROM CURRENT_DATE)
+       ORDER BY year DESC`
+    );
+    return result.map(row => row.year);
+  },
+  async getVisitasAnio(anio) {
+    const anios = await this.getAniosVisitas();
+    let primerAnio = anios[0];
+    let year = anio || primerAnio;
+  
+    try {
+      // Realiza la consulta a la base de datos
+      const result = await models.sequelize.query(
+        `WITH meses AS (
+          SELECT generate_series(1, 12) AS mes
+        ),
+        visitas AS (
+          SELECT 
+            EXTRACT(MONTH FROM "fechaVisita") AS mes,
+            COUNT(*) FILTER (WHERE estado = 'Cancelada') AS total_canceladas,
+            COUNT(*) FILTER (WHERE estado = 'Finalizada') AS total_finalizadas
+          FROM "Visita"
+          WHERE EXTRACT(YEAR FROM "fechaVisita") = :anio
+          GROUP BY mes
+        )
+        SELECT 
+          m.mes,
+          COALESCE(v.total_canceladas + v.total_finalizadas, 0) AS total_visitas,
+          COALESCE(v.total_finalizadas, 0) AS total_finalizadas
+        FROM meses m
+        LEFT JOIN visitas v ON m.mes = v.mes
+        ORDER BY m.mes ASC;`,
+        {
+          replacements: { anio: year },
+          type: models.sequelize.QueryTypes.SELECT,
+          raw: true
+        }
+      );
+  
+      // Verifica si result es un array
+      if (!Array.isArray(result)) {
+        throw new Error('El resultado no es un array');
+      }
+  
+      // Procesa los datos del resultado
+      const totalVisitas = [];
+      const visitasFinalizadas = [];
+  
+      result.forEach(row => {
+        totalVisitas.push(parseInt(row.total_visitas, 10) || 0);
+        visitasFinalizadas.push(parseInt(row.total_finalizadas, 10) || 0);
+      });
+  console.log(totalVisitas, visitasFinalizadas)
+      return { totalVisitas, visitasFinalizadas };
+    } catch (error) {
+      console.error('Error al obtener visitas:', error);
+      throw error;
+    }
+  },
+  
   async getVisitasDataTable({ start, length, search, order, columns }) {
     let querySearch = undefined;
     const [orderValue] = order;

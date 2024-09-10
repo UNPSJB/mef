@@ -19,10 +19,6 @@ router.get('/', async (req, res) => {
     console.log(error);
   }
 });
-// Ruta para no autenticado
-router.get('/no-autorizado', (req, res) => {
-  res.render('error/no-autorizado', { message: 'Debe estar logueado para ver esta sección.' });
-});
 router.get('/list', async (req, res) => {
   try {
     const total = await visitaService.countVisitas();
@@ -76,9 +72,16 @@ router.get('/eliminar/:id', async (req, res) => {
 });
 
 router.get('/reportes', async (req, res) => {
-  res.render('visitas/reportes', { req });
+  const { anio } = req.query;
+  const anios = await visitaService.getAniosVisitas()
+  const totalvisitas = await visitaService.getVisitasAnio(anio);
+  res.render('visitas/reportes', { anios,totalvisitas,req });
 });
-
+router.get('/visitas/reportes/data', async (req, res) => {
+  const { anio } = req.query;
+  const totalvisitas = await visitaService.getVisitasAnio(anio);
+  return res.json(totalvisitas);
+});
 router.post('/', async (req, res) => {
   const { exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion } = req.body;
   /** @TODO agregar try catch y la vista de agregar visita */
