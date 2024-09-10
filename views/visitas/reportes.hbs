@@ -1,7 +1,7 @@
 <h1>Reportes De Visitas Guiadas</h1>
 
 <!-- Card más ancho que contiene el gráfico y el selector -->
-<div class="card" style="max-width: 800px; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+<div class="card" style="max-width: 1200px; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
   <!-- Selector de Año alineado a la izquierda debajo del título -->
   <div style="margin-bottom: 20px;">
     <label for="selectorAnio">Seleccionar Año:</label>
@@ -13,8 +13,8 @@
   </div>
 
   <!-- Gráfico de Líneas -->
-  <div style="max-width: 600px; margin: auto;">
-    <canvas id="myChart"></canvas>
+  <div style="width: 100%; height: 500px; margin: auto;">
+    <canvas id="myChart" style="width: 100%; height: 100%;"></canvas>
   </div>
 </div>
 
@@ -22,21 +22,20 @@
 <script>
   // SCRIPT PARA EL GRÁFICO DE LÍNEAS - Visitas Totales y Finalizadas
   const ctx = document.getElementById('myChart').getContext('2d');
-  
-  // Inicializamos los datos para el gráfico con los meses abreviados en español
+
   const defaultData = {
     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     datasets: [
       {
         label: 'Visitas Totales',
-        data: [], // Aquí irán los datos de visitas totales
+        data: [], // Datos de visitas totales iniciales
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         fill: true
       },
       {
         label: 'Visitas Finalizadas',
-        data: [], // Aquí irán los datos de visitas finalizadas
+        data: [], // Datos de visitas finalizadas iniciales
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         fill: true
@@ -50,6 +49,7 @@
     data: defaultData,
     options: {
       responsive: true,
+      maintainAspectRatio: false, // Permite ajustar el tamaño del gráfico al contenedor
       scales: {
         y: {
           beginAtZero: true,
@@ -68,13 +68,14 @@
 
   // Actualizar gráfico al cambiar el año
   $("#selectorAnio").change(function() {
-    fetch(`/visitas/reportes/data?anio=${this.value}`)
+    fetch(`/visitas/reportes/data?anio=${$(this).val()}`)
       .then(response => response.json())
       .then(data => {
         // Actualizar gráfico con los datos de visitas totales y finalizadas
-        myChart.data.datasets[0].data = data.visitasTotales; // Visitas Totales
+        myChart.data.datasets[0].data = data.totalVisitas; // Visitas Totales
         myChart.data.datasets[1].data = data.visitasFinalizadas; // Visitas Finalizadas
         myChart.update();
-      });
+      })
+      .catch(error => console.error('Error al actualizar los datos:', error));
   });
 </script>

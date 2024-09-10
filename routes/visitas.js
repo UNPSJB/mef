@@ -74,13 +74,19 @@ router.get('/eliminar/:id', async (req, res) => {
 router.get('/reportes', async (req, res) => {
   const { anio } = req.query;
   const anios = await visitaService.getAniosVisitas()
-  const totalvisitas = await visitaService.getVisitasAnio(anio);
-  res.render('visitas/reportes', { anios,totalvisitas,req });
+  const { totalVisitas, visitasFinalizadas } = await visitaService.getVisitasAnio(anio);
+
+  res.render('visitas/reportes', { anios, totalVisitas, visitasFinalizadas,req });
 });
-router.get('/visitas/reportes/data', async (req, res) => {
+
+router.get('/reportes/data', async (req, res) => {
   const { anio } = req.query;
-  const totalvisitas = await visitaService.getVisitasAnio(anio);
-  return res.json(totalvisitas);
+  console.log("Año recibido",anio); // Verificar el valor del año
+  const { totalVisitas, visitasFinalizadas } = await visitaService.getVisitasAnio(anio);
+  return res.json({
+    totalVisitas,
+    visitasFinalizadas
+  });
 });
 router.post('/', async (req, res) => {
   const { exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion } = req.body;
