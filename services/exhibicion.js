@@ -23,37 +23,48 @@ module.exports = {
   },
 
   async createExhibicion(nombre, tematica, duracion, fosiles, replicas) {
+    // Verifica que haya al menos un fósil o réplica
+    if ((!fosiles || fosiles.length === 0) && (!replicas || replicas.length === 0)) {
+      throw new Error("No se puede crear una exhibición sin fósiles ni réplicas.");
+    }
+
     const exhibicion = await models.Exhibicion.create({
       nombre,
       tematica,
       duracion,
     });
 
-    //Revisar este comportamiento
-    if (fosiles) {
-      //si hay fósiles, ponerlos como no disponibles
+    // Si hay fósiles, ponerlos como no disponibles
+    if (fosiles && fosiles.length > 0) {
       const listaDeFosiles = [...fosiles];
-      listaDeFosiles.every(async fosil_id => {
-        let fosil = await models.Fosil.findByPk(fosil_id);
-        fosil.update({
-          disponible: false,
-        });
-      });
+      await Promise.all(
+        listaDeFosiles.map(async fosil_id => {
+          const fosil = await models.Fosil.findByPk(fosil_id);
+          await fosil.update({
+            disponible: false,
+          });
+        })
+      );
       exhibicion.setFosils(listaDeFosiles);
     }
-    if (replicas) {
+
+    // Si hay réplicas, ponerlas como no disponibles
+    if (replicas && replicas.length > 0) {
       const listaDeReplicas = [...replicas];
-      listaDeReplicas.every(async replica_id => {
-        let replica = await models.Replica.findByPk(replica_id);
-        replica.update({
-          disponible: false,
-        });
-      });
+      await Promise.all(
+        listaDeReplicas.map(async replica_id => {
+          const replica = await models.Replica.findByPk(replica_id);
+          await replica.update({
+            disponible: false,
+          });
+        })
+      );
       exhibicion.setReplicas(listaDeReplicas);
     }
 
     return exhibicion;
   },
+
   async updateExhibicion(id, nombre, tematica, duracion, fosiles, replicas) {
     const exhibicion = await models.Exhibicion.findByPk(id);
 

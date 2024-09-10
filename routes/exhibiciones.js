@@ -63,7 +63,7 @@ router.get('/detalle/:id', async (req, res) => {
 router.get('/reportes', async (req, res) => {
   const { anio } = req.query;
   const pedidosDemorados = await pedidoService.getPedidosDemorados(anio);
-  const anios= await pedidoService.buscarAniosPedidosDemorados()
+  const anios = await pedidoService.buscarAniosPedidosDemorados()
   res.render('exhibiciones/reportes', {
     anios,
     pedidosDemorados,
@@ -106,12 +106,20 @@ router.post('/', async (req, res) => {
 
   try {
     await exhibicionService.createExhibicion(nombre, tematica, duracion, fosiles, replicas);
-    res.redirect('/exhibiciones?success=create'); // redirección con mensaje de edición
+    res.redirect('/exhibiciones?success=create'); // Redirección con mensaje de éxito
   } catch (error) {
-    const { message } = error.errors[0];
-    const replicas = await pedidoService.getReplicas({ disponible: true });
-    const fosiles = await fosilService.getAllFosiles({ disponible: true });
-    res.render('exhibiciones/agregar', { errores: message, nombre, tematica, replicas, fosiles, duracion, req });
+    const replicasDisponibles = await pedidoService.getReplicas({ disponible: true });
+    const fosilesDisponibles = await fosilService.getAllFosiles({ disponible: true });
+
+    res.render('exhibiciones/agregar', {
+      errores: error.message,
+      nombre,
+      tematica,
+      replicas: replicasDisponibles,
+      fosiles: fosilesDisponibles,
+      duracion,
+      req,
+    });
   }
 });
 
