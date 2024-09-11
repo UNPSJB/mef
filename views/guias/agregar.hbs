@@ -91,8 +91,7 @@
               <div class="form-check text-left">
                 {{#each idiomas }}
                 <input class="form-check-input" type="checkbox" name="idiomas[]" value="{{ this.id }}"
-                  id="idioma{{ this.id }}" {{#if (isInArray this.id ../idiomasSeleccionados) }}checked{{/if}}>
-
+                  id="idioma{{ this.id }}">
                 <label class="form-check-label" for="idioma{{ this.id }}">
                   {{this.nombre}}
                 </label>
