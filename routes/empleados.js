@@ -121,7 +121,6 @@ router.post('/', async (req, res) => {
         const [empleado] = await empleadoService.getEmpleados(undefined, undefined, { PersonaId: value });
         await empleado.restore();
         return res.redirect('/empleados?success=create');
-
       }
       let mostrarAltaLogica = false;
       if (message === "Ya existía un empleado cargado con ese Documento.") {

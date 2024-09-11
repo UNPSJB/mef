@@ -23,9 +23,9 @@ module.exports = {
   countGuias() {
     return models.Guia.count();
   },
-  getGuias(page = 0, pageSize = 10) {
-    //{ tags }//aca se pide datos a la BD
+  getGuias(page = 0, pageSize = 10, args) {
     return models.Guia.findAll({
+      where: args, // Aplicamos los filtros que vengan en 'args'
       include: [
         {
           model: models.Persona,
@@ -36,9 +36,10 @@ module.exports = {
           required: false,
         },
       ],
-      paranoid: false
+      paranoid: false // Incluir elementos eliminados lógicamente
     });
   },
+
   getGuia(id, options = {}) {
     return models.Guia.findByPk(id, { include: [models.Persona], ...options });
   },
