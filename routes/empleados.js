@@ -2,10 +2,8 @@ const express = require('express');
 const router = express.Router();
 const empleadoService = require('../services/empleado.js');
 const personaService = require('../services/persona.js');
-const paginate = require('../middlewares/paginate');
-const { generatePagination } = require('../services/utils');
 
-//lista todos los empleados
+// Lista todos los empleados
 router.get('/', async (req, res) => {
   const { success } = req.query;
   try {
@@ -55,21 +53,29 @@ router.get('/list', async (req, res) => {
     res.redirect('/404');
   }
 });
+
 router.get('/agregar', (req, res) => {
   res.render('empleados/agregar', { req });
 });
 
 router.get('/editar/:id', async (req, res) => {
   const { id } = req.params;
-  //ver cuando id no existe
-  const empleado = await empleadoService.getEmpleado(id);
-  res.render('empleados/editar', { empleado, req });
+  try {
+    const empleado = await empleadoService.getEmpleado(id, { raw: true, nest: true });
+    res.render('empleados/editar', { empleado, req });
+  } catch (error) {
+    res.redirect('/404');
+  }
 });
 
 router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params;
-  const empleado = await empleadoService.getEmpleado(id);
-  res.render('empleados/eliminar', { empleado, req });
+  try {
+    const empleado = await empleadoService.getEmpleado(id, { raw: true, nest: true });
+    res.render('empleados/eliminar', { empleado, req });
+  } catch (error) {
+    res.redirect('/404');
+  }
 });
 
 router.post('/', async (req, res) => {
@@ -126,30 +132,28 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/', async (req, res) => {
-  let empleado = req.body;
+  const { idPersona, idEmpleado, ...empleadoData } = req.body;
   try {
-    const persona = await personaService.getPersona(empleado.idPersona);
-    await persona.update({
-      ...empleado,
-    });
-    res.redirect('/empleados?success=edit'); // redirección con mensaje de edición
+    const persona = await personaService.getPersona(idPersona);
+    await persona.update(empleadoData);
+    const empleadoDB = await empleadoService.getEmpleado(idEmpleado);
+    await empleadoDB.update({ ...empleadoData });
+    res.redirect('/empleados?success=edit');
   } catch (error) {
     const { message } = error.errors[0];
-    const empleadoDB = await empleadoService.getEmpleado(empleado.idEmpleado);
+    const empleadoDB = await empleadoService.getEmpleado(idEmpleado);
     res.render('empleados/editar', { errores: message, empleado: empleadoDB, req });
   }
 });
 
 router.delete('/', async (req, res) => {
+  const { id } = req.body;
   try {
-    const { id } = req.body;
     await empleadoService.deleteEmpleado(id);
     res.redirect('/empleados?success=delete');
   } catch (error) {
-    console.error(error);
     res.redirect('/404');
   }
 });
-
 
 module.exports = router;
