@@ -1,6 +1,5 @@
 'use strict';
 const Sequelize = require('sequelize');
-
 module.exports = (sequelize, DataTypes) => {
   class Empleado extends Sequelize.Model {
     asignarAPedido(pedidoId, empleadoId) {
@@ -25,16 +24,17 @@ module.exports = (sequelize, DataTypes) => {
       },
       unique: {
         args: true,
-        msg: "Ya existe un Empleado con ese Documento"
+        msg: "Ya existía un empleado cargado con ese Documento."
       },
       allowNull: {
-        args:false,
-        msg:'El Empleado debe estar asociado a una Persona.'
+        args: false,
+        msg: 'El Empleado debe estar asociado a una Persona.'
       }
     }
   }, {
     sequelize,
     paranoid: true
   });
+
   return Empleado;
-}
+};
