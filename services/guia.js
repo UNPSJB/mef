@@ -23,9 +23,9 @@ module.exports = {
   countGuias() {
     return models.Guia.count();
   },
-  getGuias(page = 0, pageSize = 10) {
-    //{ tags }//aca se pide datos a la BD
-    return models.Guia.findAndCountAll({
+  getGuias(page = 0, pageSize = 10, args) {
+    return models.Guia.findAll({
+      where: args, // Aplicamos los filtros que vengan en 'args'
       include: [
         {
           model: models.Persona,
@@ -36,10 +36,10 @@ module.exports = {
           required: false,
         },
       ],
-      ...paginateModel({ page, pageSize }),
-      order: [['updatedAt', 'DESC']],
+      paranoid: false // Incluir elementos eliminados lógicamente
     });
   },
+
   getGuia(id, options = {}) {
     return models.Guia.findByPk(id, { include: [models.Persona], ...options });
   },
@@ -150,9 +150,8 @@ module.exports = {
                 "Persona"."telefono"
             FROM "Personas" AS "Persona"
             INNER JOIN "Guia" AS "Guia" ON "Persona"."id" = "Guia"."PersonaId"
-            ${
-              querySearch
-                ? `WHERE "Persona"."id"::text ILIKE :searchTerm
+            ${querySearch
+        ? `WHERE "Persona"."id"::text ILIKE :searchTerm
         OR "Persona"."identificacion" ILIKE :searchTerm
         OR "Persona"."nombre" ILIKE :searchTerm
         OR "Persona"."apellido" ILIKE :searchTerm
@@ -170,8 +169,8 @@ module.exports = {
           WHERE "IG"."GuiumId" = "Guia"."id"
           AND "I"."nombre" ILIKE :searchTerm
           )`
-                : ''
-            }
+        : ''
+      }
             AND "Guia"."id" IS NOT NULL  -- Esta línea asegura que solo se devuelvan las personas que tienen un ID correspondiente en la tabla de guías
             AND "Persona"."deletedAt" IS NULL
             ORDER BY "Persona"."id" ASC
