@@ -156,10 +156,11 @@
             }
 
             const botones = Object.keys(estados).reduce((acc, estado, index) => {
-              const estadoTexto = estados[estado]
-              acc += `<a  class='btn btn-primary' href='/pedidos/${estado}/${id}'>${estadoTexto}</a>`
-              return acc
-            }, '')
+              const estadoTexto = estados[estado];
+              acc += `<a class='btn btn-primary' style='margin-right: 10px; margin-bottom: 10px' href='/pedidos/${estado}/${id}'>${estadoTexto}</a>`
+
+              return acc;
+            }, '');
             return botones
           }
         }

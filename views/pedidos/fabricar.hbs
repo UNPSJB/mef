@@ -1,5 +1,5 @@
 <h1 class="mt-4">Pedido de Replicación Nº {{id}} - Fabricar Replicación</h1>
-<span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
+<br>
 <form action="/pedidos/{{accion}}/{{id}}" method="post" id="form">
     {{> replica/detalle detalles}}
     <label class="form-group" for="inicio">
@@ -22,7 +22,6 @@
         <div class="row">
             <div class="col-sm border" style="height: 21vh; overflow: auto">
                 <label for="empleados" id="listaEmpleados">
-
                 </label>
             </div>
         </div>
