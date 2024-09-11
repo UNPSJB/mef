@@ -1,7 +1,21 @@
 'use strict';
 const Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  const Empleado = sequelize.define('Empleado', {
+  class Empleado extends Sequelize.Model {
+    asignarAPedido(pedidoId, empleadoId) {
+      return sequelize.models.Pedido.findByPk(pedidoId).then(pedidoNuevo => {
+        return sequelize.models.Empleado.findByPk(empleadoId).then(
+          empleado => {
+            return empleado.getPedidos().then(pedidosTrabajando => {
+              pedidosTrabajando.push(pedidoNuevo);
+              return empleado.setPedidos(pedidosTrabajando);
+            });
+          }
+        );
+      });
+    }
+  }
+  Empleado.init({
     PersonaId: {
       type: DataTypes.INTEGER,
       references: {
