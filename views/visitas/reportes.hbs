@@ -22,20 +22,21 @@
 <script>
   // SCRIPT PARA EL GRÁFICO DE LÍNEAS - Visitas Totales y Finalizadas
   const ctx = document.getElementById('myChart').getContext('2d');
-
+ const totalVisitas=[{{totalVisitas}}]
+ const visitasFinalizadas=[{{visitasFinalizadas}}]
   const defaultData = {
     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     datasets: [
       {
         label: 'Visitas Totales',
-        data: [], // Datos de visitas totales iniciales
+        data:totalVisitas, // Datos de visitas totales iniciales
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         fill: true
       },
       {
         label: 'Visitas Finalizadas',
-        data: [], // Datos de visitas finalizadas iniciales
+        data:visitasFinalizadas, // Datos de visitas finalizadas iniciales
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         fill: true
