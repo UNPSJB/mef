@@ -73,9 +73,19 @@ router.get('/eliminar/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { identificacion, nombre, apellido, direccion, localidad, email, fecha_nacimiento, telefono } = req.body;
+  const {
+    identificacion,
+    nombre,
+    apellido,
+    direccion,
+    localidad,
+    email,
+    fecha_nacimiento,
+    telefono,
+    altaLogica
+  } = req.body;
   try {
-    let personaId = 0;
+    let personaId;
     const persona = await personaService.getPersonaArgs({ identificacion });
     if (!persona) {
       const nuevaPersona = await personaService.createPersona(
@@ -93,11 +103,25 @@ router.post('/', async (req, res) => {
       personaId = persona.id;
     }
     await empleadoService.createEmpleado(personaId);
-    res.redirect('/empleados?success=create'); // redirección con mensaje de creación
+    return res.redirect('/empleados?success=create');
   } catch (error) {
-    console.error(error);
-    const { message } = error.errors ? error.errors[0].message : 'Error desconocido';
-    res.render('empleados/agregar', { errores: message, empleado: req.body, req });
+    try {
+      const persona = await personaService.getPersonaArgs({ identificacion });
+      await empleadoService.createEmpleado(persona.id);
+      return res.redirect('/empleados?success=create');
+    } catch (error) {
+      const { message, value } = error.errors[0];
+      if (altaLogica === "on") {
+        const [empleado] = await empleadoService.getEmpleados(undefined, undefined, { PersonaId: value });
+        await empleado.restore();
+        return res.redirect('/empleados?success=create');
+      }
+      let mostrarAltaLogica = false;
+      if (message === "Ya existía un empleado cargado con ese Documento.") {
+        mostrarAltaLogica = true;
+      }
+      res.render('empleados/agregar', { errores: message, empleado: req.body, req, mostrarAltaLogica });
+    }
   }
 });
 
