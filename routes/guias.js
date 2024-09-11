@@ -104,7 +104,7 @@ router.post('/', async (req, res) => {
   const {
     dias_trabaja,
     horario_trabaja,
-    idiomas,
+    idiomas = [], // Asegurarse de que 'idiomas' sea un array, incluso si no se seleccionan.
     identificacion,
     nombre,
     apellido,
@@ -118,7 +118,9 @@ router.post('/', async (req, res) => {
 
   try {
     let personaId;
-    persona = await personaService.getPersonaArgs({ identificacion });
+    let persona = await personaService.getPersonaArgs({ identificacion });
+
+    // Si la persona no existe, crearla
     if (!persona) {
       const nuevaPersona = await personaService.createPersona(
         identificacion,
@@ -134,32 +136,60 @@ router.post('/', async (req, res) => {
     } else {
       personaId = persona.id;
     }
+
+    // Crear el guía con la persona asociada
     await guiaService.createGuia(dias_trabaja, new Date(), horario_trabaja, idiomas, personaId);
     res.redirect('/guias?success=create');
   } catch (error) {
+    console.error("Error al crear el guía:", error);
+
     try {
       const persona = await personaService.getPersonaArgs({ identificacion });
-      await guiaService.createGuia(dias_trabaja, new Date(), horario_trabaja, idiomas, persona.id);
-      return res.redirect('/guias?success=create');
-    } catch (error) {
-      const { message, value } = error.errors[0];
-      console.log("ERRORRR: ", error)
-      console.log("Alta logica 1 !!!!!!!!: ", altaLogica)
-      //acá está el error el "altaLogica" nunca pasa a valor "on" cuando hago click en "Dar de alta nuevamente."
+
+      // Si ya existe la persona, restaurar el guía si fue borrado
       if (altaLogica === "on") {
-        console.log("Alta logica 2 !!!!!!!!: ", altaLogica)
-        const [guia] = await guiaService.getGuias(undefined, undefined, { PersonaId: value });
+        /*const [guia] = await guiaService.getGuias(undefined, undefined, { PersonaId: persona.id });
+        await guia.restore();
+        return res.redirect('/guias?success=create');*/
+        const [guia] = await guiaService.getGuias(undefined, undefined, { PersonaId: persona.id });
         await guia.restore();
         return res.redirect('/guias?success=create');
       }
-      let mostrarAltaLogica = false;
-      if (message === "Un Guía con este DNI ya se encontraba registrado.") {
-        mostrarAltaLogica = true;
-      }
-      res.render('guias/agregar', { errores: message, guia: req.body, req, mostrarAltaLogica });
+
+    } catch (innerError) {
+      console.error("Error al intentar restaurar el guía:", innerError);
     }
+
+    // Manejo del error en la creación del guía, conservar datos de formulario e idiomas seleccionados
+    const { message } = error.errors[0];
+
+    // Obtener todos los idiomas disponibles
+    const idiomasDisponibles = await guiaService.getIdiomas({}, { raw: true, nest: true });
+
+    // Mapear los idiomas seleccionados para marcarlos como seleccionados en el checkbox
+    const idiomasSeleccionados = idiomas.map(id => parseInt(id));
+
+    let mostrarAltaLogica = false;
+    if (message === "Un Guía con este DNI ya se encontraba registrado.") {
+      mostrarAltaLogica = true;
+    }
+
+    // Renderizar nuevamente la vista con los datos del formulario y los idiomas seleccionados
+    res.render('guias/agregar', {
+      errores: message,
+      guia: req.body, // Conservar los datos del formulario
+      req,
+      mostrarAltaLogica,
+      idiomas: idiomasDisponibles.map(idioma => ({
+        ...idioma,
+        checked: idiomasSeleccionados.includes(idioma.id), // Marcar los idiomas previamente seleccionados
+      }))
+    });
   }
 });
+
+
+
 
 //actualizar la lista de idiomas por separado
 router.put('/', async (req, res) => {
