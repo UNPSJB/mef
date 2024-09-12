@@ -1,100 +1,82 @@
+<h1>Reportes De Visitas Guiadas</h1>
+
+<!-- Card más ancho que contiene el gráfico y el selector -->
+<div class="card" style="max-width: 1200px; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+  <!-- Selector de Año alineado a la izquierda debajo del título -->
+  <div style="margin-bottom: 20px;">
+    <label for="selectorAnio">Seleccionar Año:</label>
+    <select id="selectorAnio" class="form-control mb-3" style="width: 200px;">
+      {{#each anios}}
+        <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <!-- Gráfico de Líneas -->
+  <div style="width: 100%; height: 500px; margin: auto;">
+    <canvas id="myChart" style="width: 100%; height: 100%;"></canvas>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<h1>Reportes de Visitas Guiadas</h1>
-
-<div style="max-width: 500px;">
-  <canvas id="myChart"></canvas>
-</div>
-
-<hr />
-
-<div style="max-width: 500px;">
-  <canvas id="myChart2"></canvas>
-</div>
-
-
-
 <script>
-  // SCRIPT PARA EL PRIMER GRAFICO (TORTA)
-  const ctx = document.getElementById('myChart');
-  const data = {
-    labels: ['Pendiente', 'Finalizada', 'Cancelada'],
+  // SCRIPT PARA EL GRÁFICO DE LÍNEAS - Visitas Totales y Finalizadas
+  const ctx = document.getElementById('myChart').getContext('2d');
+ const totalVisitas=[{{totalVisitas}}]
+ const visitasFinalizadas=[{{visitasFinalizadas}}]
+  const defaultData = {
+    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     datasets: [
       {
-        label: 'Estados de la visita',
-        data: [12, 19, 3],
-        backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(255, 159, 64)',
-          'rgb(255, 205, 86)',
-        ]
+        label: 'Visitas Totales',
+        data:totalVisitas, // Datos de visitas totales iniciales
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        fill: true
+      },
+      {
+        label: 'Visitas Finalizadas',
+        data:visitasFinalizadas, // Datos de visitas finalizadas iniciales
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        fill: true
       }
     ]
   };
 
-  new Chart(ctx, {
-    type: 'pie',
-    data: data,
+  // Crear el gráfico de líneas
+  const myChart = new Chart(ctx, {
+    type: 'line',
+    data: defaultData,
     options: {
       responsive: true,
+      maintainAspectRatio: false, // Permite ajustar el tamaño del gráfico al contenedor
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1, // Asegurarse de que los valores sean números enteros
+          }
+        }
+      },
       plugins: {
         legend: {
-          position: 'top',
-        },
-        title: {
-          display: true,
-          text: 'Chart.js Pie Chart'
+          display: true // Mostrar leyenda con las dos líneas
         }
-      }
+      },
     },
   });
-</script>
 
-<script>
-  // SCRIPT PARA EL SEGUNDO GRAFICO (BARRAS APILADAS)
-  const ctx2 = document.getElementById('myChart2');
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  const data2 = {
-    labels: labels,
-    datasets: [
-      {
-        label: '18 a 35 años',
-        data: [10, 15, 10],
-        backgroundColor: ['rgb(255, 99, 132)'],
-      },
-      {
-        label: '36 a 55 años ',
-        data: [20, 22, 35],
-        backgroundColor: ['rgb(255, 159, 64)'],
-      },
-      {
-        label: 'mayores de 55 años',
-        data: [2, 5, 10],
-        backgroundColor: ['rgb(255, 205, 86)'],
-      },
-    ]
-  };
-
-  const config = {
-    type: 'bar',
-    data: data2,
-    options: {
-      plugins: {
-        title: {
-          display: true,
-          text: 'Chart.js Bar Chart - Stacked'
-        },
-      },
-      responsive: true,
-      scales: {
-        x: {
-          stacked: true,
-        },
-        y: {
-          stacked: true
-        }
-      }
-    }
-  };
-
-  new Chart(ctx2, config);
+  // Actualizar gráfico al cambiar el año
+  $("#selectorAnio").change(function() {
+    fetch(`/visitas/reportes/data?anio=${$(this).val()}`)
+      .then(response => response.json())
+      .then(data => {
+        // Actualizar gráfico con los datos de visitas totales y finalizadas
+        myChart.data.datasets[0].data = data.totalVisitas; // Visitas Totales
+        myChart.data.datasets[1].data = data.visitasFinalizadas; // Visitas Finalizadas
+        myChart.update();
+      })
+      .catch(error => console.error('Error al actualizar los datos:', error));
+  });
 </script>
