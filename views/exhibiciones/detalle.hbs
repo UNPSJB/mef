@@ -1,94 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detalles de la Exhibición</title>
-  <style>
-    /* Estilos CSS para mejorar la apariencia */
-    body {
-      font-family: Arial, sans-serif;
-    }
-    .container {
-      margin-top: 20px;
-    }
-    .text-center {
-      text-align: center;
-    }
-    .table {
-      width: 100%;
-      margin-bottom: 20px;
-      background-color: #f8f9fa;
-    }
-    th {
-      background-color: #007bff;
-      color: #ffffff;
-    }
-    th, td {
-      padding: 10px;
-      text-align: left;
-    }
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-  </style>
 </head>
+
 <body>
 
-<h1 class="text-center"><u>Detalles de la Exhibición</u></h1>
+  <div class="text-center">
+    <h4 class="pt-2"><strong><u>Detalle de la Exhibición #{{exhibicion.id}}</u></strong></h4>
+  </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h3><span style="text-decoration: underline;">#:</span> {{exhibicion.id}}</h3>
-      <h3><span style="text-decoration: underline;">Exhibición:</span> {{exhibicion.nombre}}</h3>
-      <h3><span style="text-decoration: underline;">Temática:</span>  {{exhibicion.tematica}}</h3>
-      <h3><span style="text-decoration: underline;">Duración:</span> {{exhibicion.duracion}} mes(es)</h3>
+
+  <br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <b><u>Nombre:</b></u> {{exhibicion.nombre}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <b><u>Temática:</b></u> {{exhibicion.tematica}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <b><u>Duración:</b></u> {{exhibicion.duracion}} mes(es)
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Fósiles</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each fosiles}}
+            <tr>
+              <td>{{this.huesos}} | {{ this.Dinosaurio.nombre }}</td>
+            </tr>
+            {{else}}
+            <tr>
+              <td>No hay fósiles para esta exhibición.</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Réplicas</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each replicas}}
+            <tr>
+              <td>{{this.Hueso.nombre}} | {{ this.Dinosaurio.nombre }}</td>
+            </tr>
+            {{else}}
+            <tr>
+              <td>No hay réplicas para esta exhibición.</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Fósiles</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each fosiles}}
-          <tr>
-            <td>{{this.huesos}} | {{ this.Dinosaurio.nombre }}</td>
-          </tr>
-          {{else}}
-          <tr>
-            <td>No hay fósiles para esta exhibición.</td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-    <div class="col">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Réplicas</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each replicas}}
-          <tr>
-            <td>{{this.Hueso.nombre}} | {{ this.Dinosaurio.nombre }}</td>
-          </tr>
-          {{else}}
-          <tr>
-            <td>No hay réplicas para esta exhibición.</td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 
 </body>
+
 </html>

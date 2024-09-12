@@ -68,7 +68,7 @@
             if (row.Persona_nombre && row.Persona_apellido) {
               return row.Persona_nombre + ' ' + row.Persona_apellido;
             } else {
-              return 'Interno';
+              return '-';
             }
           },
           orderData: [3] // Column to sort by (index starts at 0)
@@ -90,7 +90,7 @@
             if (row.motivo && row.motivo.trim().length > 0) {
               return row.motivo;
             } else {
-              return 'Sin descripción';
+              return '-';
             }
           }
         },
@@ -156,10 +156,11 @@
             }
 
             const botones = Object.keys(estados).reduce((acc, estado, index) => {
-              const estadoTexto = estados[estado]
-              acc += `<a  class='btn btn-primary' href='/pedidos/${estado}/${id}'>${estadoTexto}</a>`
-              return acc
-            }, '')
+              const estadoTexto = estados[estado];
+              acc += `<a class='btn btn-primary' style='margin-right: 10px; margin-bottom: 10px' href='/pedidos/${estado}/${id}'>${estadoTexto}</a>`
+
+              return acc;
+            }, '');
             return botones
           }
         }

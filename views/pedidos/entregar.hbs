@@ -1,14 +1,11 @@
 <h1 class="mt-4">Pedido de Replicación Nº {{id}} - Entregar pedido</h1>
-<span class="bg-warning form-control">{{accion}} el siguiente pedido</span>
+<br>
 
 <form action="/pedidos/{{accion}}/{{id}}" method="post">
   <label for="fecha_envio" class="col-form-label">Fecha de Envío</label>
   <input class="form-control" type="date" name="fecha_envio" id="InputFechaEnvio" required>
   <label for="fecha_entrega" class="col-form-label">Fecha de Entrega</label>
   <input class="form-control" type="date" name="fecha_entrega" id="InputFechaEntrega" required>
-  <button type="button" class="btn btn-info my-4" data-toggle="modal" data-target="#myModal">
-    Ver Detalle
-  </button>
   <br>
   <!-- Botón de Entregar -->
   <div class="row justify-content-center">

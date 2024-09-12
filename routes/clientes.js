@@ -4,9 +4,11 @@ const clienteService = require('../services/cliente');
 const personaService = require('../services/persona');
 const { generatePagination } = require('../services/utils');
 const paginate = require('../middlewares/paginate');
+const { sequelize } = require('../models');
 
 //lista todos los clientes
 router.get('/', async (req, res) => {
+  const { success } = req.query;
   try {
     const clientes = await clienteService.getAllClientes(
       {},
@@ -15,7 +17,19 @@ router.get('/', async (req, res) => {
         nest: true,
       }
     );
-    res.render('clientes/cliente', { results: clientes, req });
+    let mensajeCreate;
+    let mensajeEdit
+    if (success === 'create') {
+      mensajeCreate = 'Cliente agregado con éxito.';
+    }
+    if (success === 'edit') {
+      mensajeEdit = 'Cliente editado con éxito.';
+    }
+    res.render('clientes/cliente', {
+      results: clientes,
+      req,
+      success: mensajeCreate || mensajeEdit, // enviar el mensaje adecuado
+    });
   } catch (error) {
     res.redirect('/404');
   }
@@ -54,17 +68,6 @@ router.get('/editar/:id', async (req, res) => {
   }
 });
 
-
-router.get('/eliminar/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const cliente = await clienteService.getCliente(id, { raw: true, nest: true });
-    res.render('clientes/eliminar', { cliente, req });
-  } catch (error) {
-    res.redirect('/404');
-  }
-});
-
 router.post('/', async (req, res) => {
   const {
     identificacion,
@@ -92,7 +95,7 @@ router.post('/', async (req, res) => {
       telefono
     );
     const cliente = await clienteService.createClienteExiste(tipoCliente, persona.id);
-    res.redirect('/clientes');
+    res.redirect('/clientes?success=create');
   } catch (error) {
     try {
       const persona = await personaService.getPersonaArgs({ identificacion });
@@ -118,21 +121,11 @@ router.put('/', async (req, res) => {
     await personaDB.update({
       ...req.body,
     });
-    res.redirect('/clientes');
+    res.redirect('/clientes?success=edit');
   } catch (error) {
     const { message } = error.errors[0];
     const cliente = await clienteService.getCliente(idCliente);
     res.render('clientes/editar', { errores: message, cliente, req });
-  }
-});
-
-router.delete('/', async (req, res) => {
-  const { id } = req.body;
-  try {
-    await clienteService.deleteCliente(id);
-    res.redirect('/clientes');
-  } catch (error) {
-    res.redirect('/404');
   }
 });
 
