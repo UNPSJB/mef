@@ -100,7 +100,6 @@ router.get('/reportes', async (req, res) => {
 
 router.get('/reportes/data', async (req, res) => {
   const { anio } = req.query;
-  console.log("Año recibido",anio); // Verificar el valor del año
   const { totalVisitas, visitasFinalizadas } = await visitaService.getVisitasAnio(anio);
   return res.json({
     totalVisitas,

@@ -173,8 +173,6 @@ module.exports = {
         totalVisitas.push(parseInt(row.total_visitas, 10) || 0);
         visitasFinalizadas.push(parseInt(row.total_finalizadas, 10) || 0);
       });
-      console.log(year);
-  console.log(totalVisitas, visitasFinalizadas);
       return { totalVisitas, visitasFinalizadas };
     } catch (error) {
       console.error('Error al obtener visitas:', error);
@@ -228,8 +226,6 @@ module.exports = {
         totalVisitas.push(parseInt(row.total_visitas, 10) || 0);
         visitasFinalizadas.push(parseInt(row.total_finalizadas, 10) || 0);
       });
-      console.log(year);
-  console.log(totalVisitas, visitasFinalizadas);
       return { totalVisitas, visitasFinalizadas };
     } catch (error) {
       console.error('Error al obtener visitas:', error);
