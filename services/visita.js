@@ -122,15 +122,15 @@ module.exports = {
     const [result] = await models.sequelize.query(
       `SELECT DISTINCT EXTRACT(YEAR FROM "Visita"."fechaVisita") AS year
        FROM "Visita"
-       WHERE EXTRACT(YEAR FROM "Visita"."fechaVisita") < EXTRACT(YEAR FROM CURRENT_DATE)
+       WHERE EXTRACT(YEAR FROM "Visita"."fechaVisita") <= EXTRACT(YEAR FROM CURRENT_DATE)
        ORDER BY year DESC`
     );
     return result.map(row => row.year);
   },
-  async getVisitasPrimerAnio(){
+  async getVisitasPrimerAnio() {
     const anios = await this.getAniosVisitas();
     let anio = anios[0];
-    let year = anio
+    let year = anio;
     try {
       // Realiza la consulta a la base de datos
       const result = await models.sequelize.query(
@@ -156,19 +156,19 @@ module.exports = {
         {
           replacements: { anio: year },
           type: models.sequelize.QueryTypes.SELECT,
-          raw: true
+          raw: true,
         }
       );
-  
+
       // Verifica si result es un array
       if (!Array.isArray(result)) {
         throw new Error('El resultado no es un array');
       }
-  
+
       // Procesa los datos del resultado
       const totalVisitas = [];
       const visitasFinalizadas = [];
-  
+
       result.forEach(row => {
         totalVisitas.push(parseInt(row.total_visitas, 10) || 0);
         visitasFinalizadas.push(parseInt(row.total_finalizadas, 10) || 0);
@@ -183,7 +183,7 @@ module.exports = {
     const anios = await this.getAniosVisitas();
     let primerAnio = anios[0];
     let year = anio || primerAnio;
-  
+
     try {
       // Realiza la consulta a la base de datos
       const result = await models.sequelize.query(
@@ -209,19 +209,19 @@ module.exports = {
         {
           replacements: { anio: year },
           type: models.sequelize.QueryTypes.SELECT,
-          raw: true
+          raw: true,
         }
       );
-  
+
       // Verifica si result es un array
       if (!Array.isArray(result)) {
         throw new Error('El resultado no es un array');
       }
-  
+
       // Procesa los datos del resultado
       const totalVisitas = [];
       const visitasFinalizadas = [];
-  
+
       result.forEach(row => {
         totalVisitas.push(parseInt(row.total_visitas, 10) || 0);
         visitasFinalizadas.push(parseInt(row.total_finalizadas, 10) || 0);
@@ -232,7 +232,76 @@ module.exports = {
       throw error;
     }
   },
-  
+
+  async getEdadesVisitas(anio) {
+    const anios = await this.getAniosVisitas();
+    let primerAnio = anios[0];
+    let year = anio || primerAnio;
+
+    try {
+      const result = await models.sequelize.query(
+        `
+        WITH meses AS (
+          SELECT generate_series(1, 12) AS mes
+        ),
+        visitas AS (
+          SELECT 
+            EXTRACT(MONTH FROM "fechaVisita") AS mes,
+            COUNT(*) FILTER (WHERE estado = 'Finalizada') AS total_finalizadas,
+			COUNT(*) FILTER (WHERE AGE(p.fecha_nacimiento) >= INTERVAL '0 years' AND AGE(p.fecha_nacimiento) <= INTERVAL '35 years') as grupo_18_a_35,
+			COUNT(*) FILTER (WHERE AGE(p.fecha_nacimiento) >= INTERVAL '35 years' AND AGE(p.fecha_nacimiento) <= INTERVAL '55 years') as grupo_36_a_55,
+			COUNT(*) FILTER (WHERE AGE(p.fecha_nacimiento) >= INTERVAL '55 years') as grupo_55_o_mas
+          FROM "Visita"
+		  INNER JOIN "Clientes" c ON c.id = "Visita"."ClienteId"
+		  INNER JOIN "Personas" p ON p.id = c."PersonaId"
+          WHERE EXTRACT(YEAR FROM "fechaVisita") = :anio
+		  AND estado = 'Finalizada' -- esto revisar
+          GROUP BY mes
+        )
+        SELECT 
+          m.mes,
+          v.grupo_18_a_35,
+          v.grupo_36_a_55,
+          v.grupo_55_o_mas,
+          v.total_finalizadas
+        FROM meses m
+        LEFT JOIN visitas v ON m.mes = v.mes
+        ORDER BY m.mes ASC;
+        `,
+        {
+          replacements: { anio: year },
+          type: models.sequelize.QueryTypes.SELECT,
+          raw: true,
+        }
+      );
+
+      // Verifica si result es un array
+      if (!Array.isArray(result)) {
+        throw new Error('El resultado no es un array');
+      }
+
+      // Procesa los datos del resultado
+      const visitas18a35 = [];
+      const visitas35a55 = [];
+      const visitas55omas = [];
+
+      result.forEach(row => {
+        visitas18a35.push(parseInt(row.grupo_18_a_35, 10) || 0);
+        visitas35a55.push(parseInt(row.grupo_36_a_55, 10) || 0);
+        visitas55omas.push(parseInt(row.grupo_55_o_mas, 10) || 0);
+      });
+
+      return {
+        visitas18a35,
+        visitas35a55,
+        visitas55omas,
+      };
+    } catch (error) {
+      console.error('Error al obtener visitas:', error);
+      throw error;
+    }
+  },
+
   async getVisitasDataTable({ start, length, search, order, columns }) {
     let querySearch = undefined;
     const [orderValue] = order;
