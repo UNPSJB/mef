@@ -1,6 +1,19 @@
 'use strict';
 const faker = require('faker/locale/es_MX');
+const getRandomUniqueNumbers = (min, max, count) => {
+  const numbers = new Set();
+  while (numbers.size < count) {
+    const num = Math.floor(Math.random() * (max - min + 1)) + min;
+    numbers.add(num);
+  }
+  return Array.from(numbers);
+};
 
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+const NUM_FOSSILS = 30;
+const MAX_DINOSAUR_ID = 14;
+const NUM_EXHIBICIONES = 10;
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const exhibicionesData = [
@@ -78,6 +91,35 @@ module.exports = {
 
     // Insertar los datos en la tabla Exhibicions
     await queryInterface.bulkInsert('Exhibicions', exhibicionesData, {});
+
+  /**----------------------------------------------------------------------------------- */
+ 
+     // Generar 30 números únicos para los IDs de los fósiles
+     const fosiles = getRandomUniqueNumbers(1, 29,29);
+
+     // Crear las relaciones entre exhibiciones y fósiles
+     const fosilExhibicionesData = [];
+     
+     for (let i = 0; i < exhibicionesData.length; i++) {
+       const numFosiles = getRandomInt(1, 2);
+       const selectedFosiles = getRandomUniqueNumbers(0, fosiles.length - 1, numFosiles);
+ 
+       selectedFosiles.forEach(index => {
+         fosilExhibicionesData.push({
+           ExhibicionId: i + 1, // Usar el índice + 1 para el ID
+           FosilId: fosiles[index],
+           createdAt: new Date(),
+           updatedAt: new Date()
+         });
+       });
+     }
+
+     // Insertar las relaciones en la tabla intermedia
+     await queryInterface.bulkInsert('FosilExhibicions', fosilExhibicionesData, {});
+
+
+
+  /**----------------------------------------------------------------------------------- */
     let visitasArr = [];
     let today = new Date();
     let startDate = new Date(today.getFullYear() - 4, 0, 1); // Inicio de hace 4 años (2020)
