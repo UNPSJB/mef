@@ -107,6 +107,14 @@ module.exports = (sequelize, DataTypes) => {
     {
       paranoid: true,
       sequelize,
+      indexes: [
+        {
+          fields: ['id', 'createdAt'],
+        },
+        {
+          fields: ['PersonaId'],
+        },
+      ],
       hooks: {
         afterCreate(pedido) {
           const PedidoId = pedido.id;
