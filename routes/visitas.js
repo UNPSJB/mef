@@ -5,10 +5,6 @@ const exhibicionService = require('../services/exhibicion');
 const clienteService = require('../services/cliente');
 const guiaService = require('../services/guia');
 
-
-
-
-
 /*----------------------------------------------------------------------------------- */
 // Ruta protegida que lista las visitas
 router.get('/', async (req, res) => {
@@ -18,11 +14,11 @@ router.get('/', async (req, res) => {
       {},
       {
         raw: true,
-        nest: true
+        nest: true,
       }
     );
     let mensajeCreate;
-    let mensajeEdit
+    let mensajeEdit;
     if (success === 'create') {
       mensajeCreate = 'Visita agregada con éxito.';
     }
@@ -67,7 +63,6 @@ router.get('/validar', async (req, res) => {
   }
   try {
     const horariosDisponibles = await visitaService.verificarVisitas(fecha);
-    console.log(horariosDisponibles);
     res.json(horariosDisponibles);
   } catch (error) {
     console.error('Error al validar horarios:', error);
@@ -92,10 +87,10 @@ router.get('/eliminar/:id', async (req, res) => {
 
 router.get('/reportes', async (req, res) => {
   const { anio } = req.query;
-  const anios = await visitaService.getAniosVisitas()
+  const anios = await visitaService.getAniosVisitas();
   const { totalVisitas, visitasFinalizadas } = await visitaService.getVisitasAnio(anio);
 
-  res.render('visitas/reportes', { anios, totalVisitas, visitasFinalizadas,req });
+  res.render('visitas/reportes', { anios, totalVisitas, visitasFinalizadas, req });
 });
 
 router.get('/reportes/data', async (req, res) => {
@@ -103,9 +98,24 @@ router.get('/reportes/data', async (req, res) => {
   const { totalVisitas, visitasFinalizadas } = await visitaService.getVisitasAnio(anio);
   return res.json({
     totalVisitas,
-    visitasFinalizadas
+    visitasFinalizadas,
   });
 });
+
+router.get('/reportes-por-edades', async (req, res) => {
+  const anios = await visitaService.getAniosVisitas();
+  const edadesVisitas = await visitaService.getEdadesVisitas();
+  return res.render('visitas/reportes-edades', { anios, req, edadesVisitas });
+});
+
+router.get('/reportes-por-edades/data', async (req, res) => {
+  const { anio } = req.query;
+  const edadesVisitas = await visitaService.getEdadesVisitas(anio);
+  return res.json({
+    edadesVisitas,
+  });
+});
+
 router.post('/', async (req, res) => {
   const { exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion } = req.body;
   /** @TODO agregar try catch y la vista de agregar visita */

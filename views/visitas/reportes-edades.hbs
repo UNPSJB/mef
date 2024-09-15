@@ -1,4 +1,4 @@
-<h1>Reportes de cantidad visitas guiadas por año</h1>
+<h1>Reportes de edades de clientes de visitas guiadas por año</h1>
 
 <!-- Card más ancho que contiene el gráfico y el selector -->
 <div class="card" style="max-width: 1200px; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
@@ -22,43 +22,57 @@
 <script>
   // SCRIPT PARA EL GRÁFICO DE LÍNEAS - Visitas Totales y Finalizadas
   const ctx = document.getElementById('myChart').getContext('2d');
- const totalVisitas=[{{totalVisitas}}]
- const visitasFinalizadas=[{{visitasFinalizadas}}]
+  const visitas18a35=[{{edadesVisitas.visitas18a35}}]
+  const visitas35a55=[{{edadesVisitas.visitas35a55}}]
+  const visitas55omas=[{{edadesVisitas.visitas55omas}}]
+
   const defaultData = {
     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     datasets: [
       {
-        label: 'Visitas Totales',
-        data:totalVisitas, // Datos de visitas totales iniciales
+        label: '18 a 35 años',
+        data: visitas18a35, // Datos de visitas totales iniciales
         borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        backgroundColor: 'rgba(75, 192, 192)',
         fill: true
       },
       {
-        label: 'Visitas Finalizadas',
-        data:visitasFinalizadas, // Datos de visitas finalizadas iniciales
+        label: '35 a 55 años',
+        data: visitas35a55, // Datos de visitas finalizadas iniciales
         borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        backgroundColor: 'rgba(255, 99, 132)',
         fill: true
-      }
-    ]
+      },
+      {
+        label: 'Más de 55 años',
+        data: visitas55omas,
+        borderColor: 'rgb(255, 205, 86)',
+        backgroundColor: 'rgb(255, 205, 86)',
+        fill: true
+      },
+    ],
   };
 
   // Crear el gráfico de líneas
   const myChart = new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: defaultData,
     options: {
       responsive: true,
       maintainAspectRatio: false, // Permite ajustar el tamaño del gráfico al contenedor
       scales: {
+        x: {
+          beginAtZero: true,
+          stacked: true,
+        },
         y: {
           beginAtZero: true,
+          stacked: true,
           ticks: {
             stepSize: 1, // Asegurarse de que los valores sean números enteros
           }
         }
-      },
+    },
       plugins: {
         legend: {
           display: true // Mostrar leyenda con las dos líneas
@@ -69,12 +83,13 @@
 
   // Actualizar gráfico al cambiar el año
   $("#selectorAnio").change(function() {
-    fetch(`/visitas/reportes/data?anio=${$(this).val()}`)
+    fetch(`/visitas/reportes-por-edades/data?anio=${$(this).val()}`)
       .then(response => response.json())
       .then(data => {
         // Actualizar gráfico con los datos de visitas totales y finalizadas
-        myChart.data.datasets[0].data = data.totalVisitas; // Visitas Totales
-        myChart.data.datasets[1].data = data.visitasFinalizadas; // Visitas Finalizadas
+        myChart.data.datasets[0].data = data.edadesVisitas.visitas18a35; // Visitas Totales
+        myChart.data.datasets[1].data = data.edadesVisitas.visitas35a55; // Visitas Finalizadas
+        myChart.data.datasets[2].data = data.edadesVisitas.visitas55omas; // Visitas Finalizadas
         myChart.update();
       })
       .catch(error => console.error('Error al actualizar los datos:', error));

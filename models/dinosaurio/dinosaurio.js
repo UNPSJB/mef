@@ -58,6 +58,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       paranoid: true,
+      indexes: [
+        {
+          fields: ['id'],
+        },
+      ],
     }
   );
 

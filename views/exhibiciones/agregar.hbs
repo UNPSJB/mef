@@ -36,7 +36,6 @@
                 <i>No hay Fósiles disponibles</i>
                 {{/each}}
               </div>
-              <small class="form-text-muted text-muted">Se puede agregar fósiles luego de crear la exhibicion.</small>
             </div>
             <div class="col-6">
               <label for="replicas">Listado de réplicas disponibles:</label>
@@ -54,16 +53,19 @@
                 <i>No hay Réplicas disponibles</i>
                 {{/each }}
               </div>
-              <small class="form-text-muted text-muted">Se puede agregar réplicas luego de crear la exhibición.</small>
             </div>
+          </div>
+          <div class="row">
+            <small class="form-text-muted text-muted">Seleccione al menos un fósil o una réplica para agregar la exhibición.</small>
           </div>
         </div>
       </div>
       <br>
+
       <!-- Botón de Agregar Exhibición-->
       <div class="row justify-content-center">
         <div class="col-6 text-center">
-          <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Exhibición</button>
+          <button id="submit" type="submit" class="btn btn-success btn-sm btn-block">Agregar Exhibición</button>
         </div>
       </div>
     </div>
@@ -71,6 +73,7 @@
 </div>
 
 <script>
+  
   document.getElementById('toggle-fosiles').addEventListener('change', function () {
     const checkboxes = document.querySelectorAll('.fosil-checkbox');
     checkboxes.forEach(checkbox => {
@@ -83,5 +86,20 @@
     checkboxes.forEach(checkbox => {
       checkbox.checked = this.checked;
     });
+  });
+
+  $(document).ready(function() {
+          if ($('input[name="fosiles"]:checked').length === 0 && $('input[name="replicas"]:checked').length === 0) {
+              $('#submit').prop('disabled', true);
+          } else {
+              $('#submit').prop('disabled', false);
+          }
+      $('input[type="checkbox"]').on('change', function() {
+                  if ($('input[name="fosiles"]:checked').length === 0 && $('input[name="replicas"]:checked').length === 0) {
+              $('#submit').prop('disabled', true);
+          } else {
+              $('#submit').prop('disabled', false);
+          }
+      });
   });
 </script>

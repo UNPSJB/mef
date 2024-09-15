@@ -102,6 +102,20 @@
 
             const { ultimo_estado, id, PersonaId } = data;
 
+            const textosDeEstados = {
+              Fabricando: 'Fabricar',
+              Detalle: 'Detalle',
+              Empleados: 'Empleados',
+              Demorado: 'Demorar',
+              Finalizado: 'Finalizar',
+              Entregado: 'Entregar',
+              Reanudar: 'Reanudar',
+              Presupuestado: 'Presupuestar',
+              Cancelado: 'Cancelar',
+              Facturado: 'Facturar',
+              Confirmado: 'Confirmar',              
+            }
+
             const detalle = 'Detalle'
             const fabricar = 'Fabricando'
             const empleados = 'Empleados'
@@ -156,7 +170,7 @@
             }
 
             const botones = Object.keys(estados).reduce((acc, estado, index) => {
-              const estadoTexto = estados[estado];
+              const estadoTexto = textosDeEstados[estados[estado]];
               acc += `<a class='btn btn-primary' style='margin-right: 10px; margin-bottom: 10px' href='/pedidos/${estado}/${id}'>${estadoTexto}</a>`
 
               return acc;

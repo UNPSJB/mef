@@ -63,6 +63,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       paranoid: true,
+      indexes: [
+        {
+          fields: ['DinosaurioId'],
+        },
+      ],
       hooks: {
         afterValidate: hueso => {
           //@TODO refactorizar
