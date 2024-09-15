@@ -22,6 +22,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       paranoid: true,
+      indexes: [
+        {
+          fields: ['PedidoId'],
+        },
+        {
+          fields: ['HuesoId'],
+        },
+      ],
     }
   );
   //Detalle.associate = models => {
