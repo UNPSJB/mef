@@ -137,9 +137,10 @@ module.exports = {
       "Iguanodon",
       "Microraptor",
       "Oviraptor",
+      "Carnotaurus"
     ];
 
-    for (let index = 1; index <= nombresDinosaurios.length + 1; index++) {
+    for (let index = 1; index <= nombresDinosaurios.length ; index++) {
 
 
       let dinosaurioObj = {
