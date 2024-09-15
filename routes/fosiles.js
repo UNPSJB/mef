@@ -96,7 +96,8 @@ router.post('/', async (req, res) => {
     /** @TODO revisar */
     const { message } = error.errors[0];
     const results = await dinoService.getAllDinosaurios();
-    res.render('fosiles/agregar', { results, dino: req.body, bones, req, errores: message });
+    const numero_coleccion = await fosilService.getNuevoNumeroColeccion();
+    res.render('fosiles/agregar', { results, dino: req.body, bones,numero_coleccion, req, errores: message });
   }
 });
 
