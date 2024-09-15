@@ -29,7 +29,7 @@
               <div class="col-sm border" style="height: 21vh; overflow: auto">
                 {{!-- @TODO agregar fosiles --}}
                 {{#each fosiles_propios}}
-                <input type="checkbox" class="fosil-checkbox" name="fosiles" value="{{this.id}}" checked>
+                <input type="checkbox" class="fosil-checkbox" name="fosiles" value="{{this.dataValues.id}}" checked>
                 {{this.dataValues.huesos}} |
                 {{this.Dinosaurio.dataValues.nombre}}
                 <br>
