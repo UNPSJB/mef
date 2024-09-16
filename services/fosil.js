@@ -66,6 +66,24 @@ module.exports = {
   countFosiles() {
     return models.Fosil.count();
   },
+  async getNuevoNumeroColeccion() {
+    const [result] = await models.sequelize.query(`
+      SELECT DISTINCT "numero_coleccion"
+      FROM "Fosils" AS "Fosil"
+      ORDER BY "Fosil"."numero_coleccion" DESC
+      LIMIT 1;
+    `);
+
+    if (result.length === 0) {
+      // Si no hay registros, empezamos con el primer número de colección
+      return 'FOS-0001';
+    } else {
+      const ultimoNumero = result[0].numero_coleccion;
+      const numero = parseInt(ultimoNumero.split('-')[1], 10) + 1; // Extraer parte numérica y sumarle 1
+      const nuevoNumero = `FOS-${numero.toString().padStart(4, '0')}`; // Generar nuevo número
+      return nuevoNumero;
+    }
+  },
   getFosiles(page = 0, pageSize = 10, args) {
     return models.Fosil.findAndCountAll({
       include: [models.Dinosaurio],

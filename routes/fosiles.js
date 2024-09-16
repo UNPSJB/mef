@@ -59,7 +59,8 @@ router.get('/', async (req, res) => {
 
 router.get('/agregar', async (req, res) => {
   const results = await dinoService.getAllDinosaurios();
-  res.render('fosiles/agregar', { results, bones, req });
+  const numero_coleccion = await fosilService.getNuevoNumeroColeccion();
+  res.render('fosiles/agregar', { results, bones,numero_coleccion, req });
 });
 
 router.get('/editar/:id', async (req, res) => {
@@ -75,6 +76,7 @@ router.put('/', async (req, res) => {
   await fosilService.updateFosil(req.body);
   res.redirect('/fosiles?success=edit'); // redirección con mensaje de edición
 });
+
 
 router.post('/', async (req, res) => {
   const { DinosaurioId, huesos, numero_coleccion, peso, disponible, fecha_encontrado, observacion } = req.body;
@@ -94,7 +96,8 @@ router.post('/', async (req, res) => {
     /** @TODO revisar */
     const { message } = error.errors[0];
     const results = await dinoService.getAllDinosaurios();
-    res.render('fosiles/agregar', { results, dino: req.body, bones, req, errores: message });
+    const numero_coleccion = await fosilService.getNuevoNumeroColeccion();
+    res.render('fosiles/agregar', { results, dino: req.body, bones,numero_coleccion, req, errores: message });
   }
 });
 
