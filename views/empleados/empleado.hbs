@@ -32,6 +32,7 @@
     $('#empleados').DataTable({
       dom: 'Bfrtip',
       serverSide: true,
+      order: [[0, 'desc']],
       ajax: {
         url: '/empleados/list',
         type: 'GET',

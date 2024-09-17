@@ -30,6 +30,7 @@
     $('#fosiles').DataTable({
       dom: 'Bfrtip',
       serverSide: true,
+      order: [[0, 'desc']],
       ajax: {
         url: '/fosiles/list',
         type: 'GET',
