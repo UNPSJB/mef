@@ -2,7 +2,7 @@ Gestión de Colección
 ====================
 
 Bienvenido a la Gestión de Colección. En esta sección usted podrá ver y editar los Dinosaurios y fósiles de la
-base de datos del Mueso.
+base de datos del Museo.
 
 Dinosaurios
 ___________
