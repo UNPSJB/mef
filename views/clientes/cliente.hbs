@@ -36,6 +36,7 @@
     $('#clientesTable').DataTable({
       dom: 'Bfrtip',
       serverSide: true, // Indica que el procesamiento de datos se realiza en el servidor
+      order: [[0, 'desc']], //Ordena de forma descendente el ID.
       ajax: {
         url: '/clientes/list', // URL del endpoint que devuelve los datos de clientes
         type: 'GET', // Tipo de petición HTTP

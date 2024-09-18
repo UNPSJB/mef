@@ -83,3 +83,21 @@ Consiste en asignarle:
 
 .. image:: ../images/secretaria/EditarVisita
    :width: 800
+
+Reportes de Visitas Guiadas
+___________________________
+Este es el reporte de cantidad de vistas guiadas por año.
+Podemos ver una comparativa de las visitas totales y las visitas finalizadas.
+Si deseamos ver solo las totales, solo debemos hacer click en las finalizadas y anularemos el gráfico de
+líneas de esta. Si deseamos ver el gŕafico de línea de las finalizadas, solo debermos tachar las totales.
+
+.. image:: ../images/secretaria/Reporte1
+   :width: 800
+
+Reportes de Edades de los Clientes
+__________________________________
+Reporte discriminado por año y por mes de las edades de los clientes. 
+Dividido en 3: de 18 a 35, de 36 a 55 y de 56 en adelante.
+
+.. image:: ../images/secretaria/Reporte2
+   :width: 800

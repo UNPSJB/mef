@@ -3,7 +3,7 @@ Jefe de Exhibición
 
 Bienvenido a la Gestión de Exhibición. En esta sección usted podrá administrar todo lo referido a:
 
-*  Clientes del mueso
+*  Clientes del museo
 
 *  Exhibiciones 
 
@@ -299,4 +299,14 @@ Esta es la sección dedicada a eliminar clientes.
 Seleccione al cliente que desee eliminar y aparecerá una mensaje de confirmación. Si acepta, se eliminará al cliente.
 
 .. image:: ../images/exhibicion/clientes/EliminarCliente
+   :width: 800
+
+Reportes
+_______
+Este es el reporte de Pedidos Demorados.
+Acá podremos ver, discriminado por año, un gráfico de torta con el total de los reportes demorados.
+Con un color diferente se puede ver el motivo por el cual el reporte se demoró (Falta de Presupuesto, de Material,
+de Personal u otro motivo).
+
+.. image:: ../images/exhibicion/Reporte
    :width: 800

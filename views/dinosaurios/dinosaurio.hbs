@@ -35,6 +35,7 @@
     $('#dinosTable').DataTable({
       dom: 'Bfrtip',
       serverSide: true,
+      order: [[0, 'desc']],
       ajax: '/dinosaurios/list',
       columns: [
         { data: 'id' },

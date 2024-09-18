@@ -34,6 +34,7 @@
     $('#guias').DataTable({
       dom: 'Bfrtip',
       serverSide: true,
+      order: [[0, 'desc']], //Ordena de forma descendente el ID.
       ajax: {
         url: '/guias/list', // URL del endpoint que devuelve los datos de guías
         type: 'GET', // Tipo de petición HTTP

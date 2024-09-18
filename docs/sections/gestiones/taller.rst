@@ -222,3 +222,13 @@ correspondiente y la opción de ver los detalles de cada estado.
 
 .. image:: ../images/exhibicion/pedidos/Entregado
    :width: 800
+
+Reportes
+_______
+Este es el reporte de Pedidos Demorados.
+Acá podremos ver, discriminado por año, un gráfico de torta con el total de los reportes demorados.
+Con un color diferente se puede ver el motivo por el cual el reporte se demoró (Falta de Presupuesto, de Material,
+de Personal u otro motivo).
+
+.. image:: ../images/exhibicion/Reporte
+   :width: 800
