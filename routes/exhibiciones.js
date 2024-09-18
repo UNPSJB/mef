@@ -63,7 +63,7 @@ router.get('/detalle/:id', async (req, res) => {
 router.get('/reportes', async (req, res) => {
   const { anio } = req.query;
   const pedidosDemorados = await pedidoService.getPedidosDemorados(anio);
-  const anios= await pedidoService.buscarAniosPedidosDemorados()
+  const anios = await pedidoService.buscarAniosPedidosDemorados();
   res.render('exhibiciones/reportes', {
     anios,
     pedidosDemorados,
@@ -105,7 +105,19 @@ router.post('/', async (req, res) => {
   const { nombre, tematica, duracion, fosiles, replicas } = req.body;
 
   try {
-    await exhibicionService.createExhibicion(nombre, tematica, duracion, fosiles, replicas);
+    const fosilesArray =
+      fosiles && Array.isArray(fosiles) && fosiles.length
+        ? fosiles
+        : !Number.isNaN(Number(fosiles))
+        ? [Number(...fosiles)]
+        : [];
+    const replicasArray =
+      replicas && Array.isArray(replicas) && replicas.length
+        ? replicas
+        : !Number.isNaN(Number(replicas))
+        ? [Number(replicas)]
+        : [...replicas];
+    await exhibicionService.createExhibicion(nombre, tematica, duracion, fosilesArray, replicasArray);
     res.redirect('/exhibiciones?success=create'); // redirección con mensaje de edición
   } catch (error) {
     const { message } = error.errors[0];
@@ -118,9 +130,22 @@ router.post('/', async (req, res) => {
 router.put('/', async (req, res) => {
   const { id, nombre, tematica, duracion, fosiles, replicas } = req.body;
   try {
-    await exhibicionService.updateExhibicion(id, nombre, tematica, duracion, fosiles, replicas);
+    const fosilesArray =
+      fosiles && Array.isArray(fosiles) && fosiles.length
+        ? fosiles
+        : !Number.isNaN(Number(fosiles))
+        ? [Number(fosiles)]
+        : [];
+    const replicasArray =
+      replicas && Array.isArray(replicas) && replicas.length
+        ? replicas
+        : !Number.isNaN(Number(replicas))
+        ? [Number(replicas)]
+        : [];
+    await exhibicionService.updateExhibicion(id, nombre, tematica, duracion, fosilesArray, replicasArray);
     res.redirect('/exhibiciones?success=edit'); // redirección con mensaje de edición
   } catch (error) {
+    console.log(error);
     const { message } = error.errors[0];
 
     const exhibicion = await exhibicionService.getExhibicion(id);
