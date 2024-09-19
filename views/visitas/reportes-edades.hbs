@@ -1,5 +1,10 @@
 <h1>Reportes de edades de clientes de visitas guiadas por año</h1>
 
+<!-- Botón para exportar a PDF -->
+<div style="margin-bottom: 20px; text-align: left; padding-left: 20px;">
+  <button id="exportToPDF" class="btn btn-primary">Exportar a PDF</button>
+</div>
+
 <!-- Card más ancho que contiene el gráfico y el selector -->
 <div class="card" style="max-width: 1200px; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
   <!-- Selector de Año alineado a la izquierda debajo del título -->
@@ -19,26 +24,29 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <script>
   // SCRIPT PARA EL GRÁFICO DE LÍNEAS - Visitas Totales y Finalizadas
   const ctx = document.getElementById('myChart').getContext('2d');
-  const visitas18a35=[{{edadesVisitas.visitas18a35}}]
-  const visitas35a55=[{{edadesVisitas.visitas35a55}}]
-  const visitas55omas=[{{edadesVisitas.visitas55omas}}]
+  const visitas18a35 = [{{edadesVisitas.visitas18a35}}];
+  const visitas35a55 = [{{edadesVisitas.visitas35a55}}];
+  const visitas55omas = [{{edadesVisitas.visitas55omas}}];
 
   const defaultData = {
     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     datasets: [
       {
         label: '18 a 35 años',
-        data: visitas18a35, // Datos de visitas totales iniciales
+        data: visitas18a35,
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192)',
         fill: true
       },
       {
         label: '35 a 55 años',
-        data: visitas35a55, // Datos de visitas finalizadas iniciales
+        data: visitas35a55,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132)',
         fill: true
@@ -53,13 +61,12 @@
     ],
   };
 
-  // Crear el gráfico de líneas
   const myChart = new Chart(ctx, {
     type: 'bar',
     data: defaultData,
     options: {
       responsive: true,
-      maintainAspectRatio: false, // Permite ajustar el tamaño del gráfico al contenedor
+      maintainAspectRatio: false,
       scales: {
         x: {
           beginAtZero: true,
@@ -69,29 +76,64 @@
           beginAtZero: true,
           stacked: true,
           ticks: {
-            stepSize: 1, // Asegurarse de que los valores sean números enteros
+            stepSize: 1,
           }
         }
-    },
+      },
       plugins: {
         legend: {
-          display: true // Mostrar leyenda con las dos líneas
+          display: true
         }
       },
     },
   });
 
   // Actualizar gráfico al cambiar el año
-  $("#selectorAnio").change(function() {
-    fetch(`/visitas/reportes-por-edades/data?anio=${$(this).val()}`)
+  document.getElementById('selectorAnio').addEventListener('change', function () {
+    fetch(`/visitas/reportes-por-edades/data?anio=${this.value}`)
       .then(response => response.json())
       .then(data => {
-        // Actualizar gráfico con los datos de visitas totales y finalizadas
-        myChart.data.datasets[0].data = data.edadesVisitas.visitas18a35; // Visitas Totales
-        myChart.data.datasets[1].data = data.edadesVisitas.visitas35a55; // Visitas Finalizadas
-        myChart.data.datasets[2].data = data.edadesVisitas.visitas55omas; // Visitas Finalizadas
+        myChart.data.datasets[0].data = data.edadesVisitas.visitas18a35;
+        myChart.data.datasets[1].data = data.edadesVisitas.visitas35a55;
+        myChart.data.datasets[2].data = data.edadesVisitas.visitas55omas;
         myChart.update();
       })
       .catch(error => console.error('Error al actualizar los datos:', error));
+  });
+
+  // Funcionalidad para exportar el gráfico a PDF
+  document.getElementById('exportToPDF').addEventListener('click', function () {
+    const card = document.querySelector('.card'); // Seleccionamos el contenedor de la card
+    const exportButton = document.getElementById('exportToPDF');
+
+    // Ocultar el botón antes de capturar el contenido
+    exportButton.style.display = 'none';
+
+    html2canvas(card).then(function (canvas) {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jspdf.jsPDF('landscape', 'mm', 'a4'); // Crear PDF en orientación horizontal
+      const imgWidth = 290; // Ancho de la imagen en el PDF
+      const pageHeight = 210; // Altura de la página A4
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+
+      let position = 0;
+
+      // Agregar la imagen al PDF y manejar el caso de múltiples páginas
+      pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save('reporte-visitas-guiadas.pdf'); // Guardar el PDF
+
+      // Volver a mostrar el botón después de exportar
+      exportButton.style.display = 'block';
+    });
   });
 </script>

@@ -1,7 +1,12 @@
-<h1>Reportes de cantidad visitas guiadas por año</h1>
+<h1 style="text-align: center; margin-bottom: 20px;">Reportes de cantidad visitas guiadas por año</h1>
+
+<!-- Botón para exportar a PDF -->
+<div style="text-align: center; margin-bottom: 20px;">
+  <button id="exportPDF" class="btn btn-primary">Exportar a PDF</button>
+</div>
 
 <!-- Card más ancho que contiene el gráfico y el selector -->
-<div class="card" style="max-width: 1200px; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+<div id="reportContent" class="card" style="max-width: 1200px; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
   <!-- Selector de Año alineado a la izquierda debajo del título -->
   <div style="margin-bottom: 20px;">
     <label for="selectorAnio">Seleccionar Año:</label>
@@ -19,24 +24,28 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <script>
-  // SCRIPT PARA EL GRÁFICO DE LÍNEAS - Visitas Totales y Finalizadas
+  // SCRIPT PARA EL GRÁFICO DE LÍNEAS
   const ctx = document.getElementById('myChart').getContext('2d');
- const totalVisitas=[{{totalVisitas}}]
- const visitasFinalizadas=[{{visitasFinalizadas}}]
+  const totalVisitas = [{{totalVisitas}}];
+  const visitasFinalizadas = [{{visitasFinalizadas}}];
+
   const defaultData = {
     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     datasets: [
       {
         label: 'Visitas Totales',
-        data:totalVisitas, // Datos de visitas totales iniciales
+        data: totalVisitas,
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         fill: true
       },
       {
         label: 'Visitas Finalizadas',
-        data:visitasFinalizadas, // Datos de visitas finalizadas iniciales
+        data: visitasFinalizadas,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         fill: true
@@ -44,39 +53,65 @@
     ]
   };
 
-  // Crear el gráfico de líneas
   const myChart = new Chart(ctx, {
     type: 'line',
     data: defaultData,
     options: {
       responsive: true,
-      maintainAspectRatio: false, // Permite ajustar el tamaño del gráfico al contenedor
+      maintainAspectRatio: false,
       scales: {
         y: {
           beginAtZero: true,
           ticks: {
-            stepSize: 1, // Asegurarse de que los valores sean números enteros
+            stepSize: 1,
           }
         }
       },
       plugins: {
         legend: {
-          display: true // Mostrar leyenda con las dos líneas
+          display: true
         }
       },
     },
   });
 
   // Actualizar gráfico al cambiar el año
-  $("#selectorAnio").change(function() {
-    fetch(`/visitas/reportes/data?anio=${$(this).val()}`)
+  document.getElementById('selectorAnio').addEventListener('change', function() {
+    fetch(`/visitas/reportes/data?anio=${this.value}`)
       .then(response => response.json())
       .then(data => {
-        // Actualizar gráfico con los datos de visitas totales y finalizadas
-        myChart.data.datasets[0].data = data.totalVisitas; // Visitas Totales
-        myChart.data.datasets[1].data = data.visitasFinalizadas; // Visitas Finalizadas
+        myChart.data.datasets[0].data = data.totalVisitas;
+        myChart.data.datasets[1].data = data.visitasFinalizadas;
         myChart.update();
       })
       .catch(error => console.error('Error al actualizar los datos:', error));
   });
+
+  // Exportar a PDF
+  document.getElementById('exportPDF').addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const reportContent = document.querySelector("#reportContent");
+    const exportButton = document.getElementById('exportPDF');
+
+    // Ocultar el botón antes de capturar el contenido
+    exportButton.style.visibility = 'hidden';
+
+    html2canvas(reportContent).then(canvas => {
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF('landscape');
+      const imgWidth = 280; // Ancho de la imagen en el PDF
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+
+      let position = 0;
+
+      pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+      pdf.save("reporte_visitas.pdf");
+
+      // Volver a mostrar el botón después de exportar
+      exportButton.style.visibility = 'visible';
+    });
+  });
 </script>
+

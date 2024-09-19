@@ -1,7 +1,12 @@
 <h1>Pedidos Demorados</h1>
 
-<!-- Card más ancho que contiene el gráfico y la tabla -->
-<div class="card" style="max-width: 800px; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+<!-- Botón para exportar a PDF -->
+<div style="text-align: center; margin-bottom: 20px;">
+  <button id="exportPDF" class="btn btn-primary">Exportar a PDF</button>
+</div>
+
+<!-- Card que contiene el gráfico y la tabla -->
+<div class="card" id="reportContent" style="max-width: 800px; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
   <!-- Selector de Año alineado a la izquierda debajo del título -->
   <div style="margin-bottom: 20px;">
     <label for="selectorAnio">Seleccionar Año:</label>
@@ -12,7 +17,7 @@
     </select>
   </div>
 
-  <!-- Gráfico de Torta (sin leyendas ni título arriba) -->
+  <!-- Gráfico de Torta -->
   <div style="max-width: 400px; margin: auto;">
     <canvas id="myChart"></canvas>
   </div>
@@ -60,6 +65,9 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <script>
   // SCRIPT PARA EL GRAFICO (TORTA) - Motivos de Demora
   const ctx = document.getElementById('myChart').getContext('2d');
@@ -93,9 +101,6 @@
     }]
   };
 
-  // Actualizar el total inicial en la tabla
-  document.getElementById('totalDemorados').innerText = totalInicial;
-
   const myChart = new Chart(ctx, {
     type: 'pie',
     data: defaultData,
@@ -110,7 +115,7 @@
   });
 
   // Actualizar gráfico, tabla y total al cambiar el año
-  $("#selectorAnio").change(function() {
+  document.getElementById('selectorAnio').addEventListener('change', function() {
     fetch(`/exhibiciones/reportes/data?anio=${this.value}`)
       .then(response => response.json())
       .then(data => {
@@ -133,5 +138,46 @@
         const totalDemorados = data.falta_de_personal + data.falta_de_material + data.falta_de_presupuesto + data.otros;
         document.getElementById('totalDemorados').innerText = totalDemorados;
       });
+  });
+
+  // Exportar a PDF
+  document.getElementById('exportPDF').addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const reportContent = document.querySelector("#reportContent");
+
+    // Ocultar el botón antes de capturar el contenido
+    document.getElementById('exportPDF').style.visibility = 'hidden';
+
+    // Capturar el contenido HTML con html2canvas
+    html2canvas(reportContent).then(canvas => {
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 190; // Ancho de la imagen en mm
+      const pageHeight = pdf.internal.pageSize.height;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+
+      let position = 0;
+
+      pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save("reporte_pedidos_demorados.pdf");
+
+      // Volver a mostrar el botón después de la exportación
+      document.getElementById('exportPDF').style.visibility = 'visible';
+    }).catch(error => {
+      console.error('Error al capturar el contenido:', error);
+      // Volver a mostrar el botón en caso de error
+      document.getElementById('exportPDF').style.visibility = 'visible';
+    });
   });
 </script>
