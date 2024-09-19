@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizar Visita</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white text-center">
+            <h2>Finalizar Visita # {{visita.id}}</h2>
+          </div>
+          <div class="card-body">
+            <p><strong>Exhibición:</strong> {{visita.Exhibicion.nombre}}</p>
+            <p><strong>Temática:</strong> {{visita.Exhibicion.tematica}}</p>
+            <p><strong>DNI del Cliente:</strong> {{visita.Cliente.Persona.identificacion}}</p>
+            <p><strong>Nombre del Cliente:</strong> {{visita.Cliente.Persona.nombre}}</p>
+            <p><strong>DNI del Guía:</strong> {{visita.Guium.Persona.identificacion}}</p>
+            <p><strong>Nombre del Guía:</strong> {{visita.Guium.Persona.nombre}}</p>
+            <p><strong>Cantidad de Personas:</strong> {{visita.cantidadDePersonas}}</p>
+            <p><strong>Fecha de Visita:</strong> {{visita.fechaVisita}}</p>
+            <p><strong>Horario:</strong> {{visita.horario}}</p>
+            <p><strong>Precio:</strong> ${{visita.precio}}</p>
+            <p><strong>Estado:</strong> {{visita.estado}}</p>
+            <p><strong>Observación:</strong> {{visita.observacion}}</p>
+          </div>
+          <div class="card-footer text-center">
+            <form action="/visitas/confirmar-finalizacion/{{visita.id}}" method="POST">
+               <p>¿Estás seguro de que deseas finalizar esta visita?</p>
+              <button type="submit" class="btn btn-success">Confirmar Finalización</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

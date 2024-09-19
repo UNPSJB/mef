@@ -85,13 +85,9 @@
               <br>
 
               <!--Estado-->
-              <label class="font-weight-bold" for="estado">Estado</label>
-              <select class="form-control" name="estado" required>
-                <option value="Pendiente" id="pendiente">Pendiente</option>
-                <option value="Finalizada" id="finalizada">Finalizada</option>
-                <option value="Cancelada" id="cancelada">Cancelada</option>
-              </select>
-              <small class="form-text-muted text-muted">Estado de la visita guiada.</small><br>
+              <label class="font-weight-bold" for="estado"></label>
+              <!--Estado (Oculto)-->
+              <input type="hidden" name="estado" value="{{visita.estado}}">
             </div>
           </div>
           <br>

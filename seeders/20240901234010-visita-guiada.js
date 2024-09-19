@@ -1,5 +1,7 @@
 'use strict';
 const faker = require('faker/locale/es_MX');
+
+// Función para generar un conjunto de números únicos
 const getRandomUniqueNumbers = (min, max, count) => {
   const numbers = new Set();
   while (numbers.size < count) {
@@ -9,13 +11,16 @@ const getRandomUniqueNumbers = (min, max, count) => {
   return Array.from(numbers);
 };
 
+// Función para generar un número aleatorio entre dos valores
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 const NUM_FOSSILS = 30;
 const MAX_DINOSAUR_ID = 14;
 const NUM_EXHIBICIONES = 10;
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    // Datos de exhibiciones
     const exhibicionesData = [
       {
         nombre: 'Fósiles de Dinosaurios',
@@ -92,40 +97,37 @@ module.exports = {
     // Insertar los datos en la tabla Exhibicions
     await queryInterface.bulkInsert('Exhibicions', exhibicionesData, {});
 
-  /**----------------------------------------------------------------------------------- */
- 
-     // Generar 30 números únicos para los IDs de los fósiles
-     const fosiles = getRandomUniqueNumbers(1, 29,29);
+    /** ----------------------------------------------------------------------------------- */
 
-     // Crear las relaciones entre exhibiciones y fósiles
-     const fosilExhibicionesData = [];
-     
-     for (let i = 0; i < exhibicionesData.length; i++) {
-       const numFosiles = getRandomInt(1, 2);
-       const selectedFosiles = getRandomUniqueNumbers(0, fosiles.length - 1, numFosiles);
- 
-       selectedFosiles.forEach(index => {
-         fosilExhibicionesData.push({
-           ExhibicionId: i + 1, // Usar el índice + 1 para el ID
-           FosilId: fosiles[index],
-           createdAt: new Date(),
-           updatedAt: new Date()
-         });
-       });
-     }
+    // Generar 30 números únicos para los IDs de los fósiles
+    const fosiles = getRandomUniqueNumbers(1, 29, 29);
 
-     // Insertar las relaciones en la tabla intermedia
-     await queryInterface.bulkInsert('FosilExhibicions', fosilExhibicionesData, {});
+    // Crear las relaciones entre exhibiciones y fósiles
+    const fosilExhibicionesData = [];
+    for (let i = 0; i < exhibicionesData.length; i++) {
+      const numFosiles = getRandomInt(1, 2);
+      const selectedFosiles = getRandomUniqueNumbers(0, fosiles.length - 1, numFosiles);
 
+      selectedFosiles.forEach(index => {
+        fosilExhibicionesData.push({
+          ExhibicionId: i + 1, // Usar el índice + 1 para el ID
+          FosilId: fosiles[index],
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+      });
+    }
 
+    // Insertar las relaciones en la tabla intermedia
+    await queryInterface.bulkInsert('FosilExhibicions', fosilExhibicionesData, {});
 
-  /**----------------------------------------------------------------------------------- */
+    /** ----------------------------------------------------------------------------------- */
+
     let visitasArr = [];
     let today = new Date();
     let startDate = new Date(today.getFullYear() - 4, 0, 1); // Inicio de hace 4 años (2020)
     let endDate = new Date(today.getFullYear(), 11, 31); // Fin del año actual (2024)
     let totalVisits = 600; // número de visitas que se desea crear
-    let additionalVisits = 80; // número de visitas adicionales
 
     // Función para generar una fecha aleatoria entre el rango especificado
     const generateRandomDate = (start, end) => {
@@ -141,7 +143,15 @@ module.exports = {
 
         for (let i = 0; i < visitasPorMes; i++) {
           let visitaFecha = generateRandomDate(monthStartDate, monthEndDate);
-          let visitaEstado = faker.random.arrayElement(['Cancelada', 'Finalizada', 'Pendiente']);
+
+          // Determinar el estado de la visita basado en la fecha
+          let visitaEstado;
+          if (visitaFecha < today) {
+            visitaEstado = faker.random.arrayElement(['Cancelada', 'Finalizada']);
+          } else {
+            visitaEstado = faker.random.arrayElement(['Pendiente', 'Cancelada']);
+          }
+
           let visitaTipo = faker.random.arrayElement(['Escuela', 'Universidad', 'Particular', 'Organización Gubernamental']);
           let exhibicionId = faker.random.number({ min: 1, max: exhibicionesData.length });
 
@@ -150,7 +160,7 @@ module.exports = {
             fechaVisita: visitaFecha,
             horario: faker.random.arrayElement([
               '09:00hs', '10:00hs', '11:00hs', '12:00hs', '13:00hs',
-              '14:00hs', '15:00hs', '16:00hs', '17:00hs', '18:00hs'
+              '14:00hs', '15:00hs', '16:00hs', '17:00hs', '18:00hs',
             ]),
             precio: faker.random.number({ min: 1, max: 30000 }),
             estado: visitaEstado,
@@ -168,47 +178,10 @@ module.exports = {
       }
     }
 
-    // Agregar visitas adicionales en estado "Pendiente"
-    for (let i = 0; i < additionalVisits; i++) {
-      let visitaFecha;
-      let visitaTipo = faker.random.arrayElement(['Escuela', 'Universidad', 'Particular', 'Organización Gubernamental']);
-      let futureYear = today.getFullYear(); // Año actual para visitas adicionales
-      let futureMonth = Math.floor(Math.random() * 12); // Mes aleatorio del año
+    // Ordenar el array de visitas por la fecha de visita de manera ascendente
+    visitasArr.sort((a, b) => new Date(a.fechaVisita) - new Date(b.fechaVisita));
 
-      let futureStartDate = new Date(futureYear, futureMonth, 1);
-      let futureEndDate = new Date(futureYear, futureMonth + 1, 0);
-
-      do {
-        visitaFecha = generateRandomDate(futureStartDate, futureEndDate);
-      } while (
-        visitasArr.some(v => v.fechaVisita.toDateString() === visitaFecha.toDateString() && v.estado === 'Pendiente')
-      );
-
-      let visitaObj = {
-        cantidadDePersonas: faker.random.number({ min: 1, max: 100 }),
-        fechaVisita: visitaFecha,
-        horario: faker.random.arrayElement([
-          '09:00hs', '10:00hs', '11:00hs', '12:00hs', '13:00hs',
-          '14:00hs', '15:00hs', '16:00hs', '17:00hs', '18:00hs'
-        ]),
-        precio: faker.random.number({ min: 1, max: 30000 }),
-        estado: 'Pendiente', // Estado siempre "Pendiente"
-        observacion: visitaTipo === 'Particular' ? null : `Visita solicitada por ${visitaTipo}`,
-        cancelada: false, // Estado "Pendiente" no puede estar cancelado
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        ClienteId: faker.random.number({ min: 1, max: 50 }), // Ajustado al rango válido
-        GuiumId: faker.random.number({ min: 1, max: 60 }),
-        ExhibicionId: faker.random.number({ min: 1, max: 8 }),
-      };
-
-      visitasArr.push(visitaObj);
-    }
-
-    // Ordenar visitas por fecha
-    visitasArr.sort((a, b) => a.fechaVisita - b.fechaVisita);
-
-    // Insertar los datos en la tabla Visitas
-    return queryInterface.bulkInsert('Visita', visitasArr, {});
+    // Insertar visitas en la tabla
+    await queryInterface.bulkInsert('Visita', visitasArr, {});
   },
 };

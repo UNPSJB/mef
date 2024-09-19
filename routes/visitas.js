@@ -79,6 +79,21 @@ router.get('/editar/:id', async (req, res) => {
   res.render('visitas/editar', { visita, exhibiciones, clientes, guias, req, horariosDisponibles });
 });
 
+// Ruta para mostrar visitas para finalizar
+router.get('/finalizar/:id', async (req, res) => {
+  const { id } = req.params;
+  const visita = await visitaService.getVisita(id, { raw: true, nest: true });
+
+  res.render('visitas/finalizar', { visita,req });
+});
+router.get('/cancelar/:id', async (req, res) => {
+  const { id } = req.params;
+  const visita = await visitaService.getVisita(id, { raw: true, nest: true });
+  console.log('visita', visita);
+  res.render('visitas/cancelar', { visita,req });
+});
+
+
 router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params;
   const visita = await visitaService.getVisita(id, { raw: true, nest: true });
@@ -92,6 +107,7 @@ router.get('/reportes', async (req, res) => {
 
   res.render('visitas/reportes', { anios, totalVisitas, visitasFinalizadas, req });
 });
+
 
 router.get('/reportes/data', async (req, res) => {
   const { anio } = req.query;
@@ -116,6 +132,10 @@ router.get('/reportes-por-edades/data', async (req, res) => {
   });
 });
 
+router.post('/cancelar/:id', (req, res) => {
+  const { id } = req.params;
+  
+});
 router.post('/', async (req, res) => {
   const { exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion } = req.body;
   /** @TODO agregar try catch y la vista de agregar visita */
@@ -147,4 +167,5 @@ router.put('/', async (req, res) => {
       res.redirect('/visitas?success=edit'); // redirección con mensaje de edición
     });
 });
+
 module.exports = router;

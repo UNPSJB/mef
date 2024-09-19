@@ -127,6 +127,16 @@ module.exports = {
     );
     return result.map(row => row.year);
   },
+  async cancelarVisita(id){
+
+
+  },
+
+  async finalizarVisita(id){
+
+
+  },
+
   async getVisitasPrimerAnio() {
     const anios = await this.getAniosVisitas();
     let anio = anios[0];
@@ -301,7 +311,27 @@ module.exports = {
       throw error;
     }
   },
-
+  async  finalizarVisita(id) {
+    try {
+      // Conexión a la base de datos
+      console.log(id);
+      const query = `UPDATE public."Visita" SET estado = 'Finalizado' WHERE id = $1 RETURNING *`;
+      const [result] = await sequelize.query(query, {
+        bind: [id],
+        type: sequelize.QueryTypes.UPDATE
+      });
+  
+      // Verifica si se actualizó alguna fila
+      if (result.length === 0) {
+        throw new Error('Visita no encontrada o no se pudo actualizar');
+      }
+  
+      console.log('Visita actualizada exitosamente:', result);
+    } catch (error) {
+      console.error('Error al actualizar el estado de la visita:', error);
+      throw error;
+    }
+  },  
   async getVisitasDataTable({ start, length, search, order, columns }) {
     let querySearch = undefined;
     const [orderValue] = order;

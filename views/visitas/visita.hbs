@@ -57,85 +57,96 @@
       ajax: {
         url: '/visitas/list', // URL del endpoint que devuelve los datos de visitas
         type: 'GET', // Tipo de petición HTTP
-        {{> paginacion / data}}
       },
-    columns: [
-    { data: 'id' },
-    {
-      data: 'Exhibicion.nombre',
-      render: function (data, type, row) {
-        return row.Exhibicion.nombre + ' | ' + row.Exhibicion.tematica;
-      }
-    },
-    {
-      data: 'Cliente->Persona.identificacion',
-      render: function (data, type, row) {
-        return row.Cliente.Persona.identificacion + ' | ' + row.Cliente.Persona.nombre + ' ' + row.Cliente.Persona.apellido;
-      }
-    },
-    {
-      data: 'Guium->Persona.identificacion',
-      render: function (data, type, row) {
-        return row.Guium.Persona.identificacion + ' | ' + row.Guium.Persona.nombre + ' ' + row.Guium.Persona.apellido;
-      }
-    },
-    { data: 'cantidadDePersonas' },
-    {
-      data: 'fechaVisita',
-      render: function (data, type, row) {
-        const fecha = new Date(data.split('T')[0] + 'T00:00:00');
-        const dia = ('0' + fecha.getDate()).slice(-2);
-        const mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
-        const año = fecha.getFullYear();
-        return dia + '/' + mes + '/' + año;
-      }
-    },
-    { data: 'horario' },
-    {
-      data: 'precio',
-      render: function (data, type, row) {
-        return '$' + data;
-      }
-    },
-    {
-      data: 'estado',
-      render: function (data, type, row) {
-        return data ? data : 'Pendiente';
-      }
-    },
-    {
-      data: 'observacion',
-      render: function (data, type, row) {
-        return data ? data : 'Particular';
-      }
-    },
-    {
-      data: null,
-      render: function (data, type, row) {
-        if (row.estado === "Cancelada" || row.estado === "Finalizada") {
-          return '';
+      columns: [
+        { data: 'id' },
+        {
+          data: 'Exhibicion.nombre',
+          render: function (data, type, row) {
+            return row.Exhibicion.nombre + ' | ' + row.Exhibicion.tematica;
+          }
+        },
+        {
+          data: 'Cliente->Persona.identificacion',
+          render: function (data, type, row) {
+            return row.Cliente.Persona.identificacion + ' | ' + row.Cliente.Persona.nombre + ' ' + row.Cliente.Persona.apellido;
+          }
+        },
+        {
+          data: 'Guium->Persona.identificacion',
+          render: function (data, type, row) {
+            return row.Guium.Persona.identificacion + ' | ' + row.Guium.Persona.nombre + ' ' + row.Guium.Persona.apellido;
+          }
+        },
+        { data: 'cantidadDePersonas' },
+        {
+          data: 'fechaVisita',
+          render: function (data, type, row) {
+            const fecha = new Date(data.split('T')[0] + 'T00:00:00');
+            const dia = ('0' + fecha.getDate()).slice(-2);
+            const mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
+            const año = fecha.getFullYear();
+            return dia + '/' + mes + '/' + año;
+          }
+        },
+        { data: 'horario' },
+        {
+          data: 'precio',
+          render: function (data, type, row) {
+            return '$' + data;
+          }
+        },
+        {
+          data: 'estado',
+          render: function (data, type, row) {
+            return data ? data : 'Pendiente';
+          }
+        },
+        {
+          data: 'observacion',
+          render: function (data, type, row) {
+            return data ? data : 'Particular';
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            if (row.estado === "Cancelada" || row.estado === "Finalizada") {
+              return '';
+            }
+            return `
+              <div class="btn-group">
+                <a href="/visitas/editar/${data.id}" class="btn btn-primary mr-2" title="Editar">
+                  Editar
+                </a>
+                <a href="/visitas/cancelar/${data.id}" class="btn btn-danger mr-2" title="Cancelar">
+                  Cancelar
+                </a>
+                <a href="/visitas/finalizar/${data.id}" class="btn btn-success" title="Finalizar">
+                  Finalizar
+                </a>
+              </div>
+            `;
+          }
         }
-        return '<a href="/visitas/editar/' + data.id + '"><span class="material-icons">edit</span></a>';
-      }
-    }
-  ],
-    language: {
-    processing: "Buscando...",
-    search: "Buscar:",
-    lengthMenu: "Mostrando _MENU_",
-    info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
-    infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
-    infoFiltered: "(de un total de _MAX_)",
-    infoPostFix: "",
-    loadingRecords: "Cargando...",
-    zeroRecords: "No hay coincidencias.",
-    emptyTable: "No hay visitas.",
-    paginate: { first: "Primero", previous: "Anterior", next: "Siguiente", last: "Último" },
-    aria: { sortAscending: ": Ordenar ascendente", sortDescending: ": Ordenar descendente" }
-  },
-    columnDefs: [
-    { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
-  ]
+      ],
+      language: {
+        processing: "Buscando...",
+        search: "Buscar:",
+        lengthMenu: "Mostrando _MENU_",
+        info: "Mostrando _START_ de _END_ de un total de _TOTAL_ ",
+        infoEmpty: "Mostrando 0 de 0 de un total de 0 ",
+        infoFiltered: "(de un total de _MAX_)",
+        infoPostFix: "",
+        loadingRecords: "Cargando...",
+        zeroRecords: "No hay coincidencias.",
+        emptyTable: "No hay visitas.",
+        paginate: { first: "Primero", previous: "Anterior", next: "Siguiente", last: "Último" },
+        aria: { sortAscending: ": Ordenar ascendente", sortDescending: ": Ordenar descendente" }
+      },
+      columnDefs: [
+        { orderable: false, targets: -1 } // La columna -1 es la última columna (Acciones)
+      ]
     }); 
   });
 </script>
