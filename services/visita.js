@@ -127,14 +127,33 @@ module.exports = {
     );
     return result.map(row => row.year);
   },
-  async cancelarVisita(id){
-
-
+  async cancelarVisita(id) {
+    try {
+      const visita = await models.Visita.findByPk(id);
+      if (!visita) {
+        throw new Error('Visita no encontrada');
+      }
+      visita.estado = 'Cancelada';
+      visita.cancelada = true;
+      await visita.save();
+    } catch (error) {
+      console.error('Error al cancelar la visita:', error);
+      throw error;
+    }
   },
 
-  async finalizarVisita(id){
-
-
+  async finalizarVisita(id) {
+    try {
+      const visita = await models.Visita.findByPk(id);
+      if (!visita) {
+        throw new Error('Visita no encontrada');
+      }
+      visita.estado = 'Finalizada';
+      await visita.save();
+    } catch (error) {
+      console.error('Error al finalizar la visita:', error);
+      throw error;
+    }
   },
 
   async getVisitasPrimerAnio() {
@@ -311,27 +330,6 @@ module.exports = {
       throw error;
     }
   },
-  async  finalizarVisita(id) {
-    try {
-      // Conexión a la base de datos
-      console.log(id);
-      const query = `UPDATE public."Visita" SET estado = 'Finalizado' WHERE id = $1 RETURNING *`;
-      const [result] = await sequelize.query(query, {
-        bind: [id],
-        type: sequelize.QueryTypes.UPDATE
-      });
-  
-      // Verifica si se actualizó alguna fila
-      if (result.length === 0) {
-        throw new Error('Visita no encontrada o no se pudo actualizar');
-      }
-  
-      console.log('Visita actualizada exitosamente:', result);
-    } catch (error) {
-      console.error('Error al actualizar el estado de la visita:', error);
-      throw error;
-    }
-  },  
   async getVisitasDataTable({ start, length, search, order, columns }) {
     let querySearch = undefined;
     const [orderValue] = order;
