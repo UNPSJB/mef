@@ -25,6 +25,12 @@ router.get('/', async (req, res) => {
     if (success === 'edit') {
       mensajeEdit = 'Visita editada con éxito.';
     }
+    if (success === 'cancelled') {
+      mensajeEdit = 'Visita cancelada con éxito.';
+    }
+    if (success === 'finished') {
+      mensajeEdit = 'Visita finalizada con éxito.';
+    }
     res.render('visitas/visita', {
       results: visitas,
       req,
@@ -79,6 +85,20 @@ router.get('/editar/:id', async (req, res) => {
   res.render('visitas/editar', { visita, exhibiciones, clientes, guias, req, horariosDisponibles });
 });
 
+// Ruta para mostrar visitas para finalizar
+router.get('/finalizar/:id', async (req, res) => {
+  const { id } = req.params;
+  const visita = await visitaService.getVisita(id, { raw: true, nest: true });
+
+  res.render('visitas/finalizar', { visita, req });
+});
+router.get('/cancelar/:id', async (req, res) => {
+  const { id } = req.params;
+  const visita = await visitaService.getVisita(id, { raw: true, nest: true });
+  console.log('visita', visita);
+  res.render('visitas/cancelar', { visita, req });
+});
+
 router.get('/eliminar/:id', async (req, res) => {
   const { id } = req.params;
   const visita = await visitaService.getVisita(id, { raw: true, nest: true });
@@ -116,6 +136,25 @@ router.get('/reportes-por-edades/data', async (req, res) => {
   });
 });
 
+router.post('/cancelar/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await visitaService.cancelarVisita(id);
+    res.redirect('/visitas?success=cancelled');
+  } catch (error) {
+    res.redirect('/404');
+  }
+});
+router.post('/finalizar/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await visitaService.finalizarVisita(id);
+    res.redirect('/visitas?success=finished');
+  } catch (error) {
+    res.redirect('/404');
+  }
+});
+
 router.post('/', async (req, res) => {
   const { exhibicionId, clienteId, guiaId, cantidadPersonas, fecha, horario, precio, estado, observacion } = req.body;
   /** @TODO agregar try catch y la vista de agregar visita */
@@ -147,4 +186,5 @@ router.put('/', async (req, res) => {
       res.redirect('/visitas?success=edit'); // redirección con mensaje de edición
     });
 });
+
 module.exports = router;
