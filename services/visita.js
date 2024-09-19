@@ -6,8 +6,16 @@ const genericSearch = (search, fields) => {
   return fields.map(field => {
     if (field === 'Guium.Persona.identificacion') {
       return literal(`"Guium->Persona"."identificacion" ILIKE '%${search}%'`);
+    } else if (field === 'Guium.Persona.nombre') {
+      return literal(`"Guium->Persona"."nombre" ILIKE '%${search}%'`);
+    } else if (field === 'Guium.Persona.apellido') {
+      return literal(`"Guium->Persona"."apellido" ILIKE '%${search}%'`);
     } else if (field === 'Cliente.Persona.identificacion') {
       return literal(`"Cliente->Persona"."identificacion" ILIKE '%${search}%'`);
+    } else if (field === 'Cliente.Persona.nombre') {
+      return literal(`"Cliente->Persona"."nombre" ILIKE '%${search}%'`);
+    } else if (field === 'Cliente.Persona.apellido') {
+      return literal(`"Cliente->Persona"."apellido" ILIKE '%${search}%'`);
     } else if (field === 'fechaVisita') {
       // Buscar utilizando el formato DD/MM/YYYY
       return literal(`TO_CHAR("Visita"."fechaVisita", 'DD/MM/YYYY') ILIKE '%${search}%'`);
@@ -344,6 +352,10 @@ module.exports = {
           'id',
           'Cliente.Persona.identificacion',
           'Guium.Persona.identificacion',
+          'Cliente.Persona.nombre',
+          'Cliente.Persona.apellido',
+          'Guium.Persona.nombre',
+          'Guium.Persona.apellido',
           'fechaVisita',
           'Exhibicion.nombre',
           'observacion',

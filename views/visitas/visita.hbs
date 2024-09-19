@@ -58,6 +58,7 @@
       ajax: {
         url: '/visitas/list', // URL del endpoint que devuelve los datos de visitas
         type: 'GET', // Tipo de petición HTTP
+        {{> paginacion / data}}
       },
       columns: [
         { data: 'id' },
