@@ -109,14 +109,14 @@ router.post('/', async (req, res) => {
       fosiles && Array.isArray(fosiles) && fosiles.length
         ? fosiles
         : !Number.isNaN(Number(fosiles))
-        ? [Number(...fosiles)]
-        : [];
+          ? [Number(fosiles)]
+          : [];
     const replicasArray =
       replicas && Array.isArray(replicas) && replicas.length
         ? replicas
         : !Number.isNaN(Number(replicas))
-        ? [Number(replicas)]
-        : [...replicas];
+          ? [Number(replicas)]
+          : [];
     await exhibicionService.createExhibicion(nombre, tematica, duracion, fosilesArray, replicasArray);
     res.redirect('/exhibiciones?success=create'); // redirección con mensaje de edición
   } catch (error) {
@@ -134,14 +134,14 @@ router.put('/', async (req, res) => {
       fosiles && Array.isArray(fosiles) && fosiles.length
         ? fosiles
         : !Number.isNaN(Number(fosiles))
-        ? [Number(fosiles)]
-        : [];
+          ? [Number(fosiles)]
+          : [];
     const replicasArray =
       replicas && Array.isArray(replicas) && replicas.length
         ? replicas
         : !Number.isNaN(Number(replicas))
-        ? [Number(replicas)]
-        : [];
+          ? [Number(replicas)]
+          : [];
     await exhibicionService.updateExhibicion(id, nombre, tematica, duracion, fosilesArray, replicasArray);
     res.redirect('/exhibiciones?success=edit'); // redirección con mensaje de edición
   } catch (error) {
