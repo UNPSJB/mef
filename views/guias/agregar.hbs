@@ -104,9 +104,9 @@
           <input id="altaLogica" name="altaLogica" type="checkbox" hidden>
           <!-- Botón de Agregar -->
           <div class="row justify-content-center">
-            <div class="col-6 text-center">
-              <button type="submit" class="btn btn-success btn-sm btn-block">Agregar Guía</button>
-            </div>
+               <div class="col-6 text-center">
+                 <button type="submit" id="btnAgregarGuia" class="btn btn-success btn-sm btn-block" disabled>Agregar Guía</button>
+               </div>
           </div>
         </div>
       </div>
@@ -133,4 +133,19 @@
   }
   $(document).ready(() => {
   });
+
+     // Verifica si hay al menos un idioma seleccionado
+    function verificarIdiomasSeleccionados() {
+      let idiomasSeleccionados = $("input[name='idiomas[]']:checked").length > 0;
+      // Habilita o deshabilita el botón de agregar
+      $('#btnAgregarGuia').prop('disabled', !idiomasSeleccionados);
+    }
+
+    // Escucha cambios en los checkboxes de idiomas
+    $("input[name='idiomas[]']").on('change', function () {
+      verificarIdiomasSeleccionados();
+    });
+
+    // Verificación inicial
+    verificarIdiomasSeleccionados();
 </script>
