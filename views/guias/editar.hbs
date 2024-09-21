@@ -24,8 +24,7 @@
               <label class="font-weight-bold" for="direccion">Direccion</label>
               <input type="text" class="form-guia form-control" name="direccion" id="InputDireccion"
                 placeholder="Ingrese Dirección." required {{#if guia}} value="{{guia.Persona.direccion}}" {{/if}}>
-              <small class="form-text-muted text-muted">Dirección completa. Mínimo 5 caracteres. Máximo 140
-                caracteres.</small><br>
+              <small class="form-text-muted text-muted">Dirección completa. Mínimo 5 caracteres. Máximo 140 caracteres.</small><br>
             </div>
             <div class="col-6">
               <label class="font-weight-bold" for="localidad">Localidad</label>
@@ -39,14 +38,13 @@
               <label class="font-weight-bold" for="fechaNacimiento">Fecha Nacimiento</label>
               <input type="date" class="form-guia form-control" name="fecha_nacimiento" id="InputFechaNacimiento"
                 required {{#if guia}} value="{{guia.Persona.fecha_nacimiento}}" {{/if}}>
-              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br> <label
-                class="font-weight-bold" for="InputTelefono">Telefono</label>
+              <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br> 
+              <label class="font-weight-bold" for="InputTelefono">Telefono</label>
               <input type="tel" class="form-guia form-control" name="telefono" id="InputTelefono"
                 placeholder="Ingrese Teléfono" required {{#if guia}} value="{{guia.Persona.telefono}}" {{/if}}>
               <small class="form-text-muted text-muted">Mínimo 6 caracteres. Máximo 50 caracteres.</small><br>
               {{#if guia}} <input name="idGuia" type="number" value="{{guia.id}}" hidden> {{/if}}
               {{#if guia}}<input name="idPersona" type="number" value="{{guia.Persona.id}}" hidden> {{/if}}
-              </label>
             </div>
           </div>
           <div class="row">
@@ -57,13 +55,11 @@
                 </span>
                 <div class="pl-2" data-toggle="buttons">
                   <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="horario_trabaja" value="Diurno" autocomplete="off" required {{#if diurno}}
-                      checked {{/if}}>
+                    <input type="radio" name="horario_trabaja" value="Diurno" autocomplete="off" required {{#if diurno}} checked {{/if}}>
                     Diurno
                   </label>
                   <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="horario_trabaja" value="Nocturno" autocomplete="off" {{#if nocturno}}
-                      checked {{/if}}>
+                    <input type="radio" name="horario_trabaja" value="Nocturno" autocomplete="off" {{#if nocturno}} checked {{/if}}>
                     Nocturno
                   </label>
                 </div>
@@ -76,13 +72,11 @@
                 </span>
                 <div class="pl-2" data-toggle="buttons">
                   <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="dias_trabaja" value="Normal" autocomplete="off" required {{#if normal}}
-                      checked {{/if}}>
+                    <input type="radio" name="dias_trabaja" value="Normal" autocomplete="off" required {{#if normal}} checked {{/if}}>
                     Normal (Lun-Vie)
                   </label>
                   <label class="btn btn-secondary form-check-label">
-                    <input type="radio" name="dias_trabaja" value="Franquero" autocomplete="off" {{#if franquero}}
-                      checked {{/if}}>
+                    <input type="radio" name="dias_trabaja" value="Franquero" autocomplete="off" {{#if franquero}} checked {{/if}}>
                     Franquero
                   </label>
                 </div>
@@ -98,14 +92,14 @@
             <div class="col-12" style="max-height: 200px; overflow-y: auto;">
               <div class="form-check text-left">
                 {{#each idiomasGuia }}
-                <input class="form-check-input" type="checkbox" name="idiomas[]" value="{{ this.id }}" checked>
+                <input class="form-check-input idioma-checkbox" type="checkbox" name="idiomas[]" value="{{ this.id }}" checked>
                 <label class="form-check-label">{{this.nombre}}</label>
-                <br> <!-- Agregar un salto de línea después de cada idioma -->
+                <br>
                 {{/each}}
                 {{#each idioma }}
-                <input class="form-check-input" type="checkbox" name="idiomas[]" value="{{ this.id }}">
+                <input class="form-check-input idioma-checkbox" type="checkbox" name="idiomas[]" value="{{ this.id }}">
                 <label class="form-check-label">{{this.nombre}}</label>
-                <br> <!-- Agregar un salto de línea después de cada idioma -->
+                <br>
                 {{/each}}
               </div>
             </div>
@@ -114,7 +108,7 @@
           <!-- Botón de Editar Guía-->
           <div class="row justify-content-center">
             <div class="col-6 text-center">
-              <button type="submit" class="btn btn-success btn-sm btn-block">Editar Guía</button>
+              <button type="submit" id="btnEditarGuia" class="btn btn-success btn-sm btn-block" disabled>Editar Guía</button>
             </div>
           </div>
         </div>
@@ -129,16 +123,32 @@
     var hoy = formatDate(new Date());
     document.getElementById("InputFechaNacimiento").setAttribute("max", hoy);
     $("#InputFechaNacimiento").attr("max", hoy);
-  })
+    
+    // Deshabilita el botón de editar si no hay idiomas seleccionados
+    checkIdiomas();
+
+    // Añade el evento de cambio para los checkboxes de idiomas
+    $(".idioma-checkbox").on("change", function() {
+      checkIdiomas();
+    });
+
+    function checkIdiomas() {
+      // Verifica si al menos un checkbox de idiomas está seleccionado
+      if ($(".idioma-checkbox:checked").length > 0) {
+        $("#btnEditarGuia").prop("disabled", false);
+      } else {
+        $("#btnEditarGuia").prop("disabled", true);
+      }
+    }
+  });
+
   function formatDate(date) {
     var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear() - 18;// Los empleados deben tener 18 años o más
-    if (month.length < 2)
-      month = '0' + month;
-    if (day.length < 2)
-      day = '0' + day;
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear() - 18; // Los empleados deben tener 18 años o más
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
     return [year, month, day].join('-');
   }
 </script>
