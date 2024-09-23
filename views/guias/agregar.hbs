@@ -113,6 +113,23 @@
   </form>
 </div>
 
+<!--Bloquea el botón de Agregar hasta que haya al menos un idioma seleccionado-->
+<script>
+  $(document).ready(() => {
+    // Función que desactiva el botón si no hay ningún idioma seleccionado
+    $("#alta").change(function (event) {
+      const idiomasSeleccionados = $('input:checkbox[name="idiomas[]"]:checked').length;
+      if (idiomasSeleccionados === 0) {
+        return $(':submit').prop('disabled', true);
+      }
+      return $(':submit').prop('disabled', false);
+    });
+
+    // Desactiva el botón al cargar la página por primera vez
+    $(':submit').prop('disabled', true);
+  });
+</script>
+
 <!-- Setea la fecha actual -->
 <script>
   $(document).ready(function () {
