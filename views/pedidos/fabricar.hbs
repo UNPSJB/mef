@@ -31,7 +31,7 @@
     <!-- Botón de Fabricar -->
     <div class="row justify-content-center">
         <div class="col-6 text-center">
-            <button type="submit" class="btn btn-success btn-block" disabled="true">Fabricar</button>
+            <button id="btnFabricar" type="submit" class="btn btn-success btn-block" disabled="true">Fabricar</button>
         </div>
     </div>
     <br>
@@ -43,9 +43,9 @@
             const MIN_CANT_EMPLEADOS = 3
             const empleadosSeleccionados = $('input:checkbox:checked').length;
             if (empleadosSeleccionados < MIN_CANT_EMPLEADOS) {
-                return $(':submit').prop('disabled', true);
+                return $('#btnFabricar').prop('disabled', true);
             }
-            return $(':submit').prop('disabled', false);
+            return $('#btnFabricar').prop('disabled', false);
         })
 
         fetch(`/pedidos/empleados`, { mode: "cors" })//necesito a todos los empleados
