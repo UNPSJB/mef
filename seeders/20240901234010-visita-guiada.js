@@ -149,7 +149,7 @@ module.exports = {
           if (visitaFecha < today) {
             visitaEstado = faker.random.arrayElement(['Cancelada', 'Finalizada']);
           } else {
-            visitaEstado = faker.random.arrayElement(['Pendiente', 'Cancelada']);
+            visitaEstado = faker.random.arrayElement(['Pendiente']);
           }
 
           let visitaTipo = faker.random.arrayElement(['Escuela', 'Universidad', 'Particular', 'Organización Gubernamental']);
@@ -168,7 +168,7 @@ module.exports = {
             cancelada: visitaEstado === 'Cancelada',
             createdAt: new Date(),
             updatedAt: new Date(),
-            ClienteId: faker.random.number({ min: 1, max: 50 }), // Ajustado al rango válido
+            ClienteId: faker.random.number({ min: 1, max: 50 }),
             GuiumId: faker.random.number({ min: 1, max: 60 }),
             ExhibicionId: exhibicionId,
           };

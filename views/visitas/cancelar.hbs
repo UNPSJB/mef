@@ -22,7 +22,7 @@
             <p><strong>DNI del Guía:</strong> {{visita.Guium.Persona.identificacion}}</p>
             <p><strong>Nombre del Guía:</strong> {{visita.Guium.Persona.nombre}}</p>
             <p><strong>Cantidad de Personas:</strong> {{visita.cantidadDePersonas}}</p>
-            <p><strong>Fecha de Visita:</strong> {{visita.fechaVisita}}</p>
+            <p><strong>Fecha de Visita:</strong> <span id="fecha-visita"></span></p>
             <p><strong>Horario:</strong> {{visita.horario}}</p>
             <p><strong>Precio:</strong> ${{visita.precio}}</p>
             <p><strong>Estado:</strong> {{visita.estado}}</p>
@@ -38,6 +38,17 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // Formatear la fecha de la visita sin conversión de zona horaria
+    document.addEventListener('DOMContentLoaded', function() {
+      const fechaVisita = '{{visita.fechaVisita}}'; // La fecha de visita en formato ISO
+      const [year, month, day] = fechaVisita.split('T')[0].split('-'); // Extraer año, mes y día directamente de la cadena ISO
+
+      // Mostrar la fecha en formato día/mes/año
+      document.getElementById('fecha-visita').textContent = `${day}/${month}/${year}`;
+    });
+  </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
