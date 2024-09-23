@@ -131,7 +131,7 @@ router.put('/', async (req, res) => {
     await empleadoDB.update({ ...empleadoData });
     res.redirect('/empleados?success=edit');
   } catch (error) {
-s    const { message } = error.errors[0];
+    const { message } = error.errors[0];
     const empleadoDB = await empleadoService.getEmpleado(idEmpleado);
     res.render('empleados/editar', { errores: message, empleado: empleadoDB, req });
   }
