@@ -20,7 +20,7 @@
   <br>
   <div class="row justify-content-center">
     <div class="col-6 text-center">
-      <button type="submit" class="btn btn-success btn-block">Asignar</button>
+      <button id="btnAsignar" type="submit" class="btn btn-success btn-block">Asignar</button>
     </div>
   </div>
 </form>
@@ -47,9 +47,9 @@
       const MIN_CANT_EMPLEADOS = 3
       const empleadosSeleccionados = $('input:checkbox:checked').length;
       if (empleadosSeleccionados < MIN_CANT_EMPLEADOS) {
-        return $(':submit').prop('disabled', true);
+        return $('#btnAsignar').prop('disabled', true);
       }
-      return $(':submit').prop('disabled', false);
+      return $('#btnAsignar').prop('disabled', false);
     })
 
     fetch(`/pedidos/{{id}}/empleados`, { mode: "cors" })

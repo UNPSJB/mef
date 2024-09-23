@@ -120,13 +120,13 @@
     $("#alta").change(function (event) {
       const idiomasSeleccionados = $('input:checkbox[name="idiomas[]"]:checked').length;
       if (idiomasSeleccionados === 0) {
-        return $(':submit').prop('disabled', true);
+        return $('#btnAgregarGuia').prop('disabled', true);
       }
-      return $(':submit').prop('disabled', false);
+      return $('#btnAgregarGuia').prop('disabled', false);
     });
 
     // Desactiva el botón al cargar la página por primera vez
-    $(':submit').prop('disabled', true);
+    $('#btnAgregarGuia').prop('disabled', true);
   });
 </script>
 
@@ -148,8 +148,7 @@
       day = '0' + day;
     return [year, month, day].join('-');
   }
-  $(document).ready(() => {
-  });
+
 
      // Verifica si hay al menos un idioma seleccionado
     function verificarIdiomasSeleccionados() {

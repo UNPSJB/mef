@@ -81,7 +81,7 @@
           <!-- Botón de Crear Pedido de Replicación-->
           <div class="row justify-content-center">
             <div class="col-6 text-center">
-              <button type="submit" class="btn btn-success btn-sm btn-block" disabled>Crear Pedido de
+              <button id="btnAgregarPedido" type="submit" class="btn btn-success btn-sm btn-block" disabled>Crear Pedido de
                 Replicación</button>
             </div>
           </div>
@@ -97,9 +97,9 @@
       const MIN_CANT_HUESOS = 1
       const huesosSeleccionados = $('input:checkbox:checked').length;
       if (huesosSeleccionados < MIN_CANT_HUESOS) {
-        return $(':submit').prop('disabled', true);
+        return $('#btnAgregarPedido').prop('disabled', true);
       }
-      return $(':submit').prop('disabled', false);
+      return $('#btnAgregarPedido').prop('disabled', false);
     }
     $("#form").change(function (event) {
       controlarSubmit()
