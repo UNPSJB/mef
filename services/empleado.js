@@ -78,15 +78,15 @@ module.exports = {
       where: {
         ...args,
       },
-      paranoid: false
+      paranoid: false,
     });
   },
   countEmpleados() {
     return models.Empleado.count();
   },
   //@TODO mostrar dino sin editar o algo
-  getEmpleado(id) {
-    return models.Empleado.findByPk(id, { include: [models.Persona], raw: true, nest: true });
+  getEmpleado(id, args = {}) {
+    return models.Empleado.findByPk(id, { include: [models.Persona], ...args });
   },
   asignarAPedido(pedidoId, empleadoId) {
     return models.Pedido.findByPk(pedidoId).then(pedidoNuevo => {
