@@ -20,17 +20,20 @@ router.get('/', paginate, async (req, res) => {
       }
     );
     let mensajeCreate;
-    let mensajeEdit
-    let mensajeDelete
+    let mensajeEdit;
+    let mensajeDelete;
     if (success === 'create') {
       mensajeCreate = 'Guía agregado con éxito.';
+    }
+    if (success === 'createExist') {
+      mensajeCreate = 'Guía agregado con éxito. Se tomo la información del guía existente.';
     }
     if (success === 'edit') {
       mensajeEdit = 'Guía editado con éxito.';
     }
     if (success === 'delete') {
       mensajeDelete = 'Guía eliminado con éxito.';
-    };
+    }
     res.render('guias/guia', {
       results: guias,
       req,
@@ -113,8 +116,9 @@ router.post('/', async (req, res) => {
     email,
     fecha_nacimiento,
     telefono,
-    altaLogica
+    altaLogica,
   } = req.body;
+  let mensajeExito = 'create';
   try {
     let personaId;
     let persona = await personaService.getPersonaArgs({ identificacion });
@@ -133,22 +137,23 @@ router.post('/', async (req, res) => {
       personaId = nuevaPersona.id;
     } else {
       personaId = persona.id;
+      mensajeExito = 'createExist';
     }
     // Crear el guía con la persona asociada
     await guiaService.createGuia(dias_trabaja, new Date(), horario_trabaja, idiomas, personaId);
-    res.redirect('/guias?success=create');
+    res.redirect(`/guias?success=${mensajeExito}`);
   } catch (error) {
-    console.error("Error al crear el guía:", error);
+    console.error('Error al crear el guía:', error);
     try {
       const persona = await personaService.getPersonaArgs({ identificacion });
       const { message, value } = error.errors[0];
-      if (altaLogica === "on") {
+      if (altaLogica === 'on') {
         const [guia] = await guiaService.getGuias(undefined, undefined, { PersonaId: value });
         await guia.restore();
-        return res.redirect('/guias?success=create');
+        return res.redirect(`/guias?success=${mensajeExito}`);
       }
     } catch (innerError) {
-      console.error("Error al intentar restaurar el guía:", innerError);
+      console.error('Error al intentar restaurar el guía:', innerError);
     }
     // Manejo del error en la creación del guía, conservar datos de formulario e idiomas seleccionados
     const { message } = error.errors[0];
@@ -157,7 +162,7 @@ router.post('/', async (req, res) => {
     // Mapear los idiomas seleccionados para marcarlos como seleccionados en el checkbox
     const idiomasSeleccionados = idiomas.map(id => parseInt(id));
     let mostrarAltaLogica = false;
-    if (message === "Un Guía con este DNI ya se encontraba registrado.") {
+    if (message === 'Un Guía con este DNI ya se encontraba registrado.') {
       mostrarAltaLogica = true;
     }
     // Renderizar nuevamente la vista con los datos del formulario y los idiomas seleccionados
@@ -169,13 +174,10 @@ router.post('/', async (req, res) => {
       idiomas: idiomasDisponibles.map(idioma => ({
         ...idioma,
         checked: idiomasSeleccionados.includes(idioma.id), // Marcar los idiomas previamente seleccionados
-      }))
+      })),
     });
   }
 });
-
-
-
 
 //actualizar la lista de idiomas por separado
 router.put('/', async (req, res) => {

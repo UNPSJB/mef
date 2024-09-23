@@ -18,9 +18,12 @@ router.get('/', async (req, res) => {
       }
     );
     let mensajeCreate;
-    let mensajeEdit
+    let mensajeEdit;
     if (success === 'create') {
       mensajeCreate = 'Cliente agregado con éxito.';
+    }
+    if (success === 'createExist') {
+      mensajeCreate = 'Cliente agregado con éxito. Se tomo la información del cliente existente.';
     }
     if (success === 'edit') {
       mensajeEdit = 'Cliente editado con éxito.';
@@ -82,7 +85,7 @@ router.post('/', async (req, res) => {
     PersonaId,
     tipo,
   } = req.body;
-
+  let mensajeExito = 'create';
   try {
     const persona = await personaService.createPersona(
       identificacion,
@@ -95,12 +98,13 @@ router.post('/', async (req, res) => {
       telefono
     );
     const cliente = await clienteService.createClienteExiste(tipoCliente, persona.id);
-    res.redirect('/clientes?success=create');
+    res.redirect(`/clientes?success=${mensajeExito}`);
   } catch (error) {
     try {
       const persona = await personaService.getPersonaArgs({ identificacion });
       await clienteService.createClienteExiste(tipoCliente, persona.id);
-      res.redirect('/clientes');
+      mensajeExito = 'createExist';
+      res.redirect(`/clientes?success=${mensajeExito}`);
     } catch (error) {
       /** @TODO agregar objeto persona y cliente */
       const { message } = error.errors[0];
